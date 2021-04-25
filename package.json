@@ -36,5 +36,9 @@
   },
   "jest": {
     "setupFiles": ["jest-canvas-mock"]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/edejin/DGeoUtils"
   }
 }
