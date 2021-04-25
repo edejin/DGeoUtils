@@ -1,0 +1,40 @@
+{
+  "name": "dgeoutils",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "node_modules/.bin/tsc",
+    "prepare": "npm run test && npm run doc && npm run build",
+    "lint": "node_modules/.bin/eslint src/",
+    "doc": "node_modules/.bin/typedoc",
+    "test": "node_modules/.bin/jest --coverage"
+  },
+  "author": "",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "devDependencies": {
+    "@types/jest": "^26.0.22",
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
+    "eslint": "^7.22.0",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.5",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-testing-library": "^3.9.2",
+    "jest": "^26.6.3",
+    "ts-jest": "^26.5.5",
+    "typedoc": "^0.20.35",
+    "typescript": "^4.2.4",
+    "canvas": "^2.7.0",
+    "jest-canvas-mock": "^2.3.1"
+  },
+  "jest": {
+    "setupFiles": ["jest-canvas-mock"]
+  }
+}
