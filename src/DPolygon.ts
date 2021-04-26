@@ -120,7 +120,7 @@ export class DPolygon {
   }
 
   get center(): DPoint {
-    return this.leftTop.move(this.size.divide(2));
+    return this.leftTop.moveCurrent(this.size.divideCurrent(2));
   }
 
   get h(): number {
@@ -356,7 +356,7 @@ export class DPolygon {
   }
 
   setCenter(newCenter: DPoint): DPolygon {
-    return this.clone().move(newCenter.move(this.center.minus()));
+    return this.clone().move(newCenter.clone().moveCurrent(this.center.minus()));
   }
 
   toWKT(): string {
@@ -368,7 +368,7 @@ export class DPolygon {
   }
 
   rotate(a: number): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.rotate(a));
+    this.pPoints = this.pPoints.map((p: DPoint) => p.rotateCurrent(a));
     this.holes = this.holes.map((h: DPolygon) => h.rotate(a));
     return this;
   }
@@ -379,43 +379,43 @@ export class DPolygon {
   }
 
   move(x: number | DPoint = 0, y?: number): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.move(x, y));
+    this.pPoints = this.pPoints.map((p: DPoint) => p.moveCurrent(x, y));
     this.holes = this.holes.map((h: DPolygon) => h.move(x, y));
     return this;
   }
 
   scale(x: number | DPoint = 0, y?: number): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.scale(x, y));
+    this.pPoints = this.pPoints.map((p: DPoint) => p.scaleCurrent(x, y));
     this.holes = this.holes.map((h: DPolygon) => h.scale(x, y));
     return this;
   }
 
   divide(x: number | DPoint = 0, y?: number): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.divide(x, y));
+    this.pPoints = this.pPoints.map((p: DPoint) => p.divideCurrent(x, y));
     this.holes = this.holes.map((h: DPolygon) => h.divide(x, y));
     return this;
   }
 
   round(): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.round());
+    this.pPoints = this.pPoints.map((p: DPoint) => p.roundCurrent());
     this.holes = this.holes.map((h: DPolygon) => h.round());
     return this;
   }
 
   floor(): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.floor());
+    this.pPoints = this.pPoints.map((p: DPoint) => p.floorCurrent());
     this.holes = this.holes.map((h: DPolygon) => h.floor());
     return this;
   }
 
   ceil(): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.ceil());
+    this.pPoints = this.pPoints.map((p: DPoint) => p.ceilCurrent());
     this.holes = this.holes.map((h: DPolygon) => h.ceil());
     return this;
   }
 
   toFixed(n: number = 2): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.toFixed(n));
+    this.pPoints = this.pPoints.map((p: DPoint) => p.toFixedCurrent(n));
     this.holes = this.holes.map((h: DPolygon) => h.toFixed(n));
     return this;
   }
@@ -638,7 +638,7 @@ export class DPolygon {
     if (onBorder) {
       return isBorderInside;
     }
-    const line = p.findLine(this.leftTop.move(move));
+    const line = p.findLine(this.leftTop.moveCurrent(move));
     const poly = this.deintersection;
     const intersectionPoints: DPoint[] = [];
     for (let i = 0; i < poly.length - 1; i++) {

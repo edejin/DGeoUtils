@@ -104,7 +104,7 @@ export class DPoint {
    */
   findLine(p: DPoint): DLine {
     if (this.equal(p)) {
-      return this.findLine(p.clone().move(0, 1));
+      return this.findLine(p.clone().moveCurrent(0, 1));
     }
     const a = this.y - p.y - diff;
     const b = p.x - this.x - diff;
@@ -196,7 +196,94 @@ export class DPoint {
     return this.lt(p) || this.equal(p);
   }
 
+  /**
+   * @deprecated
+   * @param a
+   */
   rotate(a: number): DPoint {
+    return new DPoint(this.x * Math.cos(a) - this.y * Math.sin(a), this.x * Math.sin(a) + this.y * Math.cos(a));
+  }
+
+  /**
+   * @deprecated
+   * @param x
+   * @param y
+   */
+  move(x: number | DPoint = 0, y?: number): DPoint {
+    if (x instanceof DPoint && !y) {
+      return new DPoint(this.x + x.x, this.y + x.y, this.z);
+    }
+    // eslint-disable-next-line no-negated-condition
+    return new DPoint(this.x + (x as number), this.y + (y !== undefined ? y : (x as number)), this.z);
+  }
+
+  /**
+   * @deprecated
+   */
+  round(): DPoint {
+    return new DPoint(Math.round(this.x), Math.round(this.y), this.z);
+  }
+
+  /**
+   * @deprecated
+   */
+  ceil(): DPoint {
+    return new DPoint(Math.ceil(this.x), Math.ceil(this.y), this.z);
+  }
+
+  /**
+   * @deprecated
+   */
+  floor(): DPoint {
+    return new DPoint(Math.floor(this.x), Math.floor(this.y), this.z);
+  }
+
+  /**
+   * @deprecated
+   * @param n
+   */
+  toFixed(n: number = 2): DPoint {
+    return new DPoint(
+      parseFloat(this.x.toFixed(n)),
+      parseFloat(this.y.toFixed(n)),
+      this.z
+    );
+  }
+
+  /**
+   * @deprecated
+   */
+  abs(): DPoint {
+    return new DPoint(Math.abs(this.x), Math.abs(this.y));
+  }
+
+  /**
+   * @deprecated
+   * @param x
+   * @param y
+   */
+  scale(x: number | DPoint = 0, y?: number): DPoint {
+    if (x instanceof DPoint && !y) {
+      return new DPoint(this.x * x.x, this.y * x.y);
+    }
+    // eslint-disable-next-line no-negated-condition
+    return new DPoint(this.x * (x as number), this.y * (y !== undefined ? y : (x as number)));
+  }
+
+  /**
+   * @deprecated
+   * @param x
+   * @param y
+   */
+  divide(x: number | DPoint = 0, y?: number): DPoint {
+    if (x instanceof DPoint && !y) {
+      return new DPoint(this.x / x.x, this.y / x.y);
+    }
+    // eslint-disable-next-line no-negated-condition
+    return new DPoint(this.x / (x as number), this.y / (y !== undefined ? y : (x as number)));
+  }
+
+  rotateCurrent(a: number): DPoint {
     const x = this.x * Math.cos(a) - this.y * Math.sin(a);
     const y = this.x * Math.sin(a) + this.y * Math.cos(a);
     this.x = x;
@@ -204,7 +291,7 @@ export class DPoint {
     return this;
   }
 
-  move(x: number | DPoint = 0, y: number = (x as number)): DPoint {
+  moveCurrent(x: number | DPoint = 0, y: number = (x as number)): DPoint {
     let xV = 0;
     let yV = 0;
     if (x instanceof DPoint) {
@@ -220,44 +307,44 @@ export class DPoint {
   }
 
   asRadians(): DPoint {
-    return this.scale(PI_TO_DEGREE);
+    return this.scaleCurrent(PI_TO_DEGREE);
   }
 
   asDegrees(): DPoint {
-    return this.scale(DEGREE_TO_PI);
+    return this.scaleCurrent(DEGREE_TO_PI);
   }
 
-  round(): DPoint {
+  roundCurrent(): DPoint {
     this.x = Math.round(this.x);
     this.y = Math.round(this.y);
     return this;
   }
 
-  ceil(): DPoint {
+  ceilCurrent(): DPoint {
     this.x = Math.ceil(this.x);
     this.y = Math.ceil(this.y);
     return this;
   }
 
-  floor(): DPoint {
+  floorCurrent(): DPoint {
     this.x = Math.floor(this.x);
     this.y = Math.floor(this.y);
     return this;
   }
 
-  toFixed(n: number = 2): DPoint {
+  toFixedCurrent(n: number = 2): DPoint {
     this.x = parseFloat(this.x.toFixed(n));
     this.y = parseFloat(this.y.toFixed(n));
     return this;
   }
 
-  abs(): DPoint {
+  absCurrent(): DPoint {
     this.x = Math.abs(this.x);
     this.y = Math.abs(this.y);
     return this;
   }
 
-  scale(x: number | DPoint = 0, y: number = (x as number)): DPoint {
+  scaleCurrent(x: number | DPoint = 0, y: number = (x as number)): DPoint {
     let xV = 0;
     let yV = 0;
     if (x instanceof DPoint) {
@@ -272,7 +359,7 @@ export class DPoint {
     return this;
   }
 
-  divide(x: number | DPoint = 0, y: number = (x as number)): DPoint {
+  divideCurrent(x: number | DPoint = 0, y: number = (x as number)): DPoint {
     let xV = 0;
     let yV = 0;
     if (x instanceof DPoint) {
@@ -367,7 +454,7 @@ export class DPoint {
   }
 
   minus(): DPoint {
-    return this.scale(-1);
+    return this.clone().scaleCurrent(-1);
   }
 
   orthodromicPath(point: DPoint, pointsCount = 360): DPolygon {

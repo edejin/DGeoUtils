@@ -364,6 +364,27 @@ describe('DPoint', () => {
     });
   });
 
+  describe('rotateCurrent', () => {
+    const res = new DPoint(0.5411961001461969, 1.3065629648763766);
+    const p = new DPoint(1, 1);
+    test('(1, 1) Pi/8', () => {
+      expect(p.clone().rotateCurrent(Math.PI / 8)
+        .equal(res)).toBe(true);
+    });
+    test('(1, 1) -Pi/8', () => {
+      expect(p.clone().rotateCurrent(-Math.PI / 8)
+        .equal(new DPoint(1.3065629648763766, 0.5411961001461969))).toBe(true);
+    });
+    test('(1, 1) 2Pi', () => {
+      expect(p.clone().rotateCurrent(2 * Math.PI)
+        .like(p.clone(), 1e-10)).toBe(true);
+    });
+    test('(1, 1) 17Pi/8', () => {
+      expect(p.clone().rotateCurrent(17 * Math.PI / 8)
+        .like(res, 1e-10)).toBe(true);
+    });
+  });
+
   describe('w', () => {
     test('w', () => {
       const t = new DPoint(6, 7);
@@ -902,6 +923,27 @@ describe('DPoint', () => {
     });
   });
 
+  describe('moveCurrent', () => {
+    test('without args', () => {
+      expect(new DPoint(1, 1).moveCurrent()
+        .equal(new DPoint(1, 1))).toBe(true);
+    });
+    test('by number', () => {
+      expect(new DPoint(1, 1).moveCurrent(7)
+        .equal(new DPoint(8, 8))).toBe(true);
+    });
+    test('by two numbers', () => {
+      expect(new DPoint(1, 2).moveCurrent(7, 3)
+        .equal(new DPoint(8, 5))).toBe(true);
+    });
+    test('by point', () => {
+      const t1 = new DPoint(1, 2);
+      const t2 = new DPoint(3, 5);
+      const t3 = new DPoint(4, 7);
+      expect(t1.moveCurrent(t2).equal(t3)).toBe(true);
+    });
+  });
+
   describe('like', () => {
     test('1', () => {
       expect(new DPoint(1, 1).like(new DPoint(2, 2))).toBe(false);
@@ -954,6 +996,27 @@ describe('DPoint', () => {
     });
   });
 
+  describe('divideCurrent', () => {
+    test('without args', () => {
+      expect(new DPoint(1, 1).divideCurrent()
+        .equal(new DPoint(Infinity, Infinity))).toBe(true);
+    });
+    test('by number', () => {
+      expect(new DPoint(1, 1).divideCurrent(7)
+        .equal(new DPoint(1 / 7, 1 / 7))).toBe(true);
+    });
+    test('by two numbers', () => {
+      expect(new DPoint(1, 2).divideCurrent(7, 3)
+        .equal(new DPoint(1 / 7, 2 / 3))).toBe(true);
+    });
+    test('by point', () => {
+      const t1 = new DPoint(1, 2);
+      const t2 = new DPoint(3, 5);
+      const t3 = new DPoint(1 / 3, 2 / 5);
+      expect(t1.divideCurrent(t2).equal(t3)).toBe(true);
+    });
+  });
+
   describe('scale', () => {
     test('without args', () => {
       expect(new DPoint(1, 1).scale()
@@ -975,6 +1038,27 @@ describe('DPoint', () => {
     });
   });
 
+  describe('scaleCurrent', () => {
+    test('without args', () => {
+      expect(new DPoint(1, 1).scaleCurrent()
+        .equal(DPoint.Zero())).toBe(true);
+    });
+    test('by number', () => {
+      expect(new DPoint(1, 1).scaleCurrent(7)
+        .equal(new DPoint(7, 7))).toBe(true);
+    });
+    test('by two numbers', () => {
+      expect(new DPoint(1, 2).scaleCurrent(7, 3)
+        .equal(new DPoint(7, 6))).toBe(true);
+    });
+    test('by point', () => {
+      const t1 = new DPoint(1, 2);
+      const t2 = new DPoint(3, 5);
+      const t3 = new DPoint(3, 10);
+      expect(t1.scaleCurrent(t2).equal(t3)).toBe(true);
+    });
+  });
+
   describe('abs', () => {
     test('negative', () => {
       expect(new DPoint(-3, -7).abs()
@@ -990,6 +1074,25 @@ describe('DPoint', () => {
     });
     test('different 2', () => {
       expect(new DPoint(3, -7).abs()
+        .equal(new DPoint(3, 7)));
+    });
+  });
+
+  describe('absCurrent', () => {
+    test('negative', () => {
+      expect(new DPoint(-3, -7).absCurrent()
+        .equal(new DPoint(3, 7)));
+    });
+    test('positive', () => {
+      expect(new DPoint(3, 7).absCurrent()
+        .equal(new DPoint(3, 7)));
+    });
+    test('different 1', () => {
+      expect(new DPoint(-3, 7).absCurrent()
+        .equal(new DPoint(3, 7)));
+    });
+    test('different 2', () => {
+      expect(new DPoint(3, -7).absCurrent()
         .equal(new DPoint(3, 7)));
     });
   });
@@ -1013,6 +1116,25 @@ describe('DPoint', () => {
     });
   });
 
+  describe('toFixedCurrent', () => {
+    test('negative', () => {
+      expect(new DPoint(3, 7).toFixedCurrent()
+        .equal(new DPoint(3, 7)));
+    });
+    test('positive', () => {
+      expect(new DPoint(3.0001, 7.00000001).toFixedCurrent()
+        .equal(new DPoint(3, 7)));
+    });
+    test('different 1', () => {
+      expect(new DPoint(-3, 7.12345).toFixedCurrent(3)
+        .equal(new DPoint(-3, 7)));
+    });
+    test('different 2', () => {
+      expect(new DPoint(3.1234, -7.1234).toFixedCurrent()
+        .equal(new DPoint(3.12, 7.12)));
+    });
+  });
+
   describe('floor', () => {
     test('1', () => {
       expect(new DPoint(1, 3).floor()
@@ -1024,6 +1146,21 @@ describe('DPoint', () => {
     });
     test('3', () => {
       expect(new DPoint(1.9, 3.9).floor()
+        .equal(new DPoint(1, 3))).toBe(true);
+    });
+  });
+
+  describe('floorCurrent', () => {
+    test('1', () => {
+      expect(new DPoint(1, 3).floorCurrent()
+        .equal(new DPoint(1, 3))).toBe(true);
+    });
+    test('2', () => {
+      expect(new DPoint(1.4, 3.4).floorCurrent()
+        .equal(new DPoint(1, 3))).toBe(true);
+    });
+    test('3', () => {
+      expect(new DPoint(1.9, 3.9).floorCurrent()
         .equal(new DPoint(1, 3))).toBe(true);
     });
   });
@@ -1043,6 +1180,21 @@ describe('DPoint', () => {
     });
   });
 
+  describe('ceilCurrent', () => {
+    test('1', () => {
+      expect(new DPoint(1, 3).ceilCurrent()
+        .equal(new DPoint(1, 3))).toBe(true);
+    });
+    test('2', () => {
+      expect(new DPoint(1.4, 3.4).ceilCurrent()
+        .equal(new DPoint(2, 4))).toBe(true);
+    });
+    test('3', () => {
+      expect(new DPoint(1.9, 3.9).ceilCurrent()
+        .equal(new DPoint(2, 4))).toBe(true);
+    });
+  });
+
   describe('round', () => {
     test('1', () => {
       expect(new DPoint(1, 3).round()
@@ -1054,6 +1206,21 @@ describe('DPoint', () => {
     });
     test('3', () => {
       expect(new DPoint(1.9, 3.9).round()
+        .equal(new DPoint(2, 4))).toBe(true);
+    });
+  });
+
+  describe('roundCurrent', () => {
+    test('1', () => {
+      expect(new DPoint(1, 3).roundCurrent()
+        .equal(new DPoint(1, 3))).toBe(true);
+    });
+    test('2', () => {
+      expect(new DPoint(1.4, 3.4).roundCurrent()
+        .equal(new DPoint(1, 3))).toBe(true);
+    });
+    test('3', () => {
+      expect(new DPoint(1.9, 3.9).roundCurrent()
         .equal(new DPoint(2, 4))).toBe(true);
     });
   });

@@ -57,15 +57,15 @@ export class DLine {
         // Mean "|" x = const
         if (this.isParallelY) {
           t.x = this.p1.x;
-          const r1 = t.clone().move(0, -move);
-          const r2 = t.clone().move(0, move);
+          const r1 = t.clone().moveCurrent(0, -move);
+          const r2 = t.clone().moveCurrent(0, move);
           return [r1, r2];
         }
         // Mean "-" y = const
         if (this.isParallelX) {
           t.y = this.p1.y;
-          const r1 = t.clone().move(move, 0);
-          const r2 = t.clone().move(-move, 0);
+          const r1 = t.clone().moveCurrent(move, 0);
+          const r2 = t.clone().moveCurrent(-move, 0);
           return [r1, r2];
         }
       }
@@ -80,8 +80,8 @@ export class DLine {
       const s = a * a + b * b;
       const d = r * r - c * c / s;
       const mult = Math.sqrt(d / s);
-      const r1 = t.clone().move(b * mult, -a * mult);
-      const r2 = t.clone().move(-b * mult, a * mult);
+      const r1 = t.clone().moveCurrent(b * mult, -a * mult);
+      const r2 = t.clone().moveCurrent(-b * mult, a * mult);
       return [r1, r2];
     }
     if (distance === r) {
