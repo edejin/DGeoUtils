@@ -1667,4 +1667,381 @@ describe('DPolygon', () => {
       [30, 10]
     ]);
   });
+
+  describe('simpleDifference', () => {
+    test('1', () => {
+      const A = DPolygon.parseFromWKT('POLYGON ((2 8, 4 8, 4 6, 2 6, 2 8))');
+      const B = DPolygon.parseFromWKT('POLYGON ((3 9, 3 7, 5 7, 5 9, 3 9))');
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((3 9, 3 8, 4 8, 4 7, 5 7, 5 9, 3 9))');
+      const res2 = DPolygon.parseFromWKT('POLYGON ((2 8, 3 8, 3 7, 4 7, 4 6, 2 6, 2 8))');
+
+      const res = A.simpleDifference(B) as DPolygon;
+      expect(res.equal(res1) || res.equal(res2)).toBe(true);
+    });
+
+    test('2', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((5 8, 5 5, 6 5, 6 8, 5 8))');
+      const b = DPolygon.parseFromWKT('POLYGON ((4 7, 7 7, 7 6, 4 6, 4 7))');
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((4 7, 5 7, 5 6, 4 6, 4 7))');
+      const res2 = DPolygon.parseFromWKT('POLYGON ((6 7, 7 7, 7 6, 6 6, 6 7))');
+      const res3 = DPolygon.parseFromWKT('POLYGON ((5 8, 6 8, 6 7, 5 7, 5 8))');
+      const res4 = DPolygon.parseFromWKT('POLYGON ((5 6, 6 6, 6 5, 5 5, 5 6))');
+      const r = a.simpleDifference(b) as DPolygon[];
+      const [r1, r2] = r;
+      expect((r1.equal(res1) && r2.equal(res2)) ||
+        (r1.equal(res2) && r2.equal(res1)) ||
+        (r1.equal(res3) && r2.equal(res4)) ||
+        (r1.equal(res4) && r2.equal(res3))).toBe(true);
+    });
+
+    test('3', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((4 8, 7 8, 7 5, 4 5, 4 8))');
+      const b = DPolygon.parseFromWKT('POLYGON ((5 7, 6 7, 6 6, 5 6, 5 7))');
+
+      const res1 = null;
+      const res2 = DPolygon.parseFromWKT('POLYGON ((4 8, 7 8, 7 5, 4 5, 4 8), (5 7, 6 7, 6 6, 5 6, 5 7))');
+
+      const res = a.simpleDifference(b);
+      expect(res === res1 || (res as DPolygon).equal(res2)).toBe(true);
+    });
+
+    test('4', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((3 9, 5 9, 4 7, 3 9))');
+      const b = DPolygon.parseFromWKT('POLYGON ((3 7, 5 7, 5 5, 3 5, 3 7))');
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((3 9, 5 9, 4 7, 3 9))');
+      const res2 = DPolygon.parseFromWKT('POLYGON ((3 7, 4 7, 5 7, 5 5, 3 5, 3 7))');
+
+      const res = a.simpleDifference(b) as DPolygon;
+      expect(res.equal(res2) || res.equal(res1)).toBe(true);
+    });
+
+    test('5', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((3 8, 6 8, 6 5, 3 5, 3 8))');
+      const b = DPolygon.parseFromWKT('POLYGON ((6 7, 9 7, 9 6, 6 6, 6 7))');
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((9 6, 6 6, 6 7, 9 7, 9 6))');
+      const res2 = DPolygon.parseFromWKT('POLYGON ((6 7, 6 6, 6 5, 3 5, 3 8, 6 8, 6 7))');
+
+      const res = a.simpleDifference(b) as DPolygon;
+      expect(res.equal(res2) || res.equal(res1)).toBe(true);
+    });
+
+    test('6', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((1 7, 3 7, 3 5, 1 5, 1 7))');
+      const b = DPolygon.parseFromWKT('POLYGON ((6 8, 8 8, 8 3, 6 3, 6 8))');
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((1 7, 3 7, 3 5, 1 5, 1 7))');
+      const res2 = DPolygon.parseFromWKT('POLYGON ((6 8, 8 8, 8 3, 6 3, 6 8))');
+
+      const res = a.simpleDifference(b) as DPolygon;
+      expect(res.equal(res2) || res.equal(res1)).toBe(true);
+    });
+
+    test('7', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((2 5, 4 5, 4 3, 2 3, 2 5))');
+      const b = DPolygon.parseFromWKT('POLYGON ((4 7, 4 5, 6 5, 6 7, 4 7))');
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((2 5, 4 5, 4 3, 2 3, 2 5))');
+      const res2 = DPolygon.parseFromWKT('POLYGON ((4 7, 4 5, 6 5, 6 7, 4 7))');
+
+      const res = a.simpleDifference(b) as DPolygon;
+      expect(res.equal(res2) || res.equal(res1)).toBe(true);
+    });
+
+    test('8', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((3 4, 3 7, 6 7, 6 4, 3 4))');
+      const b = DPolygon.parseFromWKT('POLYGON ((3 5, 4 5, 4 4, 3 4, 3 5))');
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((3 7, 6 7, 6 4, 4 4, 4 5, 3 5, 3 7))');
+      const res2 = null;
+
+      const res = a.simpleDifference(b);
+      expect(res === res2 || (res as DPolygon).equal(res1)).toBe(true);
+    });
+
+    test('9', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((3 4, 7 4, 7 7, 3 7, 3 4))');
+      const b = DPolygon.parseFromWKT('POLYGON ((4 4, 4 6, 5 6, 5 5, 6 5, 6 4, 4 4))');
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((3 7, 3 4, 4 4, 4 6, 5 6, 5 5, 6 5, 6 4, 7 4, 7 7, 3 7))');
+      const res2 = null;
+
+      const res = a.simpleDifference(b);
+      expect(res === res2 || (res as DPolygon).equal(res1)).toBe(true);
+    });
+
+    test('10', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((5 8, 4 6, 6 6, 5 8))');
+      const b = DPolygon.parseFromWKT('POLYGON ((2 8, 7 8, 7 4, 2 3, 2 8))');
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((2 8, 5 8, 7 8, 7 4, 2 3, 2 8), (5 8, 4 6, 6 6, 5 8))');
+      const res2 = null;
+
+      const res = a.simpleDifference(b);
+      expect(res === res2 || (res as DPolygon).equal(res1)).toBe(true);
+    });
+
+    test('11', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((2 8, 7 8, 7 2, 2 2, 2 8))');
+      const b = DPolygon.parseFromWKT('POLYGON ((5 6, 8 6, 7 3, 5 6))');
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((7 6, 7 3, 8 6, 7 6))');
+      const res2 = DPolygon.parseFromWKT('POLYGON ((7 8, 7 6, 5 6, 7 3, 7 2, 2 2, 2 8, 7 8))');
+
+      const res = a.simpleDifference(b) as DPolygon;
+      expect(res.equal(res1) || res.equal(res2)).toBe(true);
+    });
+
+    test('12', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((2 7, 9 7, 9 2, 2 2, 2 7))');
+      const b = DPolygon.parseFromWKT('POLYGON ((3 9, 6 9, 7 7, 6 5, 8 3, 3 5, 4 7, 3 9))');
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((3 9, 4 7, 7 7, 6 9, 3 9))');
+      const res2 = DPolygon.parseFromWKT('POLYGON ((2 7, 4 7, 3 5, 8 3, 6 5, 7 7, 9 7, 9 2, 2 2, 2 7))');
+
+      const res = a.simpleDifference(b) as DPolygon;
+      expect(res.equal(res1) || res.equal(res2)).toBe(true);
+    });
+
+    test('13', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((1 9, 4 9, 4 2, 1 2, 1 9))');
+      const b = DPolygon.parseFromWKT('POLYGON ((3 8, 6 8, 6 3, 3 3, 3 4, 5 4, 5 5, 3 5, 3 6, 5 6, 5 7, 3 7, 3 8))');
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((1 9, 4 9, 4 8, 3 8, 3 7, 4 7, 4 6, 3 6, 3 5, 4 5, 4 4, 3 4,' +
+        ' 3 3, 4 3, 4 2, 1 2, 1 9))');
+      const res2 = DPolygon.parseFromWKT('POLYGON ((4 8, 6 8, 6 3, 4 3, 4 4, 5 4, 5 5, 4 5, 4 6, 5 6, 5 7, 4 7, 4 8))');
+
+      const res = a.simpleDifference(b) as DPolygon;
+      expect(res.equal(res1) || res.equal(res2)).toBe(true);
+    });
+  });
+
+  describe('simpleUnion/simpleIntersection', () => {
+    test('basic', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((2 2, 2 6, 6 6, 6 2))').close();
+      const b = DPolygon.parseFromWKT('POLYGON ((4 4, 4 8, 8 8, 8 4))').close();
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((6 2, 6 4, 8 4, 8 8, 4 8, 4 6, 2 6, 2 2))').close();
+      const res2 = DPolygon.parseFromWKT('POLYGON ((6 4, 6 6, 4 6, 4 4))').close();
+
+      expect(a.simpleUnion(b)!.equal(res1)).toBe(true);
+      expect((a.simpleIntersection(b)! as DPolygon).equal(res2)).toBe(true);
+    });
+
+    test('Contain', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((2 2, 2 8, 8 8, 8 2))').close();
+      const b = DPolygon.parseFromWKT('POLYGON ((4 4, 4 6, 6 6, 6 4))').close();
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((2 2, 2 8, 8 8, 8 2))').close();
+      const res2 = DPolygon.parseFromWKT('POLYGON ((4 4, 4 6, 6 6, 6 4))').close();
+
+      expect(a.simpleUnion(b)!.equal(res1)).toBe(true);
+      expect((a.simpleIntersection(b)! as DPolygon).equal(res2)).toBe(true);
+    });
+
+    test('Moon', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((2 2, 2 6, 6 6, 6 2))').close();
+      const b = DPolygon.parseFromWKT('POLYGON ((4 8, 8 8, 8 4, 5 4, 7 7, 4 5))').close();
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((2 2, 6 2, 6 4, 8 4, 8 8, 4 8, 4 6, 2 6, 2 2),' +
+        ' (6 5.5, 6 6, 5.5 6, 7 7, 6 5.5))');
+      const res2 = DPolygon.parseFromWKT('POLYGON ((6 4, 6 5.5, 5 4, 6 4))');
+      const res3 = DPolygon.parseFromWKT('POLYGON ((5.5 6, 4 6, 4 5, 5.5 6))');
+
+      expect(a.simpleUnion(b)!.equal(res1)).toBe(true);
+      const res = a.simpleIntersection(b) as DPolygon[];
+      const [r1, r2] = res;
+      expect((r1.equal(res2) && r2.equal(res3)) || (r2.equal(res2) && r1.equal(res3))).toBe(true);
+    });
+
+    test('touch', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((2 2, 6 2, 6 6, 2 6))').close();
+      const b = DPolygon.parseFromWKT('POLYGON ((6 3, 10 3, 10 5, 6 5))').close();
+      const c = DPolygon.parseFromWKT('POLYGON ((6 6, 6 10, 10 10, 10 6))').close();
+      const d = DPolygon.parseFromWKT('POLYGON ((4 6, 5 10, 3 10))').close();
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((2 2, 6 2, 6 3, 10 3, 10 5, 6 5, 6 6, 2 6))').close();
+      const res2 = DPolygon.parseFromWKT('POLYGON ((2 2, 6 2, 6 6, 10 6, 10 10, 6 10, 6 6, 2 6))').close();
+      const res3 = DPolygon.parseFromWKT('POLYGON ((2 2, 6 2, 6 6, 4 6, 5 10, 3 10, 4 6, 2 6))').close();
+
+      expect(a.simpleIntersection(b)).toBe(null);
+      expect(a.simpleIntersection(c)).toBe(null);
+      expect(a.simpleIntersection(d)).toBe(null);
+
+      expect(a.simpleUnion(b)!.equal(res1)).toBe(true);
+      // Test expect(a.simpleUnion(c)!.equal(res2)).toBe(true);
+
+      // Test expect(a.simpleUnion(d)!.equal(res3)).toBe(true);
+    });
+
+    test('Touch inside', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((2 2, 10 2, 10 10, 2 10))').close();
+      const b = DPolygon.parseFromWKT('POLYGON ((2 2, 4 2, 4 4, 2 4))').close();
+      const c = DPolygon.parseFromWKT('POLYGON ((4 2, 6 2, 6 6, 4 6))').close();
+      const d = DPolygon.parseFromWKT('POLYGON ((4 8, 6 8, 5 10))').close();
+
+      expect((a.simpleIntersection(b)! as DPolygon).equal(b)).toBe(true);
+      expect((a.simpleIntersection(c)! as DPolygon).equal(c)).toBe(true);
+      expect((a.simpleIntersection(d)! as DPolygon).equal(d)).toBe(true);
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((2 2, 4 2, 10 2, 10 10, 2 10, 2 4))').close();
+      const res2 = DPolygon.parseFromWKT('POLYGON ((2 2, 4 2, 6 2, 10 2, 10 10, 2 10))').close();
+      const res3 = DPolygon.parseFromWKT('POLYGON ((2 2, 10 2, 10 10, 5 10, 2 10))').close();
+
+      expect((a.simpleUnion(b)! as DPolygon).equal(res1)).toBe(true);
+      expect((a.simpleUnion(c)! as DPolygon).equal(res2)).toBe(true);
+      expect((a.simpleUnion(d)! as DPolygon).equal(res3)).toBe(true);
+    });
+
+    test('Outside only', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((2 4, 8 4, 8 6, 2 6))').close();
+      const b = DPolygon.parseFromWKT('POLYGON ((4 2, 6 2, 6 8, 4 8))').close();
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((4 4, 6 4, 6 6, 4 6))').close();
+      const res2 = DPolygon.parseFromWKT('POLYGON ((4 2, 6 2, 6 4, 8 4, 8 6, 6 6, 6 8, 4 8, 4 6,' +
+        ' 2 6, 2 4, 4 4))').close();
+
+      expect((a.simpleIntersection(b)! as DPolygon).equal(res1)).toBe(true);
+      expect((a.simpleUnion(b)! as DPolygon).equal(res2)).toBe(true);
+    });
+
+    test('Border corners', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((2 2, 8 2, 8 10, 2 10))').close();
+      const e = DPolygon.parseFromWKT('POLYGON ((7 6, 8 5, 9 6, 8 7))').close();
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((8 5, 8 7, 7 6))').close();
+      const res2 = DPolygon.parseFromWKT('POLYGON ((2 2, 8 2, 8 5, 9 6, 8 7, 8 10, 2 10))').close();
+
+      expect((a.simpleIntersection(e)! as DPolygon).equal(res1)).toBe(true);
+      expect((a.simpleUnion(e)! as DPolygon).equal(res2)).toBe(true);
+    });
+
+    test('Custom test 1', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((2 2, 6 2, 6 6, 2 6))').close();
+      const b = DPolygon.parseFromWKT('POLYGON ((5 5, 7 5, 6 3))').close();
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((6 3, 6 5, 5 5))').close();
+      const res2 = DPolygon.parseFromWKT('POLYGON ((2 2, 6 2, 6 3, 7 5, 6 5, 6 6, 2 6))').close();
+
+      expect((a.simpleIntersection(b)! as DPolygon).equal(res1)).toBe(true);
+      expect((a.simpleUnion(b)! as DPolygon).equal(res2)).toBe(true);
+    });
+
+    test('Custom test 2', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((2 2, 6 2, 6 6, 2 6))').close();
+      const b = DPolygon.parseFromWKT('POLYGON ((3 5, 4 5, 5 6, 4 7, 3 7, 4 6))').close();
+
+      const res1 = DPolygon.parseFromWKT('POLYGON ((3 5, 4 5, 5 6, 4 6))').close();
+      const res2 = DPolygon.parseFromWKT('POLYGON ((2 2, 6 2, 6 6, 5 6, 4 7, 3 7, 4 6, 2 6))').close();
+
+      expect((a.simpleIntersection(b)! as DPolygon).equal(res1)).toBe(true);
+      expect((a.simpleUnion(b)! as DPolygon).equal(res2)).toBe(true);
+    });
+  });
+
+  describe('smartUnion', () => {
+    test('1', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((1 8, 5 8, 5 2, 1 2, 1 8), (2 7, 4 7, 4 3, 2 3, 2 7))');
+      const b = DPolygon.parseFromWKT('POLYGON ((3 1, 3 5, 8 5, 8 1, 3 1), (6 4, 6 2, 7 2, 7 4, 6 4))');
+
+      const res = DPolygon.parseFromWKT('POLYGON ((1 8, 5 8, 5 5, 8 5, 8 1, 3 1, 3 2, 1 2, 1 8), (2 7, 4 7' +
+        ', 4 3, 2 3, 2 7), (6 4, 6 2, 7 2, 7 4, 6 4))');
+      expect(a.smartUnion(b)!.equal(res)).toBe(true);
+    });
+    test('2', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((1 8, 5 8, 5 2, 1 2, 1 8), (2 7, 4 7, 4 3, 2 3, 2 7))');
+      const b = DPolygon.parseFromWKT('POLYGON ((3 1, 3 5, 8 5, 8 1, 3 1), (4 4, 7 4, 7 3, 4 3, 4 4))');
+
+      const res = DPolygon.parseFromWKT('POLYGON ((1 8, 5 8, 5 5, 8 5, 8 1, 3 1, 3 2, 1 2, 1 8), (2 7, 4 7, 4 4,' +
+        ' 7 4, 7 3, 4 3, 2 3, 2 7))');
+      expect(a.smartUnion(b)!.equal(res)).toBe(true);
+    });
+    test('3', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((1 8, 1 2, 7 2, 7 3, 2 3, 2 5, 7 5, 7 6, 2 6, 2 7, 7 7, 7 8, 1 8))');
+      const b = DPolygon.parseFromWKT('POLYGON ((3 9, 3 3, 4 3, 4 9, 5 9, 5 1, 6 1, 6 8, 7 8, 7 2, 8 2,' +
+        ' 8 10, 3 10, 3 9))');
+
+      const res = DPolygon.parseFromWKT('POLYGON ((1 8, 3 8, 3 9, 3 10, 8 10, 8 2, 7 2, 6 2, 6 1,' +
+        ' 5 1, 5 2, 1 2, 1 8),' +
+        ' (6 7, 7 7, 7 6, 6 6, 6 7),' +
+        ' (4 7, 5 7, 5 6, 4 6, 4 7),' +
+        ' (6 5, 7 5, 7 3, 6 3, 6 5),' +
+        ' (4 3, 4 5, 5 5, 5 3, 4 3),' +
+        ' (2 5, 3 5, 3 3, 2 3, 2 5),' +
+        ' (2 7, 3 7, 3 6, 2 6, 2 7),' +
+        ' (4 9, 5 9, 5 8, 4 8, 4 9))');
+      expect(a.smartUnion(b)!.equal(res)).toBe(true);
+    });
+    test('4', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((6125404.576057136 2986490.5399693353, 6125404.576057136' +
+        ' 2986377.0787554733,' +
+        ' 6125420.69949279 2986377.0787554733, 6125420.69949279' +
+        ' 2986490.5399693353, 6125404.576057136 2986490.5399693353))');
+      const b = DPolygon.parseFromWKT('POLYGON ((6125469.069799753 2986387.2305482933,' +
+        ' 6125469.069799753 2986375.2872626223,' +
+        ' 6125368.149035845 2986375.2872626223, 6125368.149035845 2986401.5624910956,' +
+        ' 6125453.543528381 2986401.5624910956, 6125453.543528381 2986427.2405552845,' +
+        ' 6125357.997243024 2986427.2405552845, 6125357.997243024 2986451.724290908,' +
+        ' 6125453.543528381 2986451.724290908, 6125453.543528381 2986497.705940736,' +
+        ' 6125485.790399687 2986497.705940736, 6125485.790399687 2986387.2305482933,' +
+        ' 6125469.069799753 2986387.2305482933))');
+
+      const res = DPolygon.parseFromWKT('POLYGON ((6125404.576057136 2986451.724290908, 6125404.576057136' +
+        ' 2986490.5399693353,' +
+        ' 6125420.69949279 2986490.5399693353, 6125420.69949279 2986451.724290908,' +
+        ' 6125453.543528381 2986451.724290908, 6125453.543528381 2986497.705940736,' +
+        ' 6125485.790399687 2986497.705940736, 6125485.790399687 2986387.2305482933,' +
+        ' 6125469.069799753 2986387.2305482933, 6125469.069799753 2986375.2872626223,' +
+        ' 6125368.149035845 2986375.2872626223, 6125368.149035845 2986401.5624910956,' +
+        ' 6125404.576057136 2986401.5624910956, 6125404.576057136 2986427.2405552845,' +
+        ' 6125357.997243024 2986427.2405552845, 6125357.997243024 2986451.724290908,' +
+        ' 6125404.576057136 2986451.724290908), (6125420.69949279 2986427.2405552845,' +
+        ' 6125420.69949279 2986401.5624910956, 6125453.543528381 2986401.5624910956,' +
+        ' 6125453.543528381 2986427.2405552845, 6125420.69949279 2986427.2405552845))');
+      expect(a.smartUnion(b)!.equal(res)).toBe(true);
+    });
+    test('5', () => {
+      const a = DPolygon.parseFromWKT('POLYGON ((6125378.897992946 2986489.' +
+        '345640765, 6125378.897992946 2986380.0645768913,' +
+        ' 6125362.177393007 2986380.0645768913, 6125362.177393007 2986499.4974335856,' +
+        ' 6125362.7745572915 2986499.4974335856, 6125362.7745572915 2986510.843554975,' +
+        ' 6125484.596071121 2986510.843554975, 6125484.596071121 2986489.345640765,' +
+        ' 6125420.699492789 2986489.345640765, 6125420.699492789 2986377.0787554733,' +
+        ' 6125404.576057136 2986377.0787554733, 6125404.576057136 2986489.345640765,' +
+        ' 6125378.897992946 2986489.345640765))');
+      const b = DPolygon.parseFromWKT('POLYGON ((6125469.069799753 2986387.' +
+        '2305482933, 6125469.069799753 2986375.2872626223,' +
+        ' 6125368.149035845 2986375.2872626223, 6125368.149035845 2986401.5624910956,' +
+        ' 6125453.543528381 2986401.5624910956, 6125453.543528381 2986427.2405552845,' +
+        ' 6125357.997243024 2986427.2405552845, 6125357.997243024 2986451.724290908,' +
+        ' 6125453.543528381 2986451.724290908, 6125453.543528381 2986497.705940736,' +
+        ' 6125485.790399687 2986497.705940736, 6125485.790399687 2986387.2305482933,' +
+        ' 6125469.069799753 2986387.2305482933))');
+
+      const res = DPolygon.parseFromWKT('POLYGON ((6125368.149035845 2986380.0645768913, 6125362.177393007 ' +
+        '2986380.0645768913,' +
+        ' 6125362.177393007 2986427.2405552845, 6125357.997243024 2986427.2405552845,' +
+        ' 6125357.997243024 2986451.724290908, 6125362.177393007 2986451.724290908,' +
+        ' 6125362.177393007 2986499.4974335856, 6125362.7745572915 2986499.4974335856,' +
+        ' 6125362.7745572915 2986510.843554975, 6125484.596071121 2986510.843554975,' +
+        ' 6125484.596071121 2986497.705940736, 6125485.790399687 2986497.705940736,' +
+        ' 6125485.790399687 2986387.2305482933, 6125469.069799753 2986387.2305482933,' +
+        ' 6125469.069799753 2986375.2872626223, 6125368.149035845 2986375.2872626223,' +
+        ' 6125368.149035845 2986380.0645768913), (6125453.543528381 2986489.345640765,' +
+        ' 6125420.699492789 2986489.345640765, 6125420.699492789 2986451.724290908,' +
+        ' 6125453.543528381 2986451.724290908, 6125453.543528381 2986489.345640765),' +
+        ' (6125420.699492789 2986427.2405552845, 6125420.699492789 2986401.5624910956,' +
+        ' 6125453.543528381 2986401.5624910956, 6125453.543528381 2986427.2405552845,' +
+        ' 6125420.699492789 2986427.2405552845), (6125404.576057136 2986401.5624910956,' +
+        ' 6125404.576057136 2986427.2405552845, 6125378.897992946 2986427.2405552845,' +
+        ' 6125378.897992946 2986401.5624910956, 6125404.576057136 2986401.5624910956),' +
+        ' (6125404.576057136 2986451.724290908, 6125404.576057136 2986489.345640765,' +
+        ' 6125378.897992946 2986489.345640765, 6125378.897992946 2986451.724290908,' +
+        ' 6125404.576057136 2986451.724290908))');
+      expect(a.smartUnion(b)!.equal(res)).toBe(true);
+    });
+  });
 });

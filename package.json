@@ -16,6 +16,10 @@
   "files": [
     "/dist"
   ],
+  "dependencies": {
+    "jsts": "^2.6.1",
+    "@types/jsts": "^0.17.5"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.22",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
@@ -35,7 +39,9 @@
     "jest-canvas-mock": "^2.3.1"
   },
   "jest": {
-    "setupFiles": ["jest-canvas-mock"]
+    "setupFiles": [
+      "jest-canvas-mock"
+    ]
   },
   "repository": {
     "type": "git",

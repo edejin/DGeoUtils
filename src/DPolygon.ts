@@ -1,7 +1,10 @@
+/* eslint-disable max-lines */
 import {DCoord, DPoint, LatLng, PSEUDO_MERCATOR, WORLD_GEODETIC_SYSTEM} from './DPoint';
 import {DLine} from './DLine';
 import {DCircle} from './DCircle';
 import {DNumbers} from './DNumbers';
+import {io as jstsIo, geom} from 'jsts';
+import Geometry = geom.Geometry;
 
 interface ParseProps {
   dataProjection: string;
@@ -774,6 +777,54 @@ export class DPolygon {
     };
   }
 
+  simpleUnion(p: DPolygon): DPolygon | null {
+    try {
+      const res = this.simpleLogicFunction(p, true, true);
+      if (res === null) {
+        return null;
+      }
+      if (res instanceof DPolygon) {
+        return res;
+      }
+      return null;
+    } catch (ex) {
+      return null;
+    }
+  }
+
+  simpleIntersection(p: DPolygon): DPolygon | null | DPolygon[] {
+    return this.simpleLogicFunction(p, false, false);
+  }
+
+  simpleDifference(p: DPolygon): DPolygon | null | DPolygon[] {
+    return this.simpleLogicFunction(p, true, false);
+  }
+
+  smartUnion(p: DPolygon): DPolygon | null {
+    const res = this.clone().simpleUnion(p);
+    if (res) {
+      let allHoles = [...this.holes, ...p.holes, ...(res.holes ?? [])].map((h: DPolygon) => h.clone());
+      for (const a of allHoles) {
+        for (const b of allHoles) {
+          if (a.equal(b)) {
+            continue;
+          }
+          const r = a.simpleUnion(b);
+          if (r) {
+            allHoles = allHoles.filter((v: DPolygon) => !v.equal(a) && !v.equal(b));
+            if (Array.isArray(r)) {
+              allHoles = [...allHoles, ...r];
+            } else {
+              allHoles.push(r);
+            }
+          }
+        }
+      }
+      res.holes = allHoles;
+    }
+    return res;
+  }
+
   private simpleIncludeX(p: DPoint) {
     const {x} = p;
     return this.minX <= x && this.maxX >= x;
@@ -854,5 +905,91 @@ export class DPolygon {
     }
 
     return result;
+  }
+
+  private getJSTSGeometry(p: DPolygon, unionThis: boolean, unionThat: boolean): Geometry | void {
+    const unionOrIntersection = unionThat === unionThis;
+    const reader = new jstsIo.WKTReader();
+    const a = reader.read(this.noHoles.toWKT());
+    const b = reader.read(p.noHoles.toWKT());
+    if (!unionOrIntersection) {
+      return a.difference(b);
+    } else if (unionThis) {
+      return a.union(b);
+    } else if (!unionThis) {
+      return a.intersection(b);
+    }
+    return undefined;
+  }
+
+  private simpleLogicFunction(p: DPolygon, unionThis: boolean, unionThat: boolean): DPolygon | null | DPolygon[] {
+    const c = this.getJSTSGeometry(p, unionThis, unionThat);
+    if (c) {
+      const coordinates = c.getCoordinates() as { x: number; y: number }[];
+      if (coordinates.length) {
+        let result: DPolygon[] = coordinates.reduce(
+          (ak: DPolygon[], {x, y}: { x: number; y: number }, index: number) => {
+            const lastIndex = ak.length - 1;
+            const t = new DPoint(x, y);
+            const {first} = ak[lastIndex];
+            if (t.equal(first)) {
+              if (coordinates[index + 1]) {
+                const nextPoint = new DPoint(coordinates[index + 1].x, coordinates[index + 1].y);
+                if (ak[lastIndex].length > 1) {
+                  ak.push(new DPolygon([nextPoint]));
+                }
+              }
+            } else {
+              ak[lastIndex].push(t);
+            }
+            return ak;
+          },
+          [new DPolygon([new DPoint(coordinates[0].x, coordinates[0].y)])]
+        );
+        if (unionThat && unionThis && result.length > 1) {
+          for (const q of result) {
+            for (const r of result) {
+              if (q.has(r.first) && !q.equal(r)) {
+                const index = q.findIndex(r.first);
+                q.points.splice(index, 0, ...r.points);
+                result = result.filter((h: DPolygon) => !h.equal(r));
+                continue;
+              }
+              if (result.length < 2) {
+                break;
+              }
+            }
+            if (result.length < 2) {
+              break;
+            }
+          }
+        }
+        result = result.filter((h: DPolygon) => h.length > 2).map((h: DPolygon) => h.close());
+        for (const q of result) {
+          for (const r of result) {
+            if (result.length < 2) {
+              break;
+            }
+            if (!q.equal(r)) {
+              if (q.contain(r.first, true)) {
+                q.holes.push(r);
+                result = result.filter((h: DPolygon) => !h.equal(r));
+              }
+            }
+          }
+          if (result.length < 2) {
+            break;
+          }
+        }
+        if (result.length === 0) {
+          return null;
+        }
+        if (result.length === 1) {
+          return result[0].close();
+        }
+        return result.map((g: DPolygon) => g.close());
+      }
+    }
+    return null;
   }
 }
