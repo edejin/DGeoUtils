@@ -512,7 +512,7 @@ export class DPolygon {
   }
 
   clone(): DPolygon {
-    const res = new DPolygon([...this.points.map((r: DPoint) => r.clone())]);
+    const res = new DPolygon(this.points.map((r: DPoint) => r.clone()));
     res.holes = this.holes.map((h: DPolygon) => h.clone());
     res.properties = this.properties;
     return res;
@@ -859,7 +859,7 @@ export class DPolygon {
   private goByPath(ctx: CanvasRenderingContext2D, steps: number = this.length - 1) {
     const start = this.first;
     ctx.moveTo(start.x, start.y);
-    for (let i = 1; i < (steps % this.length); i++) {
+    for (let i = 1; i <= (steps % this.length); i++) {
       const {x, y} = this.p(i);
       ctx.lineTo(x, y);
     }
