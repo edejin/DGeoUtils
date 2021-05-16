@@ -584,7 +584,7 @@ export class DPolygon {
   }
 
   drawPolygonOnCanvas(
-    canvas: HTMLCanvasElement,
+    canvas: HTMLCanvasElement | OffscreenCanvas,
     fillColor?: string,
     strokeColor?: string,
     shadowColor?: string,
@@ -623,7 +623,7 @@ export class DPolygon {
     }
   }
 
-  clearPolygonOnCanvas(canvas: HTMLCanvasElement): void {
+  clearPolygonOnCanvas(canvas: HTMLCanvasElement | OffscreenCanvas): void {
     const ctx = canvas.getContext('2d')!;
     const old = ctx.globalCompositeOperation;
     ctx.globalCompositeOperation = 'destination-out';
@@ -856,7 +856,7 @@ export class DPolygon {
     return [points[0], points[end]];
   }
 
-  private goByPath(ctx: CanvasRenderingContext2D, steps: number = this.length - 1) {
+  private goByPath(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, steps: number = this.length - 1) {
     const start = this.first;
     ctx.moveTo(start.x, start.y);
     for (let i = 1; i <= (steps % this.length); i++) {
