@@ -14,6 +14,10 @@ jobs:
       - uses: EndBug/add-and-commit@v7
         with:
           message: 'update docs'
+      - uses: christophebedard/tag-version-commit@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          version_regex: 'Release ([0-9]+\.[0-9]+\.[0-9]+)'
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
