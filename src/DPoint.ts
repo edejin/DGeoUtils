@@ -3,9 +3,20 @@ import {DPolygon} from './DPolygon';
 
 const diff = 0;
 
-// Meters
+/**
+ * Meters
+ * Projected bounds:
+ * -20026376.39 -20048966.10
+ * 20026376.39 20048966.10
+ */
 export const PSEUDO_MERCATOR = 'EPSG:3857';
-// Degrees
+
+/**
+ * Degrees
+ * Projected bounds:
+ * -180.0 -90.0
+ * 180.0 90.0
+ */
 export const WORLD_GEODETIC_SYSTEM = 'EPSG:4326';
 export const EARTH_RADIUS_IN_METERS = 6371008.8;
 

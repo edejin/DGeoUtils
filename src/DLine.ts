@@ -93,8 +93,8 @@ export class DLine {
   inRange(p: DPoint, d: number = 0): boolean {
     const {minX, minY, maxX, maxY} = this;
     const {x, y} = p;
-    const isInX = (x >= minX && x <= maxX) || Math.abs(minX - x) < d || Math.abs(maxX - x) < d;
-    const isInY = (y >= minY && y <= maxY) || Math.abs(minY - y) < d || Math.abs(maxY - y) < d;
+    const isInX = x >= minX - d && x <= maxX + d;
+    const isInY = y >= minY - d && y <= maxY + d;
     return isInX && isInY;
   }
 
