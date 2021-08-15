@@ -7,6 +7,8 @@
 ![Coverage branches](https://edejin.github.io/DGeoUtils/badges/badge-branches.svg)
 ![Coverage statements](https://edejin.github.io/DGeoUtils/badges/badge-statements.svg)
 
+[NPM](https://www.npmjs.com/package/dgeoutils)
+
 [Docs](https://edejin.github.io/DGeoUtils/index.html)
 
 [Tests coverage](https://edejin.github.io/DGeoUtils/coverage/lcov-report/index.html)
