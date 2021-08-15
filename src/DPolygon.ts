@@ -27,11 +27,19 @@ export class DPolygon {
     this.pPoints = points;
   }
 
+  /**
+   * Get size of min area rectangle.
+   * @param poly should be `minAreaRectangle`
+   */
   static minAreaRectangleSize(poly: DPolygon): DPoint {
     const {first, second, last} = poly.clone().open();
     return new DPoint(first.distance(second), first.distance(last));
   }
 
+  /**
+   * Slice line string to dashes.
+   * @param poly should be `divideToPieces` at first
+   */
   static toDash(poly: DPolygon): DPolygon[] {
     let p = new DPolygon();
     const result = [p];
@@ -52,6 +60,10 @@ export class DPolygon {
     return result;
   }
 
+  /**
+   * Get min area rectangle direction
+   * @param poly should be `minAreaRectangle`
+   */
   static minAreaRectangleDirection(poly: DPolygon): number {
     const {first, second, last} = poly.clone().open();
     if (!first || !second || !last) {
@@ -122,26 +134,44 @@ export class DPolygon {
     return this.pPoints.reduce((a: number, r: DPoint) => Math.min(a, r.y), Infinity);
   }
 
+  /**
+   * Get center coordinates
+   */
   get center(): DPoint {
     return this.leftTop.moveCurrent(this.size.divideCurrent(2));
   }
 
+  /**
+   * Difference between `maxY` and `minY`. Equal `ΔY` (`dY`)
+   */
   get h(): number {
     return this.maxY - this.minY;
   }
 
+  /**
+   * Difference between `maxX` and `minX`. Equal `ΔX` (`dX`)
+   */
   get w(): number {
     return this.maxX - this.minX;
   }
 
+  /**
+   * Difference between `maxY` and `minY`. Equal `height` (`h`)
+   */
   get dY(): number {
     return this.h;
   }
 
+  /**
+   * Difference between `maxX` and `minX`. Equal `width` (`w`)
+   */
   get dX(): number {
     return this.w;
   }
 
+  /**
+   * Get closed extend polygon
+   */
   get extend(): DPolygon {
     const {minX, minY, maxX, maxY} = this;
     return new DPolygon([
@@ -153,29 +183,47 @@ export class DPolygon {
     ]);
   }
 
+  /**
+   * Point with `width` value as `x` and `height` value as `y`
+   */
   get size(): DPoint {
     const {w, h} = this;
     return new DPoint(w, h);
   }
 
+  /**
+   * Point with minimal `x` and `y`
+   */
   get leftTop(): DPoint {
     const {minX, minY} = this;
     return new DPoint(minX, minY);
   }
 
+  /**
+   * Point with maximal `x` and `y`
+   */
   get rightBottom(): DPoint {
     const {maxX, maxY} = this;
     return new DPoint(maxX, maxY);
   }
 
+  /**
+   * Next point index
+   */
   get length(): number {
     return this.pPoints.length;
   }
 
+  /**
+   * Get length of line string.
+   */
   get fullLength(): number {
     return this.clone().open().perimeter;
   }
 
+  /**
+   * Get perimeter.
+   */
   get perimeter(): number {
     let p = 0;
     for (let i = 1; i < this.pPoints.length; i++) {
@@ -184,6 +232,9 @@ export class DPolygon {
     return p;
   }
 
+  /**
+   * Get polygon area
+   */
   get area(): number {
     const closed = this.deintersection;
     let sum = 0;
@@ -195,6 +246,9 @@ export class DPolygon {
     return Math.abs(sum / 2) - this.holes.reduce((a: number, hole: DPolygon) => a + hole.area, 0);
   }
 
+  /**
+   * Get deintesected polygon.
+   */
   get deintersection(): DPolygon {
     const p = this.clone().close();
     for (let i = 0; i < p.length - 1; i++) {
@@ -216,22 +270,37 @@ export class DPolygon {
     return p;
   }
 
+  /**
+   * Check if polygon contain more than three points
+   */
   get valid(): boolean {
     return this.length > MIN_POINTS_IN_VALID_POLYGON;
   }
 
+  /**
+   * Get first point
+   */
   get first(): DPoint {
     return this.p(0);
   }
 
+  /**
+   * Get second point
+   */
   get second(): DPoint {
     return this.p(1);
   }
 
+  /**
+   * Get last point
+   */
   get last(): DPoint {
     return this.p(this.length - 1);
   }
 
+  /**
+   * Get min area rectangle
+   */
   get minAreaRectangle(): DPolygon {
     const p = this.convex;
     let resultPolygon = new DPolygon();
@@ -280,6 +349,9 @@ export class DPolygon {
     return resultPolygon;
   }
 
+  /**
+   * Get convex polygon
+   */
   get convex(): DPolygon {
     let p = this.clone().open();
     const {isClockwise} = p;
@@ -320,6 +392,9 @@ export class DPolygon {
     return p;
   }
 
+  /**
+   * Check polygon direction
+   */
   get isClockwise(): boolean {
     let sum = 0;
     const p = this.clone().close();
@@ -331,6 +406,9 @@ export class DPolygon {
     return sum < 0;
   }
 
+  /**
+   * Get clockwise polygon
+   */
   get clockWise(): DPolygon {
     if (this.isClockwise) {
       return this.clone();
@@ -338,12 +416,19 @@ export class DPolygon {
     return this.clone().reverse();
   }
 
+  /**
+   * Get polygon clone without holes
+   */
   get noHoles(): DPolygon {
     const res = this.clone();
     res.holes = [];
     return res;
   }
 
+  /**
+   * Check polygon intersection with line
+   * @param l
+   */
   intersection(l: DLine): DPoint[] {
     const res = [];
     for (let i = 0; i < this.pPoints.length - 1; i++) {
@@ -358,6 +443,10 @@ export class DPolygon {
     return res;
   }
 
+  /**
+   * Set polygon center
+   * @param newCenter
+   */
   setCenter(newCenter: DPoint): DPolygon {
     return this.clone().move(newCenter.clone().moveCurrent(this.center.minus()));
   }
@@ -370,12 +459,20 @@ export class DPolygon {
     return `POLYGON ((${this.deintersection.pPoints.map((r: DPoint) => `${r.x} ${r.y}`).join(', ')})${h})`;
   }
 
+  /**
+   * Rotate polygon with center in point {0, 0}
+   * @param a Radians
+   */
   rotate(a: number): DPolygon {
     this.pPoints = this.pPoints.map((p: DPoint) => p.rotateCurrent(a));
     this.holes = this.holes.map((h: DPolygon) => h.rotate(a));
     return this;
   }
 
+  /**
+   * Filter points
+   * @param f
+   */
   filter(f: (p: DPoint) => boolean): DPolygon {
     this.pPoints = this.pPoints.filter(f);
     return this;
@@ -479,6 +576,9 @@ export class DPolygon {
     return `(${this.pPoints.map((r: DPoint) => r.toString()).join(', ')})`;
   }
 
+  /**
+   * Add to the end of polygon point equal to first point if it not exist
+   */
   close(): DPolygon {
     const p0 = this.first;
     if (p0 && !p0.equal(this.last)) {
@@ -487,6 +587,9 @@ export class DPolygon {
     return this;
   }
 
+  /**
+   * Remove from the end of polygon point equal to first point if it exist
+   */
   open(): DPolygon {
     const p = this.first;
     if (this.length > 2 && p && p.equal(this.last)) {
@@ -495,6 +598,10 @@ export class DPolygon {
     return this;
   }
 
+  /**
+   * Set `height` (`z`)
+   * @param z
+   */
   height(z: number): DPolygon {
     this.map((p: DPoint) => p.height(z));
     this.holes = this.holes.map((h: DPolygon) => h.height(z));
@@ -507,6 +614,10 @@ export class DPolygon {
     return res;
   }
 
+  /**
+   * Check if has point in list of points
+   * @param p
+   */
   has(p: DPoint): boolean {
     return this.pPoints.some((q: DPoint) => q.equal(p));
   }
@@ -518,6 +629,10 @@ export class DPolygon {
     return res;
   }
 
+  /**
+   * Check is it fully equal.
+   * @param p
+   */
   equal(p: DPolygon | null): boolean {
     if (!(p instanceof DPolygon)) {
       return false;
@@ -534,6 +649,10 @@ export class DPolygon {
     );
   }
 
+  /**
+   * Check is polygons are same. They can be with different directions and different start points.
+   * @param p
+   */
   same(p: DPolygon): boolean {
     const pClone = p.clone().open();
     const thisClone = this.clone().open();
@@ -557,6 +676,11 @@ export class DPolygon {
     return this.points.findIndex((t: DPoint) => t.equal(p));
   }
 
+  /**
+   * Get polygon approximation by
+   * [Ramer–Douglas–Peucker algorithm](https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm)
+   * @param e
+   */
   approximation(e: number = Math.sqrt(this.perimeter) * APPROXIMATION_VALUE): DPolygon {
     return new DPolygon(this.clone().douglasPeucker(this.pPoints, e));
   }
@@ -569,6 +693,10 @@ export class DPolygon {
     return this.pPoints.splice(index + 1, count);
   }
 
+  /**
+   * Check intersection with other polygon
+   * @param p
+   */
   hasSimpleIntersection(p: DPolygon): boolean {
     const extend1 = this.extend;
     const extend2 = p.extend;
@@ -579,6 +707,10 @@ export class DPolygon {
     return in1 || in2;
   }
 
+  /**
+   * Check if it possible to include point
+   * @param p
+   */
   simpleInclude(p: DPoint): boolean {
     return this.simpleIncludeX(p) && this.simpleIncludeY(p);
   }
@@ -632,6 +764,12 @@ export class DPolygon {
     ctx.globalCompositeOperation = old;
   }
 
+  /**
+   * Check if contain point
+   * @param p
+   * @param isBorderInside
+   * @param move Ignore this parameter
+   */
   contain(p: DPoint, isBorderInside: boolean = false, move: DPoint = DPoint.Zero()): boolean {
     const simpleInclude = this.simpleInclude(p);
     if (!simpleInclude) {
@@ -658,6 +796,10 @@ export class DPolygon {
     return intersectionPoints.length % 2 === 1;
   }
 
+  /**
+   * Check if point on border
+   * @param p
+   */
   onBorder(p: DPoint): boolean {
     const simpleInclude = this.simpleInclude(p);
     if (simpleInclude) {
@@ -679,6 +821,9 @@ export class DPolygon {
     return false;
   }
 
+  /**
+   * Change start point to second point
+   */
   nextStart(): DPolygon {
     this.open();
     this.push(this.shift());
@@ -686,6 +831,9 @@ export class DPolygon {
     return this;
   }
 
+  /**
+   * Remove duplicates points
+   */
   removeDuplicates(): DPolygon {
     for (let i = 0; i < this.length - 1; i++) {
       const p1 = this.p(i);
@@ -698,14 +846,27 @@ export class DPolygon {
     return this;
   }
 
+  /**
+   * Parse from [OpenLayers](https://openlayers.org/) coordinates or
+   * [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) coordinates
+   * @param a
+   */
   static parse(a: LatLng[] | number[][] | DCoord[]): DPolygon {
     return new DPolygon(a.map((r: LatLng | number[] | DCoord) => DPoint.parse(r)));
   }
 
+  /**
+   * Transform to array of coordinates for [OpenLayers](https://openlayers.org/) or
+   * [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON)
+   */
   toArrayOfCoords(): DCoord[] {
     return this.pPoints.map((r) => r.toCoords());
   }
 
+  /**
+   * Divide line string to pieces by length
+   * @param piecesCount
+   */
   divideToPieces(piecesCount: number): DPolygon {
     const {fullLength} = this;
     const pieceLength = fullLength / piecesCount;
@@ -761,6 +922,9 @@ export class DPolygon {
     return this.searchStore[x][y][z || 'undefined'];
   }
 
+  /**
+   * Get line string as line string with growing length. For animation.
+   */
   get growingPiecesGenerator(): () => Generator<DPolygon, DPolygon> {
     // eslint-disable-next-line @typescript-eslint/no-this-alias,consistent-this
     const polygon = this;
