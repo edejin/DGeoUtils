@@ -41,6 +41,7 @@ switch (type) {
     break;
   case 'minor': {
     const [info, numbers] = readVersion();
+    numbers[2] = 0;
     numbers[1] += 1;
     writeVersion(info, numbers);
     commit(numbers);
@@ -48,6 +49,8 @@ switch (type) {
     break;
   case 'major': {
     const [info, numbers] = readVersion();
+    numbers[2] = 0;
+    numbers[1] = 0;
     numbers[0] += 1;
     writeVersion(info, numbers);
     commit(numbers);
