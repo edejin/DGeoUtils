@@ -1,6 +1,5 @@
 /* eslint-disable max-lines,max-statements,max-lines-per-function */
 import {DPoint, TraceMatrix, TraceMatrixValues} from '../src';
-import {DPolygon} from '../dist';
 
 const data = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
