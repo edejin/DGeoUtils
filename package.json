@@ -1,13 +1,16 @@
 {
   "name": "dgeoutils",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "",
   "scripts": {
     "build": "node_modules/.bin/tsc",
     "prepare": "npm run build",
     "lint": "node_modules/.bin/eslint src/",
     "doc": "node_modules/.bin/typedoc",
-    "test": "node_modules/.bin/jest --coverage"
+    "test": "node_modules/.bin/jest --coverage",
+    "release-fix": "node ./release.js fix",
+    "release-minor": "node ./release.js minor",
+    "release-major": "node ./release.js major"
   },
   "author": "",
   "license": "ISC",
