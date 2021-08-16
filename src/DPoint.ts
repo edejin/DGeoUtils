@@ -1,7 +1,10 @@
 import {DLine} from './DLine';
 import {DPolygon} from './DPolygon';
+import {checkFunction} from './utils';
 
 const diff = 0;
+
+const radiansPolygon = new DPolygon();
 
 /**
  * Meters
@@ -90,6 +93,9 @@ export class DPoint {
   }
 
   getTileFromCoords(zoom: number = this.z!): DPoint {
+    checkFunction('getTileFromCoords')
+      .checkArgument('this')
+      .shouldBeDegree(this);
     const x = Math.floor((this.x + PI_IN_DEGREE) / DOUBLE_PI_IN_DEGREE * (2 ** zoom));
     const y = Math.floor((
       1 - Math.log(Math.tan(this.y * PI_TO_DEGREE) + 1 / Math.cos(this.y * PI_TO_DEGREE)) / Math.PI
@@ -98,6 +104,9 @@ export class DPoint {
   }
 
   getCoordsFromTile(zoom: number = this.z!): DPoint {
+    checkFunction('getCoordsFromTile')
+      .checkArgument('this')
+      .shouldBeUInt(this);
     const n = Math.PI - 2 * Math.PI * this.y / (2 ** zoom);
     const x = this.x / (2 ** zoom) * DOUBLE_PI_IN_DEGREE - PI_IN_DEGREE;
     const y = PI_IN_DEGREE / Math.PI * Math.atan((Math.exp(n) - Math.exp(-n)) / 2);
@@ -116,6 +125,11 @@ export class DPoint {
    * @param p
    */
   findLine(p: DPoint): DLine {
+    checkFunction('findLine')
+      .checkArgument('this')
+      .shouldBeMeters(this)
+      .checkArgument('p')
+      .shouldBeMeters(p);
     if (this.equal(p)) {
       return this.findLine(p.clone().moveCurrent(0, 1));
     }
@@ -132,6 +146,13 @@ export class DPoint {
   }
 
   findInnerAngle(p1: DPoint, p3: DPoint): number {
+    checkFunction('findInnerAngle')
+      .checkArgument('this')
+      .shouldBeMeters(this)
+      .checkArgument('p1')
+      .shouldBeMeters(p1)
+      .checkArgument('p3')
+      .shouldBeMeters(p3);
     const a1 = this.findLine(p1).getFi();
     const a2 = this.findLine(p3).getFi();
     if (a2 >= a1) {
@@ -172,6 +193,11 @@ export class DPoint {
   }
 
   distance(p: DPoint): number {
+    checkFunction('distance')
+      .checkArgument('this')
+      .shouldBeMeters(this)
+      .checkArgument('p')
+      .shouldBeMeters(p);
     const dx = p.x - this.x;
     const dy = p.y - this.y;
     return Math.sqrt(dx * dx + dy * dy);
@@ -320,10 +346,16 @@ export class DPoint {
   }
 
   asRadians(): DPoint {
+    checkFunction('asRadians')
+      .checkArgument('this')
+      .shouldBeDegree(this);
     return this.scaleCurrent(PI_TO_DEGREE);
   }
 
   asDegrees(): DPoint {
+    checkFunction('asDegrees')
+      .checkArgument('this')
+      .shouldBeRadians(this);
     return this.scaleCurrent(DEGREE_TO_PI);
   }
 
@@ -399,13 +431,23 @@ export class DPoint {
   }
 
   /**
+   * Check if point looks like radians
+   */
+  get likeRadians(): boolean {
+    if (radiansPolygon.length === 0) {
+      radiansPolygon.push(new DPoint(-Math.PI, -Math.PI / 2), new DPoint(Math.PI, Math.PI / 2));
+    }
+    return radiansPolygon.simpleInclude(this);
+  }
+
+  /**
    * Check if point looks like `EPSG:4326` (degrees)
    */
   get likeWorldGeodeticSystem(): boolean {
     if (worldGeodeticPolygon.length === 0) {
       worldGeodeticPolygon.push(new DPoint(-180, -90), new DPoint(180, 90));
     }
-    return worldGeodeticPolygon.simpleInclude(this);
+    return !this.likeRadians && worldGeodeticPolygon.simpleInclude(this);
   }
 
 
@@ -416,7 +458,7 @@ export class DPoint {
     if (pseudoMercatorPolygon.length === 0) {
       pseudoMercatorPolygon.push(new DPoint(-20026376.39, -20048966.10), new DPoint(20026376.39, 20048966.10));
     }
-    return !this.likeWorldGeodeticSystem && pseudoMercatorPolygon.simpleInclude(this);
+    return !this.likeRadians && !this.likeWorldGeodeticSystem && pseudoMercatorPolygon.simpleInclude(this);
   }
 
   get w(): number {
@@ -436,10 +478,16 @@ export class DPoint {
   }
 
   get area(): number {
+    checkFunction('area')
+      .checkArgument('this')
+      .shouldBeMeters(this);
     return this.w * this.h;
   }
 
   get hip(): number {
+    checkFunction('hip')
+      .checkArgument('this')
+      .shouldBeMeters(this);
     return Math.sqrt(this.w * this.w + this.h * this.h);
   }
 
@@ -492,6 +540,11 @@ export class DPoint {
   }
 
   orthodromicPath(point: DPoint, pointsCount = 360): DPolygon {
+    checkFunction('orthodromicPath')
+      .checkArgument('this')
+      .shouldBeDegree(this)
+      .checkArgument('point')
+      .shouldBeDegree(point);
     const t = this.clone().asRadians();
     const p = point.clone().asRadians();
     const d = Math.sin(p.x - t.x);
@@ -506,6 +559,9 @@ export class DPoint {
   }
 
   private degrees2meters(): DPoint {
+    checkFunction('degrees2meters')
+      .checkArgument('this')
+      .shouldBeDegree(this);
     const x = ((this.x + PI_IN_DEGREE) % DOUBLE_PI_IN_DEGREE - PI_IN_DEGREE) * MITERS_IN_ONE_DEGREE;
     const y = (Math.log(Math.tan(((this.y + HALF_PI_IN_DEGREE) % PI_IN_DEGREE) *
       (Math.PI / DOUBLE_PI_IN_DEGREE))) / PI_TO_DEGREE) * MITERS_IN_ONE_DEGREE;
@@ -515,6 +571,9 @@ export class DPoint {
   }
 
   private meters2degrees(): DPoint {
+    checkFunction('meters2degrees')
+      .checkArgument('this')
+      .shouldBeMeters(this);
     const lon = this.x * DEGREES_IN_ONE_MITER;
     const lat = Math.atan(Math.E ** ((this.y / MITERS_IN_ONE_DEGREE) * PI_TO_DEGREE)) *
       (DOUBLE_PI_IN_DEGREE / Math.PI) - HALF_PI_IN_DEGREE;

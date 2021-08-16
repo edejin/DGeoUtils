@@ -1364,9 +1364,24 @@ describe('DPoint', () => {
       '.0415267678747, -21.398319233902583 65.12256619881694, -21.88006077513809 64.13365454019569)');
   });
 
+  describe('likeRadians', () => {
+    test('1', () => {
+      expect(new DPoint(1, 1).likeRadians).toBe(true);
+    });
+    test('2', () => {
+      expect(new DPoint(-180, 90).likeRadians).toBe(false);
+    });
+    test('3', () => {
+      expect(new DPoint(-181, 1).likeRadians).toBe(false);
+    });
+    test('4', () => {
+      expect(new DPoint(1, -91).likeRadians).toBe(false);
+    });
+  });
+
   describe('likeWorldGeodeticSystem', () => {
     test('1', () => {
-      expect(new DPoint(1, 1).likeWorldGeodeticSystem).toBe(true);
+      expect(new DPoint(1, 1).likeWorldGeodeticSystem).toBe(false);
     });
     test('2', () => {
       expect(new DPoint(-180, 90).likeWorldGeodeticSystem).toBe(true);

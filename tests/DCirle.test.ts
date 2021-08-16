@@ -329,7 +329,7 @@ describe('DCircle', () => {
           ' 0.9999913904677493 10.000015862594934, 0.9999930107166575 10.00001661727347,' +
           ' 0.9999946982761952 10.000017211918573, 0.9999964368942398 10.000017640803483,' +
           ' 0.9999982098269459 10.000017899797802, 1 10.000017986407274))');
-        expect(spy).toHaveBeenCalledTimes(0);
+        expect(spy).toHaveBeenCalledTimes(7812);
       });
       test('2', () => {
         expect(new DCircle(new DPoint(1, 10010), 2).findPolygonInsideOnSphere()
@@ -366,9 +366,8 @@ describe('DCircle', () => {
           ' 0.9999847343081301 -69.99998278808124, 0.9999897404550953 -69.99998235919671,' +
           ' 0.9999948454068364 -69.99998210020264, 1 -69.99998201359324))');
         expect(spy)
-          .toHaveBeenCalledTimes(1);
-        expect(spy)
-          .lastCalledWith('"findPolygonInsideOnSphere" -> "center" should be degree!');
+          .toHaveBeenCalledTimes(7813);
+        expect(spy.mock.calls[0][0]).toEqual('"findPolygonInsideOnSphere" -> "center" should be degree!');
       });
     });
   });
