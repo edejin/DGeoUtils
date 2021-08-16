@@ -1363,4 +1363,37 @@ describe('DPoint', () => {
       '37687602, -19.953094610196082 67.69554932021755, -20.43483615143159 66.89721657675517, -20.916577692667076 66' +
       '.0415267678747, -21.398319233902583 65.12256619881694, -21.88006077513809 64.13365454019569)');
   });
+
+  describe('likeWorldGeodeticSystem', () => {
+    test('1', () => {
+      expect(new DPoint(1, 1).likeWorldGeodeticSystem).toBe(true);
+    });
+    test('2', () => {
+      expect(new DPoint(-180, 90).likeWorldGeodeticSystem).toBe(true);
+    });
+    test('3', () => {
+      expect(new DPoint(-181, 1).likeWorldGeodeticSystem).toBe(false);
+    });
+    test('4', () => {
+      expect(new DPoint(1, -91).likeWorldGeodeticSystem).toBe(false);
+    });
+  });
+
+  describe('likePseudoMercator', () => {
+    test('1', () => {
+      expect(new DPoint(1, 1).likePseudoMercator).toBe(false);
+    });
+    test('2', () => {
+      expect(new DPoint(-180, 90).likePseudoMercator).toBe(false);
+    });
+    test('3', () => {
+      expect(new DPoint(-181, 1).likePseudoMercator).toBe(true);
+    });
+    test('4', () => {
+      expect(new DPoint(1, -91).likePseudoMercator).toBe(true);
+    });
+    test('5', () => {
+      expect(new DPoint(-20026376.39, 20048967.10).likePseudoMercator).toBe(false);
+    });
+  });
 });

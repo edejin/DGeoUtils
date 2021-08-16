@@ -10,6 +10,7 @@ const diff = 0;
  * 20026376.39 20048966.10
  */
 export const PSEUDO_MERCATOR = 'EPSG:3857';
+const pseudoMercatorPolygon = new DPolygon();
 
 /**
  * Degrees
@@ -18,6 +19,7 @@ export const PSEUDO_MERCATOR = 'EPSG:3857';
  * 180.0 90.0
  */
 export const WORLD_GEODETIC_SYSTEM = 'EPSG:4326';
+const worldGeodeticPolygon = new DPolygon();
 export const EARTH_RADIUS_IN_METERS = 6371008.8;
 
 export type DCoord = [number, number] | [number, number, number];
@@ -394,6 +396,27 @@ export class DPoint {
     const likeY = Math.abs(this.y - p.y) < d;
     const likeZ = this.z === p.z || Math.abs(this.z! - p.z!) < d;
     return likeX && likeY && likeZ;
+  }
+
+  /**
+   * Check if point looks like `EPSG:4326` (degrees)
+   */
+  get likeWorldGeodeticSystem(): boolean {
+    if (worldGeodeticPolygon.length === 0) {
+      worldGeodeticPolygon.push(new DPoint(-180, -90), new DPoint(180, 90));
+    }
+    return worldGeodeticPolygon.simpleInclude(this);
+  }
+
+
+  /**
+   * Check if point looks like `EPSG:3857` (meters)
+   */
+  get likePseudoMercator(): boolean {
+    if (pseudoMercatorPolygon.length === 0) {
+      pseudoMercatorPolygon.push(new DPoint(-20026376.39, -20048966.10), new DPoint(20026376.39, 20048966.10));
+    }
+    return !this.likeWorldGeodeticSystem && pseudoMercatorPolygon.simpleInclude(this);
   }
 
   get w(): number {
