@@ -1,5 +1,6 @@
 /* eslint-disable max-lines,max-statements,max-lines-per-function */
-import {DCircle, DLine, DPoint} from '../src';
+import {DCircle, DGeo, DLine, DPoint} from '../src';
+import MockInstance = jest.MockInstance;
 
 describe('DLine', () => {
   describe('constructor', () => {
@@ -677,34 +678,136 @@ describe('DLine', () => {
     });
   });
 
-  describe('getFi', () => {
-    test('parallel y', () => {
-      expect(new DPoint(3, -3).findLine(new DPoint(3, 3))
-        .getFi()).toBe(4.71238898038469);
+  describe('checkFunction', () => {
+    beforeAll(() => {
+      DGeo.DEBUG = true;
     });
-    test('parallel x', () => {
-      expect(new DPoint(-3, 3).findLine(new DPoint(3, 3))
-        .getFi()).toBe(0);
+
+    afterAll(() => {
+      DGeo.DEBUG = false;
     });
-    test('other', () => {
-      expect(new DPoint(1, 2).findLine(new DPoint(3, 4))
-        .getFi()).toBe(5.497787143782138);
+
+    describe('findPerpendicular', () => {
+      // eslint-disable-next-line init-declarations
+      let spy: MockInstance<any, any>;
+      beforeEach(() => {
+        spy = jest.spyOn(console, 'warn').mockImplementation();
+      });
+
+      afterEach(() => {
+        if (spy) {
+          spy.mockRestore();
+        }
+      });
+
+      test('1', () => {
+        expect(new DPoint(1, 2).findLine(new DPoint(1, 4))
+          .findPerpendicular(new DPoint(2, 3))
+          .getValue()).toEqual([-0, 1, -3]);
+        expect(spy).toHaveBeenCalledTimes(3);
+        expect(spy.mock.calls).toEqual([
+          ['"findPerpendicular" -> "this.p1" should be meters!'],
+          ['"findPerpendicular" -> "this.p2" should be meters!'],
+          ['"findPerpendicular" -> "p" should be meters!']
+        ]);
+      });
+      test('2', () => {
+        expect(new DPoint(10001, 2).findLine(new DPoint(10001, 4))
+          .findPerpendicular(new DPoint(10002, 3))
+          .getValue()).toEqual([-0, 1, -3]);
+        expect(spy)
+          .toHaveBeenCalledTimes(0);
+      });
     });
-    test('1', () => {
-      expect(new DLine(2, 3, 4)
-        .getFi()).toBe(0);
+
+    describe('perpendicularDistance', () => {
+      // eslint-disable-next-line init-declarations
+      let spy: MockInstance<any, any>;
+      beforeEach(() => {
+        spy = jest.spyOn(console, 'warn').mockImplementation();
+      });
+
+      afterEach(() => {
+        if (spy) {
+          spy.mockRestore();
+        }
+      });
+
+      test('1', () => {
+        expect(new DPoint(1, 2).findLine(new DPoint(1, 4))
+          .perpendicularDistance(new DPoint(2, 3))).toEqual(1);
+        expect(spy).toHaveBeenCalledTimes(6);
+        expect(spy.mock.calls).toEqual([
+          ['"perpendicularDistance" -> "this.p1" should be meters!'],
+          ['"perpendicularDistance" -> "this.p2" should be meters!'],
+          ['"perpendicularDistance" -> "p" should be meters!'],
+          ['"findPerpendicular" -> "this.p1" should be meters!'],
+          ['"findPerpendicular" -> "this.p2" should be meters!'],
+          ['"findPerpendicular" -> "p" should be meters!']
+        ]);
+      });
+      test('2', () => {
+        expect(new DPoint(10001, 2).findLine(new DPoint(10001, 4))
+          .perpendicularDistance(new DPoint(10002, 3))).toEqual(1);
+        expect(spy)
+          .toHaveBeenCalledTimes(0);
+      });
     });
-    test('2', () => {
-      expect(new DPoint(1, 2).findLine(new DPoint(2, 1))
-        .getFi()).toBe(0.7853981633974484);
-    });
-    test('3', () => {
-      expect(new DPoint(3, 2).findLine(new DPoint(2, 2))
-        .getFi()).toBe(Math.PI);
-    });
-    test('4', () => {
-      expect(new DPoint(3, 1).findLine(new DPoint(2, 2))
-        .getFi()).toBe(3.9269908169872414);
+
+    describe('getFi', () => {
+      // eslint-disable-next-line init-declarations
+      let spy: MockInstance<any, any>;
+      beforeEach(() => {
+        spy = jest.spyOn(console, 'warn').mockImplementation();
+      });
+
+      afterEach(() => {
+        if (spy) {
+          spy.mockRestore();
+        }
+      });
+
+      test('parallel y', () => {
+        expect(new DPoint(3, -3).findLine(new DPoint(3, 3))
+          .getFi()).toBe(4.71238898038469);
+        expect(spy).toHaveBeenCalledTimes(2);
+        expect(spy.mock.calls).toEqual([
+          ['"getFi" -> "this.p1" should be meters!'],
+          ['"getFi" -> "this.p2" should be meters!']
+        ]);
+      });
+      test('parallel x', () => {
+        expect(new DPoint(-120, 30).findLine(new DPoint(3000, 30))
+          .getFi()).toBe(0);
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy.mock.calls).toEqual([['"getFi" -> "this.p1" should be meters!']]);
+      });
+      test('other', () => {
+        expect(new DPoint(100, 200).findLine(new DPoint(300, 400))
+          .getFi()).toBe(5.497787143782138);
+        expect(spy).toHaveBeenCalledTimes(0);
+      });
+      test('1', () => {
+        expect(new DLine(2, 3, 4)
+          .getFi()).toBe(0);
+        expect(spy).toHaveBeenCalledTimes(2);
+      });
+      test('2', () => {
+        expect(new DPoint(1, 2).findLine(new DPoint(2, 1))
+          .getFi()).toBe(0.7853981633974484);
+        expect(spy).toHaveBeenCalledTimes(2);
+      });
+      test('3', () => {
+        expect(new DPoint(300, 200).findLine(new DPoint(200, 200))
+          .getFi()).toBe(Math.PI);
+        expect(spy).toHaveBeenCalledTimes(0);
+      });
+      test('4', () => {
+        expect(new DPoint(300, 100).findLine(new DPoint(2, 2))
+          .getFi()).toBe(2.823874335404245);
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy.mock.calls).toEqual([['"getFi" -> "this.p2" should be meters!']]);
+      });
     });
   });
 });

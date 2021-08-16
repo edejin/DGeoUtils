@@ -1,6 +1,7 @@
 import {DPoint, EARTH_RADIUS_IN_METERS} from './DPoint';
 import {DPolygon} from './DPolygon';
 import {DNumbers} from './DNumbers';
+import {checkFunction} from './utils';
 
 export class DCircle {
   center: DPoint = DPoint.Zero();
@@ -86,6 +87,9 @@ export class DCircle {
   }
 
   findPolygonInsideOnSphere(pointCount: number = 64): DPolygon {
+    checkFunction('findPolygonInsideOnSphere')
+      .checkArgument('center')
+      .shouldBeDegree(this.center);
     const res = new DPolygon();
     for (let i = 0; i < pointCount; i++) {
       res.push(this.sphereOffset(2 * Math.PI * i / pointCount));

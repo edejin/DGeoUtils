@@ -1,5 +1,6 @@
 import {DPoint} from './DPoint';
 import {DCircle} from './DCircle';
+import {checkFunction} from './utils';
 
 export class DLine {
   a: number = 0;
@@ -21,10 +22,24 @@ export class DLine {
   }
 
   findPerpendicular(p: DPoint): DLine {
+    checkFunction('findPerpendicular')
+      .checkArgument('this.p1')
+      .shouldBeMeters(this.p1)
+      .checkArgument('this.p2')
+      .shouldBeMeters(this.p2)
+      .checkArgument('p')
+      .shouldBeMeters(p);
     return new DLine(-this.b, this.a, this.b * p.x - this.a * p.y);
   }
 
   perpendicularDistance(p: DPoint): number {
+    checkFunction('perpendicularDistance')
+      .checkArgument('this.p1')
+      .shouldBeMeters(this.p1)
+      .checkArgument('this.p2')
+      .shouldBeMeters(this.p2)
+      .checkArgument('p')
+      .shouldBeMeters(p);
     const perpendicularLine = this.findPerpendicular(p);
     const targetPoint = perpendicularLine.findPoint(this);
     return targetPoint!.distance(p);
@@ -228,6 +243,11 @@ export class DLine {
    * Get line segment direction (from start point to end point)
    */
   getFi(): number {
+    checkFunction('getFi')
+      .checkArgument('this.p1')
+      .shouldBeMeters(this.p1)
+      .checkArgument('this.p2')
+      .shouldBeMeters(this.p2);
     const l: DLine = new DLine(0, 1, 0);
     const result = this.findFi(l);
     if (this.p1.x === this.p2.x) {
@@ -299,6 +319,10 @@ export class DLine {
     return Math.acos(val);
   }
 
+  /**
+   * [Cross product](https://en.wikipedia.org/wiki/Cross_product)
+   * @param l
+   */
   vectorProduct(l: DLine): DLine {
     const i = this.b * l.c - this.c * l.b;
     const j = this.c * l.a - this.a * l.c;
