@@ -1,5 +1,6 @@
 /* eslint-disable max-lines,max-statements,max-lines-per-function */
-import {DPoint, PSEUDO_MERCATOR, WORLD_GEODETIC_SYSTEM} from '../src';
+import {DGeo, DPoint, PSEUDO_MERCATOR, WORLD_GEODETIC_SYSTEM} from '../src';
+import MockInstance = jest.MockInstance;
 
 describe('DPoint', () => {
   describe('Constructor', () => {
@@ -96,27 +97,6 @@ describe('DPoint', () => {
       const t = new DPoint(2, 5).getTileFromCoords(6);
       expect(t.x).toBe(32);
       expect(t.y).toBe(31);
-      expect(t.z).toBe(6);
-    });
-  });
-
-  describe('getCoordsFromTile', () => {
-    test('with z', () => {
-      const t = new DPoint(2, 4, 8).getCoordsFromTile();
-      expect(t.x).toBe(-177.1875);
-      expect(t.y).toBe(84.54136107313408);
-      expect(t.z).toBe(8);
-    });
-    test('with other z', () => {
-      const t = new DPoint(2, 4, 8).getCoordsFromTile(6);
-      expect(t.x).toBe(-168.75);
-      expect(t.y).toBe(82.67628497834903);
-      expect(t.z).toBe(6);
-    });
-    test('with other z and without basic z', () => {
-      const t = new DPoint(2, 4).getCoordsFromTile(6);
-      expect(t.x).toBe(-168.75);
-      expect(t.y).toBe(82.67628497834903);
       expect(t.z).toBe(6);
     });
   });
@@ -1230,11 +1210,6 @@ describe('DPoint', () => {
       .equal(new DPoint(Math.PI / 2, Math.PI))).toBe(true);
   });
 
-  test('asDegrees', () => {
-    expect(new DPoint(Math.PI / 2, Math.PI).asDegrees()
-      .equal(new DPoint(90, 180))).toBe(true);
-  });
-
   test('orthodromicPath', () => {
     expect(new DPoint(151.06515252840597, -33.907214742507016)
       .orthodromicPath(new DPoint(-21.88006077513806, 64.13365454019574))
@@ -1409,6 +1384,86 @@ describe('DPoint', () => {
     });
     test('5', () => {
       expect(new DPoint(-20026376.39, 20048967.10).likePseudoMercator).toBe(false);
+    });
+  });
+
+  describe('checkFunction', () => {
+    beforeAll(() => {
+      DGeo.DEBUG = true;
+    });
+
+    afterAll(() => {
+      DGeo.DEBUG = false;
+    });
+
+    describe('asDegrees', () => {
+      // eslint-disable-next-line init-declarations
+      let spy: MockInstance<any, any>;
+      beforeEach(() => {
+        spy = jest.spyOn(console, 'warn').mockImplementation();
+      });
+
+      afterEach(() => {
+        if (spy) {
+          spy.mockRestore();
+        }
+      });
+
+      test('1', () => {
+        expect(new DPoint(Math.PI, Math.PI / 2).asDegrees()
+          .toWKT()).toBe('POINT (180 90)');
+        expect(spy).toHaveBeenCalledTimes(0);
+      });
+      test('2', () => {
+        expect(new DPoint(Math.PI + 100, Math.PI / 2 + 100).asDegrees()
+          .toWKT()).toBe('POINT (5909.5779513082325 5819.577951308232)');
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy.mock.calls).toEqual([['"asDegrees" -> "this" should be radians!']]);
+      });
+    });
+
+    describe('getCoordsFromTile', () => {
+      // eslint-disable-next-line init-declarations
+      let spy: MockInstance<any, any>;
+      beforeEach(() => {
+        spy = jest.spyOn(console, 'warn').mockImplementation();
+      });
+
+      afterEach(() => {
+        if (spy) {
+          spy.mockRestore();
+        }
+      });
+
+      test('with z', () => {
+        const t = new DPoint(2, 4, 8).getCoordsFromTile();
+        expect(t.x).toBe(-177.1875);
+        expect(t.y).toBe(84.54136107313408);
+        expect(t.z).toBe(8);
+        expect(spy).toHaveBeenCalledTimes(0);
+      });
+      test('with other z', () => {
+        const t = new DPoint(2, 4, 8).getCoordsFromTile(6);
+        expect(t.x).toBe(-168.75);
+        expect(t.y).toBe(82.67628497834903);
+        expect(t.z).toBe(6);
+        expect(spy).toHaveBeenCalledTimes(0);
+      });
+      test('with other z and without basic z', () => {
+        const t = new DPoint(2, 4).getCoordsFromTile(6);
+        expect(t.x).toBe(-168.75);
+        expect(t.y).toBe(82.67628497834903);
+        expect(t.z).toBe(6);
+        expect(spy).toHaveBeenCalledTimes(0);
+      });
+      test('invalid input', () => {
+        const t = new DPoint(2.0001, 4.0001).getCoordsFromTile(6);
+        expect(t.x).toBe(-168.7494375);
+        expect(t.y).toBe(82.67621327322917);
+        expect(t.z).toBe(6);
+        expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy.mock.calls).toEqual([['"getCoordsFromTile" -> "this" should be UInt!']]);
+      });
     });
   });
 });

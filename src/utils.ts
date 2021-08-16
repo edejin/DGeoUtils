@@ -43,7 +43,7 @@ const shouldBeUInt = (
   argName: string
 ): CheckFunc => (p: DPoint): CheckFunction => {
   if (!p.clone().roundCurrent()
-    .equal(p) || p.gtOrEqual(DPoint.Zero())) {
+    .equal(p) || !p.gtOrEqual(DPoint.Zero())) {
     warn(`"${funcName}" -> "${argName}" should be UInt!`);
   }
   return scope;
