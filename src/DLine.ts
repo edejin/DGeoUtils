@@ -30,6 +30,12 @@ export class DLine {
     return targetPoint!.distance(p);
   }
 
+  /**
+   * Find intersection of two lines segments.
+   * For intersection of two lines use [[findPoint]]
+   * @param l
+   * @param d
+   */
   intersection(l: DLine, d: number = 0): DPoint | null {
     const p = this.findPoint(l);
     if (p) {
@@ -90,6 +96,11 @@ export class DLine {
     return null;
   }
 
+  /**
+   * Check if point below to line segment
+   * @param p
+   * @param d
+   */
   inRange(p: DPoint, d: number = 0): boolean {
     const {minX, minY, maxX, maxY} = this;
     const {x, y} = p;
@@ -122,6 +133,10 @@ export class DLine {
     return [this.a, this.b, this.c];
   }
 
+  /**
+   * Find `x` from `y` value of point
+   * @param p
+   */
   x(p: DPoint): DPoint {
     if (this.isParallelY) {
       return new DPoint(-this.c / this.a, p.y);
@@ -132,6 +147,10 @@ export class DLine {
     return new DPoint(-this.b / this.a * p.y - this.c / this.a, p.y);
   }
 
+  /**
+   * Find `y` from `x` value of point
+   * @param p
+   */
   y(p: DPoint): DPoint {
     if (this.isParallelY) {
       return new DPoint(-this.c / this.a, p.y);
@@ -142,6 +161,11 @@ export class DLine {
     return new DPoint(p.x, -this.a / this.b * p.x - this.c / this.b);
   }
 
+  /**
+   * Find intersection of two lines.
+   * For intersection of two lines segments use [[intersection]]
+   * @param l
+   */
   findPoint(l: DLine): DPoint | null {
     if (this.isParallelY && l.isParallelY) {
       return null;
@@ -178,6 +202,9 @@ export class DLine {
     return res;
   }
 
+  /**
+   * Check if line parallel to `x` or `y` axis
+   */
   get isParallel(): boolean {
     return this.isParallelX || this.isParallelY;
   }
@@ -190,10 +217,16 @@ export class DLine {
     return Math.abs(this.a) < 0.001;
   }
 
+  /**
+   * Get lines segment start and end points as array
+   */
   get points(): [DPoint, DPoint] {
     return [this.p1, this.p2];
   }
 
+  /**
+   * Get line segment direction (from start point to end point)
+   */
   getFi(): number {
     const l: DLine = new DLine(0, 1, 0);
     const result = this.findFi(l);
@@ -228,6 +261,11 @@ export class DLine {
     return `LINESTRING (${x1} ${y1}, ${x2} ${y2})`;
   }
 
+  /**
+   * Move lines point to left or right
+   * @param p
+   * @param d
+   */
   movePoint(p: DPoint, d: number): DPoint {
     const fi = this.findFi(new DLine(1, 0, 0));
     const td = this.p1.distance(this.p2) / 2;
@@ -245,6 +283,11 @@ export class DLine {
     return p3;
   }
 
+  /**
+   * Find angle between current line and line in argument
+   * @param l
+   * @param delta
+   */
   findFi(l: DLine, delta = 1.0001): number {
     let val =
       (this.a * l.a + this.b * l.b) / (Math.sqrt(this.a * this.a + this.b * this.b) * Math.sqrt(l.a * l.a + l.b * l.b));
