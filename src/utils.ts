@@ -1,5 +1,5 @@
 import {DGeo} from './index';
-import {DPoint} from '../src';
+import {DPoint} from './DPoint';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const warn = (...args: any[]): void => {
