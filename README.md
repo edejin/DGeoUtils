@@ -15,7 +15,7 @@
 
 [Docs](https://edejin.github.io/DGeoUtils/index.html)
 
-[ESLint Report](https://edejin.github.io/DGeoUtils/media/media/eslit.html)
+[ESLint Report](https://edejin.github.io/DGeoUtils/media/eslit.html)
 
 ### For new release
 ```
