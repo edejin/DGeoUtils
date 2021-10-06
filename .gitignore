@@ -2,6 +2,7 @@
 
 /node_modules
 /dist
+/media
 
 npm-debug.log*
 yarn-debug.log*

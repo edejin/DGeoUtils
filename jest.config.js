@@ -5,7 +5,7 @@ module.exports = {
   "transform": {
     "^.+\\.ts$": "ts-jest"
   },
-  "coverageDirectory": "docs/coverage",
+  "coverageDirectory": "media",
   "coverageReporters": [
     "json-summary",
     "text",

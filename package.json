@@ -4,11 +4,11 @@
   "description": "",
   "scripts": {
     "build": "node_modules/.bin/tsc",
-    "prepare": "npm run lint && npm run doc && npm run test && npm run test:badges && npm run build",
-    "lint": "node_modules/.bin/eslint src/",
+    "prepublishOnly": "npm run lint && npm run test && npm run test:badges && npm run doc && npm run build",
+    "lint": "node_modules/.bin/eslint -o ./media/eslit.html -f html src/",
     "doc": "node_modules/.bin/typedoc",
     "test": "node_modules/.bin/jest --coverage",
-    "test:badges": "node_modules/.bin/jest-coverage-badges --input \"./docs/coverage/coverage-summary.json\" --output \"./docs/badges\"",
+    "test:badges": "node_modules/.bin/jest-coverage-badges --input \"./media/coverage-summary.json\" --output \"./media/badges\"",
     "release-fix": "node ./release.js fix",
     "release-minor": "node ./release.js minor",
     "release-major": "node ./release.js major"
@@ -27,23 +27,24 @@
   "devDependencies": {
     "@types/jest": "^27.0.1",
     "@types/jsdom": "^16.2.13",
-    "@typescript-eslint/eslint-plugin": "^4.29.1",
-    "@typescript-eslint/parser": "^4.29.1",
+    "@types/offscreencanvas": "^2019.6.4",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
     "canvas": "^2.8.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-flowtype": "^5.9.0",
-    "eslint-plugin-import": "^2.24.0",
-    "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-flowtype": "^5.10.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jest": "^24.5.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-plugin-testing-library": "^4.10.1",
+    "eslint-plugin-testing-library": "^4.12.4",
     "jest": "^27.0.6",
     "jest-canvas-mock": "^2.3.1",
     "jest-coverage-badges": "^1.1.2",
     "jsdom": "^17.0.0",
     "ts-jest": "^27.0.4",
-    "typedoc": "^0.21.5",
-    "typescript": "^4.3.5"
+    "typedoc": "^0.21.9",
+    "typescript": "^4.4.3"
   },
   "jest": {
     "setupFiles": [
