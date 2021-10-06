@@ -1,5 +1,5 @@
 TN:
-SF:src\DCircle.ts
+SF:src/DCircle.ts
 FN:10,(anonymous_0)
 FN:15,(anonymous_1)
 FN:19,(anonymous_2)
@@ -100,7 +100,7 @@ BRF:18
 BRH:18
 end_of_record
 TN:
-SF:src\DLine.ts
+SF:src/DLine.ts
 FN:12,(anonymous_0)
 FN:20,(anonymous_1)
 FN:24,(anonymous_2)
@@ -419,7 +419,7 @@ BRF:104
 BRH:96
 end_of_record
 TN:
-SF:src\DNumbers.ts
+SF:src/DNumbers.ts
 FN:6,(anonymous_0)
 FN:10,(anonymous_1)
 FN:14,(anonymous_2)
@@ -450,7 +450,7 @@ BRF:1
 BRH:1
 end_of_record
 TN:
-SF:src\DPoint.ts
+SF:src/DPoint.ts
 FN:60,(anonymous_0)
 FN:66,(anonymous_1)
 FN:70,(anonymous_2)
@@ -922,7 +922,7 @@ BRF:102
 BRH:101
 end_of_record
 TN:
-SF:src\DPolygon.ts
+SF:src/DPolygon.ts
 FN:26,(anonymous_0)
 FN:34,(anonymous_1)
 FN:43,(anonymous_2)
@@ -2019,7 +2019,7 @@ BRF:244
 BRH:215
 end_of_record
 TN:
-SF:src\FastSearch.ts
+SF:src/FastSearch.ts
 FN:3,(anonymous_0)
 FN:6,(anonymous_1)
 FN:18,(anonymous_2)
@@ -2059,7 +2059,7 @@ BRF:12
 BRH:11
 end_of_record
 TN:
-SF:src\TraceMatrix.ts
+SF:src/TraceMatrix.ts
 FN:5,(anonymous_0)
 FN:8,(anonymous_1)
 FN:10,(anonymous_2)
@@ -2324,7 +2324,7 @@ BRF:59
 BRH:52
 end_of_record
 TN:
-SF:src\index.ts
+SF:src/index.ts
 FNF:0
 FNH:0
 DA:1,7
@@ -2341,7 +2341,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:src\utils.ts
+SF:src/utils.ts
 FN:5,(anonymous_0)
 FN:26,(anonymous_1)
 FN:26,(anonymous_2)
