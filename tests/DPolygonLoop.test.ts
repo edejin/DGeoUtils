@@ -1,7 +1,4 @@
 import {DPoint, DPolygon, PSEUDO_MERCATOR, WORLD_GEODETIC_SYSTEM} from '../src';
-import {JSDOM} from 'jsdom';
-
-const {document} = (new JSDOM('...')).window;
 
 // eslint-disable-next-line max-lines-per-function
 describe('DPolygonLoop', () => {
@@ -235,50 +232,45 @@ describe('DPolygonLoop', () => {
   });
   describe('rotate', () => {
     test('1', () => {
-      const t = document.createElement('canvas');
-      t.width = 100;
-      t.height = 100;
       const p = new DPolygon([
         new DPoint(30, 30),
         new DPoint(60, 30),
         new DPoint(60, 60),
         new DPoint(30, 60)
       ]);
-      p.loop()
+      expect(p
+        .loop()
         .rotate(Math.PI / 6)
+        .toFixed()
         .run()
-        .drawPolygonOnCanvas(
-          t,
-          '#ff0000',
-          '#00ff00',
-          '#0000ff',
-          2
-        );
-      expect(t.toDataURL())
-        .toMatchSnapshot();
+        .toArrayOfCoords())
+        .toStrictEqual([
+          [10.98, 40.98],
+          [36.96, 55.98],
+          [21.96, 81.96],
+          [-4.02, 66.96]
+        ]);
     });
     test('2', () => {
-      const t = document.createElement('canvas');
-      t.width = 100;
-      t.height = 100;
       const p = new DPolygon([
         new DPoint(30, 30),
         new DPoint(60, 30),
         new DPoint(60, 60),
         new DPoint(30, 60)
       ]);
-      p.loop()
+
+      expect(p
+        .loop()
         .rotate(Math.PI / 8)
+        .toFixed()
         .run()
-        .drawPolygonOnCanvas(
-          t,
-          '#ff0000',
-          '#00ff00',
-          '#0000ff',
-          2
-        );
-      expect(t.toDataURL())
-        .toMatchSnapshot();
+        .toArrayOfCoords())
+        .toStrictEqual([
+          [16.24, 39.2],
+          [43.95, 50.68],
+          [32.47, 78.39],
+          [4.76, 66.91]
+        ]);
     });
   });
   describe('round', () => {
