@@ -4,8 +4,9 @@
   "description": "",
   "scripts": {
     "build": "node_modules/.bin/tsc",
-    "prepublishOnly": "npm run lint && npm run test && npm run test:badges && npm run doc && npm run build",
-    "lint": "node_modules/.bin/eslint -o ./media/eslit.html -f html src/",
+    "prepublishOnly": "npm run lint:report && npm run test && npm run test:badges && npm run doc && npm run build",
+    "lint": "node_modules/.bin/eslint src/",
+    "lint:report": "node_modules/.bin/eslint -o ./media/eslit.html -f html src/",
     "doc": "node_modules/.bin/typedoc",
     "test": "node_modules/.bin/jest --coverage",
     "test:badges": "node_modules/.bin/jest-coverage-badges --input \"./media/coverage-summary.json\" --output \"./media/badges\"",
