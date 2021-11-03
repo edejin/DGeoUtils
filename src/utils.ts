@@ -30,7 +30,7 @@ const shouldBeInt = (
   funcName: string,
   argName: string
 ): CheckFunc => (p: DPoint): CheckFunction => {
-  if (!p.clone().roundCurrent()
+  if (!p.clone().round()
     .equal(p)) {
     warn(`"${funcName}" -> "${argName}" should be Int!`);
   }
@@ -42,7 +42,7 @@ const shouldBeUInt = (
   funcName: string,
   argName: string
 ): CheckFunc => (p: DPoint): CheckFunction => {
-  if (!p.clone().roundCurrent()
+  if (!p.clone().round()
     .equal(p) || !p.gtOrEqual(DPoint.Zero())) {
     warn(`"${funcName}" -> "${argName}" should be UInt!`);
   }

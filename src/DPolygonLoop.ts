@@ -50,55 +50,55 @@ export class DPolygonLoop {
 
   rotate(a: number): DPolygonLoop {
     const t = this.f.bind(null);
-    this.f = (k: DPoint) => t(k).rotateCurrent(a);
+    this.f = (k: DPoint) => t(k).rotate(a);
     return this;
   }
 
   move(x: number | DPoint = 0, y?: number): DPolygonLoop {
     const t = this.f.bind(null);
-    this.f = (k: DPoint) => t(k).moveCurrent(x, y);
+    this.f = (k: DPoint) => t(k).move(x, y);
     return this;
   }
 
   round(): DPolygonLoop {
     const t = this.f.bind(null);
-    this.f = (k: DPoint) => t(k).roundCurrent();
+    this.f = (k: DPoint) => t(k).round();
     return this;
   }
 
   ceil(): DPolygonLoop {
     const t = this.f.bind(null);
-    this.f = (k: DPoint) => t(k).ceilCurrent();
+    this.f = (k: DPoint) => t(k).ceil();
     return this;
   }
 
   floor(): DPolygonLoop {
     const t = this.f.bind(null);
-    this.f = (k: DPoint) => t(k).floorCurrent();
+    this.f = (k: DPoint) => t(k).floor();
     return this;
   }
 
   toFixed(n: number = 2): DPolygonLoop {
     const t = this.f.bind(null);
-    this.f = (k: DPoint) => t(k).toFixedCurrent(n);
+    this.f = (k: DPoint) => t(k).toFixed(n);
     return this;
   }
 
   abs(): DPolygonLoop {
     const t = this.f.bind(null);
-    this.f = (k: DPoint) => t(k).absCurrent();
+    this.f = (k: DPoint) => t(k).abs();
     return this;
   }
 
   scale(x: number | DPoint = 0, y?: number): DPolygonLoop {
     const t = this.f.bind(null);
-    this.f = (k: DPoint) => t(k).scaleCurrent(x, y);
+    this.f = (k: DPoint) => t(k).scale(x, y);
     return this;
   }
 
   divide(x: number | DPoint = 0, y?: number): DPolygonLoop {
     const t = this.f.bind(null);
-    this.f = (k: DPoint) => t(k).divideCurrent(x, y);
+    this.f = (k: DPoint) => t(k).divide(x, y);
     return this;
   }
 

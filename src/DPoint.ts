@@ -131,7 +131,7 @@ export class DPoint {
       .checkArgument('p')
       .shouldBeMeters(p);
     if (this.equal(p)) {
-      return this.findLine(p.clone().moveCurrent(0, 1));
+      return this.findLine(p.clone().move(0, 1));
     }
     const a = this.y - p.y - diff;
     const b = p.x - this.x - diff;
@@ -239,7 +239,7 @@ export class DPoint {
    * Clockwise rotation
    * @param a radians
    */
-  rotateCurrent(a: number): DPoint {
+  rotate(a: number): DPoint {
     const x = this.x * Math.cos(a) - this.y * Math.sin(a);
     const y = this.x * Math.sin(a) + this.y * Math.cos(a);
     this.x = x;
@@ -247,7 +247,7 @@ export class DPoint {
     return this;
   }
 
-  moveCurrent(x: number | DPoint = 0, y: number = (x as number)): DPoint {
+  move(x: number | DPoint = 0, y: number = (x as number)): DPoint {
     let xV = 0;
     let yV = 0;
     if (x instanceof DPoint) {
@@ -266,47 +266,47 @@ export class DPoint {
     checkFunction('asRadians')
       .checkArgument('this')
       .shouldBeDegree(this);
-    return this.scaleCurrent(PI_TO_DEGREE);
+    return this.scale(PI_TO_DEGREE);
   }
 
   asDegrees(): DPoint {
     checkFunction('asDegrees')
       .checkArgument('this')
       .shouldBeRadians(this);
-    return this.scaleCurrent(DEGREE_TO_PI);
+    return this.scale(DEGREE_TO_PI);
   }
 
-  roundCurrent(): DPoint {
+  round(): DPoint {
     this.x = Math.round(this.x);
     this.y = Math.round(this.y);
     return this;
   }
 
-  ceilCurrent(): DPoint {
+  ceil(): DPoint {
     this.x = Math.ceil(this.x);
     this.y = Math.ceil(this.y);
     return this;
   }
 
-  floorCurrent(): DPoint {
+  floor(): DPoint {
     this.x = Math.floor(this.x);
     this.y = Math.floor(this.y);
     return this;
   }
 
-  toFixedCurrent(n: number = 2): DPoint {
+  toFixed(n: number = 2): DPoint {
     this.x = parseFloat(this.x.toFixed(n));
     this.y = parseFloat(this.y.toFixed(n));
     return this;
   }
 
-  absCurrent(): DPoint {
+  abs(): DPoint {
     this.x = Math.abs(this.x);
     this.y = Math.abs(this.y);
     return this;
   }
 
-  scaleCurrent(x: number | DPoint = 0, y: number = (x as number)): DPoint {
+  scale(x: number | DPoint = 0, y: number = (x as number)): DPoint {
     let xV = 0;
     let yV = 0;
     if (x instanceof DPoint) {
@@ -321,7 +321,7 @@ export class DPoint {
     return this;
   }
 
-  divideCurrent(x: number | DPoint = 0, y: number = (x as number)): DPoint {
+  divide(x: number | DPoint = 0, y: number = (x as number)): DPoint {
     let xV = 0;
     let yV = 0;
     if (x instanceof DPoint) {
@@ -453,7 +453,7 @@ export class DPoint {
   }
 
   minus(): DPoint {
-    return this.clone().scaleCurrent(-1);
+    return this.clone().scale(-1);
   }
 
   orthodromicPath(point: DPoint, pointsCount = 360): DPolygon {

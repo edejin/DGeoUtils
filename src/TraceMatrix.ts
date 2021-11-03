@@ -178,8 +178,8 @@ export class TraceMatrix {
     while (!p.equal(group.p(0)) || points.length < 2) {
       // eslint-disable-next-line no-constant-condition
       while (true) {
-        const nextValue = getByPosition(m, p.clone().moveCurrent(traceDirections[direction]));
-        const nextNeighbourValue = getByPosition(m, p.clone().moveCurrent(traceDirections[left(direction)]));
+        const nextValue = getByPosition(m, p.clone().move(traceDirections[direction]));
+        const nextNeighbourValue = getByPosition(m, p.clone().move(traceDirections[left(direction)]));
         if (nextValue === TraceMatrixValues.t && nextNeighbourValue === TraceMatrixValues.f) {
           break;
         }
@@ -189,7 +189,7 @@ export class TraceMatrix {
         points.push(p);
         prevDirection = direction;
       }
-      p = p.clone().moveCurrent(traceDirections[direction]);
+      p = p.clone().move(traceDirections[direction]);
       direction = left(left(direction));
     }
 
@@ -219,7 +219,7 @@ export class TraceMatrix {
     while (startCoords.length) {
       const point = startCoords.pop();
       for (const direction of fullTraceDirections) {
-        const tmpPoint = point.clone().moveCurrent(direction);
+        const tmpPoint = point.clone().move(direction);
         const value = getByPosition(tmpMatrix, tmpPoint, TraceMatrixValues.t);
         if (value === TraceMatrixValues.f) {
           setByPosition(tmpMatrix, tmpPoint, TraceMatrixValues.t);
