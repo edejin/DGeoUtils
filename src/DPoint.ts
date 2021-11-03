@@ -42,7 +42,7 @@ export const DOUBLE_PI_IN_DEGREE = 360;
 export const PI_TO_DEGREE = Math.PI / PI_IN_DEGREE;
 export const DEGREE_TO_PI = PI_IN_DEGREE / Math.PI;
 
-type SetterFunction = (t: DPoint) => number;
+export type SetterFunction = (t: DPoint) => number;
 
 export class DPoint {
   x: number = 0;
@@ -322,6 +322,10 @@ export class DPoint {
     return new DPoint(this.x / (x as number), this.y / (y !== undefined ? y : (x as number)));
   }
 
+  /**
+   * Clockwise rotation
+   * @param a radians
+   */
   rotateCurrent(a: number): DPoint {
     const x = this.x * Math.cos(a) - this.y * Math.sin(a);
     const y = this.x * Math.sin(a) + this.y * Math.cos(a);

@@ -5,6 +5,7 @@ import {DCircle} from './DCircle';
 import {DNumbers} from './DNumbers';
 import {io as jstsIo, geom} from 'jsts';
 import Geometry = geom.Geometry;
+import {DPolygonLoop} from './DPolygonLoop';
 
 interface ParseProps {
   dataProjection: string;
@@ -108,6 +109,10 @@ export class DPolygon {
 
   static createSquareBySize(size: DPoint): DPolygon {
     return new DPolygon([DPoint.Zero(), size.clone().setX(0), size.clone(), size.clone().setY(0)]).close();
+  }
+
+  loop(): DPolygonLoop {
+    return new DPolygonLoop(this);
   }
 
   set points(p: DPoint[]) {
