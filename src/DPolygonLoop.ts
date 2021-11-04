@@ -18,7 +18,7 @@ export class DPolygonLoop {
     return this.parent;
   }
 
-  exec(f: LoopFunction) {
+  exec(f: LoopFunction): DPolygon {
     this.parent.points = this.parent.points.map(f);
     this.parent.holes = this.parent.holes.map((hole: DPolygon) => hole.loop().exec(this.f));
     return this.parent;
