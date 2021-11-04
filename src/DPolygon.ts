@@ -1,16 +1,11 @@
 /* eslint-disable max-lines */
-import {DCoord, DPoint, LatLng, PSEUDO_MERCATOR, WORLD_GEODETIC_SYSTEM} from './DPoint';
+import {DCoord, DPoint, LatLng} from './DPoint';
 import {DLine} from './DLine';
 import {DCircle} from './DCircle';
 import {DNumbers} from './DNumbers';
 import {io as jstsIo, geom} from 'jsts';
 import Geometry = geom.Geometry;
 import {DPolygonLoop} from './DPolygonLoop';
-
-interface ParseProps {
-  dataProjection: string;
-  featureProjection: string;
-}
 
 export const MIN_POINTS_IN_VALID_POLYGON = 3;
 const APPROXIMATION_VALUE = 0.1;

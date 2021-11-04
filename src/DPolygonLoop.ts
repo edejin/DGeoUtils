@@ -1,5 +1,5 @@
 import {DPolygon} from './DPolygon';
-import {DPoint, PSEUDO_MERCATOR, SetterFunction, WORLD_GEODETIC_SYSTEM} from './DPoint';
+import {DPoint, SetterFunction} from './DPoint';
 
 type LoopFunction = (k: DPoint) => DPoint;
 

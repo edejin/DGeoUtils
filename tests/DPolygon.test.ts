@@ -1,5 +1,5 @@
 /* eslint-disable max-lines,max-statements,max-lines-per-function */
-import {DPoint, DPolygon, PSEUDO_MERCATOR, WORLD_GEODETIC_SYSTEM} from '../src';
+import {DPoint, DPolygon} from '../src';
 import {JSDOM} from 'jsdom';
 const {document} = (new JSDOM('...')).window;
 
