@@ -161,19 +161,6 @@ export class DPoint {
     return a2 + Math.PI * 2 - a1;
   }
 
-  transform(from: string = PSEUDO_MERCATOR, to: string = WORLD_GEODETIC_SYSTEM): DPoint {
-    if (from === to && [PSEUDO_MERCATOR, WORLD_GEODETIC_SYSTEM].includes(from)) {
-      return this;
-    }
-    if (from === PSEUDO_MERCATOR && to === WORLD_GEODETIC_SYSTEM) {
-      return this.meters2degrees();
-    }
-    if (from === WORLD_GEODETIC_SYSTEM && to === PSEUDO_MERCATOR) {
-      return this.degrees2meters();
-    }
-    return this;
-  }
-
   toString(): string {
     return `${this.x} ${this.y}`;
   }
@@ -262,18 +249,56 @@ export class DPoint {
     return this;
   }
 
-  asRadians(): DPoint {
-    checkFunction('asRadians')
+  degreeToMeters(): DPoint {
+    checkFunction('degreeToMeters')
+      .checkArgument('this')
+      .shouldBeDegree(this);
+    const x = ((this.x + PI_IN_DEGREE) % DOUBLE_PI_IN_DEGREE - PI_IN_DEGREE) * MITERS_IN_ONE_DEGREE;
+    const y = (Math.log(Math.tan(((this.y + HALF_PI_IN_DEGREE) % PI_IN_DEGREE) *
+      (Math.PI / DOUBLE_PI_IN_DEGREE))) / PI_TO_DEGREE) * MITERS_IN_ONE_DEGREE;
+    this.x = x;
+    this.y = y;
+    return this;
+  }
+
+  metersToDegree(): DPoint {
+    checkFunction('metersToDegree')
+      .checkArgument('this')
+      .shouldBeMeters(this);
+    const lon = this.x * DEGREES_IN_ONE_MITER;
+    const lat = Math.atan(Math.E ** ((this.y / MITERS_IN_ONE_DEGREE) * PI_TO_DEGREE)) *
+      (DOUBLE_PI_IN_DEGREE / Math.PI) - HALF_PI_IN_DEGREE;
+    this.x = lon;
+    this.y = lat;
+    return this;
+  }
+
+  degreeToRadians(): DPoint {
+    checkFunction('degreeToRadians')
       .checkArgument('this')
       .shouldBeDegree(this);
     return this.scale(PI_TO_DEGREE);
   }
 
-  asDegrees(): DPoint {
-    checkFunction('asDegrees')
+  radiansToDegrees(): DPoint {
+    checkFunction('radiansToDegrees')
       .checkArgument('this')
       .shouldBeRadians(this);
     return this.scale(DEGREE_TO_PI);
+  }
+
+  radiansToMeters(): DPoint {
+    checkFunction('radiansToMeters')
+      .checkArgument('this')
+      .shouldBeRadians(this);
+    return this.radiansToDegrees().degreeToMeters();
+  }
+
+  metersToRadians(): DPoint {
+    checkFunction('metersToRadians')
+      .checkArgument('this')
+      .shouldBeMeters(this);
+    return this.metersToDegree().degreeToRadians();
   }
 
   round(): DPoint {
@@ -462,8 +487,8 @@ export class DPoint {
       .shouldBeDegree(this)
       .checkArgument('point')
       .shouldBeDegree(point);
-    const t = this.clone().asRadians();
-    const p = point.clone().asRadians();
+    const t = this.clone().degreeToRadians();
+    const p = point.clone().degreeToRadians();
     const d = Math.sin(p.x - t.x);
     const step = (p.x - t.x) / (pointsCount - 1);
     return new DPolygon(Array.from(new Array(pointsCount))
@@ -471,31 +496,7 @@ export class DPoint {
         const x = t.x + step * i;
         const y = Math.atan((Math.tan(t.y) * Math.sin(p.x - x)) / d +
           (Math.tan(p.y) * Math.sin(x - t.x)) / d);
-        return new DPoint(x, y).asDegrees();
+        return new DPoint(x, y).radiansToDegrees();
       }));
-  }
-
-  private degrees2meters(): DPoint {
-    checkFunction('degrees2meters')
-      .checkArgument('this')
-      .shouldBeDegree(this);
-    const x = ((this.x + PI_IN_DEGREE) % DOUBLE_PI_IN_DEGREE - PI_IN_DEGREE) * MITERS_IN_ONE_DEGREE;
-    const y = (Math.log(Math.tan(((this.y + HALF_PI_IN_DEGREE) % PI_IN_DEGREE) *
-      (Math.PI / DOUBLE_PI_IN_DEGREE))) / PI_TO_DEGREE) * MITERS_IN_ONE_DEGREE;
-    this.x = x;
-    this.y = y;
-    return this;
-  }
-
-  private meters2degrees(): DPoint {
-    checkFunction('meters2degrees')
-      .checkArgument('this')
-      .shouldBeMeters(this);
-    const lon = this.x * DEGREES_IN_ONE_MITER;
-    const lat = Math.atan(Math.E ** ((this.y / MITERS_IN_ONE_DEGREE) * PI_TO_DEGREE)) *
-      (DOUBLE_PI_IN_DEGREE / Math.PI) - HALF_PI_IN_DEGREE;
-    this.x = lon;
-    this.y = lat;
-    return this;
   }
 }

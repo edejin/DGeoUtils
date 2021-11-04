@@ -76,7 +76,7 @@ export class DPolygon {
     return first.findLine(last).getFi();
   }
 
-  static parseFromWKT(wkt: string, optProps?: ParseProps): DPolygon {
+  static parseFromWKT(wkt: string): DPolygon {
     const data = wkt.trim().toUpperCase();
     let res: DPolygon = new DPolygon();
     if (data.indexOf('POLYGON') === 0) {
@@ -101,9 +101,6 @@ export class DPolygon {
       res = new DPolygon([DPoint.parseFromWKT(data)]);
     }
 
-    if (optProps) {
-      return res!.transform(optProps.dataProjection, optProps.featureProjection);
-    }
     return res!;
   }
 
@@ -571,9 +568,27 @@ export class DPolygon {
     );
   }
 
-  transform(from: string = PSEUDO_MERCATOR, to: string = WORLD_GEODETIC_SYSTEM): DPolygon {
-    this.pPoints = this.pPoints.map((r: DPoint) => r.transform(from, to));
-    this.holes = this.holes.map((h: DPolygon) => h.transform(from, to));
+  degreeToMeters(): DPolygon {
+    this.pPoints = this.pPoints.map((r: DPoint) => r.degreeToMeters());
+    this.holes = this.holes.map((h: DPolygon) => h.degreeToMeters());
+    return this;
+  }
+
+  metersToDegree(): DPolygon {
+    this.pPoints = this.pPoints.map((r: DPoint) => r.metersToDegree());
+    this.holes = this.holes.map((h: DPolygon) => h.metersToDegree());
+    return this;
+  }
+
+  radiansToMeters(): DPolygon {
+    this.pPoints = this.pPoints.map((r: DPoint) => r.radiansToMeters());
+    this.holes = this.holes.map((h: DPolygon) => h.radiansToMeters());
+    return this;
+  }
+
+  metersToRadians(): DPolygon {
+    this.pPoints = this.pPoints.map((r: DPoint) => r.metersToRadians());
+    this.holes = this.holes.map((h: DPolygon) => h.metersToRadians());
     return this;
   }
 

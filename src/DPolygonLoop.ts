@@ -12,6 +12,11 @@ export class DPolygonLoop {
     this.parent = parent;
   }
 
+  run(): DPolygon {
+    this.parent.points = this.parent.points.map(this.f);
+    return this.parent;
+  }
+
   getTileFromCoords(zoom?: number): DPolygonLoop {
     const t = this.f.bind(null);
     this.f = (k: DPoint) => t(k).getTileFromCoords(zoom);
@@ -21,12 +26,6 @@ export class DPolygonLoop {
   getCoordsFromTile(zoom?: number): DPolygonLoop {
     const t = this.f.bind(null);
     this.f = (k: DPoint) => t(k).getCoordsFromTile(zoom);
-    return this;
-  }
-
-  transform(from: string = PSEUDO_MERCATOR, to: string = WORLD_GEODETIC_SYSTEM): DPolygonLoop {
-    const t = this.f.bind(null);
-    this.f = (k: DPoint) => t(k).transform(from, to);
     return this;
   }
 
@@ -102,15 +101,27 @@ export class DPolygonLoop {
     return this;
   }
 
-  asRadians(): DPolygonLoop {
+  degreeToRadians(): DPolygonLoop {
     const t = this.f.bind(null);
-    this.f = (k: DPoint) => t(k).asRadians();
+    this.f = (k: DPoint) => t(k).degreeToRadians();
     return this;
   }
 
-  asDegrees(): DPolygonLoop {
+  radiansToDegrees(): DPolygonLoop {
     const t = this.f.bind(null);
-    this.f = (k: DPoint) => t(k).asDegrees();
+    this.f = (k: DPoint) => t(k).radiansToDegrees();
+    return this;
+  }
+
+  radiansToMeters(): DPolygonLoop {
+    const t = this.f.bind(null);
+    this.f = (k: DPoint) => t(k).radiansToMeters();
+    return this;
+  }
+
+  metersToRadians(): DPolygonLoop {
+    const t = this.f.bind(null);
+    this.f = (k: DPoint) => t(k).metersToRadians();
     return this;
   }
 
@@ -156,8 +167,15 @@ export class DPolygonLoop {
     return this;
   }
 
-  run(): DPolygon {
-    this.parent.points = this.parent.points.map(this.f);
-    return this.parent;
+  degreeToMeters(): DPolygonLoop {
+    const t = this.f.bind(null);
+    this.f = (k: DPoint) => t(k).degreeToMeters();
+    return this;
+  }
+
+  metersToDegree(): DPolygonLoop {
+    const t = this.f.bind(null);
+    this.f = (k: DPoint) => t(k).metersToDegree();
+    return this;
   }
 }

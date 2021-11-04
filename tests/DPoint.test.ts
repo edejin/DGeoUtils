@@ -1,5 +1,5 @@
 /* eslint-disable max-lines,max-statements,max-lines-per-function */
-import {DGeo, DPoint, PSEUDO_MERCATOR, WORLD_GEODETIC_SYSTEM} from '../src';
+import {DGeo, DPoint} from '../src';
 import MockInstance = jest.MockInstance;
 
 describe('DPoint', () => {
@@ -178,37 +178,27 @@ describe('DPoint', () => {
 
   describe('transform', () => {
     test('without params(EPSG:3857 -> EPSG:4326)', () => {
-      const t = new DPoint(1, 1).transform();
+      const t = new DPoint(1, 1).metersToDegree();
       expect(t.x).toBe(0.000008983152842445679);
       expect(t.y).toBe(0.000008983152838482056);
     });
     test('EPSG:3857 -> EPSG:4326', () => {
-      const t = new DPoint(1, 1).transform(PSEUDO_MERCATOR, WORLD_GEODETIC_SYSTEM);
+      const t = new DPoint(1, 1).metersToDegree();
       expect(t.x).toBe(0.000008983152842445679);
       expect(t.y).toBe(0.000008983152838482056);
     });
     test('EPSG:4326 -> EPSG:3857', () => {
-      const t = new DPoint(1, 1).transform(WORLD_GEODETIC_SYSTEM, PSEUDO_MERCATOR);
+      const t = new DPoint(1, 1).degreeToMeters();
       expect(t.x).toBe(111319.49077777777);
       expect(t.y).toBe(111325.14285088828);
     });
-    test('EPSG:3857 -> EPSG:3857', () => {
-      const t = new DPoint(1, 1).transform(PSEUDO_MERCATOR, PSEUDO_MERCATOR);
-      expect(t.x).toBe(1);
-      expect(t.y).toBe(1);
-    });
-    test('WRONG -> EPSG:3857', () => {
-      const t = new DPoint(1, 1).transform('WRONG', PSEUDO_MERCATOR);
-      expect(t.x).toBe(1);
-      expect(t.y).toBe(1);
-    });
     test('(45, 45) EPSG:4326 -> EPSG:3857', () => {
-      const t = new DPoint(45, 45).transform(WORLD_GEODETIC_SYSTEM, PSEUDO_MERCATOR);
+      const t = new DPoint(45, 45).degreeToMeters();
       expect(t.x).toBe(5009377.085);
       expect(t.y).toBe(5621521.485409545);
     });
     test('(360 + 45, 360 + 45) EPSG:4326 -> EPSG:3857', () => {
-      const t = new DPoint(360 + 45, 360 + 45).transform(WORLD_GEODETIC_SYSTEM, PSEUDO_MERCATOR);
+      const t = new DPoint(360 + 45, 360 + 45).degreeToMeters();
       expect(t.x).toBe(5009377.085);
       expect(t.y).toBe(5621521.485409545);
     });
@@ -1038,8 +1028,8 @@ describe('DPoint', () => {
     });
   });
 
-  test('asRadians', () => {
-    expect(new DPoint(90, 180).asRadians()
+  test('degreeToRadians', () => {
+    expect(new DPoint(90, 180).degreeToRadians()
       .equal(new DPoint(Math.PI / 2, Math.PI))).toBe(true);
   });
 
@@ -1229,7 +1219,7 @@ describe('DPoint', () => {
       DGeo.DEBUG = false;
     });
 
-    describe('asDegrees', () => {
+    describe('radiansToDegrees', () => {
       // eslint-disable-next-line init-declarations
       let spy: MockInstance<any, any>;
       beforeEach(() => {
@@ -1243,15 +1233,28 @@ describe('DPoint', () => {
       });
 
       test('1', () => {
-        expect(new DPoint(Math.PI, Math.PI / 2).asDegrees()
+        expect(new DPoint(Math.PI, Math.PI / 2).radiansToDegrees()
           .toWKT()).toBe('POINT (180 90)');
         expect(spy).toHaveBeenCalledTimes(0);
       });
       test('2', () => {
-        expect(new DPoint(Math.PI + 100, Math.PI / 2 + 100).asDegrees()
+        expect(new DPoint(Math.PI + 100, Math.PI / 2 + 100).radiansToDegrees()
           .toWKT()).toBe('POINT (5909.5779513082325 5819.577951308232)');
         expect(spy).toHaveBeenCalledTimes(1);
-        expect(spy.mock.calls).toEqual([['"asDegrees" -> "this" should be radians!']]);
+        expect(spy.mock.calls).toEqual([['"radiansToDegrees" -> "this" should be radians!']]);
+      });
+    });
+
+    describe('radiansToMeters', () => {
+      test('1', () => {
+        expect(new DPoint(Math.PI / 4, Math.PI / 4).radiansToMeters()
+          .toWKT()).toBe('POINT (5009377.085 5621521.485409545)');
+      });
+    });
+    describe('metersToRadians', () => {
+      test('1', () => {
+        expect(new DPoint(5009377.085, 5621521.485409545).metersToRadians()
+          .equal(new DPoint(Math.PI / 4, Math.PI / 4))).toBe(true);
       });
     });
 

@@ -124,10 +124,7 @@ describe('DPolygon', () => {
       });
     });
     test('4', () => {
-      expect(DPolygon.parseFromWKT('POINT (30 10)', {
-        dataProjection: WORLD_GEODETIC_SYSTEM,
-        featureProjection: PSEUDO_MERCATOR
-      })).toEqual({
+      expect(DPolygon.parseFromWKT('POINT (30 10)').degreeToMeters()).toEqual({
         holes: [],
         pPoints: [
           {
@@ -1251,14 +1248,14 @@ describe('DPolygon', () => {
 
   describe('transform', () => {
     test('1', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))').transform()
+      expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))').metersToDegree()
         .toWKT()).toBe('POLYGON ((0.00026949458527337036 0.00008983152842745312, 0.0003593261136978272' +
         ' 0.0003593261137098125, 0.0001796630568489136 0.0003593261137098125, 0.0000898315284244568 0.00017966' +
         '305685490624, 0.00026949458527337036 0.00008983152842745312))');
     });
     test('2', () => {
       expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10), (25 18, 30 31, 21 32, 18 22, 25 18))')
-        .transform()
+        .metersToDegree()
         .toWKT())
         .toBe('POLYGON ((0.00026949458527337036 0.00008983152842745312,' +
           ' 0.0003593261136978272 0.0003593261137098125, 0.0001796630568489136 0.0003593261137098125,' +
@@ -1266,6 +1263,19 @@ describe('DPolygon', () => {
           ' (0.00022457882106114197 0.00016169675116373128, 0.00026949458527337036 0.0002784777381208414,' +
           ' 0.00018864620969135924 0.0002874608909451126, 0.00016169675116402222 0.00019762936253187036,' +
           ' 0.00022457882106114197 0.00016169675116373128))');
+    });
+
+    describe('radiansToMeters', () => {
+      test('1', () => {
+        expect(new DPolygon([new DPoint(Math.PI / 4, Math.PI / 4)]).radiansToMeters()
+          .toWKT()).toBe('POLYGON ((5009377.085 5621521.485409545))');
+      });
+    });
+    describe('metersToRadians', () => {
+      test('1', () => {
+        expect(new DPolygon([new DPoint(5009377.085, 5621521.485409545)]).metersToRadians()
+          .equal(new DPolygon([new DPoint(Math.PI / 4, Math.PI / 4)]))).toBe(true);
+      });
     });
   });
 

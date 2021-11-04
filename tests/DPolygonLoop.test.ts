@@ -1,4 +1,4 @@
-import {DPoint, DPolygon, PSEUDO_MERCATOR, WORLD_GEODETIC_SYSTEM} from '../src';
+import {DPoint, DPolygon} from '../src';
 
 // eslint-disable-next-line max-lines-per-function
 describe('DPolygonLoop', () => {
@@ -118,7 +118,7 @@ describe('DPolygonLoop', () => {
         new DPoint(54, 24)
       ]);
       expect(p.loop()
-        .transform()
+        .metersToDegree()
         .run()
         .toString())
         .toBe('(0 0, 0.0003018339355061748 0.00039975030148298174,' +
@@ -131,7 +131,7 @@ describe('DPolygonLoop', () => {
         new DPoint(54, 24)
       ]);
       expect(p.loop()
-        .transform(WORLD_GEODETIC_SYSTEM, PSEUDO_MERCATOR)
+        .degreeToMeters()
         .run()
         .toString())
         .toBe('(0 -7.081154550627917e-10, 3740334.8901333325 5543147.203090187,' +
@@ -417,7 +417,7 @@ describe('DPolygonLoop', () => {
         ]);
     });
   });
-  describe('asRadians', () => {
+  describe('degreeToRadians', () => {
     test('1', () => {
       const p = new DPolygon([
         new DPoint(0, 90),
@@ -425,7 +425,7 @@ describe('DPolygonLoop', () => {
       ]);
       expect(p
         .loop()
-        .asRadians()
+        .degreeToRadians()
         .toFixed()
         .run()
         .toArrayOfCoords())
@@ -435,7 +435,7 @@ describe('DPolygonLoop', () => {
         ]);
     });
   });
-  describe('asDegrees', () => {
+  describe('radiansToDegrees', () => {
     test('1', () => {
       const p = new DPolygon([
         new DPoint(0, 1.57),
@@ -443,7 +443,7 @@ describe('DPolygonLoop', () => {
       ]);
       expect(p
         .loop()
-        .asDegrees()
+        .radiansToDegrees()
         .round()
         .run()
         .toArrayOfCoords())
@@ -451,6 +451,28 @@ describe('DPolygonLoop', () => {
           [0, 90],
           [180, 360]
         ]);
+    });
+  });
+  describe('radiansToMeters', () => {
+    test('1', () => {
+      const p = new DPolygon([new DPoint(Math.PI / 4, Math.PI / 4)]);
+      expect(p
+        .loop()
+        .radiansToMeters()
+        .run()
+        .toArrayOfCoords())
+        .toStrictEqual([[5009377.085, 5621521.485409545]]);
+    });
+  });
+  describe('metersToRadians', () => {
+    test('1', () => {
+      const p = new DPolygon([new DPoint(5009377.085, 5621521.485409545)]);
+      expect(p
+        .loop()
+        .metersToRadians()
+        .run()
+        .toArrayOfCoords())
+        .toStrictEqual([[Math.PI / 4, Math.PI / 4]]);
     });
   });
   describe('getHipPoint', () => {
