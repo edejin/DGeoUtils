@@ -1258,6 +1258,17 @@ describe('DPoint', () => {
       });
     });
 
+    describe('flipVertically', () => {
+      test('1', () => {
+        expect(new DPoint(10, 10).flipVertically(100)
+          .equal(new DPoint(10, 90))).toBe(true);
+      });
+      test('2', () => {
+        expect(new DPoint(10, 10).flipVertically(new DPoint(100, 100))
+          .equal(new DPoint(10, 90))).toBe(true);
+      });
+    });
+
     describe('getCoordsFromTile', () => {
       // eslint-disable-next-line init-declarations
       let spy: MockInstance<any, any>;

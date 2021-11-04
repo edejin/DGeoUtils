@@ -29,6 +29,26 @@ describe('DPolygonLoop', () => {
         .toString())
         .toBe('(3 5, 7 9)');
     });
+    test('3', () => {
+      expect(DPolygon.parseFromWKT('POLYGON ((30.1 10.2, 40.3 40.4, 20.5 40.6, 10.7 20.8, 30.1 10.2),' +
+        ' (25.2 18.3, 30.4 31.5, 21.6 32.7, 18.8 22.9, 25.1 18.2))')
+        .loop()
+        .move(1)
+        .scale(2)
+        .run()
+        .toWKT()).toBe('POLYGON ((62.2 22.4, 82.6 82.8, 43 83.2, 23.4 43.6, 62.2 22.4),' +
+        ' (52.4 38.6, 62.8 65, 45.2 67.4, 39.6 47.8, 52.2 38.4))');
+    });
+    test('4', () => {
+      expect(DPolygon.parseFromWKT('POLYGON ((30.1 10.2, 40.3 40.4, 20.5 40.6, 10.7 20.8, 30.1 10.2),' +
+        ' (25.2 18.3, 30.4 31.5, 21.6 32.7, 18.8 22.9, 25.1 18.2))')
+        .loop()
+        .scale(2)
+        .move(1)
+        .run()
+        .toWKT()).toBe('POLYGON ((61.2 21.4, 81.6 81.8, 42 82.2, 22.4 42.6, 61.2 21.4),' +
+        ' (51.4 37.6, 61.8 64, 44.2 66.4, 38.6 46.8, 51.2 37.4))');
+    });
   });
   describe('move', () => {
     test('1', () => {
@@ -287,6 +307,38 @@ describe('DPolygonLoop', () => {
           [0, 0],
           [1, 1]
         ]);
+    });
+  });
+  describe('flipVertically', () => {
+    test('1', () => {
+      const p = new DPolygon([
+        new DPoint(0, 0.3),
+        new DPoint(0.7, 1)
+      ]);
+      expect(p.loop()
+        .flipVertically(10)
+        .run()
+        .toArrayOfCoords())
+        .toStrictEqual([
+          [0, 9.7],
+          [0.7, 9]
+        ]);
+    });
+    test('2', () => {
+      expect(DPolygon.parseFromWKT('POLYGON ((30.1 10.2, 40.3 40.4, 20.5 40.6, 10.7 20.8, 30.1 10.2))')
+        .loop()
+        .flipVertically(100)
+        .run()
+        .toWKT()).toBe('POLYGON ((30.1 89.8, 40.3 59.6, 20.5 59.4, 10.7 79.2, 30.1 89.8))');
+    });
+    test('3', () => {
+      expect(DPolygon.parseFromWKT('POLYGON ((30.1 10.2, 40.3 40.4, 20.5 40.6, 10.7 20.8, 30.1 10.2),' +
+        ' (25.2 18.3, 30.4 31.5, 21.6 32.7, 18.8 22.9, 25.1 18.2))')
+        .loop()
+        .flipVertically(new DPoint(100, 100))
+        .run()
+        .toWKT()).toBe('POLYGON ((30.1 89.8, 40.3 59.6, 20.5 59.4, 10.7 79.2, 30.1 89.8),' +
+        ' (25.2 81.7, 30.4 68.5, 21.6 67.3, 18.8 77.1, 25.1 81.8))');
     });
   });
   describe('ceil', () => {

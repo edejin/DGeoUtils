@@ -358,6 +358,15 @@ export class DPoint {
     return likeX && likeY && likeZ;
   }
 
+  flipVertically(size: DPoint | number): DPoint {
+    let v = size as number;
+    if (size instanceof DPoint) {
+      v = size.y;
+    }
+    this.y = v - this.y;
+    return this;
+  }
+
   /**
    * Check if point looks like radians
    */

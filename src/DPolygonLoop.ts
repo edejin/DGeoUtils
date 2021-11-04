@@ -14,6 +14,13 @@ export class DPolygonLoop {
 
   run(): DPolygon {
     this.parent.points = this.parent.points.map(this.f);
+    this.parent.holes = this.parent.holes.map((hole: DPolygon) => hole.loop().exec(this.f));
+    return this.parent;
+  }
+
+  exec(f: LoopFunction) {
+    this.parent.points = this.parent.points.map(f);
+    this.parent.holes = this.parent.holes.map((hole: DPolygon) => hole.loop().exec(this.f));
     return this.parent;
   }
 
@@ -176,6 +183,12 @@ export class DPolygonLoop {
   metersToDegree(): DPolygonLoop {
     const t = this.f.bind(null);
     this.f = (k: DPoint) => t(k).metersToDegree();
+    return this;
+  }
+
+  flipVertically(size: DPoint | number): DPolygonLoop {
+    const t = this.f.bind(null);
+    this.f = (k: DPoint) => t(k).flipVertically(size);
     return this;
   }
 }

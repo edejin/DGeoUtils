@@ -1071,6 +1071,20 @@ describe('DPolygon', () => {
     });
   });
 
+  describe('flipVertically', () => {
+    test('1', () => {
+      expect(DPolygon.parseFromWKT('POLYGON ((30.1 10.2, 40.3 40.4, 20.5 40.6, 10.7 20.8, 30.1 10.2))')
+        .flipVertically(100)
+        .toWKT()).toBe('POLYGON ((30.1 89.8, 40.3 59.6, 20.5 59.4, 10.7 79.2, 30.1 89.8))');
+    });
+    test('2', () => {
+      expect(DPolygon.parseFromWKT('POLYGON ((30.1 10.2, 40.3 40.4, 20.5 40.6, 10.7 20.8, 30.1 10.2),' +
+        ' (25.2 18.3, 30.4 31.5, 21.6 32.7, 18.8 22.9, 25.1 18.2))').flipVertically(new DPoint(100, 100))
+        .toWKT()).toBe('POLYGON ((30.1 89.8, 40.3 59.6, 20.5 59.4, 10.7 79.2, 30.1 89.8),' +
+        ' (25.2 81.7, 30.4 68.5, 21.6 67.3, 18.8 77.1, 25.1 81.8))');
+    });
+  });
+
   describe('floor', () => {
     test('1', () => {
       expect(DPolygon.parseFromWKT('POLYGON ((30.1 10.2, 40.3 40.4, 20.5 40.6, 10.7 20.8, 30.1 10.2))').floor()

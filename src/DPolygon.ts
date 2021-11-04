@@ -511,6 +511,12 @@ export class DPolygon {
     return this;
   }
 
+  flipVertically(size: DPoint | number): DPolygon {
+    this.pPoints = this.pPoints.map((p: DPoint) => p.flipVertically(size));
+    this.holes = this.holes.map((h: DPolygon) => h.flipVertically(size));
+    return this;
+  }
+
   toFixed(n: number = 2): DPolygon {
     this.pPoints = this.pPoints.map((p: DPoint) => p.toFixed(n));
     this.holes = this.holes.map((h: DPolygon) => h.toFixed(n));
