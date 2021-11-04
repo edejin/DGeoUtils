@@ -16,9 +16,7 @@ export class DPolygonLoop {
    * Run loop
    */
   run(f: LoopFunction = this.f): DPolygon {
-    this.parent.points = this.parent.points.map(f);
-    this.parent.holes = this.parent.holes.map((hole: DPolygon) => hole.loopByFunction(f));
-    return this.parent;
+    return this.parent.map(f);
   }
 
   getTileFromCoords(zoom?: number): DPolygonLoop {
