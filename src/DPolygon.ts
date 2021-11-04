@@ -5,7 +5,7 @@ import {DCircle} from './DCircle';
 import {DNumbers} from './DNumbers';
 import {io as jstsIo, geom} from 'jsts';
 import Geometry = geom.Geometry;
-import {DPolygonLoop} from './DPolygonLoop';
+import {DPolygonLoop, LoopFunction} from './DPolygonLoop';
 
 export const MIN_POINTS_IN_VALID_POLYGON = 3;
 const APPROXIMATION_VALUE = 0.1;
@@ -101,6 +101,10 @@ export class DPolygon {
 
   static createSquareBySize(size: DPoint): DPolygon {
     return new DPolygon([DPoint.Zero(), size.clone().setX(0), size.clone(), size.clone().setY(0)]).close();
+  }
+
+  loopByFunction(f: LoopFunction): DPolygon {
+    return new DPolygonLoop(this).run(f);
   }
 
   loop(): DPolygonLoop {

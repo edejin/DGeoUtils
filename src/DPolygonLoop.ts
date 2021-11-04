@@ -1,7 +1,7 @@
 import {DPolygon} from './DPolygon';
 import {DPoint, SetterFunction} from './DPoint';
 
-type LoopFunction = (k: DPoint) => DPoint;
+export type LoopFunction = (k: DPoint) => DPoint;
 
 export class DPolygonLoop {
   private f: LoopFunction = (k: DPoint): DPoint => k;
@@ -12,15 +12,12 @@ export class DPolygonLoop {
     this.parent = parent;
   }
 
-  run(): DPolygon {
-    this.parent.points = this.parent.points.map(this.f);
-    this.parent.holes = this.parent.holes.map((hole: DPolygon) => hole.loop().exec(this.f));
-    return this.parent;
-  }
-
-  exec(f: LoopFunction): DPolygon {
+  /**
+   * Run loop
+   */
+  run(f: LoopFunction = this.f): DPolygon {
     this.parent.points = this.parent.points.map(f);
-    this.parent.holes = this.parent.holes.map((hole: DPolygon) => hole.loop().exec(this.f));
+    this.parent.holes = this.parent.holes.map((hole: DPolygon) => hole.loopByFunction(f));
     return this.parent;
   }
 
