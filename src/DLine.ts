@@ -144,12 +144,15 @@ export class DLine {
   get center(): DPoint {
     return this.p1
       .clone()
+      .setIfLessThan(this.p2)
       .move(this.p2
         .clone()
         .move(this.p1
           .clone()
           .minus())
-        .scale(2));
+        .abs()
+        .minus()
+        .divide(2));
   }
 
   get minX(): number {
