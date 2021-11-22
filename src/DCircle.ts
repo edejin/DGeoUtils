@@ -94,7 +94,7 @@ export class DCircle {
     for (let i = 0; i < pointCount; i++) {
       res.push(this.sphereOffset(2 * Math.PI * i / pointCount));
     }
-    return res;
+    return res.close();
   }
 
   private sphereOffset(bearing: number, earthRadius = EARTH_RADIUS_IN_METERS): DPoint {
