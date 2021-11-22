@@ -49,11 +49,15 @@ export class DLine {
    * Find intersection of two lines segments.
    * For intersection of two lines use [[findPoint]]
    * @param l
-   * @param d
+   * @param [d=0]
+   * @param [includeOnly=false]
    */
-  intersection(l: DLine, d: number = 0): DPoint | null {
+  intersection(l: DLine, d: number = 0, includeOnly: boolean = false): DPoint | null {
     const p = this.findPoint(l);
     if (p) {
+      if (includeOnly) {
+        return this.insideRange(p, d) && l.insideRange(p, d) ? p : null;
+      }
       return this.inRange(p, d) && l.inRange(p, d) ? p : null;
     }
     return null;

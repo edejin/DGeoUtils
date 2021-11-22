@@ -389,6 +389,46 @@ describe('DLine', () => {
         .intersection(new DPoint(11, 1).findLine(new DPoint(27, 10)));
       expect(t).toBe(null);
     });
+    test('5', () => {
+      const t = new DPoint(1, 2).findLine(new DPoint(3, 4))
+        .intersection(new DPoint(3, 2).findLine(new DPoint(1, 4)), 0, true);
+      expect(t).toEqual({
+        x: 2,
+        y: 3,
+        z: undefined,
+        properties: {}
+      });
+    });
+    test('6', () => {
+      const t = new DPoint(0, 5).findLine(new DPoint(0, 7))
+        .intersection(new DPoint(1, 1).findLine(new DPoint(3, -4)), 0, true);
+      expect(t).toBe(null);
+    });
+    test('7', () => {
+      const t = new DPoint(5, 0).findLine(new DPoint(7, 0))
+        .intersection(new DPoint(1, 1).findLine(new DPoint(-4, 3)), 0, true);
+      expect(t).toBe(null);
+    });
+    test('8', () => {
+      const t = new DPoint(1, 1).findLine(new DPoint(17, 10))
+        .intersection(new DPoint(11, 1).findLine(new DPoint(27, 10)), 0, true);
+      expect(t).toBe(null);
+    });
+    test('9', () => {
+      const t = new DPoint(1, 1).findLine(new DPoint(17, 10))
+        .intersection(new DPoint(2, 0).findLine(new DPoint(0, 2)), 0, true);
+      expect(t).toBe(null);
+    });
+    test('10', () => {
+      const t = new DPoint(1, 1).findLine(new DPoint(17, 10))
+        .intersection(new DPoint(2, 0).findLine(new DPoint(0, 2)));
+      expect(t).toEqual({
+        properties: {},
+        x: 1,
+        y: 1,
+        z: undefined
+      });
+    });
   });
 
   describe('intersectionWithCircle', () => {
