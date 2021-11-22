@@ -124,6 +124,17 @@ export class DLine {
     return isInX && isInY;
   }
 
+  get center(): DPoint {
+    return this.p1
+      .clone()
+      .move(this.p2
+        .clone()
+        .move(this.p1
+          .clone()
+          .minus())
+        .scale(2));
+  }
+
   get minX(): number {
     return Math.min(this.p1.x, this.p2.x);
   }

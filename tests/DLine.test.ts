@@ -824,4 +824,13 @@ describe('DLine', () => {
       });
     });
   });
+
+  describe('center', () => {
+    test('1', () => {
+      expect(new DPoint(0, 0).findLine(new DPoint(10, 10)).center.equal(new DPoint(5, 5)));
+    });
+    test('2', () => {
+      expect(new DPoint(10, 0).findLine(new DPoint(0, 10)).center.equal(new DPoint(5, 5)));
+    });
+  });
 });
