@@ -425,14 +425,15 @@ export class DPolygon {
   /**
    * Check polygon intersection with line
    * @param l
+   * @param [includeOnly=false]
    */
-  intersection(l: DLine): DPoint[] {
+  intersection(l: DLine, includeOnly: boolean = false): DPoint[] {
     const res = [];
     for (let i = 0; i < this.pPoints.length - 1; i++) {
       const p1 = this.pPoints[i];
       const p2 = this.pPoints[i + 1];
       const line = p1.findLine(p2);
-      const intersect = line.intersection(l);
+      const intersect = line.intersection(l, 0, includeOnly);
       if (intersect) {
         res.push(intersect);
       }
