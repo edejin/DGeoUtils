@@ -272,6 +272,29 @@ describe('DLine', () => {
     });
   });
 
+  describe('insideRange', () => {
+    test('in', () => {
+      const t = new DPoint(1, 2).findLine(new DPoint(3, 4));
+      expect(t.insideRange(new DPoint(1.5, 2.5))).toBe(true);
+    });
+    test('out', () => {
+      const t = new DPoint(1, 2).findLine(new DPoint(3, 4));
+      expect(t.insideRange(new DPoint(-1.5, -2.5))).toBe(false);
+    });
+    test('border', () => {
+      const t = new DPoint(1, 2).findLine(new DPoint(3, 4));
+      expect(t.insideRange(new DPoint(1, 2))).toBe(false);
+    });
+    test('in with delta', () => {
+      const t = new DPoint(1, 2).findLine(new DPoint(3, 4));
+      expect(t.insideRange(new DPoint(3.001, 4.001), 0.01)).toBe(true);
+    });
+    test('out without delta', () => {
+      const t = new DPoint(1, 2).findLine(new DPoint(3, 4));
+      expect(t.inRange(new DPoint(3.001, 4.001))).toBe(false);
+    });
+  });
+
   describe('findPoint', () => {
     test('=', () => {
       expect(new DPoint(1, 5).findLine(new DPoint(4, 5))

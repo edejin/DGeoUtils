@@ -124,6 +124,19 @@ export class DLine {
     return isInX && isInY;
   }
 
+  /**
+   * Check if point below to line segment, but not equal star or end point.
+   * @param p
+   * @param d
+   */
+  insideRange(p: DPoint, d: number = 0): boolean {
+    const {minX, minY, maxX, maxY} = this;
+    const {x, y} = p;
+    const isInX = x > minX - d && x < maxX + d;
+    const isInY = y > minY - d && y < maxY + d;
+    return isInX && isInY;
+  }
+
   get center(): DPoint {
     return this.p1
       .clone()
