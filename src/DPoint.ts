@@ -78,6 +78,13 @@ export class DPoint {
     return new DPoint(Math.random(), Math.random());
   }
 
+  /**
+   * @remark Point should be Lng/Lat.
+   *
+   * @remark `z` value default for `zoom` argument.
+   *
+   * @param [zoom=this.z]
+   */
   getTileFromCoords(zoom: number = this.z!): DPoint {
     checkFunction('getTileFromCoords')
       .checkArgument('this')
@@ -89,6 +96,13 @@ export class DPoint {
     return new DPoint(x, y, zoom);
   }
 
+  /**
+   * Result would be Lng/Lat.
+   *
+   * @remark `z` value default for `zoom` argument.
+   *
+   * @param [zoom=this.z]
+   */
   getCoordsFromTile(zoom: number = this.z!): DPoint {
     checkFunction('getCoordsFromTile')
       .checkArgument('this')
@@ -476,6 +490,16 @@ export class DPoint {
     return this.clone().scale(-1);
   }
 
+  /**
+   * Find [orthodromic path](https://en.wikipedia.org/wiki/Great-circle_navigation) between to points.
+   *
+   * @remark Points should be Lng/Lat.
+   *
+   * ![example](/media/examples/orthodromicPath.png)
+   *
+   * @param point
+   * @param [pointsCount=360]
+   */
   orthodromicPath(point: DPoint, pointsCount = 360): DPolygon {
     checkFunction('orthodromicPath')
       .checkArgument('this')
