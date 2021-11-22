@@ -149,11 +149,13 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPolygon.html#flipVertically" class="tsd-kind-icon">flip<wbr>Vertically</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPolygon.html#floor" class="tsd-kind-icon">floor</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="DPolygon.html#getJSTSGeometry" class="tsd-kind-icon">getJSTSGeometry</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPolygon.html#getTriangle" class="tsd-kind-icon">get<wbr>Triangle</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPolygon.html#getValue" class="tsd-kind-icon">get<wbr>Value</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="DPolygon.html#goByPath" class="tsd-kind-icon">go<wbr>ByPath</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPolygon.html#has" class="tsd-kind-icon">has</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPolygon.html#hasSimpleIntersection" class="tsd-kind-icon">has<wbr>Simple<wbr>Intersection</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPolygon.html#height" class="tsd-kind-icon">height</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="DPolygon.html#innerAndNotIntersect" class="tsd-kind-icon">inner<wbr>And<wbr>Not<wbr>Intersect</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPolygon.html#insertAfter" class="tsd-kind-icon">insert<wbr>After</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPolygon.html#intersection" class="tsd-kind-icon">intersection</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPolygon.html#loop" class="tsd-kind-icon">loop</a></li>
@@ -189,6 +191,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPolygon.html#toArrayOfCoords" class="tsd-kind-icon">to<wbr>Array<wbr>OfCoords</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPolygon.html#toFixed" class="tsd-kind-icon">to<wbr>Fixed</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPolygon.html#toString" class="tsd-kind-icon">to<wbr>String</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPolygon.html#toTriangles" class="tsd-kind-icon">to<wbr>Triangles</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPolygon.html#toWKT" class="tsd-kind-icon">toWKT</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPolygon.html#unshift" class="tsd-kind-icon">unshift</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="DPolygon.html#createSquareBySize" class="tsd-kind-icon">create<wbr>Square<wbr>BySize</a></li>
@@ -214,7 +217,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L22">DPolygon.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L22">DPolygon.ts:22</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -236,7 +239,7 @@
 					<div class="tsd-signature tsd-kind-icon">holes<span class="tsd-signature-symbol">:</span> <a href="DPolygon.html" class="tsd-signature-type" data-tsd-kind="Class">DPolygon</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L18">DPolygon.ts:18</a></li>
+							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L18">DPolygon.ts:18</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -246,7 +249,7 @@
 					<div class="tsd-signature tsd-kind-icon">p<wbr>Points<span class="tsd-signature-symbol">:</span> <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L19">DPolygon.ts:19</a></li>
+							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L19">DPolygon.ts:19</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -256,7 +259,7 @@
 					<div class="tsd-signature tsd-kind-icon">properties<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> = {}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L17">DPolygon.ts:17</a></li>
+							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L17">DPolygon.ts:17</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -274,7 +277,7 @@
 					<div class="tsd-signature tsd-kind-icon">search<wbr>Store<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = {}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L20">DPolygon.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L20">DPolygon.ts:20</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -291,7 +294,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L235">DPolygon.ts:235</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L235">DPolygon.ts:235</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -313,7 +316,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L137">DPolygon.ts:137</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L137">DPolygon.ts:137</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -335,7 +338,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L409">DPolygon.ts:409</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L409">DPolygon.ts:409</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -357,7 +360,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L352">DPolygon.ts:352</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L352">DPolygon.ts:352</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -379,7 +382,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L165">DPolygon.ts:165</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L165">DPolygon.ts:165</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -401,7 +404,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L158">DPolygon.ts:158</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L158">DPolygon.ts:158</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -423,7 +426,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L249">DPolygon.ts:249</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L249">DPolygon.ts:249</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -445,7 +448,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L172">DPolygon.ts:172</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L172">DPolygon.ts:172</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -467,7 +470,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L280">DPolygon.ts:280</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L280">DPolygon.ts:280</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -489,7 +492,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L217">DPolygon.ts:217</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L217">DPolygon.ts:217</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -511,7 +514,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L949">DPolygon.ts:949</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L950">DPolygon.ts:950</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -550,7 +553,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L144">DPolygon.ts:144</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L144">DPolygon.ts:144</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -572,7 +575,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L395">DPolygon.ts:395</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L395">DPolygon.ts:395</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -594,7 +597,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L294">DPolygon.ts:294</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L294">DPolygon.ts:294</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -616,7 +619,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L194">DPolygon.ts:194</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L194">DPolygon.ts:194</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -638,7 +641,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L210">DPolygon.ts:210</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L210">DPolygon.ts:210</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -660,7 +663,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L118">DPolygon.ts:118</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L118">DPolygon.ts:118</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -677,7 +680,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L126">DPolygon.ts:126</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L126">DPolygon.ts:126</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -694,7 +697,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L301">DPolygon.ts:301</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L301">DPolygon.ts:301</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -716,7 +719,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L122">DPolygon.ts:122</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L122">DPolygon.ts:122</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -733,7 +736,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L130">DPolygon.ts:130</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L130">DPolygon.ts:130</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -750,7 +753,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L419">DPolygon.ts:419</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L419">DPolygon.ts:419</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -772,7 +775,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L224">DPolygon.ts:224</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L224">DPolygon.ts:224</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -795,7 +798,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L114">DPolygon.ts:114</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L114">DPolygon.ts:114</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a><span class="tsd-signature-symbol">[]</span></h4>
@@ -803,7 +806,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L110">DPolygon.ts:110</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L110">DPolygon.ts:110</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -826,7 +829,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L202">DPolygon.ts:202</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L202">DPolygon.ts:202</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -848,7 +851,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L287">DPolygon.ts:287</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L287">DPolygon.ts:287</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -870,7 +873,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L186">DPolygon.ts:186</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L186">DPolygon.ts:186</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -892,7 +895,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L273">DPolygon.ts:273</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L273">DPolygon.ts:273</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -914,7 +917,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L151">DPolygon.ts:151</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L151">DPolygon.ts:151</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -939,7 +942,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L632">DPolygon.ts:632</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L633">DPolygon.ts:633</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -962,7 +965,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L705">DPolygon.ts:705</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L706">DPolygon.ts:706</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -993,7 +996,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L508">DPolygon.ts:508</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L509">DPolygon.ts:509</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPolygon.html" class="tsd-signature-type" data-tsd-kind="Class">DPolygon</a></h4>
@@ -1010,7 +1013,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L779">DPolygon.ts:779</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L780">DPolygon.ts:780</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1033,7 +1036,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L646">DPolygon.ts:646</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L647">DPolygon.ts:647</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPolygon.html" class="tsd-signature-type" data-tsd-kind="Class">DPolygon</a></h4>
@@ -1050,7 +1053,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L603">DPolygon.ts:603</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L604">DPolygon.ts:604</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1072,7 +1075,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L794">DPolygon.ts:794</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L795">DPolygon.ts:795</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1109,7 +1112,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L1053">DPolygon.ts:1053</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L1118">DPolygon.ts:1118</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1135,7 +1138,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L572">DPolygon.ts:572</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L573">DPolygon.ts:573</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPolygon.html" class="tsd-signature-type" data-tsd-kind="Class">DPolygon</a></h4>
@@ -1152,7 +1155,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L490">DPolygon.ts:490</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L491">DPolygon.ts:491</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1178,7 +1181,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L891">DPolygon.ts:891</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L892">DPolygon.ts:892</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1208,7 +1211,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L1023">DPolygon.ts:1023</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L1088">DPolygon.ts:1088</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1234,7 +1237,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L739">DPolygon.ts:739</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L740">DPolygon.ts:740</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1272,7 +1275,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L657">DPolygon.ts:657</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L658">DPolygon.ts:658</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1302,7 +1305,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L933">DPolygon.ts:933</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L934">DPolygon.ts:934</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1325,7 +1328,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L473">DPolygon.ts:473</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L474">DPolygon.ts:474</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1373,7 +1376,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L696">DPolygon.ts:696</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L697">DPolygon.ts:697</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1396,7 +1399,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L514">DPolygon.ts:514</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L515">DPolygon.ts:515</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1419,7 +1422,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L502">DPolygon.ts:502</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L503">DPolygon.ts:503</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPolygon.html" class="tsd-signature-type" data-tsd-kind="Class">DPolygon</a></h4>
@@ -1436,7 +1439,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L1095">DPolygon.ts:1095</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L1160">DPolygon.ts:1160</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1456,6 +1459,29 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getTriangle" class="tsd-anchor"></a>
+					<h3>get<wbr>Triangle</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Triangle<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><a href="DPolygon.html" class="tsd-signature-type" data-tsd-kind="Class">DPolygon</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L1049">DPolygon.ts:1049</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<dl class="tsd-comment-tags">
+									<dt>internal</dt>
+									<dd></dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol"> | </span><a href="DPolygon.html" class="tsd-signature-type" data-tsd-kind="Class">DPolygon</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="getValue" class="tsd-anchor"></a>
 					<h3>get<wbr>Value</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -1465,7 +1491,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L565">DPolygon.ts:565</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L566">DPolygon.ts:566</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -1482,7 +1508,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L1044">DPolygon.ts:1044</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L1109">DPolygon.ts:1109</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1508,7 +1534,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L642">DPolygon.ts:642</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L643">DPolygon.ts:643</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1538,7 +1564,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L721">DPolygon.ts:721</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L722">DPolygon.ts:722</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1568,7 +1594,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L626">DPolygon.ts:626</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L627">DPolygon.ts:627</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1588,6 +1614,32 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-private">
+					<a name="innerAndNotIntersect" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagPrivate">Private</span> inner<wbr>And<wbr>Not<wbr>Intersect</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-private">
+						<li class="tsd-signature tsd-kind-icon">inner<wbr>And<wbr>Not<wbr>Intersect<span class="tsd-signature-symbol">(</span>p1<span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a>, p2<span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L1067">DPolygon.ts:1067</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p1: <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h5>
+								</li>
+								<li>
+									<h5>p2: <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
 					<a name="insertAfter" class="tsd-anchor"></a>
 					<h3>insert<wbr>After</h3>
@@ -1598,7 +1650,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L709">DPolygon.ts:709</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L710">DPolygon.ts:710</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1618,13 +1670,13 @@
 					<a name="intersection" class="tsd-anchor"></a>
 					<h3>intersection</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">intersection<span class="tsd-signature-symbol">(</span>l<span class="tsd-signature-symbol">: </span><a href="DLine.html" class="tsd-signature-type" data-tsd-kind="Class">DLine</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a><span class="tsd-signature-symbol">[]</span></li>
+						<li class="tsd-signature tsd-kind-icon">intersection<span class="tsd-signature-symbol">(</span>l<span class="tsd-signature-symbol">: </span><a href="DLine.html" class="tsd-signature-type" data-tsd-kind="Class">DLine</a>, includeOnly<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a><span class="tsd-signature-symbol">[]</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L429">DPolygon.ts:429</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L430">DPolygon.ts:430</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1636,8 +1688,9 @@
 							<ul class="tsd-parameters">
 								<li>
 									<h5>l: <a href="DLine.html" class="tsd-signature-type" data-tsd-kind="Class">DLine</a></h5>
-									<div class="tsd-comment tsd-typography">
-									</div>
+								</li>
+								<li>
+									<h5>includeOnly: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a><span class="tsd-signature-symbol">[]</span></h4>
@@ -1654,7 +1707,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L106">DPolygon.ts:106</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L106">DPolygon.ts:106</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">DPolygonLoop</span></h4>
@@ -1671,7 +1724,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L526">DPolygon.ts:526</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L527">DPolygon.ts:527</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1715,7 +1768,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L578">DPolygon.ts:578</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L579">DPolygon.ts:579</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPolygon.html" class="tsd-signature-type" data-tsd-kind="Class">DPolygon</a></h4>
@@ -1732,7 +1785,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L590">DPolygon.ts:590</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L591">DPolygon.ts:591</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPolygon.html" class="tsd-signature-type" data-tsd-kind="Class">DPolygon</a></h4>
@@ -1749,7 +1802,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L478">DPolygon.ts:478</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L479">DPolygon.ts:479</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1775,7 +1828,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L848">DPolygon.ts:848</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L849">DPolygon.ts:849</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1797,7 +1850,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L824">DPolygon.ts:824</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L825">DPolygon.ts:825</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1827,7 +1880,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L614">DPolygon.ts:614</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L615">DPolygon.ts:615</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1849,7 +1902,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L532">DPolygon.ts:532</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L533">DPolygon.ts:533</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1875,7 +1928,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L543">DPolygon.ts:543</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L544">DPolygon.ts:544</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -1892,7 +1945,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L920">DPolygon.ts:920</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L921">DPolygon.ts:921</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -1909,7 +1962,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L547">DPolygon.ts:547</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L548">DPolygon.ts:548</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1932,7 +1985,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L584">DPolygon.ts:584</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L585">DPolygon.ts:585</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPolygon.html" class="tsd-signature-type" data-tsd-kind="Class">DPolygon</a></h4>
@@ -1949,7 +2002,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L858">DPolygon.ts:858</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L859">DPolygon.ts:859</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1971,7 +2024,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L713">DPolygon.ts:713</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L714">DPolygon.ts:714</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1997,7 +2050,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L559">DPolygon.ts:559</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L560">DPolygon.ts:560</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPolygon.html" class="tsd-signature-type" data-tsd-kind="Class">DPolygon</a></h4>
@@ -2014,7 +2067,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L463">DPolygon.ts:463</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L464">DPolygon.ts:464</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2045,7 +2098,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L496">DPolygon.ts:496</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L497">DPolygon.ts:497</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPolygon.html" class="tsd-signature-type" data-tsd-kind="Class">DPolygon</a></h4>
@@ -2062,7 +2115,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L677">DPolygon.ts:677</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L678">DPolygon.ts:678</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2092,7 +2145,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L484">DPolygon.ts:484</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L485">DPolygon.ts:485</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2118,7 +2171,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L447">DPolygon.ts:447</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L448">DPolygon.ts:448</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2148,7 +2201,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L551">DPolygon.ts:551</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L552">DPolygon.ts:552</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -2165,7 +2218,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L984">DPolygon.ts:984</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L985">DPolygon.ts:985</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2188,7 +2241,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L735">DPolygon.ts:735</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L736">DPolygon.ts:736</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2218,7 +2271,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L1013">DPolygon.ts:1013</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L1078">DPolygon.ts:1078</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2241,7 +2294,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L1018">DPolygon.ts:1018</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L1083">DPolygon.ts:1083</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2264,7 +2317,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L980">DPolygon.ts:980</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L981">DPolygon.ts:981</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2287,7 +2340,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L1110">DPolygon.ts:1110</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L1175">DPolygon.ts:1175</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2316,7 +2369,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L965">DPolygon.ts:965</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L966">DPolygon.ts:966</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2339,7 +2392,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L988">DPolygon.ts:988</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L989">DPolygon.ts:989</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2362,7 +2415,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L883">DPolygon.ts:883</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L884">DPolygon.ts:884</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2385,7 +2438,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L520">DPolygon.ts:520</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L521">DPolygon.ts:521</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2408,10 +2461,33 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L596">DPolygon.ts:596</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L597">DPolygon.ts:597</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="toTriangles" class="tsd-anchor"></a>
+					<h3>to<wbr>Triangles</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">to<wbr>Triangles<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPolygon.html" class="tsd-signature-type" data-tsd-kind="Class">DPolygon</a><span class="tsd-signature-symbol">[]</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L1019">DPolygon.ts:1019</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Divide polygon to triangles</p>
+								</div>
+								<p><img src="/media/examples/toTriangles.png" alt="Example"></p>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="DPolygon.html" class="tsd-signature-type" data-tsd-kind="Class">DPolygon</a><span class="tsd-signature-symbol">[]</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -2425,7 +2501,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L451">DPolygon.ts:451</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L452">DPolygon.ts:452</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -2442,7 +2518,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L555">DPolygon.ts:555</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L556">DPolygon.ts:556</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2465,7 +2541,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L102">DPolygon.ts:102</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L102">DPolygon.ts:102</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2488,7 +2564,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L63">DPolygon.ts:63</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L63">DPolygon.ts:63</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2519,7 +2595,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L30">DPolygon.ts:30</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L30">DPolygon.ts:30</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2550,7 +2626,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L875">DPolygon.ts:875</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L876">DPolygon.ts:876</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2581,7 +2657,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L74">DPolygon.ts:74</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L74">DPolygon.ts:74</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -2604,7 +2680,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DPolygon.ts#L39">DPolygon.ts:39</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DPolygon.ts#L39">DPolygon.ts:39</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -2820,6 +2896,9 @@
 								<a href="DPolygon.html#getJSTSGeometry" class="tsd-kind-icon">getJSTSGeometry</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="DPolygon.html#getTriangle" class="tsd-kind-icon">get<wbr>Triangle</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="DPolygon.html#getValue" class="tsd-kind-icon">get<wbr>Value</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
@@ -2833,6 +2912,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="DPolygon.html#height" class="tsd-kind-icon">height</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
+								<a href="DPolygon.html#innerAndNotIntersect" class="tsd-kind-icon">inner<wbr>And<wbr>Not<wbr>Intersect</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="DPolygon.html#insertAfter" class="tsd-kind-icon">insert<wbr>After</a>
@@ -2938,6 +3020,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="DPolygon.html#toString" class="tsd-kind-icon">to<wbr>String</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="DPolygon.html#toTriangles" class="tsd-kind-icon">to<wbr>Triangles</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="DPolygon.html#toWKT" class="tsd-kind-icon">toWKT</a>

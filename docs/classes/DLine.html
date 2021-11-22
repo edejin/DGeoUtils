@@ -96,6 +96,7 @@
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="DLine.html#center" class="tsd-kind-icon">center</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="DLine.html#isParallel" class="tsd-kind-icon">is<wbr>Parallel</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="DLine.html#isParallelX" class="tsd-kind-icon">is<wbr>ParallelX</a></li>
 								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="DLine.html#isParallelY" class="tsd-kind-icon">is<wbr>ParallelY</a></li>
@@ -116,6 +117,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DLine.html#getFi" class="tsd-kind-icon">get<wbr>Fi</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DLine.html#getValue" class="tsd-kind-icon">get<wbr>Value</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DLine.html#inRange" class="tsd-kind-icon">in<wbr>Range</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DLine.html#insideRange" class="tsd-kind-icon">inside<wbr>Range</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DLine.html#intersection" class="tsd-kind-icon">intersection</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DLine.html#intersectionWithCircle" class="tsd-kind-icon">intersection<wbr>With<wbr>Circle</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DLine.html#movePoint" class="tsd-kind-icon">move<wbr>Point</a></li>
@@ -142,7 +144,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L12">DLine.ts:12</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L12">DLine.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -176,7 +178,7 @@
 					<div class="tsd-signature tsd-kind-icon">a<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L6">DLine.ts:6</a></li>
+							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L6">DLine.ts:6</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -186,7 +188,7 @@
 					<div class="tsd-signature tsd-kind-icon">b<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L7">DLine.ts:7</a></li>
+							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L7">DLine.ts:7</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -196,7 +198,7 @@
 					<div class="tsd-signature tsd-kind-icon">c<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L8">DLine.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L8">DLine.ts:8</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -206,7 +208,7 @@
 					<div class="tsd-signature tsd-kind-icon">p1<span class="tsd-signature-symbol">:</span> <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L9">DLine.ts:9</a></li>
+							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L9">DLine.ts:9</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -216,13 +218,30 @@
 					<div class="tsd-signature tsd-kind-icon">p2<span class="tsd-signature-symbol">:</span> <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L10">DLine.ts:10</a></li>
+							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L10">DLine.ts:10</a></li>
 						</ul>
 					</aside>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="center" class="tsd-anchor"></a>
+					<h3>center</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> center<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L145">DLine.ts:145</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
+						</li>
+					</ul>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
 					<a name="isParallel" class="tsd-anchor"></a>
 					<h3>is<wbr>Parallel</h3>
@@ -233,7 +252,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L223">DLine.ts:223</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L255">DLine.ts:255</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -255,7 +274,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L231">DLine.ts:231</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L263">DLine.ts:263</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -272,7 +291,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L227">DLine.ts:227</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L259">DLine.ts:259</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
@@ -289,7 +308,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L135">DLine.ts:135</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L167">DLine.ts:167</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -306,7 +325,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L139">DLine.ts:139</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L171">DLine.ts:171</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -323,7 +342,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L127">DLine.ts:127</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L159">DLine.ts:159</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -340,7 +359,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L131">DLine.ts:131</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L163">DLine.ts:163</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -357,7 +376,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L238">DLine.ts:238</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L270">DLine.ts:270</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -382,7 +401,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L20">DLine.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L20">DLine.ts:20</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DLine.html" class="tsd-signature-type" data-tsd-kind="Class">DLine</a></h4>
@@ -399,7 +418,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L311">DLine.ts:311</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L343">DLine.ts:343</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -432,7 +451,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L24">DLine.ts:24</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L24">DLine.ts:24</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -455,7 +474,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L184">DLine.ts:184</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L216">DLine.ts:216</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -486,7 +505,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L245">DLine.ts:245</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L277">DLine.ts:277</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -508,7 +527,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L147">DLine.ts:147</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L179">DLine.ts:179</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -525,7 +544,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L119">DLine.ts:119</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L123">DLine.ts:123</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -549,16 +568,49 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
-					<a name="intersection" class="tsd-anchor"></a>
-					<h3>intersection</h3>
+					<a name="insideRange" class="tsd-anchor"></a>
+					<h3>inside<wbr>Range</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">intersection<span class="tsd-signature-symbol">(</span>l<span class="tsd-signature-symbol">: </span><a href="DLine.html" class="tsd-signature-type" data-tsd-kind="Class">DLine</a>, d<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">inside<wbr>Range<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a>, d<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L54">DLine.ts:54</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L136">DLine.ts:136</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Check if point below to line segment, but not equal star or end point.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h5>
+								</li>
+								<li>
+									<h5>d: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="intersection" class="tsd-anchor"></a>
+					<h3>intersection</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">intersection<span class="tsd-signature-symbol">(</span>l<span class="tsd-signature-symbol">: </span><a href="DLine.html" class="tsd-signature-type" data-tsd-kind="Class">DLine</a>, d<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, includeOnly<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L55">DLine.ts:55</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -574,8 +626,9 @@
 								</li>
 								<li>
 									<h5>d: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></h5>
-									<div class="tsd-comment tsd-typography">
-									</div>
+								</li>
+								<li>
+									<h5>includeOnly: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> | </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -592,7 +645,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L62">DLine.ts:62</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L66">DLine.ts:66</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -615,7 +668,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L289">DLine.ts:289</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L321">DLine.ts:321</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -648,7 +701,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L35">DLine.ts:35</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L35">DLine.ts:35</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -671,7 +724,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L143">DLine.ts:143</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L175">DLine.ts:175</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -688,7 +741,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L276">DLine.ts:276</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L308">DLine.ts:308</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -705,7 +758,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L326">DLine.ts:326</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L358">DLine.ts:358</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -735,7 +788,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L155">DLine.ts:155</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L187">DLine.ts:187</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -765,7 +818,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/34b7e6d/src/DLine.ts#L169">DLine.ts:169</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/24aacf9/src/DLine.ts#L201">DLine.ts:201</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -827,6 +880,9 @@
 								<a href="DLine.html#p2" class="tsd-kind-icon">p2</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="DLine.html#center" class="tsd-kind-icon">center</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
 								<a href="DLine.html#isParallel" class="tsd-kind-icon">is<wbr>Parallel</a>
 							</li>
 							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
@@ -870,6 +926,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="DLine.html#inRange" class="tsd-kind-icon">in<wbr>Range</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="DLine.html#insideRange" class="tsd-kind-icon">inside<wbr>Range</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="DLine.html#intersection" class="tsd-kind-icon">intersection</a>
