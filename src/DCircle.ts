@@ -26,6 +26,8 @@ export class DCircle {
 
   /**
    * Find intersection points with other circle.
+   *
+   * ![Example](/media/examples/findPoints.png)
    * @param c
    */
   findPoints(c: DCircle): DPoint[] | number {
@@ -74,6 +76,12 @@ export class DCircle {
     return this.center.equal(center) && this.r === r;
   }
 
+  /**
+   * Transform circle to polygon
+   *
+   * ![Example](/media/examples/findPolygonInside.png)
+   * @param [pointCount=64]
+   */
   findPolygonInside(pointCount: number = 64): DPolygon {
     const preAngle = 2 * Math.PI / pointCount;
     const points: DPoint[] = [];
@@ -86,6 +94,18 @@ export class DCircle {
     return new DPolygon([...points, points[0]]);
   }
 
+  /**
+   * Transform circle to polygon on sphere. It would be different for different latitude.
+   *
+   * @remarks
+   * Center should be Lng/Lat.
+   *
+   * @remarks
+   * Radius should be in meters.
+   *
+   * ![Example](/media/examples/findPolygonInsideOnSphere.png)
+   * @param [pointCount=64]
+   */
   findPolygonInsideOnSphere(pointCount: number = 64): DPolygon {
     checkFunction('findPolygonInsideOnSphere')
       .checkArgument('center')
