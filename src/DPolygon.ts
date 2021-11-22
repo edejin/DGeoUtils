@@ -757,7 +757,7 @@ export class DPolygon {
     if (lineWidth) {
       ctx.lineWidth = lineWidth;
     }
-    if (fillColor) {
+    if (fillColor || strokeColor) {
       ctx.beginPath();
     }
     this.goByPath(ctx, steps % this.length);
