@@ -1011,6 +1011,70 @@ export class DPolygon {
     return res;
   }
 
+  /**
+   * Divide polygon to triangles
+   *
+   * ![Example](/media/examples/toTriangles.png)
+   */
+  toTriangles(): DPolygon[] {
+    const p = this.clone().clockWise.open();
+    while (p.holes.length) {
+      const h = p.holes.shift()!
+        .clone()
+        .clockWise
+        .reverse()
+        .close();
+      for (let i = 0; i < p.length; i++) {
+        if (p.innerAndNotIntersect(p.first, h.first)) {
+          p.insertAfter(0, ...h.points, p.first);
+          break;
+        }
+        p.push(p.shift());
+      }
+    }
+    const res: DPolygon[] = [];
+    while (p.length > 3) {
+      const triangle = p.getTriangle();
+      if (triangle) {
+        res.push(triangle);
+      }
+    }
+    res.push(p);
+    return res;
+  }
+
+  /**
+   * @internal
+   */
+  getTriangle(): DPolygon | void {
+    for (let i = 0; i < this.length; i++) {
+      const p0 = this.p(0);
+      const p1 = this.p(1);
+      const p2 = this.p(2);
+      if (this.innerAndNotIntersect(p0, p2)) {
+        this.removePart(0, 1);
+        return new DPolygon([
+          p0.clone(),
+          p1.clone(),
+          p2.clone()
+        ]);
+      }
+      this.push(this.shift());
+    }
+    return undefined;
+  }
+
+  private innerAndNotIntersect(p1: DPoint, p2: DPoint): boolean {
+    const l = p1.findLine(p2);
+    const {center} = l;
+    const intersections = this.holes.reduce((a: boolean, hole: DPolygon) => a && Boolean(hole.clone().close()
+      .intersection(l, true).length), Boolean(this.clone().close()
+      .intersection(l, true).length));
+    const contain = this.holes.reduce((a: boolean, hole: DPolygon) => a && !hole
+      .contain(center), this.contain(center));
+    return !intersections && contain;
+  }
+
   private simpleIncludeX(p: DPoint) {
     const {x} = p;
     return this.minX <= x && this.maxX >= x;
