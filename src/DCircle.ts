@@ -27,7 +27,7 @@ export class DCircle {
   /**
    * Find intersection points with other circle.
    *
-   * ![Example](/media/examples/findPoints.png)
+   * ![Example](https://edejin.github.io/DGeoUtils/media/examples/findPoints.png)
    * @param c
    */
   findPoints(c: DCircle): DPoint[] | number {
@@ -79,7 +79,7 @@ export class DCircle {
   /**
    * Transform circle to polygon
    *
-   * ![Example](/media/examples/findPolygonInside.png)
+   * ![Example](https://edejin.github.io/DGeoUtils/media/examples/findPolygonInside.png)
    * @param [pointCount=64]
    */
   findPolygonInside(pointCount: number = 64): DPolygon {
@@ -103,7 +103,7 @@ export class DCircle {
    * @remarks
    * Radius should be in meters.
    *
-   * ![Example](/media/examples/findPolygonInsideOnSphere.png)
+   * ![Example](https://edejin.github.io/DGeoUtils/media/examples/findPolygonInsideOnSphere.png)
    * @param [pointCount=64]
    */
   findPolygonInsideOnSphere(pointCount: number = 64): DPolygon {

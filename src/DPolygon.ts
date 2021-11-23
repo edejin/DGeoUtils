@@ -1014,7 +1014,7 @@ export class DPolygon {
   /**
    * Divide polygon to triangles
    *
-   * ![Example](/media/examples/toTriangles.png)
+   * ![Example](https://edejin.github.io/DGeoUtils/media/examples/toTriangles.png)
    */
   toTriangles(): DPolygon[] {
     const p = this.clone().clockWise.open();
