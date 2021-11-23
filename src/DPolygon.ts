@@ -1017,6 +1017,35 @@ export class DPolygon {
    * ![Example](https://edejin.github.io/DGeoUtils/media/examples/toTriangles.png)
    */
   toTriangles(): DPolygon[] {
+    const innerAndNotIntersect = (poly: DPolygon, p1: DPoint, p2: DPoint): boolean => {
+      const l = p1.findLine(p2);
+      const {center} = l;
+      const intersections = poly.holes.reduce((a: boolean, hole: DPolygon) => a && Boolean(hole.clone().close()
+        .intersection(l, true).length), Boolean(poly.clone().close()
+        .intersection(l, true).length));
+      const contain = poly.holes.reduce((a: boolean, hole: DPolygon) => a && !hole
+        .contain(center), poly.contain(center));
+      return !intersections && contain;
+    };
+
+    const getTriangle = (poly: DPolygon): DPolygon | void => {
+      for (let i = 0; i < poly.length; i++) {
+        const p0 = poly.p(0);
+        const p1 = poly.p(1);
+        const p2 = poly.p(2);
+        if (innerAndNotIntersect(poly, p0, p2)) {
+          poly.removePart(0, 1);
+          return new DPolygon([
+            p0.clone(),
+            p1.clone(),
+            p2.clone()
+          ]);
+        }
+        poly.push(poly.shift());
+      }
+      return undefined;
+    };
+
     const p = this.clone().clockWise.open();
     while (p.holes.length) {
       const h = p.holes.shift()!
@@ -1025,7 +1054,7 @@ export class DPolygon {
         .reverse()
         .close();
       for (let i = 0; i < p.length; i++) {
-        if (p.innerAndNotIntersect(p.first, h.first)) {
+        if (innerAndNotIntersect(p, p.first, h.first)) {
           p.insertAfter(0, ...h.points, p.first);
           break;
         }
@@ -1034,45 +1063,13 @@ export class DPolygon {
     }
     const res: DPolygon[] = [];
     while (p.length > 3) {
-      const triangle = p.getTriangle();
+      const triangle = getTriangle(p);
       if (triangle) {
         res.push(triangle);
       }
     }
     res.push(p);
     return res;
-  }
-
-  /**
-   * @internal
-   */
-  getTriangle(): DPolygon | void {
-    for (let i = 0; i < this.length; i++) {
-      const p0 = this.p(0);
-      const p1 = this.p(1);
-      const p2 = this.p(2);
-      if (this.innerAndNotIntersect(p0, p2)) {
-        this.removePart(0, 1);
-        return new DPolygon([
-          p0.clone(),
-          p1.clone(),
-          p2.clone()
-        ]);
-      }
-      this.push(this.shift());
-    }
-    return undefined;
-  }
-
-  private innerAndNotIntersect(p1: DPoint, p2: DPoint): boolean {
-    const l = p1.findLine(p2);
-    const {center} = l;
-    const intersections = this.holes.reduce((a: boolean, hole: DPolygon) => a && Boolean(hole.clone().close()
-      .intersection(l, true).length), Boolean(this.clone().close()
-      .intersection(l, true).length));
-    const contain = this.holes.reduce((a: boolean, hole: DPolygon) => a && !hole
-      .contain(center), this.contain(center));
-    return !intersections && contain;
   }
 
   private simpleIncludeX(p: DPoint) {
