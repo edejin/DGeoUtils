@@ -134,12 +134,8 @@ export class DLine {
    * @param d
    */
   insideRange(p: DPoint, d: number = 0): boolean {
-    const {minX, minY, maxX, maxY, p1, p2} = this;
-    const {x, y} = p;
+    const {p1, p2} = this;
     return this.inRange(p, d) && !p1.like(p, 0.00001) && !p2.like(p, 0.00001);
-    const isInX = x > minX - d && x < maxX + d;
-    const isInY = y > minY - d && y < maxY + d;
-    return isInX && isInY && !p1.like(p, 0.00001) && !p2.like(p, 0.00001);
   }
 
   get center(): DPoint {
