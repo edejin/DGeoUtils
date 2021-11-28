@@ -1947,6 +1947,7 @@ describe('DPolygon', () => {
       const b = DPolygon.parseFromWKT('POLYGON ((6 3, 10 3, 10 5, 6 5))').close();
       const c = DPolygon.parseFromWKT('POLYGON ((6 6, 6 10, 10 10, 10 6))').close();
       const d = DPolygon.parseFromWKT('POLYGON ((4 6, 5 10, 3 10))').close();
+      const e = DPolygon.parseFromWKT('POLYGON ((5 10, 3 10, 4 6))').close();
 
       const res1 = DPolygon.parseFromWKT('POLYGON ((2 2, 6 2, 6 3, 10 3, 10 5, 6 5, 6 6, 2 6))').close();
       const res2 = DPolygon.parseFromWKT('POLYGON ((6 6, 6 10, 10 10, 10 6, 6 6, 6 2, 2 2, 2 6))').close();
@@ -1959,6 +1960,7 @@ describe('DPolygon', () => {
       expect(a.simpleUnion(b)!.equal(res1)).toBe(true);
       expect(a.simpleUnion(c)!.equal(res2)).toBe(true);
       expect(a.simpleUnion(d)!.equal(res3)).toBe(true);
+      expect(a.simpleUnion(e)!.equal(res3)).toBe(true);
     });
 
     test('Touch inside', () => {
