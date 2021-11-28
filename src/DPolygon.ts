@@ -679,7 +679,7 @@ export class DPolygon {
     if (!(p instanceof DPolygon)) {
       return false;
     }
-    if (this.clone().open().length !== p.clone().open().length || this.holes.length !== p.holes.length) {
+    if (this.length !== p.length || this.holes.length !== p.holes.length) {
       return false;
     }
     return (
@@ -696,22 +696,18 @@ export class DPolygon {
    * @param p
    */
   same(p: DPolygon): boolean {
-    const pClone = p.clone().open();
-    const thisClone = this.clone().open();
-    const thisAsString = thisClone.toString();
-    return thisClone.points.reduce((a: boolean) => {
-      const f = pClone.shift();
-      pClone.push(f);
-      return (
-        a ||
-        thisAsString === pClone.toString() ||
-        thisAsString ===
-        pClone
-          .clone()
-          .reverse()
-          .toString()
-      );
-    }, false);
+    const pClone = p.clone().close();
+    const thisAsString = this.clone()
+      .close()
+      .toString();
+    for (let i = 0; i < pClone.length; i++) {
+      if (thisAsString === pClone.toString() || thisAsString === pClone.clone().reverse()
+        .toString()) {
+        return true;
+      }
+      pClone.nextStart();
+    }
+    return false;
   }
 
   findIndex(p: DPoint): number {
