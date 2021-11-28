@@ -446,7 +446,9 @@ export class DPolygon {
    * @param newCenter
    */
   setCenter(newCenter: DPoint): DPolygon {
-    return this.clone().move(newCenter.clone().move(this.center.minus()));
+    return this.loop()
+      .move(newCenter.clone().move(this.center.minus()))
+      .run();
   }
 
   toWKT(): string {
@@ -460,6 +462,7 @@ export class DPolygon {
   /**
    * Rotate polygon with center in point {0, 0}
    * @param a Radians
+   * @deprecated Better to use loop
    */
   rotate(a: number): DPolygon {
     return this.map((h: DPoint) => h.rotate(a));
@@ -474,34 +477,66 @@ export class DPolygon {
     return this;
   }
 
+  /**
+   * @deprecated Better to use loop
+   * @param [x=0]
+   * @param [y=x]
+   */
   move(x: number | DPoint = 0, y?: number): DPolygon {
     return this.map((h: DPoint) => h.move(x, y));
   }
 
+  /**
+   * @deprecated Better to use loop
+   * @param [x=0]
+   * @param [y=x]
+   */
   scale(x: number | DPoint = 0, y?: number): DPolygon {
     return this.map((h: DPoint) => h.scale(x, y));
   }
 
+  /**
+   * @deprecated Better to use loop
+   * @param [x=0]
+   * @param [y=x]
+   */
   divide(x: number | DPoint = 0, y?: number): DPolygon {
     return this.map((h: DPoint) => h.divide(x, y));
   }
 
+  /**
+   * @deprecated Better to use loop
+   */
   round(): DPolygon {
     return this.map((h: DPoint) => h.round());
   }
 
+  /**
+   * @deprecated Better to use loop
+   */
   floor(): DPolygon {
     return this.map((h: DPoint) => h.floor());
   }
 
+  /**
+   * @deprecated Better to use loop
+   */
   ceil(): DPolygon {
     return this.map((h: DPoint) => h.ceil());
   }
 
+  /**
+   * @deprecated Better to use loop
+   * @param size
+   */
   flipVertically(size: DPoint | number): DPolygon {
     return this.map((h: DPoint) => h.flipVertically(size));
   }
 
+  /**
+   * @deprecated Better to use loop
+   * @param [n=2]
+   */
   toFixed(n: number = 2): DPolygon {
     return this.map((h: DPoint) => h.toFixed(n));
   }
@@ -552,18 +587,30 @@ export class DPolygon {
     );
   }
 
+  /**
+   * @deprecated Better to use loop
+   */
   degreeToMeters(): DPolygon {
     return this.map((r: DPoint) => r.degreeToMeters());
   }
 
+  /**
+   * @deprecated Better to use loop
+   */
   metersToDegree(): DPolygon {
     return this.map((r: DPoint) => r.metersToDegree());
   }
 
+  /**
+   * @deprecated Better to use loop
+   */
   radiansToMeters(): DPolygon {
     return this.map((r: DPoint) => r.radiansToMeters());
   }
 
+  /**
+   * @deprecated Better to use loop
+   */
   metersToRadians(): DPolygon {
     return this.map((r: DPoint) => r.metersToRadians());
   }
@@ -597,11 +644,10 @@ export class DPolygon {
   /**
    * Set `height` (`z`)
    * @param z
+   * @deprecated Better to use loop
    */
   height(z: number): DPolygon {
-    this.map((p: DPoint) => p.height(z));
-    this.holes = this.holes.map((h: DPolygon) => h.height(z));
-    return this;
+    return this.map((p: DPoint) => p.height(z));
   }
 
   add(poly: DPolygon): DPolygon {
