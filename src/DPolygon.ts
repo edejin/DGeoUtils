@@ -462,9 +462,7 @@ export class DPolygon {
    * @param a Radians
    */
   rotate(a: number): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.rotate(a));
-    this.holes = this.holes.map((h: DPolygon) => h.rotate(a));
-    return this;
+    return this.map((h: DPoint) => h.rotate(a));
   }
 
   /**
@@ -477,51 +475,35 @@ export class DPolygon {
   }
 
   move(x: number | DPoint = 0, y?: number): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.move(x, y));
-    this.holes = this.holes.map((h: DPolygon) => h.move(x, y));
-    return this;
+    return this.map((h: DPoint) => h.move(x, y));
   }
 
   scale(x: number | DPoint = 0, y?: number): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.scale(x, y));
-    this.holes = this.holes.map((h: DPolygon) => h.scale(x, y));
-    return this;
+    return this.map((h: DPoint) => h.scale(x, y));
   }
 
   divide(x: number | DPoint = 0, y?: number): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.divide(x, y));
-    this.holes = this.holes.map((h: DPolygon) => h.divide(x, y));
-    return this;
+    return this.map((h: DPoint) => h.divide(x, y));
   }
 
   round(): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.round());
-    this.holes = this.holes.map((h: DPolygon) => h.round());
-    return this;
+    return this.map((h: DPoint) => h.round());
   }
 
   floor(): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.floor());
-    this.holes = this.holes.map((h: DPolygon) => h.floor());
-    return this;
+    return this.map((h: DPoint) => h.floor());
   }
 
   ceil(): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.ceil());
-    this.holes = this.holes.map((h: DPolygon) => h.ceil());
-    return this;
+    return this.map((h: DPoint) => h.ceil());
   }
 
   flipVertically(size: DPoint | number): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.flipVertically(size));
-    this.holes = this.holes.map((h: DPolygon) => h.flipVertically(size));
-    return this;
+    return this.map((h: DPoint) => h.flipVertically(size));
   }
 
   toFixed(n: number = 2): DPolygon {
-    this.pPoints = this.pPoints.map((p: DPoint) => p.toFixed(n));
-    this.holes = this.holes.map((h: DPolygon) => h.toFixed(n));
-    return this;
+    return this.map((h: DPoint) => h.toFixed(n));
   }
 
   map(f: (r: DPoint, index?: number) => DPoint): DPolygon {
@@ -571,27 +553,19 @@ export class DPolygon {
   }
 
   degreeToMeters(): DPolygon {
-    this.pPoints = this.pPoints.map((r: DPoint) => r.degreeToMeters());
-    this.holes = this.holes.map((h: DPolygon) => h.degreeToMeters());
-    return this;
+    return this.map((r: DPoint) => r.degreeToMeters());
   }
 
   metersToDegree(): DPolygon {
-    this.pPoints = this.pPoints.map((r: DPoint) => r.metersToDegree());
-    this.holes = this.holes.map((h: DPolygon) => h.metersToDegree());
-    return this;
+    return this.map((r: DPoint) => r.metersToDegree());
   }
 
   radiansToMeters(): DPolygon {
-    this.pPoints = this.pPoints.map((r: DPoint) => r.radiansToMeters());
-    this.holes = this.holes.map((h: DPolygon) => h.radiansToMeters());
-    return this;
+    return this.map((r: DPoint) => r.radiansToMeters());
   }
 
   metersToRadians(): DPolygon {
-    this.pPoints = this.pPoints.map((r: DPoint) => r.metersToRadians());
-    this.holes = this.holes.map((h: DPolygon) => h.metersToRadians());
-    return this;
+    return this.map((r: DPoint) => r.metersToRadians());
   }
 
   toString(): string {
