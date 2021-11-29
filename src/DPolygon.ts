@@ -236,8 +236,8 @@ export class DPolygon {
     const closed = this.deintersection;
     let sum = 0;
     for (let i = 1; i < closed.length; i++) {
-      const cur = closed.p(i);
-      const prev = closed.p(i - 1);
+      const cur = closed.at(i);
+      const prev = closed.at(i - 1);
       sum += prev.x * cur.y - prev.y * cur.x;
     }
     return Math.abs(sum / 2) - this.holes.reduce((a: number, hole: DPolygon) => a + hole.area, 0);
@@ -250,8 +250,8 @@ export class DPolygon {
     const p = this.clone().close();
     for (let i = 0; i < p.length - 1; i++) {
       for (let j = i + 2; j < p.length - 1; j++) {
-        const firstLine = p.p(i).findLine(p.p(i + 1));
-        const secondLine = p.p(j).findLine(p.p(j + 1));
+        const firstLine = p.at(i).findLine(p.at(i + 1));
+        const secondLine = p.at(j).findLine(p.at(j + 1));
         const intersectionPoint = firstLine.intersection(secondLine);
         if (
           intersectionPoint &&
@@ -278,21 +278,21 @@ export class DPolygon {
    * Get first point
    */
   get first(): DPoint {
-    return this.p(0);
+    return this.at(0);
   }
 
   /**
    * Get second point
    */
   get second(): DPoint {
-    return this.p(1);
+    return this.at(1);
   }
 
   /**
    * Get last point
    */
   get last(): DPoint {
-    return this.p(this.length - 1);
+    return this.at(this.length - 1);
   }
 
   /**
@@ -303,21 +303,21 @@ export class DPolygon {
     let resultPolygon = new DPolygon();
     let resultArea = Infinity;
     for (let k = 0; k < p.length - 1; k++) {
-      const l = p.p(k).findLine(p.p(k + 1));
+      const l = p.at(k).findLine(p.at(k + 1));
       let maxWidth = 0;
       let maxWidthPoint1: DPoint | null = null;
       let maxWidthPoint2: DPoint | null = null;
       let maxHeight = 0;
       let maxHeightPoint: DPoint | null = null;
       for (let i = 0; i < p.length - 1; i++) {
-        const p1: DPoint = l.findPoint(l.findPerpendicular(p.p(i)))!;
-        const h = p1.distance(p.p(i));
+        const p1: DPoint = l.findPoint(l.findPerpendicular(p.at(i)))!;
+        const h = p1.distance(p.at(i));
         if (h >= maxHeight) {
           maxHeight = h;
-          maxHeightPoint = p.p(i);
+          maxHeightPoint = p.at(i);
         }
         for (let j = i; j < p.length - 1; j++) {
-          const p2: DPoint = l.findPoint(l.findPerpendicular(p.p(j)))!;
+          const p2: DPoint = l.findPoint(l.findPerpendicular(p.at(j)))!;
           const w = p1.distance(p2);
           if (w >= maxWidth) {
             maxWidth = w;
@@ -373,9 +373,9 @@ export class DPolygon {
       p = p.deintersection;
       l = p.length;
       for (let i = 1; i < p.length - 1; i++) {
-        const p1 = p.p(i - 1);
-        const p2 = p.p(i);
-        const p3 = p.p(i + 1);
+        const p1 = p.at(i - 1);
+        const p2 = p.at(i);
+        const p3 = p.at(i + 1);
         const d = p2.findInnerAngle(p1, p3);
         if (d > Math.PI || DNumbers.likeZero(DNumbers.rad2Deg(d)) || DNumbers.likePI(d) || DNumbers.like2PI(d)) {
           p.removePart(--i, 1);
@@ -396,8 +396,8 @@ export class DPolygon {
     let sum = 0;
     const p = this.clone().close();
     for (let i = 1; i < p.length; i++) {
-      const p1 = p.p(i - 1);
-      const p2 = p.p(i);
+      const p1 = p.at(i - 1);
+      const p2 = p.at(i);
       sum += (p2.x - p1.x) * (p2.y + p1.y);
     }
     return sum < 0;
@@ -547,15 +547,9 @@ export class DPolygon {
     return this;
   }
 
-  p(index: number, divide: boolean = false): DPoint {
-    if (divide) {
-      let t = index;
-      while (t < 0) {
-        t += this.length;
-      }
-      return this.pPoints[t % this.length];
-    }
-    return this.pPoints[index];
+  at(index: number): DPoint {
+    const {length} = this;
+    return this.points[(index % length + length) % length];
   }
 
   pop(): DPoint {
@@ -821,7 +815,7 @@ export class DPolygon {
     const poly = this.deintersection;
     const intersectionPoints: DPoint[] = [];
     for (let i = 0; i < poly.length - 1; i++) {
-      const polygonLine = poly.p(i).findLine(poly.p(i + 1));
+      const polygonLine = poly.at(i).findLine(poly.at(i + 1));
       const intersection = line.intersection(polygonLine, CLOSE_TO_INTERSECTION_DISTANCE);
       if (intersection) {
         intersectionPoints.push(intersection as DPoint);
@@ -847,8 +841,8 @@ export class DPolygon {
         return true;
       }
       for (let i = 0; i < poly.length - 1; i++) {
-        const p0 = poly.p(i);
-        const p1 = poly.p(i + 1);
+        const p0 = poly.at(i);
+        const p1 = poly.at(i + 1);
         const polygonLine = p0.findLine(p1);
         const onBorder = polygonLine.x(p).equal(p) && polygonLine.inRange(p);
         if (onBorder) {
@@ -874,8 +868,8 @@ export class DPolygon {
    */
   removeDuplicates(): DPolygon {
     for (let i = 0; i < this.length - 1; i++) {
-      const p1 = this.p(i);
-      const p2 = this.p(i + 1);
+      const p1 = this.at(i);
+      const p2 = this.at(i + 1);
       if (p1.equal(p2)) {
         this.removePart(i, 1);
         i--;
@@ -1046,9 +1040,9 @@ export class DPolygon {
 
     const getTriangle = (poly: DPolygon): DPolygon | void => {
       for (let i = 0; i < poly.length; i++) {
-        const p0 = poly.p(0);
-        const p1 = poly.p(1);
-        const p2 = poly.p(2);
+        const p0 = poly.at(0);
+        const p1 = poly.at(1);
+        const p2 = poly.at(2);
         if (innerAndNotIntersect(poly, p0, p2)) {
           poly.removePart(0, 1);
           return new DPolygon([
@@ -1123,7 +1117,7 @@ export class DPolygon {
     const start = this.first;
     ctx.moveTo(start.x, start.y);
     for (let i = 1; i <= (steps % this.length); i++) {
-      const {x, y} = this.p(i);
+      const {x, y} = this.at(i);
       ctx.lineTo(x, y);
     }
   }
@@ -1140,8 +1134,8 @@ export class DPolygon {
     const poly = this.deintersection;
     let totalFi = 0;
     for (let i = 0; i < poly.length - 1; i++) {
-      const p1 = poly.p(i);
-      const p2 = poly.p(i + 1);
+      const p1 = poly.at(i);
+      const p2 = poly.at(i + 1);
       const line1 = new DLine(p1.x - p.x, p1.y - p.y, 0);
       const line2 = new DLine(p2.x - p.x, p2.y - p.y, 0);
       const fiDif = line1.findFi(line2);

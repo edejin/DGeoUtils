@@ -74,7 +74,7 @@ export class TraceMatrix {
       const marked = TraceMatrix.createMatrix(this.size, () => TraceMatrixValues.f);
       setByPosition(marked, s, TraceMatrixValues.t);
       while (startIndex < res.length) {
-        const r = res.p(startIndex);
+        const r = res.at(startIndex);
         for (let i = -1; i < 2; i++) {
           for (let j = -1; j < 2; j++) {
             const t = new DPoint(r.x + i, r.y + j);
@@ -166,16 +166,16 @@ export class TraceMatrix {
     const right = (d: number) => (d + traceDirections.length - 1) % traceDirections.length;
 
     if (group.length < 2) {
-      const t = group.p(0).clone();
+      const t = group.at(0).clone();
       return new DPolygon([t, t, t]);
     }
     const points: DPolygon = new DPolygon();
     let direction = 0;
     let prevDirection = Infinity;
 
-    let p = group.p(0);
+    let p = group.at(0);
 
-    while (!p.equal(group.p(0)) || points.length < 2) {
+    while (!p.equal(group.at(0)) || points.length < 2) {
       // eslint-disable-next-line no-constant-condition
       while (true) {
         const nextValue = getByPosition(m, p.clone().move(traceDirections[direction]));

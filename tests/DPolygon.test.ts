@@ -1142,24 +1142,22 @@ describe('DPolygon', () => {
     });
   });
 
-  describe('p', () => {
+  describe('at', () => {
     test('1', () => {
       const t = DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))');
-      expect(t.p(0)).toEqual({
+      expect(t.at(0)).toEqual({
         x: 30,
         y: 10,
         z: undefined,
         properties: {}
       });
-      expect(t.p(5)).toBe(undefined);
-      expect(t.p(5, true)).toEqual({
+      expect(t.at(5)).toEqual({
         x: 30,
         y: 10,
         z: undefined,
         properties: {}
       });
-      expect(t.p(-2)).toBe(undefined);
-      expect(t.p(-2, true)).toEqual({
+      expect(t.at(-2)).toEqual({
         x: 10,
         y: 20,
         z: undefined,
