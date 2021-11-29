@@ -769,6 +769,9 @@ describe('DPolygon', () => {
         new DPoint(70, 70)
       ]).minAreaRectangle)).toBe(2.498091544796509);
     });
+    test('2', () => {
+      expect(DPolygon.minAreaRectangleDirection(new DPolygon())).toBe(0);
+    });
   });
 
   describe('toDash', () => {
@@ -996,6 +999,41 @@ describe('DPolygon', () => {
             properties: {},
             x: 70,
             y: 70,
+            z: undefined
+          }
+        ],
+        properties: {},
+        searchStore: {}
+      });
+    });
+    test('2', () => {
+      expect(new DPolygon([
+        new DPoint(0, 10),
+        new DPoint(0, 20),
+        new DPoint(0, 30)
+      ]).divideToPieces(2)).toEqual({
+        holes: [],
+        pPoints: [
+          {
+            properties: {},
+            x: 0,
+            y: 10,
+            z: undefined
+          },
+          {
+            properties: {
+              pieceBorder: true
+            },
+            x: 0,
+            y: 20,
+            z: undefined
+          },
+          {
+            properties: {
+              pieceBorder: true
+            },
+            x: 0,
+            y: 30,
             z: undefined
           }
         ],
@@ -1616,6 +1654,7 @@ describe('DPolygon', () => {
     expect(poly.fastHas(new DPoint(11, 21))).toBe(false);
     expect(poly.fastHas(new DPoint(10, 21))).toBe(false);
     expect(poly.fastHas(new DPoint(30, 10))).toBe(true);
+    expect(poly.fastHas(new DPoint(30, 10, 7))).toBe(false);
   });
 
   describe('growingPiecesGenerator', () => {

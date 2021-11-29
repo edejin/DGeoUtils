@@ -366,9 +366,12 @@ export class DPoint {
   }
 
   like(p: DPoint, d = 0.001): boolean {
+    if (this.equal(p)) {
+      return true;
+    }
     const likeX = Math.abs(this.x - p.x) < d;
     const likeY = Math.abs(this.y - p.y) < d;
-    const likeZ = this.z === p.z || Math.abs(this.z! - p.z!) < d;
+    const likeZ = Math.abs((this.z || 0) - (p.z || 0)) < d;
     return likeX && likeY && likeZ;
   }
 
