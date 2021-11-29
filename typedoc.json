@@ -2,5 +2,6 @@
   "entryPoints": ["src/index.ts"],
   "out": "docs",
   "media": "media",
-  "readme": "docs.md"
+  "readme": "docs.md",
+  "excludePrivate": true
 }
