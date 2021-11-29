@@ -1,6 +1,6 @@
 import {DLine} from './DLine';
 import {DPolygon} from './DPolygon';
-import {checkFunction} from './utils';
+import {checkFunction, createArray} from './utils';
 
 const diff = 0;
 
@@ -31,26 +31,36 @@ export const DEGREE_TO_PI = PI_IN_DEGREE / Math.PI;
 export type SetterFunction = (t: DPoint) => number;
 
 export class DPoint {
-  x: number = 0;
-  y: number = 0;
-  z?: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   properties: { [key: string]: any } = {};
 
   /**
-   *
+   * Create point with zero coords `(0, 0)`
+   */
+  constructor();
+
+  /**
+   * @param xy - `x` and `y` value
+   */
+  constructor(xy: number);
+
+  /**
+   * @param x - lng, meters to East, radians to East or width
+   * @param y - lat, meters to North, radians to North or height
+   */
+  constructor(x: number, y: number);
+
+  /**
    * @param x - lng, meters to East, radians to East or width
    * @param y - lat, meters to North, radians to North or height
    * @param z - height
    */
-  constructor(x: number = 0, y: number = 0, z?: number) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
-  }
+  constructor(x: number, y: number, z?: number);
+  // eslint-disable-next-line no-empty-function,no-useless-constructor
+  constructor(public x: number = 0, public y: number = x, public z?: number) {}
 
-  static Zero(): DPoint {
-    return new DPoint(0, 0);
+  static zero(): DPoint {
+    return new DPoint();
   }
 
   static parse(c: LatLng | number[] | DCoord): DPoint {
@@ -62,10 +72,6 @@ export class DPoint {
     return new DPoint(x, y, z);
   }
 
-  static isPoint(p: unknown): boolean {
-    return p instanceof DPoint;
-  }
-
   static parseFromWKT(wkt: string): DPoint {
     const regexp = /POINT \((?<data>(?:(?!\)).)*?)\)$/miu;
     const data = wkt.trim().toUpperCase();
@@ -74,7 +80,7 @@ export class DPoint {
     return new DPoint(x, y, z);
   }
 
-  static Random(): DPoint {
+  static random(): DPoint {
     return new DPoint(Math.random(), Math.random());
   }
 
@@ -190,11 +196,34 @@ export class DPoint {
     return Math.sqrt(dx * dx + dy * dy);
   }
 
+  /**
+   * Set `x` value
+   * @param x
+   */
+  setX(x: number): DPoint;
+
+  /**
+   * Transform `x` value by function
+   * @param f
+   */
+  setX(f: SetterFunction): DPoint;
   setX(x: number | SetterFunction): DPoint {
     this.x = typeof x === 'number' ? x : x(this);
     return this;
   }
 
+
+  /**
+   * Set `y` value
+   * @param y
+   */
+  setY(y: number): DPoint;
+
+  /**
+   * Transform `y` value by function
+   * @param f
+   */
+  setY(f: SetterFunction): DPoint;
   setY(y: number | SetterFunction): DPoint {
     this.y = typeof y === 'number' ? y : y(this);
     return this;
@@ -252,7 +281,7 @@ export class DPoint {
    * @param y
    */
   move(x: number, y: number): DPoint;
-  move(x: number | DPoint = 0, y: number = (x as number)): DPoint {
+  move(x: number | DPoint, y: number = (x as number)): DPoint {
     let xV = 0;
     let yV = 0;
     if (x instanceof DPoint) {
@@ -337,6 +366,9 @@ export class DPoint {
     return this;
   }
 
+  /**
+   * @param [n=2]
+   */
   toFixed(n: number = 2): DPoint {
     this.x = parseFloat(this.x.toFixed(n));
     this.y = parseFloat(this.y.toFixed(n));
@@ -349,7 +381,25 @@ export class DPoint {
     return this;
   }
 
-  scale(x: number | DPoint = 0, y: number = (x as number)): DPoint {
+  /**
+   * Multiply `v` to `x` and `y`
+   * @param v
+   */
+  scale(v: number): DPoint;
+
+  /**
+   * Multiply `p.x` to `x` field and `p.y` to `y` field.
+   * @param p
+   */
+  scale(p: DPoint): DPoint;
+
+  /**
+   * Multiply `x` to `x` field and `y` to `y` field.
+   * @param x
+   * @param y
+   */
+  scale(x: number, y: number): DPoint;
+  scale(x: number | DPoint, y: number = (x as number)): DPoint {
     let xV = 0;
     let yV = 0;
     if (x instanceof DPoint) {
@@ -364,7 +414,25 @@ export class DPoint {
     return this;
   }
 
-  divide(x: number | DPoint = 0, y: number = (x as number)): DPoint {
+  /**
+   * Divide `x` and `y` to `v`
+   * @param v
+   */
+  divide(v: number): DPoint;
+
+  /**
+   * Divide `x` field to `p.x` and `y` field to `p.y`.
+   * @param p
+   */
+  divide(p: DPoint): DPoint;
+
+  /**
+   * Divide `x` field to `x` and `y` field to `y`.
+   * @param x
+   * @param y
+   */
+  divide(x: number, y: number): DPoint;
+  divide(x: number | DPoint, y: number = (x as number)): DPoint {
     let xV = 0;
     let yV = 0;
     if (x instanceof DPoint) {
@@ -383,6 +451,10 @@ export class DPoint {
     return this.x === p.x && this.y === p.y && this.z === p.z;
   }
 
+  /**
+   * @param p
+   * @param [d=0.001]
+   */
   like(p: DPoint, d = 0.001): boolean {
     if (this.equal(p)) {
       return true;
@@ -393,6 +465,17 @@ export class DPoint {
     return likeX && likeY && likeZ;
   }
 
+  /**
+   * Flip vertically
+   * @param size canvas size
+   */
+  flipVertically(size: DPoint): DPoint;
+
+  /**
+   * Flip vertically
+   * @param height canvas height
+   */
+  flipVertically(height: number): DPoint;
   flipVertically(size: DPoint | number): DPoint {
     let v = size as number;
     if (size instanceof DPoint) {
@@ -531,8 +614,8 @@ export class DPoint {
     const p = point.clone().degreeToRadians();
     const d = Math.sin(p.x - t.x);
     const step = (p.x - t.x) / (pointsCount - 1);
-    return new DPolygon(Array.from(new Array(pointsCount))
-      .map((v: undefined, i: number) => {
+    return new DPolygon(createArray(pointsCount)
+      .map((v: number, i: number) => {
         const x = t.x + step * i;
         const y = Math.atan((Math.tan(t.y) * Math.sin(p.x - x)) / d +
           (Math.tan(p.y) * Math.sin(x - t.x)) / d);

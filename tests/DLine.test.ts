@@ -434,7 +434,7 @@ describe('DLine', () => {
   describe('intersectionWithCircle', () => {
     test('p1', () => {
       expect(new DPoint(0, 0).findLine(new DPoint(11, 10))
-        .intersectionWithCircle(new DCircle(DPoint.Zero(), 10))).toEqual([
+        .intersectionWithCircle(new DCircle(DPoint.zero(), 10))).toEqual([
         {
           x: -7.399400733959437,
           y: -6.726727939963125,
@@ -451,7 +451,7 @@ describe('DLine', () => {
     });
     test('p2', () => {
       expect(new DPoint(11, -10).findLine(new DPoint(0, 0))
-        .intersectionWithCircle(new DCircle(DPoint.Zero(), 10))).toEqual([
+        .intersectionWithCircle(new DCircle(DPoint.zero(), 10))).toEqual([
         {
           x: 7.399400733959437,
           y: -6.726727939963125,
@@ -468,11 +468,11 @@ describe('DLine', () => {
     });
     test('null', () => {
       expect(new DPoint(11, -10).findLine(new DPoint(11, 10))
-        .intersectionWithCircle(new DCircle(DPoint.Zero(), 10))).toBe(null);
+        .intersectionWithCircle(new DCircle(DPoint.zero(), 10))).toBe(null);
     });
     test('one', () => {
       expect(new DPoint(10, -10).findLine(new DPoint(10, 10))
-        .intersectionWithCircle(new DCircle(DPoint.Zero(), 10))).toEqual({
+        .intersectionWithCircle(new DCircle(DPoint.zero(), 10))).toEqual({
         x: 10,
         y: -0,
         z: undefined,
@@ -481,7 +481,7 @@ describe('DLine', () => {
     });
     test('one (2)', () => {
       expect(new DPoint(-10, 10).findLine(new DPoint(10, 10))
-        .intersectionWithCircle(new DCircle(DPoint.Zero(), 10))).toEqual({
+        .intersectionWithCircle(new DCircle(DPoint.zero(), 10))).toEqual({
         x: 0,
         y: 10,
         z: undefined,
@@ -490,7 +490,7 @@ describe('DLine', () => {
     });
     test('two', () => {
       expect(new DPoint(9, -10).findLine(new DPoint(9, 10))
-        .intersectionWithCircle(new DCircle(DPoint.Zero(), 10))).toEqual([
+        .intersectionWithCircle(new DCircle(DPoint.zero(), 10))).toEqual([
         {
           x: 9,
           y: -4.358898943540674,
@@ -507,7 +507,7 @@ describe('DLine', () => {
     });
     test('two (2)', () => {
       expect(new DPoint(-10, 9).findLine(new DPoint(10, 9))
-        .intersectionWithCircle(new DCircle(DPoint.Zero(), 10))).toEqual([
+        .intersectionWithCircle(new DCircle(DPoint.zero(), 10))).toEqual([
         {
           x: 4.358898943540674,
           y: 9,
@@ -524,7 +524,7 @@ describe('DLine', () => {
     });
     test('two (3)', () => {
       expect(new DPoint(10, 0).findLine(new DPoint(0, 10))
-        .intersectionWithCircle(new DCircle(DPoint.Zero(), 10))).toEqual([
+        .intersectionWithCircle(new DCircle(DPoint.zero(), 10))).toEqual([
         {
           x: 0,
           y: 10,

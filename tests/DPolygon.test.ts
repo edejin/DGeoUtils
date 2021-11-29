@@ -1421,7 +1421,7 @@ describe('DPolygon', () => {
       expect(t.has(new DPoint(45, 45))).toBe(true);
     });
     test('2', () => {
-      expect(t.has(DPoint.Zero())).toBe(false);
+      expect(t.has(DPoint.zero())).toBe(false);
     });
   });
 
@@ -1474,7 +1474,7 @@ describe('DPolygon', () => {
       expect(t1.findIndex(new DPoint(45, 45))).toBe(1);
     });
     test('2', () => {
-      expect(t1.findIndex(DPoint.Zero())).toBe(-1);
+      expect(t1.findIndex(DPoint.zero())).toBe(-1);
     });
   });
 

@@ -63,18 +63,6 @@ describe('DPolygonLoop', () => {
         .toString())
         .toBe('(2 3, 4 5)');
     });
-    test('2', () => {
-      const p = new DPolygon([
-        new DPoint(1, 2),
-        new DPoint(3, 4)
-      ]);
-      expect(p
-        .loop()
-        .move()
-        .run()
-        .toString())
-        .toBe('(1 2, 3 4)');
-    });
   });
   describe('scale', () => {
     test('1', () => {
@@ -88,18 +76,6 @@ describe('DPolygonLoop', () => {
         .run()
         .toString())
         .toBe('(2 4, 6 8)');
-    });
-    test('2', () => {
-      const p = new DPolygon([
-        new DPoint(1, 2),
-        new DPoint(3, 4)
-      ]);
-      expect(p
-        .loop()
-        .scale()
-        .run()
-        .toString())
-        .toBe('(0 0, 0 0)');
     });
   });
   describe('getTileFromCoords', () => {
@@ -450,22 +426,6 @@ describe('DPolygonLoop', () => {
         .toStrictEqual([
           [1.5, 5],
           [3.5, 9]
-        ]);
-    });
-    test('3', () => {
-      const p = new DPolygon([
-        new DPoint(1, 2),
-        new DPoint(3, 4)
-      ]);
-      expect(p.loop()
-        .scale(2)
-        .move(1)
-        .divide()
-        .run()
-        .toArrayOfCoords())
-        .toStrictEqual([
-          [Infinity, Infinity],
-          [Infinity, Infinity]
         ]);
     });
   });

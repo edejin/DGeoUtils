@@ -1,11 +1,7 @@
 import {DPoint} from './DPoint';
 import {DPolygon, MIN_POINTS_IN_VALID_POLYGON} from './DPolygon';
 import {FastSearch} from './FastSearch';
-
-const createArray = (v = 0) => new Array(v + 1)
-  .join(' ')
-  .split('')
-  .map((r: string, i: number) => i);
+import {createArray} from './utils';
 
 export enum TraceMatrixValues {
   f = 0,
@@ -233,6 +229,7 @@ export class TraceMatrix {
   };
 
   static createMatrix(size: DPoint, f: (pos: DPoint) => TraceMatrixValues = () => TraceMatrixValues.f): SimpleMatrix {
-    return createArray(size.h).map((i: number) => createArray(size.w).map((j: number) => f(new DPoint(j, i))));
+    return createArray(size.h)
+      .map((v: number, i: number) => createArray(size.w).map((v2: number, j: number) => f(new DPoint(j, i))));
   }
 }

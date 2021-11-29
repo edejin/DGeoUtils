@@ -43,7 +43,7 @@ const shouldBeUInt = (
   argName: string
 ): CheckFunc => (p: DPoint): CheckFunction => {
   if (!p.clone().round()
-    .equal(p) || !p.gtOrEqual(DPoint.Zero())) {
+    .equal(p) || !p.gtOrEqual(DPoint.zero())) {
     warn(`"${funcName}" -> "${argName}" should be UInt!`);
   }
   return scope;
@@ -103,3 +103,5 @@ export const checkFunction = (funcName: string): CheckFunction => ({
     };
   }
 });
+
+export const createArray = (v: number): number[] => new Array(v).fill(0);

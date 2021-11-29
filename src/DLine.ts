@@ -3,19 +3,15 @@ import {DCircle} from './DCircle';
 import {checkFunction} from './utils';
 
 export class DLine {
-  a: number = 0;
-  b: number = 0;
-  c: number = 0;
-  p1: DPoint = DPoint.Zero();
-  p2: DPoint = DPoint.Zero();
-
-  constructor(a: number = 0, b: number = 0, c: number = 0, p1: DPoint = DPoint.Zero(), p2: DPoint = DPoint.Zero()) {
-    this.a = a;
-    this.b = b;
-    this.c = c;
-    this.p1 = p1;
-    this.p2 = p2;
-  }
+  // eslint-disable-next-line no-useless-constructor
+  constructor(
+    public a: number = 0,
+    public b: number = 0,
+    public c: number = 0,
+    public p1: DPoint = DPoint.zero(),
+    public p2: DPoint = DPoint.zero()
+    // eslint-disable-next-line no-empty-function
+  ) {}
 
   clone(): DLine {
     return new DLine(this.a, this.b, this.c, this.p1.clone(), this.p2.clone());
@@ -131,7 +127,7 @@ export class DLine {
   /**
    * Check if point below to line segment, but not equal star or end point.
    * @param p
-   * @param d
+   * @param [d=0]
    */
   insideRange(p: DPoint, d: number = 0): boolean {
     const {p1, p2} = this;

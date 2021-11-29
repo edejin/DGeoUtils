@@ -66,11 +66,11 @@ const decodePoolRecord = (a: LoopFunction, {
       break;
     case LoopFunctions.setX:
       res = (k: DPoint): DPoint => a(k)
-        .setX(setterArg!);
+        .setX(setterArg as SetterFunction);
       break;
     case LoopFunctions.setY:
       res = (k: DPoint): DPoint => a(k)
-        .setY(setterArg!);
+        .setY(setterArg as SetterFunction);
       break;
     case LoopFunctions.rotate:
       res = (k: DPoint): DPoint => a(k)
@@ -102,11 +102,11 @@ const decodePoolRecord = (a: LoopFunction, {
       break;
     case LoopFunctions.scale:
       res = (k: DPoint): DPoint => a(k)
-        .scale(numberPointArg, numberArg);
+        .scale(numberPointArg as number, numberArg as number);
       break;
     case LoopFunctions.divide:
       res = (k: DPoint): DPoint => a(k)
-        .divide(numberPointArg, numberArg);
+        .divide(numberPointArg as number, numberArg as number);
       break;
     case LoopFunctions.degreeToRadians:
       res = (k: DPoint): DPoint => a(k)
@@ -162,7 +162,7 @@ const decodePoolRecord = (a: LoopFunction, {
       break;
     case LoopFunctions.flipVertically:
       res = (k: DPoint): DPoint => a(k)
-        .flipVertically(numberPointArg!);
+        .flipVertically(numberPointArg as number);
       break;
     default:
   }
@@ -187,6 +187,9 @@ export class DPolygonLoop {
     return this.parent.map(this.getLoopFunction());
   }
 
+  /**
+   * @param zoom default value would be `z` of point
+   */
   getTileFromCoords(zoom?: number): DPolygonLoop {
     this.pool.push({
       functionName: LoopFunctions.getTileFromCoords,
@@ -195,6 +198,9 @@ export class DPolygonLoop {
     return this;
   }
 
+  /**
+   * @param zoom default value would be `z` of point
+   */
   getCoordsFromTile(zoom?: number): DPolygonLoop {
     this.pool.push({
       functionName: LoopFunctions.getCoordsFromTile,
@@ -211,6 +217,17 @@ export class DPolygonLoop {
     return this;
   }
 
+  /**
+   * Set `x` value
+   * @param x
+   */
+  setX(x: number): DPolygonLoop;
+
+  /**
+   * Transform `x` value by function
+   * @param f
+   */
+  setX(f: SetterFunction): DPolygonLoop;
   setX(x: number | SetterFunction): DPolygonLoop {
     this.pool.push({
       functionName: LoopFunctions.setX,
@@ -219,6 +236,17 @@ export class DPolygonLoop {
     return this;
   }
 
+  /**
+   * Set `y` value
+   * @param y
+   */
+  setY(y: number): DPolygonLoop;
+
+  /**
+   * Transform `y` value by function
+   * @param f
+   */
+  setY(f: SetterFunction): DPolygonLoop;
   setY(y: number | SetterFunction): DPolygonLoop {
     this.pool.push({
       functionName: LoopFunctions.setY,
@@ -235,7 +263,25 @@ export class DPolygonLoop {
     return this;
   }
 
-  move(x: number | DPoint = 0, y: number = (x as number)): DPolygonLoop {
+  /**
+   * Add `v` to `x` and `y`
+   * @param v
+   */
+  move(v: number): DPolygonLoop;
+
+  /**
+   * Add `p.x` to `x` field and `p.y` to `y` field.
+   * @param p
+   */
+  move(p: DPoint): DPolygonLoop;
+
+  /**
+   * Add `x` to `x` field and `y` to `y` field.
+   * @param x
+   * @param y
+   */
+  move(x: number, y: number): DPolygonLoop;
+  move(x: number | DPoint, y: number = (x as number)): DPolygonLoop {
     this.pool.push({
       functionName: LoopFunctions.move,
       numberPointArg: x,
@@ -280,7 +326,25 @@ export class DPolygonLoop {
     return this;
   }
 
-  scale(x: number | DPoint = 0, y: number = (x as number)): DPolygonLoop {
+  /**
+   * Multiply `v` to `x` and `y`
+   * @param v
+   */
+  scale(v: number): DPolygonLoop;
+
+  /**
+   * Multiply `p.x` to `x` field and `p.y` to `y` field.
+   * @param p
+   */
+  scale(p: DPoint): DPolygonLoop;
+
+  /**
+   * Multiply `x` to `x` field and `y` to `y` field.
+   * @param x
+   * @param y
+   */
+  scale(x: number, y: number): DPolygonLoop;
+  scale(x: number | DPoint, y: number = (x as number)): DPolygonLoop {
     this.pool.push({
       functionName: LoopFunctions.scale,
       numberPointArg: x,
@@ -289,7 +353,25 @@ export class DPolygonLoop {
     return this;
   }
 
-  divide(x: number | DPoint = 0, y?: number): DPolygonLoop {
+  /**
+   * Divide `x` and `y` to `v`
+   * @param v
+   */
+  divide(v: number): DPolygonLoop;
+
+  /**
+   * Divide `x` field to `p.x` and `y` field to `p.y`.
+   * @param p
+   */
+  divide(p: DPoint): DPolygonLoop;
+
+  /**
+   * Divide `x` field to `x` and `y` field to `y`.
+   * @param x
+   * @param y
+   */
+  divide(x: number, y: number): DPolygonLoop;
+  divide(x: number | DPoint, y?: number): DPolygonLoop {
     this.pool.push({
       functionName: LoopFunctions.divide,
       numberPointArg: x,
@@ -390,6 +472,17 @@ export class DPolygonLoop {
     return this;
   }
 
+  /**
+   * Flip vertically
+   * @param size canvas size
+   */
+  flipVertically(size: DPoint): DPolygonLoop;
+
+  /**
+   * Flip vertically
+   * @param height canvas height
+   */
+  flipVertically(height: number): DPolygonLoop;
   flipVertically(size: DPoint | number): DPolygonLoop {
     this.pool.push({
       functionName: LoopFunctions.flipVertically,

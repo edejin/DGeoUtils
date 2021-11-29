@@ -25,11 +25,11 @@ describe('DPoint', () => {
   });
 
   test('Zero', () => {
-    expect(DPoint.Zero().x).toBe(0);
-    expect(DPoint.Zero().y).toBe(0);
-    DPoint.Zero().y = 18;
-    expect(DPoint.Zero().x).toBe(0);
-    expect(DPoint.Zero().y).toBe(0);
+    expect(DPoint.zero().x).toBe(0);
+    expect(DPoint.zero().y).toBe(0);
+    DPoint.zero().y = 18;
+    expect(DPoint.zero().x).toBe(0);
+    expect(DPoint.zero().y).toBe(0);
   });
 
   describe('Parse', () => {
@@ -163,7 +163,7 @@ describe('DPoint', () => {
 
   describe('findInnerAngle', () => {
     test('(0, 0) -> (0, 1), (1, 0)', () => {
-      expect(DPoint.Zero().findInnerAngle(new DPoint(0, 1), new DPoint(1, 0))).toBe(Math.PI / 2);
+      expect(DPoint.zero().findInnerAngle(new DPoint(0, 1), new DPoint(1, 0))).toBe(Math.PI / 2);
     });
     test('(0, 0.5) -> (0, 1), (0, 0)', () => {
       expect(new DPoint(0, 0.5).findInnerAngle(new DPoint(0, 1), new DPoint(0, 0))).toBe(Math.PI);
@@ -217,8 +217,7 @@ describe('DPoint', () => {
   });
 
   test('height', () => {
-    const t = DPoint.Zero().height(7);
-    expect(DPoint.isPoint(t)).toBe(true);
+    const t = DPoint.zero().height(7);
     expect(t.x).toBe(0);
     expect(t.y).toBe(0);
     expect(t.z).toBe(7);
@@ -842,7 +841,7 @@ describe('DPoint', () => {
 
   test('random', () => {
     // eslint-disable-next-line new-cap
-    const t = DPoint.Random();
+    const t = DPoint.random();
     expect(t.x >= 0).toBe(true);
     expect(t.x < 1).toBe(true);
     expect(typeof t.x === 'number').toBe(true);
@@ -886,7 +885,7 @@ describe('DPoint', () => {
   describe('equal', () => {
     test('1', () => {
       // eslint-disable-next-line new-cap
-      expect(new DPoint().equal(DPoint.Random())).toBe(false);
+      expect(new DPoint().equal(DPoint.random())).toBe(false);
     });
     test('2', () => {
       expect(new DPoint(1, 1).equal(new DPoint(1, 1))).toBe(true);
@@ -900,10 +899,6 @@ describe('DPoint', () => {
   });
 
   describe('divide', () => {
-    test('without args', () => {
-      expect(new DPoint(1, 1).divide()
-        .equal(new DPoint(Infinity, Infinity))).toBe(true);
-    });
     test('by number', () => {
       expect(new DPoint(1, 1).divide(7)
         .equal(new DPoint(1 / 7, 1 / 7))).toBe(true);
@@ -921,10 +916,6 @@ describe('DPoint', () => {
   });
 
   describe('scale', () => {
-    test('without args', () => {
-      expect(new DPoint(1, 1).scale()
-        .equal(DPoint.Zero())).toBe(true);
-    });
     test('by number', () => {
       expect(new DPoint(1, 1).scale(7)
         .equal(new DPoint(7, 7))).toBe(true);

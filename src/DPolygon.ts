@@ -16,12 +16,10 @@ export class DPolygon {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   properties: { [key: string]: any } = {};
   holes: DPolygon[] = [];
-  private pPoints: DPoint[] = [];
   private searchStore: Record<number, Record<number, Record<number | string, boolean>>> = {};
 
-  constructor(points: DPoint[] = []) {
-    this.pPoints = points;
-  }
+  // eslint-disable-next-line no-useless-constructor,no-empty-function
+  constructor(private pPoints: DPoint[] = []) {}
 
   /**
    * Get size of min area rectangle.
@@ -100,7 +98,7 @@ export class DPolygon {
   }
 
   static createSquareBySize(size: DPoint): DPolygon {
-    return new DPolygon([DPoint.Zero(), size.clone().setX(0), size.clone(), size.clone().setY(0)]).close();
+    return new DPolygon([DPoint.zero(), size.clone().setX(0), size.clone(), size.clone().setY(0)]).close();
   }
 
   loop(): DPolygonLoop {
@@ -478,30 +476,78 @@ export class DPolygon {
   }
 
   /**
+   * Add `v` to `x` and `y`
    * @deprecated Better to use loop
-   * @param [x=0]
-   * @param [y=x]
+   * @param v
    */
-  move(x: number | DPoint = 0, y?: number): DPolygon {
+  move(v: number): DPolygon;
+
+  /**
+   * Add `p.x` to `x` field and `p.y` to `y` field.
+   * @deprecated Better to use loop
+   * @param p
+   */
+  move(p: DPoint): DPolygon;
+
+  /**
+   * Add `x` to `x` field and `y` to `y` field.
+   * @deprecated Better to use loop
+   * @param x
+   * @param y
+   */
+  move(x: number, y: number): DPolygon;
+  move(x: number | DPoint, y?: number): DPolygon {
     return this.map((h: DPoint) => h.move(x as number, y!));
   }
 
   /**
+   * Multiply `v` to `x` and `y`
    * @deprecated Better to use loop
-   * @param [x=0]
-   * @param [y=x]
+   * @param v
    */
-  scale(x: number | DPoint = 0, y?: number): DPolygon {
-    return this.map((h: DPoint) => h.scale(x, y));
+  scale(v: number): DPolygon;
+
+  /**
+   * Multiply `p.x` to `x` field and `p.y` to `y` field.
+   * @deprecated Better to use loop
+   * @param p
+   */
+  scale(p: DPoint): DPolygon;
+
+  /**
+   * Multiply `x` to `x` field and `y` to `y` field.
+   * @deprecated Better to use loop
+   * @param x
+   * @param y
+   */
+  scale(x: number, y: number): DPolygon;
+  scale(x: number | DPoint, y?: number): DPolygon {
+    return this.map((h: DPoint) => h.scale(x as number, y as number));
   }
 
   /**
+   * Divide `x` and `y` to `v`
    * @deprecated Better to use loop
-   * @param [x=0]
-   * @param [y=x]
+   * @param v
    */
-  divide(x: number | DPoint = 0, y?: number): DPolygon {
-    return this.map((h: DPoint) => h.divide(x, y));
+  divide(v: number): DPolygon;
+
+  /**
+   * Divide `x` field to `p.x` and `y` field to `p.y`.
+   * @deprecated Better to use loop
+   * @param p
+   */
+  divide(p: DPoint): DPolygon;
+
+  /**
+   * Divide `x` field to `x` and `y` field to `y`.
+   * @deprecated Better to use loop
+   * @param x
+   * @param y
+   */
+  divide(x: number, y: number): DPolygon;
+  divide(x: number | DPoint, y?: number): DPolygon {
+    return this.map((h: DPoint) => h.divide(x as number, y as number));
   }
 
   /**
@@ -526,11 +572,18 @@ export class DPolygon {
   }
 
   /**
-   * @deprecated Better to use loop
-   * @param size
+   * Flip vertically
+   * @param size canvas size
    */
+  flipVertically(size: DPoint): DPolygon;
+
+  /**
+   * Flip vertically
+   * @param height canvas height
+   */
+  flipVertically(height: number): DPolygon;
   flipVertically(size: DPoint | number): DPolygon {
-    return this.map((h: DPoint) => h.flipVertically(size));
+    return this.map((h: DPoint) => h.flipVertically(size as number));
   }
 
   /**
@@ -711,7 +764,7 @@ export class DPolygon {
   /**
    * Get polygon approximation by
    * [Ramer–Douglas–Peucker algorithm](https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm)
-   * @param e
+   * @param [e=Math.sqrt(this.perimeter)*APPROXIMATION_VALUE]
    */
   approximation(e: number = Math.sqrt(this.perimeter) * APPROXIMATION_VALUE): DPolygon {
     return new DPolygon(this.clone().douglasPeucker(this.pPoints, e));
@@ -799,10 +852,10 @@ export class DPolygon {
   /**
    * Check if contain point
    * @param p
-   * @param isBorderInside
-   * @param move Ignore this parameter
+   * @param [isBorderInside=false]
+   * @param [move=(0,0)] Ignore this parameter
    */
-  contain(p: DPoint, isBorderInside: boolean = false, move: DPoint = DPoint.Zero()): boolean {
+  contain(p: DPoint, isBorderInside: boolean = false, move: DPoint = DPoint.zero()): boolean {
     const simpleInclude = this.simpleInclude(p);
     if (!simpleInclude) {
       return false;
@@ -879,10 +932,22 @@ export class DPolygon {
   }
 
   /**
-   * Parse from [OpenLayers](https://openlayers.org/) coordinates or
-   * [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) coordinates
+   * Parse from [OpenLayers](https://openlayers.org/) coordinates
    * @param a
    */
+  static parse(a: LatLng[]): DPolygon;
+
+  /**
+   * Parse from [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) coordinates
+   * @param a
+   */
+  static parse(a: number[][]): DPolygon;
+
+  /**
+   * Parse from [OpenLayers](https://openlayers.org/) coordinates
+   * @param a
+   */
+  static parse(a: DCoord[]): DPolygon;
   static parse(a: LatLng[] | number[][] | DCoord[]): DPolygon {
     return new DPolygon(a.map((r: LatLng | number[] | DCoord) => DPoint.parse(r)));
   }

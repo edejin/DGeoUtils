@@ -3,14 +3,15 @@ import {DPolygon} from './DPolygon';
 import {DNumbers} from './DNumbers';
 import {checkFunction} from './utils';
 
+// eslint-disable-next-line padded-blocks
 export class DCircle {
-  center: DPoint = DPoint.Zero();
-  r: number = 0;
 
-  constructor(center: DPoint, r: number) {
-    this.r = r;
-    this.center = center;
-  }
+  /**
+   * @param [center=(0,0)]
+   * @param [r=0]
+   */
+  // eslint-disable-next-line no-useless-constructor,no-empty-function
+  constructor(public center: DPoint = DPoint.zero(), public r: number = 0) {}
 
   toString(): string {
     return `(${this.center.toString()}, ${this.r})`;
