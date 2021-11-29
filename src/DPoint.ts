@@ -234,6 +234,24 @@ export class DPoint {
     return this;
   }
 
+  /**
+   * Add `v` to `x` and `y`
+   * @param v
+   */
+  move(v: number): DPoint;
+
+  /**
+   * Add `p.x` to `x` field and `p.y` to `y` field.
+   * @param p
+   */
+  move(p: DPoint): DPoint;
+
+  /**
+   * Add `x` to `x` field and `y` to `y` field.
+   * @param x
+   * @param y
+   */
+  move(x: number, y: number): DPoint;
   move(x: number | DPoint = 0, y: number = (x as number)): DPoint {
     let xV = 0;
     let yV = 0;

@@ -852,10 +852,6 @@ describe('DPoint', () => {
   });
 
   describe('move', () => {
-    test('without args', () => {
-      expect(new DPoint(1, 1).move()
-        .equal(new DPoint(1, 1))).toBe(true);
-    });
     test('by number', () => {
       expect(new DPoint(1, 1).move(7)
         .equal(new DPoint(8, 8))).toBe(true);

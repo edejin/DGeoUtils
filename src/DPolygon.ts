@@ -483,7 +483,7 @@ export class DPolygon {
    * @param [y=x]
    */
   move(x: number | DPoint = 0, y?: number): DPolygon {
-    return this.map((h: DPoint) => h.move(x, y));
+    return this.map((h: DPoint) => h.move(x as number, y!));
   }
 
   /**

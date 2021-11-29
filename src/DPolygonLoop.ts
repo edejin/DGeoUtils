@@ -78,7 +78,7 @@ const decodePoolRecord = (a: LoopFunction, {
       break;
     case LoopFunctions.move:
       res = (k: DPoint): DPoint => a(k)
-        .move(numberPointArg, numberArg);
+        .move(numberPointArg! as number, numberArg!);
       break;
     case LoopFunctions.round:
       res = (k: DPoint): DPoint => a(k)
