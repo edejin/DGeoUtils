@@ -554,7 +554,7 @@ describe('DPolygon', () => {
         new DPoint(1, 1),
         new DPoint(5, 5),
         new DPoint(9, 1),
-        new DPoint(4, 4),
+        new DPoint(4, 3),
         new DPoint(1, 1)
       ]).convex).toEqual({
         holes: [],
@@ -587,6 +587,62 @@ describe('DPolygon', () => {
           }
         ]
       });
+    });
+    test('2', () => {
+      expect(new DPolygon([
+        new DPoint(1, 1),
+        new DPoint(5, 5),
+        new DPoint(9, 1),
+        new DPoint(4, 3),
+        new DPoint(1, 1)
+      ]).reverse().convex).toEqual({
+        holes: [],
+        properties: {},
+        searchStore: {},
+        pPoints: [
+          {
+            x: 1,
+            y: 1,
+            z: undefined,
+            properties: {}
+          },
+          {
+            x: 9,
+            y: 1,
+            z: undefined,
+            properties: {}
+          },
+          {
+            x: 5,
+            y: 5,
+            z: undefined,
+            properties: {}
+          },
+          {
+            x: 1,
+            y: 1,
+            z: undefined,
+            properties: {}
+          }
+        ]
+      });
+    });
+  });
+
+  describe('hasSimpleIntersection', () => {
+    test('1', () => {
+      expect(DPolygon.createSquareBySize(new DPoint(10, 10))
+        .hasSimpleIntersection(DPolygon.createSquareBySize(new DPoint(10, 10))
+          .loop()
+          .move(20, 0)
+          .run())).toBe(false);
+    });
+    test('2', () => {
+      expect(DPolygon.createSquareBySize(new DPoint(10, 10))
+        .hasSimpleIntersection(DPolygon.createSquareBySize(new DPoint(10, 10))
+          .loop()
+          .move(9, 9)
+          .run())).toBe(true);
     });
   });
 
@@ -756,6 +812,14 @@ describe('DPolygon', () => {
     });
     test('2', () => {
       expect(DPolygon.minAreaRectangleDirection(new DPolygon())).toBe(0);
+    });
+    test('3', () => {
+      expect(DPolygon.minAreaRectangleDirection(new DPolygon([
+        new DPoint(10, 20),
+        new DPoint(30, 40),
+        new DPoint(50, 50),
+        new DPoint(70, 70)
+      ]).minAreaRectangle.reverse())).toBe(2.498091544796509);
     });
   });
 

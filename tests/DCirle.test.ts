@@ -9,6 +9,12 @@ describe('DCircle', () => {
     expect(t.center.equal(new DPoint(3, 5))).toBe(true);
   });
 
+  test('constructor2', () => {
+    const t = new DCircle();
+    expect(t.r).toBe(0);
+    expect(t.center.equal(DPoint.zero())).toBe(true);
+  });
+
   test('toString', () => {
     const t = new DCircle(new DPoint(3, 5), 20);
     expect(t.toString()).toBe('(3 5, 20)');

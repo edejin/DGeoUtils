@@ -51,6 +51,7 @@ const decodePoolRecord = (a: LoopFunction, {
   setterArg
 }: PoolRecord): LoopFunction => {
   let res = a;
+  // eslint-disable-next-line default-case
   switch (functionName) {
     case LoopFunctions.getTileFromCoords:
       res = (k: DPoint): DPoint => a(k)
@@ -164,7 +165,6 @@ const decodePoolRecord = (a: LoopFunction, {
       res = (k: DPoint): DPoint => a(k)
         .flipVertically(numberPointArg as number);
       break;
-    default:
   }
   return res;
 };

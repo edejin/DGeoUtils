@@ -5,9 +5,9 @@ import {checkFunction} from './utils';
 export class DLine {
   // eslint-disable-next-line no-useless-constructor
   constructor(
-    public a: number = 0,
-    public b: number = 0,
-    public c: number = 0,
+    public a: number,
+    public b: number,
+    public c: number,
     public p1: DPoint = DPoint.zero(),
     public p2: DPoint = DPoint.zero()
     // eslint-disable-next-line no-empty-function

@@ -899,7 +899,7 @@ export class DPolygon {
   smartUnion(p: DPolygon): DPolygon | null {
     const res = this.clone().simpleUnion(p);
     if (res) {
-      let allHoles = [...this.holes, ...p.holes, ...(res.holes ?? [])].map((h: DPolygon) => h.clone());
+      let allHoles = [...this.holes, ...p.holes, ...res.holes].map((h: DPolygon) => h.clone());
       for (const a of allHoles) {
         for (const b of allHoles) {
           if (a.equal(b)) {
@@ -908,11 +908,7 @@ export class DPolygon {
           const r = a.simpleUnion(b);
           if (r) {
             allHoles = allHoles.filter((v: DPolygon) => !v.equal(a) && !v.equal(b));
-            if (Array.isArray(r)) {
-              allHoles = [...allHoles, ...r];
-            } else {
-              allHoles.push(r);
-            }
+            allHoles.push(r);
           }
         }
       }
