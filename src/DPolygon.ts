@@ -458,140 +458,12 @@ export class DPolygon {
   }
 
   /**
-   * Rotate polygon with center in point {0, 0}
-   * @param a Radians
-   * @deprecated Better to use loop
-   */
-  rotate(a: number): DPolygon {
-    return this.map((h: DPoint) => h.rotate(a));
-  }
-
-  /**
    * Filter points
    * @param f
    */
   filter(f: (p: DPoint) => boolean): DPolygon {
     this.pPoints = this.pPoints.filter(f);
     return this;
-  }
-
-  /**
-   * Add `v` to `x` and `y`
-   * @deprecated Better to use loop
-   * @param v
-   */
-  move(v: number): DPolygon;
-
-  /**
-   * Add `p.x` to `x` field and `p.y` to `y` field.
-   * @deprecated Better to use loop
-   * @param p
-   */
-  move(p: DPoint): DPolygon;
-
-  /**
-   * Add `x` to `x` field and `y` to `y` field.
-   * @deprecated Better to use loop
-   * @param x
-   * @param y
-   */
-  move(x: number, y: number): DPolygon;
-  move(x: number | DPoint, y?: number): DPolygon {
-    return this.map((h: DPoint) => h.move(x as number, y!));
-  }
-
-  /**
-   * Multiply `v` to `x` and `y`
-   * @deprecated Better to use loop
-   * @param v
-   */
-  scale(v: number): DPolygon;
-
-  /**
-   * Multiply `p.x` to `x` field and `p.y` to `y` field.
-   * @deprecated Better to use loop
-   * @param p
-   */
-  scale(p: DPoint): DPolygon;
-
-  /**
-   * Multiply `x` to `x` field and `y` to `y` field.
-   * @deprecated Better to use loop
-   * @param x
-   * @param y
-   */
-  scale(x: number, y: number): DPolygon;
-  scale(x: number | DPoint, y?: number): DPolygon {
-    return this.map((h: DPoint) => h.scale(x as number, y as number));
-  }
-
-  /**
-   * Divide `x` and `y` to `v`
-   * @deprecated Better to use loop
-   * @param v
-   */
-  divide(v: number): DPolygon;
-
-  /**
-   * Divide `x` field to `p.x` and `y` field to `p.y`.
-   * @deprecated Better to use loop
-   * @param p
-   */
-  divide(p: DPoint): DPolygon;
-
-  /**
-   * Divide `x` field to `x` and `y` field to `y`.
-   * @deprecated Better to use loop
-   * @param x
-   * @param y
-   */
-  divide(x: number, y: number): DPolygon;
-  divide(x: number | DPoint, y?: number): DPolygon {
-    return this.map((h: DPoint) => h.divide(x as number, y as number));
-  }
-
-  /**
-   * @deprecated Better to use loop
-   */
-  round(): DPolygon {
-    return this.map((h: DPoint) => h.round());
-  }
-
-  /**
-   * @deprecated Better to use loop
-   */
-  floor(): DPolygon {
-    return this.map((h: DPoint) => h.floor());
-  }
-
-  /**
-   * @deprecated Better to use loop
-   */
-  ceil(): DPolygon {
-    return this.map((h: DPoint) => h.ceil());
-  }
-
-  /**
-   * Flip vertically
-   * @param size canvas size
-   */
-  flipVertically(size: DPoint): DPolygon;
-
-  /**
-   * Flip vertically
-   * @param height canvas height
-   */
-  flipVertically(height: number): DPolygon;
-  flipVertically(size: DPoint | number): DPolygon {
-    return this.map((h: DPoint) => h.flipVertically(size as number));
-  }
-
-  /**
-   * @deprecated Better to use loop
-   * @param [n=2]
-   */
-  toFixed(n: number = 2): DPolygon {
-    return this.map((h: DPoint) => h.toFixed(n));
   }
 
   map(f: (r: DPoint, index?: number) => DPoint): DPolygon {
@@ -634,34 +506,6 @@ export class DPolygon {
     );
   }
 
-  /**
-   * @deprecated Better to use loop
-   */
-  degreeToMeters(): DPolygon {
-    return this.map((r: DPoint) => r.degreeToMeters());
-  }
-
-  /**
-   * @deprecated Better to use loop
-   */
-  metersToDegree(): DPolygon {
-    return this.map((r: DPoint) => r.metersToDegree());
-  }
-
-  /**
-   * @deprecated Better to use loop
-   */
-  radiansToMeters(): DPolygon {
-    return this.map((r: DPoint) => r.radiansToMeters());
-  }
-
-  /**
-   * @deprecated Better to use loop
-   */
-  metersToRadians(): DPolygon {
-    return this.map((r: DPoint) => r.metersToRadians());
-  }
-
   toString(): string {
     return `(${this.pPoints.map((r: DPoint) => r.toString()).join(', ')})`;
   }
@@ -686,15 +530,6 @@ export class DPolygon {
       this.pop();
     }
     return this;
-  }
-
-  /**
-   * Set `height` (`z`)
-   * @param z
-   * @deprecated Better to use loop
-   */
-  height(z: number): DPolygon {
-    return this.map((p: DPoint) => p.height(z));
   }
 
   add(poly: DPolygon): DPolygon {

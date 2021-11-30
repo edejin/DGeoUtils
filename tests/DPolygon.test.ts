@@ -123,21 +123,6 @@ describe('DPolygon', () => {
         searchStore: {}
       });
     });
-    test('4', () => {
-      expect(DPolygon.parseFromWKT('POINT (30 10)').degreeToMeters()).toEqual({
-        holes: [],
-        pPoints: [
-          {
-            x: 3339584.723333333,
-            y: 1118889.9747022088,
-            z: undefined,
-            properties: {}
-          }
-        ],
-        properties: {},
-        searchStore: {}
-      });
-    });
   });
 
   describe('createSquareBySize', () => {
@@ -1043,122 +1028,10 @@ describe('DPolygon', () => {
     });
   });
 
-  describe('rotate', () => {
-    test('1', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((35 10, 45 45, 15 40, 10 20, 35 10), ' +
-        '(20 30, 35 35, 30 20, 20 30))').rotate(Math.PI / 2)
-        .toWKT()).toBe('POLYGON ((-9.999999999999998 35, -45 45,' +
-        ' -40 15.000000000000002, -20 10.000000000000002, -9.999999999999998 35),' +
-        ' (-30 20.000000000000004, -35 35, -19.999999999999996 30, -30' +
-        ' 20.000000000000004))');
-    });
-  });
-
   describe('filter', () => {
     test('1', () => {
       expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))').filter((p: DPoint) => p.x > 20)
         .toWKT()).toBe('POLYGON ((30 10, 40 40, 30 10))');
-    });
-  });
-
-  describe('move', () => {
-    test('1', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))').move(1, 0)
-        .toWKT()).toBe('POLYGON ((31 10, 41 40, 21 40, 11 20, 31 10))');
-    });
-    test('2', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10),' +
-        ' (25 18, 30 31, 21 32, 18 22, 25 18))').move(1, 0)
-        .toWKT()).toBe('POLYGON ((31 10, 41 40, 21 40, 11 20, 31 10), (26 18, 31 31, 22 32, 19 22, 26 18))');
-    });
-  });
-
-  describe('scale', () => {
-    test('1', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))').scale(2, 1)
-        .toWKT()).toBe('POLYGON ((60 10, 80 40, 40 40, 20 20, 60 10))');
-    });
-    test('2', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10),' +
-        ' (25 18, 30 31, 21 32, 18 22, 25 18))').scale(2, 1)
-        .toWKT()).toBe('POLYGON ((60 10, 80 40, 40 40, 20 20, 60 10), (50 18, 60 31, 42 32, 36 22, 50 18))');
-    });
-  });
-
-  describe('divide', () => {
-    test('1', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))').divide(2, 1)
-        .toWKT()).toBe('POLYGON ((15 10, 20 40, 10 40, 5 20, 15 10))');
-    });
-    test('2', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10),' +
-        ' (25 18, 30 31, 21 32, 18 22, 25 18))').divide(2, 1)
-        .toWKT()).toBe('POLYGON ((15 10, 20 40, 10 40, 5 20, 15 10), (12.5 18, 15 31, 10.5 32, 9 22, 12.5 18))');
-    });
-  });
-
-  describe('round', () => {
-    test('1', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30.1 10.2, 40.3 40.4, 20.5 40.6, 10.7 20.8, 30.1 10.2))').round()
-        .toWKT()).toBe('POLYGON ((30 10, 40 40, 21 41, 11 21, 30 10))');
-    });
-    test('2', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30.1 10.2, 40.3 40.4, 20.5 40.6, 10.7 20.8, 30.1 10.2),' +
-        ' (25.2 18.3, 30.4 31.5, 21.6 32.7, 18.8 22.9, 25.1 18.2))').round()
-        .toWKT()).toBe('POLYGON ((30 10, 40 40, 21 41, 11 21, 30 10), (25 18, 30 32, 22 33, 19 23, 25 18))');
-    });
-  });
-
-  describe('flipVertically', () => {
-    test('1', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30.1 10.2, 40.3 40.4, 20.5 40.6, 10.7 20.8, 30.1 10.2))')
-        .flipVertically(100)
-        .toWKT()).toBe('POLYGON ((30.1 89.8, 40.3 59.6, 20.5 59.4, 10.7 79.2, 30.1 89.8))');
-    });
-    test('2', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30.1 10.2, 40.3 40.4, 20.5 40.6, 10.7 20.8, 30.1 10.2),' +
-        ' (25.2 18.3, 30.4 31.5, 21.6 32.7, 18.8 22.9, 25.1 18.2))').flipVertically(new DPoint(100, 100))
-        .toWKT()).toBe('POLYGON ((30.1 89.8, 40.3 59.6, 20.5 59.4, 10.7 79.2, 30.1 89.8),' +
-        ' (25.2 81.7, 30.4 68.5, 21.6 67.3, 18.8 77.1, 25.1 81.8))');
-    });
-  });
-
-  describe('floor', () => {
-    test('1', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30.1 10.2, 40.3 40.4, 20.5 40.6, 10.7 20.8, 30.1 10.2))').floor()
-        .toWKT()).toBe('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))');
-    });
-    test('2', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30.1 10.2, 40.3 40.4, 20.5 40.6, 10.7 20.8, 30.1 10.2),' +
-        ' (25.2 18.3, 30.4 31.5, 21.6 32.7, 18.8 22.9, 25.1 18.2))').floor()
-        .toWKT()).toBe('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10), (25 18, 30 31, 21 32, 18 22, 25 18))');
-    });
-  });
-
-  describe('ceil', () => {
-    test('1', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30.1 10.2, 40.3 40.4, 20.5 40.6, 10.7 20.8, 30.1 10.2))').ceil()
-        .toWKT()).toBe('POLYGON ((31 11, 41 41, 21 41, 11 21, 31 11))');
-    });
-    test('2', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30.1 10.2, 40.3 40.4, 20.5 40.6, 10.7 20.8, 30.1 10.2),' +
-        ' (25.2 18.3, 30.4 31.5, 21.6 32.7, 18.8 22.9, 25.1 18.2))').ceil()
-        .toWKT()).toBe('POLYGON ((31 11, 41 41, 21 41, 11 21, 31 11), (26 19, 31 32, 22 33, 19 23, 26 19))');
-    });
-  });
-
-  describe('toFixed', () => {
-    test('1', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30.1123 10.2123, 40.3123 40.4123, 20.5123 40.6123,' +
-        ' 10.7123 20.8123, 30.1123 10.2123))').toFixed()
-        .toWKT()).toBe('POLYGON ((30.11 10.21, 40.31 40.41, 20.51 40.61, 10.71 20.81, 30.11 10.21))');
-    });
-    test('2', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30.1123 10.2123, 40.3123 40.4123, 20.5123 40.6123,' +
-        ' 10.7123 20.8123, 30.1123 10.2123), (25.2534 18.33455, 30.4453 31.545346, 21.64534 32.7543,' +
-        ' 18.83455 22.9453, 25.145345 18.234534))').toFixed(3)
-        .toWKT()).toBe('POLYGON ((30.112 10.212, 40.312 40.412, 20.512 40.612, 10.712 20.812,' +
-        ' 30.112 10.212), (25.253 18.335, 30.445 31.545, 21.645 32.754, 18.835 22.945, 25.145 18.235))');
     });
   });
 
@@ -1296,39 +1169,6 @@ describe('DPolygon', () => {
     });
   });
 
-  describe('transform', () => {
-    test('1', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))').metersToDegree()
-        .toWKT()).toBe('POLYGON ((0.00026949458527337036 0.00008983152842745312, 0.0003593261136978272' +
-        ' 0.0003593261137098125, 0.0001796630568489136 0.0003593261137098125, 0.0000898315284244568 0.00017966' +
-        '305685490624, 0.00026949458527337036 0.00008983152842745312))');
-    });
-    test('2', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10), (25 18, 30 31, 21 32, 18 22, 25 18))')
-        .metersToDegree()
-        .toWKT())
-        .toBe('POLYGON ((0.00026949458527337036 0.00008983152842745312,' +
-          ' 0.0003593261136978272 0.0003593261137098125, 0.0001796630568489136 0.0003593261137098125,' +
-          ' 0.0000898315284244568 0.00017966305685490624, 0.00026949458527337036 0.00008983152842745312),' +
-          ' (0.00022457882106114197 0.00016169675116373128, 0.00026949458527337036 0.0002784777381208414,' +
-          ' 0.00018864620969135924 0.0002874608909451126, 0.00016169675116402222 0.00019762936253187036,' +
-          ' 0.00022457882106114197 0.00016169675116373128))');
-    });
-
-    describe('radiansToMeters', () => {
-      test('1', () => {
-        expect(new DPolygon([new DPoint(Math.PI / 4, Math.PI / 4)]).radiansToMeters()
-          .toWKT()).toBe('POLYGON ((5009377.085 5621521.485409545))');
-      });
-    });
-    describe('metersToRadians', () => {
-      test('1', () => {
-        expect(new DPolygon([new DPoint(5009377.085, 5621521.485409545)]).metersToRadians()
-          .equal(new DPolygon([new DPoint(Math.PI / 4, Math.PI / 4)]))).toBe(true);
-      });
-    });
-  });
-
   describe('toString', () => {
     test('1', () => {
       expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))')
@@ -1359,51 +1199,6 @@ describe('DPolygon', () => {
       expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20))')
         .open()
         .toString()).toBe('(30 10, 40 40, 20 40, 10 20)');
-    });
-  });
-
-  describe('height', () => {
-    test('1', () => {
-      expect(DPolygon.parseFromWKT('POLYGON ((35 10, 45 45), (20 30, 35 35))')
-        .height(3)).toEqual({
-        holes: [
-          {
-            holes: [],
-            pPoints: [
-              {
-                x: 20,
-                y: 30,
-                z: 3,
-                properties: {}
-              },
-              {
-                x: 35,
-                y: 35,
-                z: 3,
-                properties: {}
-              }
-            ],
-            properties: {},
-            searchStore: {}
-          }
-        ],
-        pPoints: [
-          {
-            x: 35,
-            y: 10,
-            z: 3,
-            properties: {}
-          },
-          {
-            x: 45,
-            y: 45,
-            z: 3,
-            properties: {}
-          }
-        ],
-        properties: {},
-        searchStore: {}
-      });
     });
   });
 
@@ -1670,19 +1465,6 @@ describe('DPolygon', () => {
         '(30 10, 35.84890578305056 27.546717349151674, 40 40, 34.63104841334295 40, 20 40, 18.27160188343253' +
         ' 36.54320376686506, 10.000000000000007 20.000000000000007, 10 20, 26.543203766865044 11.728398116567476)'
       ]);
-    });
-  });
-
-  describe('hasSimpleIntersection', () => {
-    test('1', () => {
-      expect(DPolygon.createSquareBySize(new DPoint(10, 10))
-        .hasSimpleIntersection(DPolygon.createSquareBySize(new DPoint(10, 10))
-          .move(20, 0))).toBe(false);
-    });
-    test('2', () => {
-      expect(DPolygon.createSquareBySize(new DPoint(10, 10))
-        .hasSimpleIntersection(DPolygon.createSquareBySize(new DPoint(10, 10))
-          .move(9, 9))).toBe(true);
     });
   });
 
@@ -2182,7 +1964,9 @@ describe('DPolygon', () => {
     test('2', () => {
       const p = DPolygon.parseFromWKT('POLYGON ((1 1, 4 1, 4 2, 2 2, 2 3, 5 3, 5 4, 3 4, 3 5, 4 5, 4 6,' +
         ' 1 6, 1 5, 2 5, 2 4, 1 4))')
+        .loop()
         .scale(10)
+        .run()
         .close();
       expect(p
         .toTriangles()
@@ -2205,7 +1989,9 @@ describe('DPolygon', () => {
     test('3', () => {
       const p = DPolygon.parseFromWKT('POLYGON ((1 1, 4 1, 4 2, 2 2, 2 3, 5 3, 5 4, 3 4, 3 5, 4 5, 4 6,' +
         ' 1 6, 1 5, 2 5, 2 4, 1 4), (1.2 1.2, 1.8 1.2, 1.8 3.8, 1.2 3.8))')
+        .loop()
         .scale(10)
+        .run()
         .close();
       const triangles = p.toTriangles();
       expect(triangles
@@ -2241,7 +2027,9 @@ describe('DPolygon', () => {
     test('5', () => {
       const p = DPolygon.parseFromWKT('POLYGON ((1 1, 4 1, 4 2, 2 2, 2 3, 5 3, 5 4, 3 4, 3 5, 4 5, 4 6,' +
         ' 1 6, 1 5, 2 5, 2 4, 1 4), (1.2 1.2, 1.8 1.2, 1.8 3.8, 1.2 3.8), (32 32, 32 38, 38 38, 38 32))')
+        .loop()
         .scale(10)
+        .run()
         .close();
       expect(p.toTriangles()
         .map((v: DPolygon) => v.toString())
