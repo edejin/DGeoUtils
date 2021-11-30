@@ -153,11 +153,10 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPoint.html#toFixed" class="tsd-kind-icon">to<wbr>Fixed</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPoint.html#toString" class="tsd-kind-icon">to<wbr>String</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="DPoint.html#toWKT" class="tsd-kind-icon">toWKT</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="DPoint.html#Random" class="tsd-kind-icon">Random</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="DPoint.html#Zero" class="tsd-kind-icon">Zero</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="DPoint.html#isPoint" class="tsd-kind-icon">is<wbr>Point</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="DPoint.html#parse" class="tsd-kind-icon">parse</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="DPoint.html#parseFromWKT" class="tsd-kind-icon">parse<wbr>FromWKT</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="DPoint.html#random" class="tsd-kind-icon">random</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><a href="DPoint.html#zero" class="tsd-kind-icon">zero</a></li>
 							</ul>
 						</section>
 					</div>
@@ -169,39 +168,104 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new DPoint<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, z<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">new DPoint<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">new DPoint<span class="tsd-signature-symbol">(</span>xy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">new DPoint<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">new DPoint<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, z<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L46">DPoint.ts:46</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L40">DPoint.ts:40</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create point with zero coords <code>(0, 0)</code></p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L45">DPoint.ts:45</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create point with zero coords <code>(0, 0)</code></p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>x: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></h5>
+									<h5>xy: <span class="tsd-signature-type">number</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>lng, meters to East, radians to East or width</p>
-										</div>
+										<p><code>x</code> and <code>y</code> value</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L51">DPoint.ts:51</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create point with zero coords <code>(0, 0)</code></p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>x: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>lng, meters to East, radians to East or width</p>
 									</div>
 								</li>
 								<li>
-									<h5>y: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></h5>
+									<h5>y: <span class="tsd-signature-type">number</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>lat, meters to North, radians to North or height</p>
-										</div>
+										<p>lat, meters to North, radians to North or height</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L58">DPoint.ts:58</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create point with zero coords <code>(0, 0)</code></p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>x: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>lng, meters to East, radians to East or width</p>
+									</div>
+								</li>
+								<li>
+									<h5>y: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>lat, meters to North, radians to North or height</p>
 									</div>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagOptional">Optional</span> z: <span class="tsd-signature-type">number</span></h5>
 									<div class="tsd-comment tsd-typography">
-										<div class="lead">
-											<p>height</p>
-										</div>
+										<p>height</p>
 									</div>
 								</li>
 							</ul>
@@ -218,7 +282,7 @@
 					<div class="tsd-signature tsd-kind-icon">properties<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> = {}</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L38">DPoint.ts:38</a></li>
+							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L35">DPoint.ts:35</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -235,19 +299,13 @@
 					<h3>x</h3>
 					<div class="tsd-signature tsd-kind-icon">x<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
 					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L34">DPoint.ts:34</a></li>
-						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="y" class="tsd-anchor"></a>
 					<h3>y</h3>
-					<div class="tsd-signature tsd-kind-icon">y<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div>
+					<div class="tsd-signature tsd-kind-icon">y<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L35">DPoint.ts:35</a></li>
-						</ul>
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
@@ -255,9 +313,6 @@
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> z</h3>
 					<div class="tsd-signature tsd-kind-icon">z<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L36">DPoint.ts:36</a></li>
-						</ul>
 					</aside>
 				</section>
 			</section>
@@ -273,7 +328,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L434">DPoint.ts:434</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L535">DPoint.ts:535</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -291,7 +346,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L426">DPoint.ts:426</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L527">DPoint.ts:527</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -299,7 +354,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L430">DPoint.ts:430</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L531">DPoint.ts:531</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -322,7 +377,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L475">DPoint.ts:475</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L576">DPoint.ts:576</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -339,7 +394,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L441">DPoint.ts:441</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L542">DPoint.ts:542</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -356,7 +411,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L456">DPoint.ts:456</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L557">DPoint.ts:557</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -373,7 +428,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L411">DPoint.ts:411</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L512">DPoint.ts:512</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -395,7 +450,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L390">DPoint.ts:390</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L491">DPoint.ts:491</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -417,7 +472,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L400">DPoint.ts:400</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L501">DPoint.ts:501</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -439,7 +494,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L452">DPoint.ts:452</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L553">DPoint.ts:553</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -456,7 +511,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L448">DPoint.ts:448</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L549">DPoint.ts:549</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -474,7 +529,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L418">DPoint.ts:418</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L519">DPoint.ts:519</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -482,7 +537,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L422">DPoint.ts:422</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L523">DPoint.ts:523</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -505,7 +560,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L471">DPoint.ts:471</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L572">DPoint.ts:572</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -522,7 +577,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L461">DPoint.ts:461</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L562">DPoint.ts:562</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -539,7 +594,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L466">DPoint.ts:466</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L567">DPoint.ts:567</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -559,7 +614,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L328">DPoint.ts:328</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L378">DPoint.ts:378</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -576,7 +631,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L310">DPoint.ts:310</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L357">DPoint.ts:357</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -593,7 +648,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L203">DPoint.ts:203</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L232">DPoint.ts:232</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -610,7 +665,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L252">DPoint.ts:252</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L299">DPoint.ts:299</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -627,7 +682,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L276">DPoint.ts:276</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L323">DPoint.ts:323</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -644,7 +699,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L182">DPoint.ts:182</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L188">DPoint.ts:188</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -661,22 +716,73 @@
 					<a name="divide" class="tsd-anchor"></a>
 					<h3>divide</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">divide<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a>, y<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">divide<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">divide<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">divide<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L349">DPoint.ts:349</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L421">DPoint.ts:421</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Divide <code>x</code> and <code>y</code> to <code>v</code></p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>x: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a><span class="tsd-signature-symbol"> = 0</span></h5>
+									<h5>v: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L427">DPoint.ts:427</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Divide <code>x</code> field to <code>p.x</code> and <code>y</code> field to <code>p.y</code>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L434">DPoint.ts:434</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Divide <code>x</code> field to <code>x</code> and <code>y</code> field to <code>y</code>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>x: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
-									<h5>y: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = ...</span></h5>
+									<h5>y: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -693,7 +799,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L364">DPoint.ts:364</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L450">DPoint.ts:450</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -716,7 +822,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L148">DPoint.ts:148</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L154">DPoint.ts:154</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -742,7 +848,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L127">DPoint.ts:127</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L133">DPoint.ts:133</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -766,19 +872,50 @@
 					<a name="flipVertically" class="tsd-anchor"></a>
 					<h3>flip<wbr>Vertically</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">flip<wbr>Vertically<span class="tsd-signature-symbol">(</span>size<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">flip<wbr>Vertically<span class="tsd-signature-symbol">(</span>size<span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">flip<wbr>Vertically<span class="tsd-signature-symbol">(</span>height<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L378">DPoint.ts:378</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L472">DPoint.ts:472</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Flip vertically</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>size: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h5>
+									<h5>size: <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>canvas size</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L478">DPoint.ts:478</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Flip vertically</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>height: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>canvas height</p>
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -795,7 +932,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L316">DPoint.ts:316</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L363">DPoint.ts:363</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -812,7 +949,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L106">DPoint.ts:106</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L112">DPoint.ts:112</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -845,7 +982,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L88">DPoint.ts:88</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L94">DPoint.ts:94</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -878,7 +1015,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L168">DPoint.ts:168</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L174">DPoint.ts:174</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span></h4>
@@ -895,7 +1032,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L209">DPoint.ts:209</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L238">DPoint.ts:238</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -918,7 +1055,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L217">DPoint.ts:217</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L246">DPoint.ts:246</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -941,7 +1078,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L172">DPoint.ts:172</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L178">DPoint.ts:178</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -964,7 +1101,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L368">DPoint.ts:368</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L458">DPoint.ts:458</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -990,7 +1127,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L213">DPoint.ts:213</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L242">DPoint.ts:242</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1013,7 +1150,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L221">DPoint.ts:221</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L250">DPoint.ts:250</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1036,7 +1173,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L264">DPoint.ts:264</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L311">DPoint.ts:311</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -1053,7 +1190,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L297">DPoint.ts:297</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L344">DPoint.ts:344</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -1070,7 +1207,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L492">DPoint.ts:492</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L593">DPoint.ts:593</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -1081,22 +1218,73 @@
 					<a name="move" class="tsd-anchor"></a>
 					<h3>move</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">move<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a>, y<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">move<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">move<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">move<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L237">DPoint.ts:237</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L270">DPoint.ts:270</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add <code>v</code> to <code>x</code> and <code>y</code></p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>x: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a><span class="tsd-signature-symbol"> = 0</span></h5>
+									<h5>v: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L276">DPoint.ts:276</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add <code>p.x</code> to <code>x</code> field and <code>p.y</code> to <code>y</code> field.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L283">DPoint.ts:283</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Add <code>x</code> to <code>x</code> field and <code>y</code> to <code>y</code> field.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>x: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
-									<h5>y: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = ...</span></h5>
+									<h5>y: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -1113,7 +1301,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L506">DPoint.ts:506</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L607">DPoint.ts:607</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1150,7 +1338,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L283">DPoint.ts:283</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L330">DPoint.ts:330</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -1167,7 +1355,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L290">DPoint.ts:290</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L337">DPoint.ts:337</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -1184,7 +1372,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L229">DPoint.ts:229</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L258">DPoint.ts:258</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1215,7 +1403,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L304">DPoint.ts:304</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L351">DPoint.ts:351</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -1226,22 +1414,73 @@
 					<a name="scale" class="tsd-anchor"></a>
 					<h3>scale</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">scale<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a>, y<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">scale<span class="tsd-signature-symbol">(</span>v<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">scale<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">scale<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L334">DPoint.ts:334</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L388">DPoint.ts:388</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Multiply <code>v</code> to <code>x</code> and <code>y</code></p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>x: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a><span class="tsd-signature-symbol"> = 0</span></h5>
+									<h5>v: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L394">DPoint.ts:394</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Multiply <code>p.x</code> to <code>x</code> field and <code>p.y</code> to <code>y</code> field.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>p: <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L401">DPoint.ts:401</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Multiply <code>x</code> to <code>x</code> field and <code>y</code> to <code>y</code> field.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>x: <span class="tsd-signature-type">number</span></h5>
 								</li>
 								<li>
-									<h5>y: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = ...</span></h5>
+									<h5>y: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -1258,7 +1497,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L486">DPoint.ts:486</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L587">DPoint.ts:587</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1275,19 +1514,48 @@
 					<a name="setX" class="tsd-anchor"></a>
 					<h3>setX</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">setX<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="../modules.html#SetterFunction" class="tsd-signature-type" data-tsd-kind="Type alias">SetterFunction</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">setX<span class="tsd-signature-symbol">(</span>x<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">setX<span class="tsd-signature-symbol">(</span>f<span class="tsd-signature-symbol">: </span><a href="../modules.html#SetterFunction" class="tsd-signature-type" data-tsd-kind="Type alias">SetterFunction</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L193">DPoint.ts:193</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L203">DPoint.ts:203</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set <code>x</code> value</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>x: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="../modules.html#SetterFunction" class="tsd-signature-type" data-tsd-kind="Type alias">SetterFunction</a></h5>
+									<h5>x: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L209">DPoint.ts:209</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Transform <code>x</code> value by function</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>f: <a href="../modules.html#SetterFunction" class="tsd-signature-type" data-tsd-kind="Type alias">SetterFunction</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -1298,19 +1566,48 @@
 					<a name="setY" class="tsd-anchor"></a>
 					<h3>setY</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">setY<span class="tsd-signature-symbol">(</span>y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="../modules.html#SetterFunction" class="tsd-signature-type" data-tsd-kind="Type alias">SetterFunction</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">setY<span class="tsd-signature-symbol">(</span>y<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+						<li class="tsd-signature tsd-kind-icon">setY<span class="tsd-signature-symbol">(</span>f<span class="tsd-signature-symbol">: </span><a href="../modules.html#SetterFunction" class="tsd-signature-type" data-tsd-kind="Type alias">SetterFunction</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L198">DPoint.ts:198</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L220">DPoint.ts:220</a></li>
 								</ul>
 							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Set <code>y</code> value</p>
+								</div>
+							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>y: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><a href="../modules.html#SetterFunction" class="tsd-signature-type" data-tsd-kind="Type alias">SetterFunction</a></h5>
+									<h5>y: <span class="tsd-signature-type">number</span></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
+						</li>
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L226">DPoint.ts:226</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Transform <code>y</code> value by function</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>f: <a href="../modules.html#SetterFunction" class="tsd-signature-type" data-tsd-kind="Type alias">SetterFunction</a></h5>
+									<div class="tsd-comment tsd-typography">
+									</div>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
@@ -1327,7 +1624,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L479">DPoint.ts:479</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L580">DPoint.ts:580</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1358,7 +1655,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L116">DPoint.ts:116</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L122">DPoint.ts:122</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="../modules.html#DCoord" class="tsd-signature-type" data-tsd-kind="Type alias">DCoord</a></h4>
@@ -1375,7 +1672,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L322">DPoint.ts:322</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L372">DPoint.ts:372</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1398,7 +1695,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L164">DPoint.ts:164</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L170">DPoint.ts:170</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
@@ -1415,67 +1712,10 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L177">DPoint.ts:177</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L183">DPoint.ts:183</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="Random" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> Random</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">Random<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L77">DPoint.ts:77</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="Zero" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> Zero</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">Zero<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L52">DPoint.ts:52</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
-						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
-					<a name="isPoint" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> is<wbr>Point</h3>
-					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
-						<li class="tsd-signature tsd-kind-icon">is<wbr>Point<span class="tsd-signature-symbol">(</span>p<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L65">DPoint.ts:65</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>p: <span class="tsd-signature-type">unknown</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -1489,7 +1729,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L56">DPoint.ts:56</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L66">DPoint.ts:66</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1512,7 +1752,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/a138ebe/src/DPoint.ts#L69">DPoint.ts:69</a></li>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L75">DPoint.ts:75</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1521,6 +1761,40 @@
 									<h5>wkt: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="random" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> random</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">random<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L83">DPoint.ts:83</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-is-static">
+					<a name="zero" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> zero</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-is-static">
+						<li class="tsd-signature tsd-kind-icon">zero<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/edejin/DGeoUtils/blob/6e40572/src/DPoint.ts#L62">DPoint.ts:62</a></li>
+								</ul>
+							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="DPoint.html" class="tsd-signature-type" data-tsd-kind="Class">DPoint</a></h4>
 						</li>
 					</ul>
@@ -1729,19 +2003,16 @@
 								<a href="DPoint.html#toWKT" class="tsd-kind-icon">toWKT</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="DPoint.html#Random" class="tsd-kind-icon">Random</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="DPoint.html#Zero" class="tsd-kind-icon">Zero</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
-								<a href="DPoint.html#isPoint" class="tsd-kind-icon">is<wbr>Point</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="DPoint.html#parse" class="tsd-kind-icon">parse</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
 								<a href="DPoint.html#parseFromWKT" class="tsd-kind-icon">parse<wbr>FromWKT</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="DPoint.html#random" class="tsd-kind-icon">random</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-static">
+								<a href="DPoint.html#zero" class="tsd-kind-icon">zero</a>
 							</li>
 						</ul>
 					</li>
@@ -1803,10 +2074,6 @@
 				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
