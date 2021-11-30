@@ -40,17 +40,20 @@ export class DPoint {
   constructor();
 
   /**
+   * Create point
    * @param xy - `x` and `y` value
    */
   constructor(xy: number);
 
   /**
+   * Create point
    * @param x - lng, meters to East, radians to East or width
    * @param y - lat, meters to North, radians to North or height
    */
   constructor(x: number, y: number);
 
   /**
+   * Create point
    * @param x - lng, meters to East, radians to East or width
    * @param y - lat, meters to North, radians to North or height
    * @param z - height

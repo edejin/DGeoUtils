@@ -5,6 +5,7 @@ export * from './DPoint';
 export * from './DPolygon';
 export * from './FastSearch';
 export * from './TraceMatrix';
+export * from './DPolygonLoop';
 export const DGeo = {
   DEBUG: false
 };
