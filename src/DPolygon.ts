@@ -3,9 +3,17 @@ import {DCoord, DPoint, LatLng} from './DPoint';
 import {DLine} from './DLine';
 import {DCircle} from './DCircle';
 import {DNumbers} from './DNumbers';
-import {io as jstsIo, geom} from 'jsts';
+import {io as jstsIo, geom, operation} from 'jsts';
 import Geometry = geom.Geometry;
 import {DPolygonLoop} from './DPolygonLoop';
+
+const {
+  buffer: {
+    BufferParameters: {
+      CAP_ROUND
+    }
+  }
+} = operation;
 
 export const MIN_POINTS_IN_VALID_POLYGON = 3;
 const APPROXIMATION_VALUE = 0.1;
@@ -544,7 +552,7 @@ export class DPolygon {
    */
   close(): DPolygon {
     const p0 = this.first;
-    if (p0 && !p0.equal(this.last)) {
+    if (p0 && !this.closed) {
       this.push(p0.clone());
     }
     return this;
@@ -555,7 +563,7 @@ export class DPolygon {
    */
   open(): DPolygon {
     const p = this.first;
-    if (this.length > 2 && p && p.equal(this.last)) {
+    if (this.length > 2 && p && this.closed) {
       this.pop();
     }
     return this;
@@ -1005,6 +1013,20 @@ export class DPolygon {
     }
     res.push(p);
     return res;
+  }
+
+  get closed(): boolean {
+    return this.first.equal(this.last);
+  }
+
+  buffer(v: number): DPolygon {
+    const reader = new jstsIo.WKTReader();
+    const {noHoles, closed} = this;
+    const points = reader
+      .read(closed ? noHoles.toWKT() : noHoles.add(noHoles.clone().reverse()).toWKT())
+      .buffer(v, 64, CAP_ROUND)
+      .getCoordinates() as { x: number; y: number }[];
+    return new DPolygon(points.map(({x, y}: {x: number; y: number}) => new DPoint(x, y)));
   }
 
   private simpleIncludeX(p: DPoint) {
