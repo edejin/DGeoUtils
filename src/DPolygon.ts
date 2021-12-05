@@ -22,6 +22,35 @@ export class DPolygon {
   constructor(private pPoints: DPoint[] = []) {}
 
   /**
+   * Transform array of triangles to Three.JS vertices
+   *
+   * ```
+   * const geometry = new THREE.BufferGeometry();
+   * // create a simple square shape. We duplicate the top left and bottom right
+   * // vertices because each vertex needs to appear once per triangle.
+   * const vertices = new Float32Array( DPolygon.arrayOfTrianglesToVertices(triangles, 10) );
+   *
+   * // itemSize = 3 because there are 3 values (components) per vertex
+   * geometry.setAttribute( 'position', new THREE.BufferAttribute( vertices, 3 ) );
+   * const material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
+   * mesh = new THREE.Mesh( geometry, material );
+   *
+   * scene.add( mesh );
+   * ```
+   *
+   * @param triangles
+   * @param [height=0]
+   */
+  static arrayOfTrianglesToVertices(triangles: DPolygon[], height: number = 0): number[] {
+    return triangles.map((v: DPolygon) => v
+      .loop()
+      .height(height)
+      .run()
+      .toArrayOfCoords())
+      .flat(2);
+  }
+
+  /**
    * Get size of min area rectangle.
    * @param poly should be `minAreaRectangle`
    */
