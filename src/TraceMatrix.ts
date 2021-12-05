@@ -31,10 +31,8 @@ const setByPosition = (m: SimpleMatrix, p: DPoint, value: TraceMatrixValues): Tr
 
 export class TraceMatrix {
   private readonly m: SimpleMatrix;
-  private readonly size: DPoint;
 
-  constructor(size: DPoint, f: (p: DPoint) => TraceMatrixValues) {
-    this.size = size;
+  constructor(private readonly size: DPoint, f: (p: DPoint) => TraceMatrixValues) {
     this.m = TraceMatrix.createMatrix(this.size, f);
   }
 

@@ -2,7 +2,16 @@ import {DPoint} from './DPoint';
 import {DCircle} from './DCircle';
 import {checkFunction} from './utils';
 
+// eslint-disable-next-line padded-blocks
 export class DLine {
+
+  /**
+   * @param a
+   * @param b
+   * @param c
+   * @param [begin=DPoint.zero()]
+   * @param [end=DPoint.zero()]
+   */
   // eslint-disable-next-line no-useless-constructor
   constructor(
     public a: number,
@@ -272,29 +281,12 @@ export class DLine {
       .shouldBeMeters(this.begin)
       .checkArgument('this.end')
       .shouldBeMeters(this.end);
-    const l: DLine = new DLine(0, 1, 0);
-    const result = this.findFi(l);
-    if (this.begin.x === this.end.x) {
-      if (this.begin.y === this.end.y) {
-        return 0;
-      } else if (this.begin.y < this.end.y) {
-        return Math.PI + Math.PI / 2;
-      }
-      return Math.PI / 2;
-    } else if (this.begin.x < this.end.x) {
-      if (this.begin.y === this.end.y) {
-        return 0;
-      } else if (this.begin.y < this.end.y) {
-        return Math.PI - result + Math.PI;
-      }
-      return result;
+    const {x, y} = this.end.clone().move(this.begin.clone().minus());
+    let v = Math.atan2(y, x) - Math.PI;
+    if (v > 0) {
+      v = Math.PI - v;
     }
-    if (this.begin.y === this.end.y) {
-      return Math.PI;
-    } else if (this.begin.y < this.end.y) {
-      return Math.PI - result + Math.PI;
-    }
-    return result;
+    return (Math.PI - v) % (Math.PI * 2);
   }
 
   toWKT(): string {
@@ -332,9 +324,9 @@ export class DLine {
    * @param l
    * @param delta
    */
-  findFi(l: DLine, delta = 1.0001): number {
-    let val =
-      (this.a * l.a + this.b * l.b) / (Math.sqrt(this.a * this.a + this.b * this.b) * Math.sqrt(l.a * l.a + l.b * l.b));
+  findFi({a, b}: DLine, delta = 1.0001): number {
+    const {a: q, b: w} = this;
+    let val = (q * a + w * b) / (Math.sqrt(q * q + w * w) * Math.sqrt(a * a + b * b));
     if (val > 1 && val < delta) {
       val = 1;
     } else if (val < -1 && val > -delta) {
@@ -345,12 +337,10 @@ export class DLine {
 
   /**
    * [Cross product](https://en.wikipedia.org/wiki/Cross_product)
-   * @param l
+   * @param l {DLine}
    */
-  vectorProduct(l: DLine): DLine {
-    const i = this.b * l.c - this.c * l.b;
-    const j = this.c * l.a - this.a * l.c;
-    const k = this.a * l.b - this.b * l.a;
-    return new DLine(i, j, k);
+  vectorProduct({a, b, c}: DLine): DLine {
+    const {a: q, b: w, c: e} = this;
+    return new DLine(w * c - e * b, e * a - q * c, q * b - w * a);
   }
 }

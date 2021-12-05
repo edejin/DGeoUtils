@@ -169,7 +169,7 @@ describe('DPoint', () => {
       expect(new DPoint(0, 0.5).findInnerAngle(new DPoint(0, 1), new DPoint(0, 0))).toBe(Math.PI);
     });
     test('(2, 4) -> (0, 1), (1, 0)', () => {
-      expect(new DPoint(2, 4).findInnerAngle(new DPoint(0, 1), new DPoint(1, 0))).toBe(5.940161366758882);
+      expect(new DPoint(2, 4).findInnerAngle(new DPoint(0, 1), new DPoint(1, 0))).toBe(5.940161366758883);
     });
     test('(2, 4) -> (1, 0), (0, 1)', () => {
       expect(new DPoint(2, 4).findInnerAngle(new DPoint(1, 0), new DPoint(0, 1))).toBe(0.3430239404207036);

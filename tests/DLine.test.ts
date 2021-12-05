@@ -868,7 +868,7 @@ describe('DLine', () => {
       });
       test('2', () => {
         expect(new DPoint(1, 2).findLine(new DPoint(2, 1))
-          .getFi()).toBe(0.7853981633974484);
+          .getFi()).toBe(0.7853981633974483);
         expect(spy).toHaveBeenCalledTimes(4);
       });
       test('3', () => {
