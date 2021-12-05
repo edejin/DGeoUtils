@@ -8,21 +8,21 @@ export class DLine {
     public a: number,
     public b: number,
     public c: number,
-    public p1: DPoint = DPoint.zero(),
-    public p2: DPoint = DPoint.zero()
+    public begin: DPoint = DPoint.zero(),
+    public end: DPoint = DPoint.zero()
     // eslint-disable-next-line no-empty-function
   ) {}
 
   clone(): DLine {
-    return new DLine(this.a, this.b, this.c, this.p1.clone(), this.p2.clone());
+    return new DLine(this.a, this.b, this.c, this.begin.clone(), this.end.clone());
   }
 
   findPerpendicular(p: DPoint): DLine {
     checkFunction('findPerpendicular')
-      .checkArgument('this.p1')
-      .shouldBeMeters(this.p1)
-      .checkArgument('this.p2')
-      .shouldBeMeters(this.p2)
+      .checkArgument('this.begin')
+      .shouldBeMeters(this.begin)
+      .checkArgument('this.end')
+      .shouldBeMeters(this.end)
       .checkArgument('p')
       .shouldBeMeters(p);
     return new DLine(-this.b, this.a, this.b * p.x - this.a * p.y);
@@ -30,10 +30,10 @@ export class DLine {
 
   perpendicularDistance(p: DPoint): number {
     checkFunction('perpendicularDistance')
-      .checkArgument('this.p1')
-      .shouldBeMeters(this.p1)
-      .checkArgument('this.p2')
-      .shouldBeMeters(this.p2)
+      .checkArgument('this.begin')
+      .shouldBeMeters(this.begin)
+      .checkArgument('this.end')
+      .shouldBeMeters(this.end)
       .checkArgument('p')
       .shouldBeMeters(p);
     const perpendicularLine = this.findPerpendicular(p);
@@ -64,10 +64,10 @@ export class DLine {
     const per = this.findPerpendicular(center);
     const t = this.intersection(per, Infinity)!;
     let distance = t.distance(center);
-    if (this.p1.equal(center)) {
+    if (this.begin.equal(center)) {
       distance = 0;
     }
-    if (this.p2.equal(center)) {
+    if (this.end.equal(center)) {
       distance = 0;
     }
     if (distance < r) {
@@ -77,25 +77,25 @@ export class DLine {
         const move = Math.sqrt(r * r - ct * ct);
         // Mean "|" x = const
         if (this.isParallelY) {
-          t.x = this.p1.x;
+          t.x = this.begin.x;
           const r1 = t.clone().move(0, -move);
           const r2 = t.clone().move(0, move);
           return [r1, r2];
         }
         // Mean "-" y = const
         if (this.isParallelX) {
-          t.y = this.p1.y;
+          t.y = this.begin.y;
           const r1 = t.clone().move(move, 0);
           const r2 = t.clone().move(-move, 0);
           return [r1, r2];
         }
       }
-      if (this.p1.like(center)) {
-        const p = this.p1.clone();
+      if (this.begin.like(center)) {
+        const p = this.begin.clone();
         return [this.movePoint(p, r), this.movePoint(p, -r)];
       }
-      if (this.p2.like(center)) {
-        const p = this.p2.clone();
+      if (this.end.like(center)) {
+        const p = this.end.clone();
         return [this.movePoint(p, r), this.movePoint(p, -r)];
       }
       const s = a * a + b * b;
@@ -130,17 +130,17 @@ export class DLine {
    * @param [d=0]
    */
   insideRange(p: DPoint, d: number = 0): boolean {
-    const {p1, p2} = this;
-    return this.inRange(p, d) && !p1.like(p, 0.00001) && !p2.like(p, 0.00001);
+    const {begin, end} = this;
+    return this.inRange(p, d) && !begin.like(p, 0.00001) && !end.like(p, 0.00001);
   }
 
   get center(): DPoint {
-    return this.p1
+    return this.begin
       .clone()
-      .setIfLessThan(this.p2)
-      .move(this.p2
+      .setIfLessThan(this.end)
+      .move(this.end
         .clone()
-        .move(this.p1
+        .move(this.begin
           .clone()
           .minus())
         .abs()
@@ -149,19 +149,19 @@ export class DLine {
   }
 
   get minX(): number {
-    return Math.min(this.p1.x, this.p2.x);
+    return Math.min(this.begin.x, this.end.x);
   }
 
   get minY(): number {
-    return Math.min(this.p1.y, this.p2.y);
+    return Math.min(this.begin.y, this.end.y);
   }
 
   get maxX(): number {
-    return Math.max(this.p1.x, this.p2.x);
+    return Math.max(this.begin.x, this.end.x);
   }
 
   get maxY(): number {
-    return Math.max(this.p1.y, this.p2.y);
+    return Math.max(this.begin.y, this.end.y);
   }
 
   toString(): string {
@@ -260,7 +260,7 @@ export class DLine {
    * Get lines segment start and end points as array
    */
   get points(): [DPoint, DPoint] {
-    return [this.p1, this.p2];
+    return [this.begin, this.end];
   }
 
   /**
@@ -268,30 +268,30 @@ export class DLine {
    */
   getFi(): number {
     checkFunction('getFi')
-      .checkArgument('this.p1')
-      .shouldBeMeters(this.p1)
-      .checkArgument('this.p2')
-      .shouldBeMeters(this.p2);
+      .checkArgument('this.begin')
+      .shouldBeMeters(this.begin)
+      .checkArgument('this.end')
+      .shouldBeMeters(this.end);
     const l: DLine = new DLine(0, 1, 0);
     const result = this.findFi(l);
-    if (this.p1.x === this.p2.x) {
-      if (this.p1.y === this.p2.y) {
+    if (this.begin.x === this.end.x) {
+      if (this.begin.y === this.end.y) {
         return 0;
-      } else if (this.p1.y < this.p2.y) {
+      } else if (this.begin.y < this.end.y) {
         return Math.PI + Math.PI / 2;
       }
       return Math.PI / 2;
-    } else if (this.p1.x < this.p2.x) {
-      if (this.p1.y === this.p2.y) {
+    } else if (this.begin.x < this.end.x) {
+      if (this.begin.y === this.end.y) {
         return 0;
-      } else if (this.p1.y < this.p2.y) {
+      } else if (this.begin.y < this.end.y) {
         return Math.PI - result + Math.PI;
       }
       return result;
     }
-    if (this.p1.y === this.p2.y) {
+    if (this.begin.y === this.end.y) {
       return Math.PI;
-    } else if (this.p1.y < this.p2.y) {
+    } else if (this.begin.y < this.end.y) {
       return Math.PI - result + Math.PI;
     }
     return result;
@@ -299,8 +299,8 @@ export class DLine {
 
   toWKT(): string {
     const {
-      p1: {x: x1, y: y1},
-      p2: {x: x2, y: y2}
+      begin: {x: x1, y: y1},
+      end: {x: x2, y: y2}
     } = this;
     return `LINESTRING (${x1} ${y1}, ${x2} ${y2})`;
   }
@@ -312,7 +312,7 @@ export class DLine {
    */
   movePoint(p: DPoint, d: number): DPoint {
     const fi = this.findFi(new DLine(1, 0, 0));
-    const td = this.p1.distance(this.p2) / 2;
+    const td = this.begin.distance(this.end) / 2;
     const dcosT = td * Math.cos(fi);
     const dsinT = td * Math.sin(fi);
     const p1T = new DPoint(p.x - dsinT, p.y - dcosT);

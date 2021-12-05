@@ -9,12 +9,12 @@ describe('DLine', () => {
         a: 1,
         b: 2,
         c: 3,
-        p1: {
+        begin: {
           x: 0,
           y: 0,
           properties: {}
         },
-        p2: {
+        end: {
           x: 0,
           y: 0,
           properties: {}
@@ -26,12 +26,12 @@ describe('DLine', () => {
         a: 1,
         b: 2,
         c: 3,
-        p1: {
+        begin: {
           x: 4,
           y: 5,
           properties: {}
         },
-        p2: {
+        end: {
           x: 0,
           y: 0,
           properties: {}
@@ -43,12 +43,12 @@ describe('DLine', () => {
         a: 1,
         b: 2,
         c: 3,
-        p1: {
+        begin: {
           x: 4,
           y: 5,
           properties: {}
         },
-        p2: {
+        end: {
           x: 6,
           y: 7,
           properties: {}
@@ -65,13 +65,13 @@ describe('DLine', () => {
         a: -2,
         b: 2,
         c: -2,
-        p1: {
+        begin: {
           x: 1,
           y: 2,
           z: undefined,
           properties: {}
         },
-        p2: {
+        end: {
           x: 3,
           y: 4,
           z: undefined,
@@ -82,13 +82,13 @@ describe('DLine', () => {
         a: -2,
         b: 2,
         c: -2,
-        p1: {
+        begin: {
           x: 1,
           y: 2,
           z: undefined,
           properties: {}
         },
-        p2: {
+        end: {
           x: 3,
           y: 4,
           z: undefined,
@@ -98,19 +98,19 @@ describe('DLine', () => {
       t2.a = 5;
       t2.b = 6;
       t2.c = 7;
-      t2.p1 = new DPoint(10, 20);
-      t2.p2 = new DPoint(11, 21);
+      t2.begin = new DPoint(10, 20);
+      t2.end = new DPoint(11, 21);
       expect(t1).toEqual({
         a: -2,
         b: 2,
         c: -2,
-        p1: {
+        begin: {
           x: 1,
           y: 2,
           z: undefined,
           properties: {}
         },
-        p2: {
+        end: {
           x: 3,
           y: 4,
           z: undefined,
@@ -121,13 +121,13 @@ describe('DLine', () => {
         a: 5,
         b: 6,
         c: 7,
-        p1: {
+        begin: {
           x: 10,
           y: 20,
           z: undefined,
           properties: {}
         },
-        p2: {
+        end: {
           x: 11,
           y: 21,
           z: undefined,
@@ -145,13 +145,13 @@ describe('DLine', () => {
         a: -10,
         b: -10,
         c: 100,
-        p1: {
+        begin: {
           x: 0,
           y: 0,
           z: undefined,
           properties: {}
         },
-        p2: {
+        end: {
           x: 0,
           y: 0,
           z: undefined,
@@ -166,13 +166,13 @@ describe('DLine', () => {
         a: -1,
         b: 0,
         c: 5,
-        p1: {
+        begin: {
           x: 0,
           y: 0,
           z: undefined,
           properties: {}
         },
-        p2: {
+        end: {
           x: 0,
           y: 0,
           z: undefined,
@@ -187,13 +187,13 @@ describe('DLine', () => {
         a: -0,
         b: 1,
         c: -5,
-        p1: {
+        begin: {
           x: 0,
           y: 0,
           z: undefined,
           properties: {}
         },
-        p2: {
+        end: {
           x: 0,
           y: 0,
           z: undefined,
@@ -681,13 +681,13 @@ describe('DLine', () => {
       a: -3,
       b: 6,
       c: -3,
-      p1: {
+      begin: {
         x: 0,
         y: 0,
         z: undefined,
         properties: {}
       },
-      p2: {
+      end: {
         x: 0,
         y: 0,
         z: undefined,
@@ -771,8 +771,8 @@ describe('DLine', () => {
         expect(spy.mock.calls).toEqual([
           ['"findLine" -> "this" should be meters!'],
           ['"findLine" -> "p" should be meters!'],
-          ['"findPerpendicular" -> "this.p1" should be meters!'],
-          ['"findPerpendicular" -> "this.p2" should be meters!'],
+          ['"findPerpendicular" -> "this.begin" should be meters!'],
+          ['"findPerpendicular" -> "this.end" should be meters!'],
           ['"findPerpendicular" -> "p" should be meters!']
         ]);
       });
@@ -805,11 +805,11 @@ describe('DLine', () => {
         expect(spy.mock.calls).toEqual([
           ['"findLine" -> "this" should be meters!'],
           ['"findLine" -> "p" should be meters!'],
-          ['"perpendicularDistance" -> "this.p1" should be meters!'],
-          ['"perpendicularDistance" -> "this.p2" should be meters!'],
+          ['"perpendicularDistance" -> "this.begin" should be meters!'],
+          ['"perpendicularDistance" -> "this.end" should be meters!'],
           ['"perpendicularDistance" -> "p" should be meters!'],
-          ['"findPerpendicular" -> "this.p1" should be meters!'],
-          ['"findPerpendicular" -> "this.p2" should be meters!'],
+          ['"findPerpendicular" -> "this.begin" should be meters!'],
+          ['"findPerpendicular" -> "this.end" should be meters!'],
           ['"findPerpendicular" -> "p" should be meters!'],
           ['"distance" -> "this" should be meters!'],
           ['"distance" -> "p" should be meters!']
@@ -843,8 +843,8 @@ describe('DLine', () => {
         expect(spy.mock.calls).toEqual([
           ['"findLine" -> "this" should be meters!'],
           ['"findLine" -> "p" should be meters!'],
-          ['"getFi" -> "this.p1" should be meters!'],
-          ['"getFi" -> "this.p2" should be meters!']
+          ['"getFi" -> "this.begin" should be meters!'],
+          ['"getFi" -> "this.end" should be meters!']
         ]);
       });
       test('parallel x', () => {
@@ -853,7 +853,7 @@ describe('DLine', () => {
         expect(spy).toHaveBeenCalledTimes(2);
         expect(spy.mock.calls).toEqual([
           ['"findLine" -> "this" should be meters!'],
-          ['"getFi" -> "this.p1" should be meters!']
+          ['"getFi" -> "this.begin" should be meters!']
         ]);
       });
       test('other', () => {
@@ -882,7 +882,7 @@ describe('DLine', () => {
         expect(spy).toHaveBeenCalledTimes(2);
         expect(spy.mock.calls).toEqual([
           ['"findLine" -> "p" should be meters!'],
-          ['"getFi" -> "this.p2" should be meters!']
+          ['"getFi" -> "this.end" should be meters!']
         ]);
       });
     });
