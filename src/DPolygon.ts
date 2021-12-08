@@ -10,7 +10,9 @@ import {DPolygonLoop} from './DPolygonLoop';
 const {
   buffer: {
     BufferParameters: {
-      CAP_ROUND
+      CAP_ROUND,
+      CAP_FLAT,
+      CAP_SQUARE
     }
   }
 } = operation;
@@ -28,6 +30,21 @@ export class DPolygon {
 
   // eslint-disable-next-line no-useless-constructor,no-empty-function
   constructor(private pPoints: DPoint[] = []) {}
+
+  /**
+   * Specifies a round line buffer end cap style.
+   */
+  static CAP_ROUND: number = CAP_ROUND;
+
+  /**
+   * Specifies a flat line buffer end cap style.
+   */
+  static CAP_FLAT: number = CAP_FLAT;
+
+  /**
+   * Specifies a square line buffer end cap style.
+   */
+  static CAP_SQUARE: number = CAP_SQUARE;
 
   /**
    * Transform array of triangles to Three.JS vertices
@@ -486,12 +503,24 @@ export class DPolygon {
       .run();
   }
 
-  toWKT(): string {
-    let h = '';
-    if (this.holes && this.holes.length) {
-      h = `, ${this.holes.map((hole: DPolygon) => hole.toString()).join(', ')}`;
+  static WKT_LINESTRING = 'LINESTRING';
+  static WKT_POLYGON = 'POLYGON';
+
+  /**
+   * @param [type = DPolygon.WKT_POLYGON] Available values `DPolygon.WKT_POLYGON`, `DPolygon.WKT_LINESTRING`
+   */
+  toWKT(type: string = DPolygon.WKT_POLYGON): string {
+    if (type === DPolygon.WKT_POLYGON) {
+      let h = '';
+      if (this.holes && this.holes.length) {
+        h = `, ${this.holes.map((hole: DPolygon) => hole.toString())
+          .join(', ')}`;
+      }
+      return `POLYGON ((${this.deintersection.pPoints.map((r: DPoint) => `${r.x} ${r.y}`)
+        .join(', ')})${h})`;
     }
-    return `POLYGON ((${this.deintersection.pPoints.map((r: DPoint) => `${r.x} ${r.y}`).join(', ')})${h})`;
+    return `LINESTRING (${this.pPoints.map((r: DPoint) => `${r.x} ${r.y}`)
+      .join(', ')})`;
   }
 
   /**
@@ -1019,12 +1048,17 @@ export class DPolygon {
     return this.first.equal(this.last);
   }
 
-  buffer(v: number): DPolygon {
+  /**
+   * @param v
+   * @param [quadrantSegments=64]
+   * @param [type=DPolygon.CAP_ROUND] DPolygon.CAP_ROUND || DPolygon.CAP_FLAT || DPolygon.CAP_SQUARE
+   */
+  buffer(v: number, quadrantSegments: number = 64, type: number = DPolygon.CAP_ROUND): DPolygon {
     const reader = new jstsIo.WKTReader();
     const {noHoles, closed} = this;
     const points = reader
-      .read(closed ? noHoles.toWKT() : noHoles.add(noHoles.clone().reverse()).toWKT())
-      .buffer(v, 64, CAP_ROUND)
+      .read(noHoles.toWKT(closed ? DPolygon.WKT_POLYGON : DPolygon.WKT_LINESTRING))
+      .buffer(v, quadrantSegments, type)
       .getCoordinates() as { x: number; y: number }[];
     return new DPolygon(points.map(({x, y}: {x: number; y: number}) => new DPoint(x, y)));
   }
