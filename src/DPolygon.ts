@@ -532,7 +532,9 @@ export class DPolygon {
     return this;
   }
 
-  map(f: (r: DPoint, index?: number) => DPoint): DPolygon {
+  map(f: (r: DPoint) => DPoint): DPolygon;
+  map(f: (r: DPoint, index: number) => DPoint): DPolygon;
+  map(f: (r: DPoint, index: number) => DPoint): DPolygon {
     this.pPoints = this.pPoints.map(f);
     this.holes = this.holes.map((h: DPolygon) => h.map(f));
     return this;
@@ -1041,6 +1043,76 @@ export class DPolygon {
       }
     }
     res.push(p);
+    return res;
+  }
+
+  /**
+   * Divide polygon to triangles and return points indexes
+   */
+  getTrianglesPointIndexes(): number[] {
+    const innerAndNotIntersect = (poly: DPolygon, p1: DPoint, p2: DPoint): boolean => {
+      const l = p1.findLine(p2);
+      const {center} = l;
+      const intersections = poly.holes.reduce((a: boolean, hole: DPolygon) => a && Boolean(hole.clone().close()
+        .intersection(l, true).length), Boolean(poly.clone().close()
+        .intersection(l, true).length));
+      const contain = poly.holes.reduce((a: boolean, hole: DPolygon) => a && !hole
+        .contain(center), poly.contain(center));
+      return !intersections && contain;
+    };
+
+    const getTriangle = (poly: DPolygon): [number, number, number] | void => {
+      for (let i = 0; i < poly.length; i++) {
+        const p0 = poly.at(0);
+        const p1 = poly.at(1);
+        const p2 = poly.at(2);
+        if (innerAndNotIntersect(poly, p0, p2)) {
+          poly.removePart(0, 1);
+          return [
+            p0.properties.index,
+            p1.properties.index,
+            p2.properties.index
+          ];
+        }
+        poly.push(poly.shift());
+      }
+      return undefined;
+    };
+
+    let p = this.clone();
+    let index = 0;
+    p.points.forEach((f: DPoint) => {
+      f.properties.index = index++;
+    });
+    p.holes.forEach((h: DPolygon) => {
+      h.pPoints.forEach((f: DPoint) => {
+        f.properties.index = index++;
+      });
+    });
+    p = p.clockWise.open();
+
+    while (p.holes.length) {
+      const h = p.holes.shift()!
+        .clone()
+        .clockWise
+        .reverse()
+        .close();
+      for (let i = 0; i < p.length; i++) {
+        if (innerAndNotIntersect(p, p.first, h.first)) {
+          p.insertAfter(0, ...h.points, p.first);
+          break;
+        }
+        p.push(p.shift());
+      }
+    }
+    const res: number[] = [];
+    while (p.length > 3) {
+      const triangle = getTriangle(p);
+      if (triangle) {
+        res.push(...triangle);
+      }
+    }
+    res.push(...p.points.map((f: DPoint) => f.properties.index));
     return res;
   }
 
