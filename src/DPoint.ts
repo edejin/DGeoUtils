@@ -215,6 +215,22 @@ export class DPoint {
     return this;
   }
 
+  /**
+   * Set `z` value
+   * @param z
+   */
+  setZ(z: number): DPoint;
+
+  /**
+   * Transform `z` value by function
+   * @param f
+   */
+  setZ(f: SetterFunction): DPoint;
+  setZ(z: number | SetterFunction): DPoint {
+    this.z = typeof z === 'number' ? z : z(this);
+    return this;
+  }
+
 
   /**
    * Set `y` value

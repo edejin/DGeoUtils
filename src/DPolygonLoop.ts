@@ -9,6 +9,7 @@ enum LoopFunctions {
   height,
   setX,
   setY,
+  setZ,
   rotate,
   move,
   round,
@@ -72,6 +73,10 @@ const decodePoolRecord = (a: LoopFunction, {
     case LoopFunctions.setY:
       res = (k: DPoint): DPoint => a(k)
         .setY(setterArg as SetterFunction);
+      break;
+    case LoopFunctions.setZ:
+      res = (k: DPoint): DPoint => a(k)
+        .setZ(setterArg as SetterFunction);
       break;
     case LoopFunctions.rotate:
       res = (k: DPoint): DPoint => a(k)
@@ -250,6 +255,25 @@ export class DPolygonLoop {
     this.pool.push({
       functionName: LoopFunctions.setY,
       setterArg: y
+    });
+    return this;
+  }
+
+  /**
+   * Set `z` value
+   * @param z
+   */
+  setZ(z: number): DPolygonLoop;
+
+  /**
+   * Transform `z` value by function
+   * @param f
+   */
+  setZ(f: SetterFunction): DPolygonLoop;
+  setZ(z: number | SetterFunction): DPolygonLoop {
+    this.pool.push({
+      functionName: LoopFunctions.setZ,
+      setterArg: z
     });
     return this;
   }

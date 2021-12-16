@@ -243,6 +243,17 @@ describe('DPoint', () => {
     });
   });
 
+  describe('setZ', () => {
+    test('value', () => {
+      expect(new DPoint(3, 4).setZ(7)
+        .equal(new DPoint(3, 4, 7))).toBe(true);
+    });
+    test('function', () => {
+      expect(new DPoint(3, 4, 5).setZ((p) => p.z! * 2)
+        .equal(new DPoint(3, 4, 10))).toBe(true);
+    });
+  });
+
   describe('setY', () => {
     test('value', () => {
       expect(new DPoint(3, 4).setY(7)

@@ -226,6 +226,43 @@ describe('DPolygonLoop', () => {
         ]);
     });
   });
+  describe('setZ', () => {
+    test('1', () => {
+      const p = new DPolygon([
+        new DPoint(4096, 4096, 13),
+        new DPoint(4860, 2962, 13),
+        new DPoint(5324, 3533, 13)
+      ]);
+      expect(p.loop()
+        .setZ(14)
+        .run()
+        .toArrayOfCoords())
+        .toStrictEqual([
+          [4096, 4096, 14],
+          [4860, 2962, 14],
+          [5324, 3533, 14]
+        ]);
+    });
+    test('2', () => {
+      const p = new DPolygon([
+        new DPoint(4096, 4096, 13),
+        new DPoint(4860, 2962, 13),
+        new DPoint(5324, 3533, 13)
+      ]);
+      expect(p.loop()
+        .setZ(({
+          x,
+          y
+        }: DPoint) => x + y)
+        .run()
+        .toArrayOfCoords())
+        .toStrictEqual([
+          [4096, 4096, 8192],
+          [4860, 2962, 7822],
+          [5324, 3533, 8857]
+        ]);
+    });
+  });
   describe('rotate', () => {
     test('1', () => {
       const p = new DPolygon([
