@@ -756,9 +756,8 @@ export class DPolygon {
    * Check if contain point
    * @param p
    * @param [isBorderInside=false]
-   * @param [move=(0,0)] Ignore this parameter
    */
-  contain(p: DPoint, isBorderInside: boolean = false, move: DPoint = DPoint.zero()): boolean {
+  contain(p: DPoint, isBorderInside: boolean = false): boolean {
     const simpleInclude = this.simpleInclude(p);
     if (!simpleInclude) {
       return false;
@@ -767,21 +766,37 @@ export class DPolygon {
     if (onBorder) {
       return isBorderInside;
     }
-    const line = p.findLine(this.leftTop.move(move));
     const poly = this.deintersection;
-    const intersectionPoints: DPoint[] = [];
+    let totalFi = 0;
     for (let i = 0; i < poly.length - 1; i++) {
-      const polygonLine = poly.at(i).findLine(poly.at(i + 1));
-      const intersection = line.intersection(polygonLine, CLOSE_TO_INTERSECTION_DISTANCE);
-      if (intersection) {
-        intersectionPoints.push(intersection as DPoint);
+      const p1 = poly.at(i);
+      const p2 = poly.at(i + 1);
+      const line1 = new DLine(p1.x - p.x, p1.y - p.y, 0);
+      const line2 = new DLine(p2.x - p.x, p2.y - p.y, 0);
+      const fiDif = line1.findFi(line2);
+
+      if (line1.vectorProduct(line2).c > 0) {
+        totalFi += fiDif;
+      } else {
+        totalFi -= fiDif;
       }
     }
-    const hasCorners = intersectionPoints.some((z: DPoint) => poly.has(z));
-    if (hasCorners) {
-      return this.contain2(p, isBorderInside);
+
+    // eslint-disable-next-line no-magic-numbers
+    const eps = Math.PI / 10000;
+    let result = false;
+
+    const absTotalFi = Math.abs(totalFi);
+
+    if (absTotalFi < eps) {
+      result = false;
+    } else if (Math.abs(2 * Math.PI - absTotalFi) < eps) {
+      result = true;
+    } else {
+      throw new Error('contains2 faild');
     }
-    return intersectionPoints.length % 2 === 1;
+
+    return result;
   }
 
   /**
@@ -1173,48 +1188,6 @@ export class DPolygon {
       const {x, y} = this.at(i);
       ctx.lineTo(x, y);
     }
-  }
-
-  private contain2(p: DPoint, isBorderInside: boolean = false): boolean {
-    const simpleInclude = this.simpleInclude(p);
-    if (!simpleInclude) {
-      return false;
-    }
-    const onBorder = this.onBorder(p);
-    if (onBorder) {
-      return isBorderInside;
-    }
-    const poly = this.deintersection;
-    let totalFi = 0;
-    for (let i = 0; i < poly.length - 1; i++) {
-      const p1 = poly.at(i);
-      const p2 = poly.at(i + 1);
-      const line1 = new DLine(p1.x - p.x, p1.y - p.y, 0);
-      const line2 = new DLine(p2.x - p.x, p2.y - p.y, 0);
-      const fiDif = line1.findFi(line2);
-
-      if (line1.vectorProduct(line2).c > 0) {
-        totalFi += fiDif;
-      } else {
-        totalFi -= fiDif;
-      }
-    }
-
-    // eslint-disable-next-line no-magic-numbers
-    const eps = Math.PI / 10000;
-    let result = false;
-
-    const absTotalFi = Math.abs(totalFi);
-
-    if (absTotalFi < eps) {
-      result = false;
-    } else if (Math.abs(2 * Math.PI - absTotalFi) < eps) {
-      result = true;
-    } else {
-      throw new Error('contains2 faild');
-    }
-
-    return result;
   }
 
   private getJSTSGeometry(p: DPolygon, unionThis: boolean, unionThat: boolean): Geometry | void {
