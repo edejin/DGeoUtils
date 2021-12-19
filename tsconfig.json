@@ -19,7 +19,8 @@
     "target": "es2015",
     "declaration": true,
     "declarationDir": "./dist",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "removeComments": true
   },
   "include": [
     "./src/**/*"
