@@ -480,7 +480,7 @@ export class DPoint {
     }
     const likeX = Math.abs(this.x - p.x) < d;
     const likeY = Math.abs(this.y - p.y) < d;
-    const likeZ = Math.abs((this.z || 0) - (p.z || 0)) < d;
+    const likeZ = Math.abs((this.z ?? p.z ?? 0) - (p.z ?? this.z ?? 0)) < d;
     return likeX && likeY && likeZ;
   }
 
