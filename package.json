@@ -1,6 +1,6 @@
 {
   "name": "dgeoutils",
-  "version": "2.2.10",
+  "version": "2.2.11",
   "description": "",
   "scripts": {
     "build": "node_modules/.bin/tsc",
