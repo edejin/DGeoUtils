@@ -1,4 +1,4 @@
-import {checkFunction} from '../src/utils';
+import {checkFunction, gaussianElimination} from '../src/utils';
 import {DGeo, DPoint} from '../src';
 
 describe('utils', () => {
@@ -90,6 +90,16 @@ describe('utils', () => {
       expect(console.warn).toHaveBeenCalledTimes(1);
       // eslint-disable-next-line no-console
       expect(console.warn).toHaveBeenLastCalledWith('"function name" -> "variable name" should be UInt!');
+    });
+  });
+
+  describe('gaussianElimination', () => {
+    test('1', () => {
+      expect(gaussianElimination([
+        [2, 1, -1, 8],
+        [-3, -1, 2, -11],
+        [-2, 1, 2, -3]
+      ])).toEqual([2, 3, -1]);
     });
   });
 });

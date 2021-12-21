@@ -105,3 +105,51 @@ export const checkFunction = (funcName: string): CheckFunction => ({
 });
 
 export const createArray = (v: number): number[] => new Array(v).fill(0);
+
+export const createMatrix = ({h, w}: DPoint): number[][] => createArray(h).map(() => createArray(w));
+
+export const gaussianElimination = (matrix: number[][]): number[] => {
+  const n = matrix.length;
+  const matrixClone = createMatrix(new DPoint(n, n + 1));
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n + 1; j++) {
+      matrixClone[i][j] = matrix[i][j];
+    }
+  }
+
+  for (let k = 0; k < n; k++) {
+    for (let i = 0; i < n + 1; i++) {
+      matrixClone[k][i] /= matrix[k][k];
+    }
+    for (let i = k + 1; i < n; i++) {
+      const K = matrixClone[i][k] / matrixClone[k][k];
+      for (let j = 0; j < n + 1; j++) {
+        matrixClone[i][j] -= matrixClone[k][j] * K;
+      }
+    }
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < n + 1; j++) {
+        matrix[i][j] = matrixClone[i][j];
+      }
+    }
+  }
+
+  for (let k = n - 1; k > -1; k--) {
+    for (let i = n; i > -1; i--) {
+      matrixClone[k][i] /= matrix[k][k];
+    }
+    for (let i = k - 1; i > -1; i--) {
+      const K = matrixClone[i][k] / matrixClone[k][k];
+      for (let j = n; j > -1; j--) {
+        matrixClone[i][j] -= matrixClone[k][j] * K;
+      }
+    }
+  }
+
+  const answer = createArray(n);
+  for (let i = 0; i < n; i++) {
+    answer[i] = matrixClone[i][n];
+  }
+
+  return answer;
+};
