@@ -870,6 +870,14 @@ describe('DPoint', () => {
       expect(new DPoint(1, 2).move(7, 3)
         .equal(new DPoint(8, 5))).toBe(true);
     });
+    test('by three numbers', () => {
+      expect(new DPoint(1, 2).move(7, 3, 4)
+        .equal(new DPoint(8, 5))).toBe(true);
+    });
+    test('by three numbers 2', () => {
+      expect(new DPoint(1, 2, 3).move(7, 3, 4)
+        .equal(new DPoint(8, 5, 7))).toBe(true);
+    });
     test('by point', () => {
       const t1 = new DPoint(1, 2);
       const t2 = new DPoint(3, 5);

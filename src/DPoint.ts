@@ -283,13 +283,13 @@ export class DPoint {
   }
 
   /**
-   * Add `v` to `x` and `y`
+   * Add `v` to `x`, `y` and `z` (if `z` exist)
    * @param v
    */
   move(v: number): DPoint;
 
   /**
-   * Add `p.x` to `x` field and `p.y` to `y` field.
+   * Add `p.x` to `x` field, `p.y` to `y` field and `p.z` to `z` field (if `z exist).
    * @param p
    */
   move(p: DPoint): DPoint;
@@ -300,18 +300,37 @@ export class DPoint {
    * @param y
    */
   move(x: number, y: number): DPoint;
-  move(x: number | DPoint, y: number = (x as number)): DPoint {
+
+  /**
+   * Add `x` to `x` field, `y` to `y` field and `z` to `z` field (if `z` exist).
+   * @param x
+   * @param y
+   * @param z
+   */
+  move(x: number, y: number, z: number): DPoint;
+  move(x: number | DPoint, y: number = (x as number), z: number = (x as number)): DPoint {
     let xV = 0;
     let yV = 0;
+    // eslint-disable-next-line no-undef-init
+    let zV: number | undefined = undefined;
     if (x instanceof DPoint) {
       xV = this.x + x.x;
       yV = this.y + x.y;
+      if (this.z && x.z) {
+        zV = this.z + x.z;
+      }
     } else {
       xV = this.x + (x as number);
       yV = this.y + y;
+      if (this.z && z) {
+        zV = this.z + z;
+      }
     }
     this.x = xV;
     this.y = yV;
+    if (zV) {
+      this.z = zV;
+    }
     return this;
   }
 
