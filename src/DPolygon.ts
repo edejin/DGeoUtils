@@ -508,18 +508,19 @@ export class DPolygon {
 
   /**
    * @param [type = DPolygon.WKT_POLYGON] Available values `DPolygon.WKT_POLYGON`, `DPolygon.WKT_LINESTRING`
+   * @param [withZ = false]
    */
-  toWKT(type: string = DPolygon.WKT_POLYGON): string {
+  toWKT(type: string = DPolygon.WKT_POLYGON, withZ: boolean = false): string {
     if (type === DPolygon.WKT_POLYGON) {
       let h = '';
       if (this.holes && this.holes.length) {
         h = `, ${this.holes.map((hole: DPolygon) => hole.toString())
           .join(', ')}`;
       }
-      return `POLYGON ((${this.deintersection.pPoints.map((r: DPoint) => `${r.x} ${r.y}`)
+      return `POLYGON ((${this.deintersection.pPoints.map((r: DPoint) => `${r.x} ${r.y}${withZ ? ` ${r.z}` : ''}`)
         .join(', ')})${h})`;
     }
-    return `LINESTRING (${this.pPoints.map((r: DPoint) => `${r.x} ${r.y}`)
+    return `LINESTRING (${this.pPoints.map((r: DPoint) => `${r.x} ${r.y}${withZ ? ` ${r.z}` : ''}`)
       .join(', ')})`;
   }
 
