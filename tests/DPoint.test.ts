@@ -1319,4 +1319,37 @@ describe('DPoint', () => {
       });
     });
   });
+
+  describe('rotate3dX', () => {
+    test('1', () => {
+      expect(new DPoint(0, 2, 3).rotate3dX(Math.PI / 2)).toEqual({
+        properties: {},
+        x: 0,
+        y: 3,
+        z: -1.9999999999999998
+      });
+    });
+  });
+
+  describe('rotate3dY', () => {
+    test('1', () => {
+      expect(new DPoint(2, 0, 3).rotate3dY(Math.PI / 2)).toEqual({
+        properties: {},
+        x: 3,
+        y: 0,
+        z: -1.9999999999999998
+      });
+    });
+  });
+
+  describe('rotate3dZ', () => {
+    test('1', () => {
+      expect(new DPoint(2, 3, 3).rotate3dZ(Math.PI / 2)).toEqual({
+        properties: {},
+        x: -3,
+        y: -1.9999999999999998,
+        z: 3
+      });
+    });
+  });
 });

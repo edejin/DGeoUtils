@@ -283,6 +283,39 @@ export class DPoint {
   }
 
   /**
+   * 3D rotation
+   * @param a radians
+   */
+  rotate3dX(a: number): DPoint {
+    const {y, z} = this;
+    this.y = y * Math.cos(a) + z! * Math.sin(a);
+    this.z = -y * Math.sin(a) + z! * Math.cos(a);
+    return this;
+  }
+
+  /**
+   * 3D rotation
+   * @param a radians
+   */
+  rotate3dY(a: number): DPoint {
+    const {x, z} = this;
+    this.x = x * Math.cos(a) + z! * Math.sin(a);
+    this.z = -x * Math.sin(a) + z! * Math.cos(a);
+    return this;
+  }
+
+  /**
+   * 3D rotation
+   * @param a radians
+   */
+  rotate3dZ(a: number): DPoint {
+    const {x, y} = this;
+    this.x = x * Math.cos(a) - y * Math.sin(a);
+    this.y = -x * Math.sin(a) + y * Math.cos(a);
+    return this;
+  }
+
+  /**
    * Add `v` to `x`, `y` and `z` (if `z` exist)
    * @param v
    */

@@ -11,6 +11,9 @@ enum LoopFunctions {
   setY,
   setZ,
   rotate,
+  rotate3dX,
+  rotate3dY,
+  rotate3dZ,
   move,
   round,
   ceil,
@@ -81,6 +84,18 @@ const decodePoolRecord = (a: LoopFunction, {
     case LoopFunctions.rotate:
       res = (k: DPoint): DPoint => a(k)
         .rotate(numberArg!);
+      break;
+    case LoopFunctions.rotate3dX:
+      res = (k: DPoint): DPoint => a(k)
+        .rotate3dX(numberArg!);
+      break;
+    case LoopFunctions.rotate3dY:
+      res = (k: DPoint): DPoint => a(k)
+        .rotate3dY(numberArg!);
+      break;
+    case LoopFunctions.rotate3dZ:
+      res = (k: DPoint): DPoint => a(k)
+        .rotate3dZ(numberArg!);
       break;
     case LoopFunctions.move:
       res = (k: DPoint): DPoint => a(k)
@@ -281,6 +296,30 @@ export class DPolygonLoop {
   rotate(a: number): DPolygonLoop {
     this.pool.push({
       functionName: LoopFunctions.rotate,
+      numberArg: a
+    });
+    return this;
+  }
+
+  rotate3dX(a: number): DPolygonLoop {
+    this.pool.push({
+      functionName: LoopFunctions.rotate3dX,
+      numberArg: a
+    });
+    return this;
+  }
+
+  rotate3dY(a: number): DPolygonLoop {
+    this.pool.push({
+      functionName: LoopFunctions.rotate3dY,
+      numberArg: a
+    });
+    return this;
+  }
+
+  rotate3dZ(a: number): DPolygonLoop {
+    this.pool.push({
+      functionName: LoopFunctions.rotate3dZ,
       numberArg: a
     });
     return this;

@@ -652,4 +652,133 @@ describe('DPolygonLoop', () => {
         ]);
     });
   });
+  describe('rotate3dX', () => {
+    test('1', () => {
+      const p = new DPolygon([
+        new DPoint(30, 30, 10),
+        new DPoint(60, 30, 11),
+        new DPoint(60, 60, 12),
+        new DPoint(30, 60, 13)
+      ]);
+      expect(p
+        .loop()
+        .rotate3dX(Math.PI / 6)
+        .toFixed()
+        .run()
+        .toArrayOfCoords())
+        .toStrictEqual([
+          [30, 30.98, -6.339745962155611],
+          [60, 31.48, -5.473720558371172],
+          [60, 57.96, -19.607695154586732],
+          [30, 58.46, -18.741669750802295]
+        ]);
+    });
+    test('2', () => {
+      const p = new DPolygon([
+        new DPoint(30, 30, 10),
+        new DPoint(60, 30, 11),
+        new DPoint(60, 60, 12),
+        new DPoint(30, 60, 13)
+      ]);
+
+      expect(p
+        .loop()
+        .rotate3dX(Math.PI / 8)
+        .toFixed()
+        .run()
+        .toArrayOfCoords())
+        .toStrictEqual([
+          [30, 31.54, -2.241707645839826],
+          [60, 31.93, -1.3178281133285399],
+          [60, 60.02, -11.874451551769948],
+          [30, 60.41, -10.95057201925866]
+        ]);
+    });
+  });
+  describe('rotate3dY', () => {
+    test('1', () => {
+      const p = new DPolygon([
+        new DPoint(30, 30, 10),
+        new DPoint(60, 30, 11),
+        new DPoint(60, 60, 12),
+        new DPoint(30, 60, 13)
+      ]);
+      expect(p
+        .loop()
+        .rotate3dY(Math.PI / 6)
+        .toFixed()
+        .run()
+        .toArrayOfCoords())
+        .toStrictEqual([
+          [30.98, 30, -6.339745962155611],
+          [57.46, 30, -20.47372055837117],
+          [57.96, 60, -19.607695154586732],
+          [32.48, 60, -3.741669750802295]
+        ]);
+    });
+    test('2', () => {
+      const p = new DPolygon([
+        new DPoint(30, 30, 10),
+        new DPoint(60, 30, 11),
+        new DPoint(60, 60, 12),
+        new DPoint(30, 60, 13)
+      ]);
+
+      expect(p
+        .loop()
+        .rotate3dY(Math.PI / 8)
+        .toFixed()
+        .run()
+        .toArrayOfCoords())
+        .toStrictEqual([
+          [31.54, 30, -2.241707645839826],
+          [59.64, 30, -12.798331084281234],
+          [60.02, 60, -11.874451551769948],
+          [32.69, 60, 0.529930951694034]
+        ]);
+    });
+  });
+  describe('rotate3dZ', () => {
+    test('1', () => {
+      const p = new DPolygon([
+        new DPoint(30, 30, 10),
+        new DPoint(60, 30, 11),
+        new DPoint(60, 60, 12),
+        new DPoint(30, 60, 13)
+      ]);
+      expect(p
+        .loop()
+        .rotate3dZ(Math.PI / 6)
+        .toFixed()
+        .run()
+        .toArrayOfCoords())
+        .toStrictEqual([
+          [10.98, 10.98, 10],
+          [36.96, -4.02, 11],
+          [21.96, 21.96, 12],
+          [-4.02, 36.96, 13]
+        ]);
+    });
+    test('2', () => {
+      const p = new DPolygon([
+        new DPoint(30, 30, 10),
+        new DPoint(60, 30, 11),
+        new DPoint(60, 60, 12),
+        new DPoint(30, 60, 13)
+      ]);
+
+      expect(p
+        .loop()
+        .rotate3dZ(Math.PI / 8)
+        .toFixed()
+        .run()
+        .toArrayOfCoords())
+        .toStrictEqual([
+          [16.24, 16.24, 10],
+          [43.95, 4.76, 11],
+          [32.47, 32.47, 12],
+          [4.76, 43.95, 13]
+        ]);
+    });
+  });
 });
