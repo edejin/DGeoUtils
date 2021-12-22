@@ -1153,7 +1153,7 @@ export class DPolygon {
 
   /**
    * Get [Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
-   * @param step
+   * @param [step=0.1]
    */
   bezier(step: number = 0.1): DPolygon {
     const res = new DPolygon();
