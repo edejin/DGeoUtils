@@ -899,6 +899,12 @@ describe('DPoint', () => {
     test('4', () => {
       expect(new DPoint(1, 1).like(new DPoint(1.00001, 1.00001))).toBe(true);
     });
+    test('5', () => {
+      expect(new DPoint(1, 1, 1).like(new DPoint(1, 1))).toBe(true);
+    });
+    test('6', () => {
+      expect(new DPoint(1, 1).like(new DPoint(1, 1, 1))).toBe(true);
+    });
   });
 
   describe('equal', () => {
@@ -922,6 +928,14 @@ describe('DPoint', () => {
       expect(new DPoint(1, 1).divide(7)
         .equal(new DPoint(1 / 7, 1 / 7))).toBe(true);
     });
+    test('by three numbers', () => {
+      expect(new DPoint(1, 1, 1).divide(7, 7, 7)
+        .equal(new DPoint(1 / 7, 1 / 7, 1 / 7))).toBe(true);
+    });
+    test('by 3d point', () => {
+      expect(new DPoint(1, 1, 1).divide(new DPoint(7, 7, 7))
+        .equal(new DPoint(1 / 7, 1 / 7, 1 / 7))).toBe(true);
+    });
     test('by two numbers', () => {
       expect(new DPoint(1, 2).divide(7, 3)
         .equal(new DPoint(1 / 7, 2 / 3))).toBe(true);
@@ -938,6 +952,14 @@ describe('DPoint', () => {
     test('by number', () => {
       expect(new DPoint(1, 1).scale(7)
         .equal(new DPoint(7, 7))).toBe(true);
+    });
+    test('by three numbers', () => {
+      expect(new DPoint(1, 1, 1).scale(7, 7, 7)
+        .equal(new DPoint(7, 7, 7))).toBe(true);
+    });
+    test('by 3d point', () => {
+      expect(new DPoint(1, 1, 1).scale(new DPoint(7, 7, 7))
+        .equal(new DPoint(7, 7, 7))).toBe(true);
     });
     test('by two numbers', () => {
       expect(new DPoint(1, 2).scale(7, 3)
