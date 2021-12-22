@@ -1151,6 +1151,32 @@ export class DPolygon {
     return new DPolygon(points.map(({x, y}: {x: number; y: number}) => new DPoint(x, y)));
   }
 
+  /**
+   * Get [Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
+   * @param step
+   */
+  bezier(step: number = 0.1): DPolygon {
+    const res = new DPolygon();
+    for (let i = 0; i < 1; i += step) {
+      res.push(this.clone().getBezierPoint(i));
+    }
+    return res;
+  }
+
+  private getBezierPoint(v: number): DPoint {
+    if (this.length === 1) {
+      return this.first;
+    }
+    const t = new DPolygon();
+    for (let i = 0; i < this.length - 1; i++) {
+      const p1 = this.at(i).clone();
+      const p2 = this.at(i + 1).clone();
+      t.push(p1.move(p2.clone().move(p1.clone().minus())
+        .scale(v)));
+    }
+    return t.getBezierPoint(v);
+  }
+
   private simpleIncludeX(p: DPoint) {
     const {x} = p;
     return this.minX <= x && this.maxX >= x;
