@@ -156,3 +156,7 @@ export const gaussianElimination = (matrix: number[][]): number[] => {
 
   return answer;
 };
+
+// eslint-disable-next-line eqeqeq,@typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types
+export const isDefAndNotNull = (a: any): boolean => a != undefined;
+

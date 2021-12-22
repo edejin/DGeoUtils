@@ -1,6 +1,6 @@
 import {DLine} from './DLine';
 import {DPolygon} from './DPolygon';
-import {checkFunction, createArray} from './utils';
+import {checkFunction, createArray, isDefAndNotNull} from './utils';
 
 const diff = 0;
 
@@ -349,19 +349,19 @@ export class DPoint {
     if (x instanceof DPoint) {
       xV = this.x + x.x;
       yV = this.y + x.y;
-      if (this.z && x.z) {
-        zV = this.z + x.z;
+      if (isDefAndNotNull(this.z) && isDefAndNotNull(x.z)) {
+        zV = this.z! + x.z!;
       }
     } else {
       xV = this.x + (x as number);
       yV = this.y + y;
-      if (this.z && z) {
-        zV = this.z + z;
+      if (isDefAndNotNull(this.z) && isDefAndNotNull(z)) {
+        zV = this.z! + z;
       }
     }
     this.x = xV;
     this.y = yV;
-    if (zV) {
+    if (isDefAndNotNull(zV)) {
       this.z = zV;
     }
     return this;
