@@ -341,7 +341,7 @@ export class DPoint {
    * @param z
    */
   move(x: number, y: number, z: number): DPoint;
-  move(x: number | DPoint, y: number = (x as number), z: number = (x as number)): DPoint {
+  move(x: number | DPoint, y: number = (x as number), z?: number): DPoint {
     let xV = 0;
     let yV = 0;
     // eslint-disable-next-line no-undef-init
@@ -356,7 +356,7 @@ export class DPoint {
       xV = this.x + (x as number);
       yV = this.y + y;
       if (isDefAndNotNull(this.z) && isDefAndNotNull(z)) {
-        zV = this.z! + z;
+        zV = this.z! + z!;
       }
     }
     this.x = xV;
@@ -453,13 +453,13 @@ export class DPoint {
   }
 
   /**
-   * Multiply `v` to `x` and `y`
+   * Multiply `v` to `x`, `y` and `z` (if `z` exist)
    * @param v
    */
   scale(v: number): DPoint;
 
   /**
-   * Multiply `p.x` to `x` field and `p.y` to `y` field.
+   * Multiply `p.x` to `x` field, `p.y` to `y` field and `p.z` to `z` field (if `z` exist).
    * @param p
    */
   scale(p: DPoint): DPoint;
@@ -470,29 +470,48 @@ export class DPoint {
    * @param y
    */
   scale(x: number, y: number): DPoint;
-  scale(x: number | DPoint, y: number = (x as number)): DPoint {
+
+  /**
+   * Multiply `x` to `x` field, `y` to `y` field and `z` to `z` field (if `z` exist).
+   * @param x
+   * @param y
+   * @param z
+   */
+  scale(x: number, y: number, z: number): DPoint;
+  scale(x: number | DPoint, y: number = (x as number), z?: number): DPoint {
     let xV = 0;
     let yV = 0;
+    // eslint-disable-next-line no-undef-init
+    let zV: number | undefined = undefined;
     if (x instanceof DPoint) {
       xV = this.x * x.x;
       yV = this.y * x.y;
+      if (isDefAndNotNull(this.z) && isDefAndNotNull(x.z)) {
+        zV = this.z! * x.z!;
+      }
     } else {
       xV = this.x * (x as number);
       yV = this.y * y;
+      if (isDefAndNotNull(this.z) && isDefAndNotNull(z)) {
+        zV = this.z! * z!;
+      }
     }
     this.x = xV;
     this.y = yV;
+    if (isDefAndNotNull(zV)) {
+      this.z = zV;
+    }
     return this;
   }
 
   /**
-   * Divide `x` and `y` to `v`
+   * Divide `x`, `y` and `z` (if `z` exist) to `v`
    * @param v
    */
   divide(v: number): DPoint;
 
   /**
-   * Divide `x` field to `p.x` and `y` field to `p.y`.
+   * Divide `x` field to `p.x`, `y` field to `p.y` and `z` field to `p.z` (if `z` exist).
    * @param p
    */
   divide(p: DPoint): DPoint;
@@ -503,18 +522,37 @@ export class DPoint {
    * @param y
    */
   divide(x: number, y: number): DPoint;
-  divide(x: number | DPoint, y: number = (x as number)): DPoint {
+
+  /**
+   * Divide `x` field to `x`, `y` field to `y` and `z` field to `z`.
+   * @param x
+   * @param y
+   * @param z
+   */
+  divide(x: number, y: number, z: number): DPoint;
+  divide(x: number | DPoint, y: number = (x as number), z?: number): DPoint {
     let xV = 0;
     let yV = 0;
+    // eslint-disable-next-line no-undef-init
+    let zV: number | undefined = undefined;
     if (x instanceof DPoint) {
       xV = this.x / x.x;
       yV = this.y / x.y;
+      if (isDefAndNotNull(this.z) && isDefAndNotNull(x.z)) {
+        zV = this.z! / x.z!;
+      }
     } else {
       xV = this.x / (x as number);
       yV = this.y / y;
+      if (isDefAndNotNull(this.z) && isDefAndNotNull(z)) {
+        zV = this.z! / z!;
+      }
     }
     this.x = xV;
     this.y = yV;
+    if (isDefAndNotNull(zV)) {
+      this.z = zV;
+    }
     return this;
   }
 
