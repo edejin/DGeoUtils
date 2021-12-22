@@ -700,7 +700,7 @@ export class DPoint {
   }
 
   minus(): DPoint {
-    return this.clone().scale(-1);
+    return this.scale(-1);
   }
 
   /**
