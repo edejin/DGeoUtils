@@ -1,5 +1,6 @@
 import {DPlane, DPoint, DPolygon} from '../src';
 
+// eslint-disable-next-line max-lines-per-function
 describe('DPlane', () => {
   describe('find', () => {
     test('1', () => {
@@ -292,6 +293,30 @@ describe('DPlane', () => {
         new DPoint(0, 2, 0),
         new DPoint(0, 2, 2)
       ))).toBe(false);
+    });
+  });
+  describe('findIntersection', () => {
+    test('parallel', () => {
+      expect(new DPlane(1, 2, 1, 54).findIntersection(new DPlane(1, 2, 1, 55))).toEqual(null);
+    });
+    test('line', () => {
+      expect(new DPlane(1, 2, 1, 54).findIntersection(new DPlane(2, 9, -5, 32))).toEqual({
+        a: -88.20000002720799,
+        b: 16.600000010023997,
+        c: 1.00000000716,
+        begin: {
+          properties: {},
+          x: 0,
+          y: 0,
+          z: undefined
+        },
+        end: {
+          properties: {},
+          x: 0,
+          y: 0,
+          z: undefined
+        }
+      });
     });
   });
 });

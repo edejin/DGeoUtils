@@ -2,6 +2,7 @@ import {DPoint} from './DPoint';
 import {gaussianElimination} from './utils';
 import {DPolygon} from './DPolygon';
 import {DNumbers} from './DNumbers';
+import {DLine} from './DLine';
 
 export class DPlane {
   // eslint-disable-next-line max-params,no-useless-constructor
@@ -198,5 +199,19 @@ export class DPlane {
       DNumbers.like(t, u) &&
       DNumbers.like(t, c) &&
       !DNumbers.like(t, i);
+  }
+
+  findIntersection(p: DPlane): DLine | null {
+    if (this.parallel(p)) {
+      return null;
+    }
+    const {a, b, c, d} = this;
+    const {a: q, b: w, c: e, d: r} = p;
+    const [f, g, h] = gaussianElimination([
+      [a, b, c, -d],
+      [q, w, e, -r],
+      [0, 0, 1, 1]
+    ]);
+    return new DLine(f, g, h);
   }
 }
