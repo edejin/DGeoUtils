@@ -202,7 +202,7 @@ export class DPlane {
   }
 
   findIntersection(p: DPlane): DLine | null {
-    if (this.parallel(p)) {
+    if (this.parallel(p) || this.same(p)) {
       return null;
     }
     const {a, b, c, d} = this;
