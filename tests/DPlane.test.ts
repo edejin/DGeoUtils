@@ -295,28 +295,4 @@ describe('DPlane', () => {
       ))).toBe(false);
     });
   });
-  describe('findIntersection', () => {
-    test('parallel', () => {
-      expect(new DPlane(1, 2, 1, 54).findIntersection(new DPlane(1, 2, 1, 55))).toEqual(null);
-    });
-    test('line', () => {
-      expect(new DPlane(1, 2, 1, 54).findIntersection(new DPlane(2, 9, -5, 32))).toEqual({
-        a: -88.20000002720799,
-        b: 16.600000010023997,
-        c: 1.00000000716,
-        begin: {
-          properties: {},
-          x: 0,
-          y: 0,
-          z: undefined
-        },
-        end: {
-          properties: {},
-          x: 0,
-          y: 0,
-          z: undefined
-        }
-      });
-    });
-  });
 });

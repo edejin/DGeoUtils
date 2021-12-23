@@ -200,18 +200,4 @@ export class DPlane {
       DNumbers.like(t, c) &&
       !DNumbers.like(t, i);
   }
-
-  findIntersection(p: DPlane): DLine | null {
-    if (this.parallel(p) || this.same(p)) {
-      return null;
-    }
-    const {a, b, c, d} = this;
-    const {a: q, b: w, c: e, d: r} = p;
-    const [f, g, h] = gaussianElimination([
-      [a, b, c, -d],
-      [q, w, e, -r],
-      [0, 0, 1, 1]
-    ]);
-    return new DLine(f, g, h);
-  }
 }
