@@ -7,6 +7,13 @@ export * from './FastSearch';
 export * from './TraceMatrix';
 export * from './DPolygonLoop';
 export * from './DPlane';
+export {
+  gaussianElimination,
+  createCanvas,
+  createArray,
+  createMatrix,
+  isDefAndNotNull
+} from './utils';
 export const DGeo = {
   DEBUG: false
 };

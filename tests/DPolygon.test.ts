@@ -1,7 +1,11 @@
 /* eslint-disable max-lines,max-statements,max-lines-per-function */
-import {DPoint, DPolygon} from '../src';
+import {DPoint, DPolygon, createCanvas} from '../src';
 import {JSDOM} from 'jsdom';
 const {document} = (new JSDOM('...')).window;
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+createCanvas.document = document;
 
 describe('DPolygon', () => {
   describe('constructor', () => {
@@ -1415,7 +1419,7 @@ describe('DPolygon', () => {
 
   describe('drawPolygonOnCanvas', () => {
     test('1', () => {
-      const t = document.createElement('canvas');
+      const [t] = createCanvas(100);
       DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))')
         .drawPolygonOnCanvas(
           t,
@@ -1427,7 +1431,7 @@ describe('DPolygon', () => {
       expect(t.toDataURL()).toMatchSnapshot();
     });
     test('2', () => {
-      const t = document.createElement('canvas');
+      const [t] = createCanvas(100);
       DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))')
         .drawPolygonOnCanvas(
           t,
@@ -1437,7 +1441,7 @@ describe('DPolygon', () => {
       expect(t.toDataURL()).toMatchSnapshot();
     });
     test('3', () => {
-      const t = document.createElement('canvas');
+      const [t] = createCanvas(100);
       DPolygon.parseFromWKT('POINT (30 10)')
         .drawPolygonOnCanvas(
           t,
@@ -1452,7 +1456,7 @@ describe('DPolygon', () => {
 
   describe('clearPolygonOnCanvas', () => {
     test('1', () => {
-      const canvas = document.createElement('canvas');
+      const [canvas] = createCanvas(150, 100);
       canvas.width = 150;
       canvas.height = 100;
       const ctx = canvas.getContext('2d')!;
