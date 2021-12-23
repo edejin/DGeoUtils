@@ -2,7 +2,6 @@ import {DPoint} from './DPoint';
 import {gaussianElimination} from './utils';
 import {DPolygon} from './DPolygon';
 import {DNumbers} from './DNumbers';
-import {DLine} from './DLine';
 
 export class DPlane {
   // eslint-disable-next-line max-params,no-useless-constructor
