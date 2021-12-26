@@ -13,4 +13,6 @@
 [![Coverage branches](media/badges/badge-branches.svg)](media/lcov-report/index.html)
 [![Coverage statements](media/badges/badge-statements.svg)](media/lcov-report/index.html)
 
+[Test time report](media/time-report.html)
+
 [ESLint Report](media/eslit.html)

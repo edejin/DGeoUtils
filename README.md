@@ -13,6 +13,8 @@
 [![Coverage branches](https://edejin.github.io/DGeoUtils/media/badges/badge-branches.svg)](https://edejin.github.io/DGeoUtils/media/lcov-report/index.html)
 [![Coverage statements](https://edejin.github.io/DGeoUtils/media/badges/badge-statements.svg)](https://edejin.github.io/DGeoUtils/media/lcov-report/index.html)
 
+[Test time report](https://edejin.github.io/DGeoUtils/media/time-report.html)
+
 [Docs](https://edejin.github.io/DGeoUtils/index.html)
 
 [ESLint Report](https://edejin.github.io/DGeoUtils/media/eslit.html)

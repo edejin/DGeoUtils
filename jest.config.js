@@ -10,5 +10,11 @@ module.exports = {
     "json-summary",
     "text",
     "lcov"
+  ],
+  "reporters": [
+    "default",
+    ["./node_modules/jest-html-reporter", {
+    "outputPath": "./media/time-report.html"
+    }]
   ]
 }
