@@ -3,8 +3,6 @@ import {DPoint, DPolygon, createCanvas} from '../src';
 import {JSDOM} from 'jsdom';
 const {document} = (new JSDOM('...')).window;
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 createCanvas.document = document;
 
 describe('DPolygon', () => {

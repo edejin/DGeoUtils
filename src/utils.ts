@@ -176,53 +176,62 @@ export const gaussianElimination = (matrix: number[][]): number[] => {
 // eslint-disable-next-line eqeqeq,@typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types
 export const isDefAndNotNull = (a: any): boolean => a != undefined;
 
-/**
- * Create dom canvas element with same width and height
- * @param size
- */
-function createCanvas(size: number): [HTMLCanvasElement, CanvasRenderingContext2D];
+type True = true;
 
-/**
- * Create offscreen canvas with same width and height
- * @param size
- * @param offscreen
- */
-function createCanvas(size: number, offscreen: boolean): [OffscreenCanvas, OffscreenCanvasRenderingContext2D];
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+export const createCanvas: {
 
-/**
- * Create canvas by width and height
- * @param w
- * @param h
- */
-function createCanvas(w: number, h: number): [HTMLCanvasElement, CanvasRenderingContext2D];
+  /**
+   * Create dom canvas element with same width and height
+   * @param size
+   */
+  (size: number): [HTMLCanvasElement, CanvasRenderingContext2D];
 
-/**
- * Create offscreen canvas by width and height
- * @param w
- * @param h
- * @param offscreen
- */
-function createCanvas(w: number, h: number, offscreen: boolean): [OffscreenCanvas, OffscreenCanvasRenderingContext2D];
+  /**
+   * Create offscreen canvas with same width and height
+   * @param size
+   * @param offscreen
+   */
+  (size: number, offscreen: True): [OffscreenCanvas, OffscreenCanvasRenderingContext2D];
 
-/**
- * Create dom canvas element by `DPoint` size
- * @param size
- */
-function createCanvas(size: DPoint): [HTMLCanvasElement, CanvasRenderingContext2D];
+  /**
+   * Create canvas by width and height
+   * @param w
+   * @param h
+   */
+  (w: number, h: number): [HTMLCanvasElement, CanvasRenderingContext2D];
 
-/**
- * Create offscreen canvas by `DPoint` size
- * @param size
- * @param offscreen
- */
-function createCanvas(size: DPoint, offscreen: boolean): [OffscreenCanvas, OffscreenCanvasRenderingContext2D];
+  /**
+   * Create offscreen canvas by width and height
+   * @param w
+   * @param h
+   * @param offscreen
+   */
+  (w: number, h: number, offscreen: True): [OffscreenCanvas, OffscreenCanvasRenderingContext2D];
 
-// eslint-disable-next-line func-style
-function createCanvas(
+  /**
+   * Create dom canvas element by `DPoint` size
+   * @param size
+   */
+  (size: DPoint): [HTMLCanvasElement, CanvasRenderingContext2D];
+
+  /**
+   * Create offscreen canvas by `DPoint` size
+   * @param size
+   * @param offscreen
+   */
+  (size: DPoint, offscreen: True): [OffscreenCanvas, OffscreenCanvasRenderingContext2D];
+
+  /**
+   * Mock document object for tests
+   */
+  document?: Document;
+} = (
   a: DPoint | number,
   b?: number | boolean,
   c?: boolean
-): [HTMLCanvasElement | OffscreenCanvas, CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D] {
+): [HTMLCanvasElement | OffscreenCanvas, CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D] => {
   let w = 0;
   let h = 0;
   let offscreen = false;
@@ -243,17 +252,10 @@ function createCanvas(
     offscreen = c;
   }
   const canvas: HTMLCanvasElement | OffscreenCanvas =
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     offscreen ? new OffscreenCanvas(w, h) : (createCanvas.document ?? document).createElement('canvas');
   if (!offscreen) {
     canvas.width = w;
     canvas.height = h;
   }
-  const ctx = canvas.getContext('2d')!;
-  return [canvas, ctx];
-}
-
-export {
-  createCanvas
+  return [canvas, canvas.getContext('2d')!];
 };
