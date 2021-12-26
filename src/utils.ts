@@ -120,18 +120,24 @@ export const createArray = (v: number, fillSymbol: any = 0): number[] => new Arr
 export const createMatrix = ({h, w}: DPoint, fillSymbol: any = 0): number[][] => createArray(h)
   .map(() => createArray(w, fillSymbol));
 
-const GAUSSIAN_ELIMINATION_MIN = 1e-10;
-
 /**
  * [Gaussian elimination](https://en.wikipedia.org/wiki/Gaussian_elimination)
  * @param matrix
  */
-export const gaussianElimination = (matrix: number[][]): number[] => {
+export const gaussianElimination: {
+  (matrix: number[][]): number[],
+
+  /**
+   * Min value if matrix contain 0.
+   * @default 1e-10
+   */
+  MIN: number;
+} = (matrix: number[][]): number[] => {
   const n = matrix.length;
   const matrixClone = createMatrix(new DPoint(n + 1, n));
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < n + 1; j++) {
-      matrix[i][j] = matrix[i][j] === 0 ? GAUSSIAN_ELIMINATION_MIN : matrix[i][j];
+      matrix[i][j] = matrix[i][j] === 0 ? gaussianElimination.MIN : matrix[i][j];
       matrixClone[i][j] = matrix[i][j];
     }
   }
@@ -172,6 +178,7 @@ export const gaussianElimination = (matrix: number[][]): number[] => {
 
   return answer;
 };
+gaussianElimination.MIN = 1e-10;
 
 // eslint-disable-next-line eqeqeq,@typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types
 export const isDefAndNotNull = (a: any): boolean => a != undefined;

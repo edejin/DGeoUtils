@@ -1,5 +1,5 @@
-import {checkFunction, gaussianElimination} from '../src/utils';
-import {DGeo, DPoint} from '../src';
+import {checkFunction} from '../src/utils';
+import {DGeo, DPoint, gaussianElimination, createArray, createMatrix, isDefAndNotNull} from '../src';
 
 describe('utils', () => {
   describe('shouldBeInt', () => {
@@ -112,5 +112,24 @@ describe('utils', () => {
         1.00000000716
       ]);
     });
+  });
+  describe('createArray', () => {
+    test('1', () => {
+      expect(createArray(2, 7)).toEqual([7, 7]);
+    });
+  });
+  describe('createMatrix', () => {
+    test('1', () => {
+      expect(createMatrix(new DPoint(2, 3))).toEqual([
+        [0, 0],
+        [0, 0],
+        [0, 0]
+      ]);
+    });
+  });
+  describe('isDefAndNotNull', () => {
+    expect(isDefAndNotNull(null)).toBe(false);
+    expect(isDefAndNotNull(undefined)).toBe(false);
+    expect(isDefAndNotNull(1)).toBe(true);
   });
 });
