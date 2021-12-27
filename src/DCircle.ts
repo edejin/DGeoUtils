@@ -10,7 +10,6 @@ export class DCircle {
    * @param [center=(0,0)]
    * @param [r=0]
    */
-  // eslint-disable-next-line no-useless-constructor,no-empty-function
   constructor(public center: DPoint = DPoint.zero(), public r: number = 0) {}
 
   toString(): string {

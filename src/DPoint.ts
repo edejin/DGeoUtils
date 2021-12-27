@@ -59,7 +59,6 @@ export class DPoint {
    * @param z - height
    */
   constructor(x: number, y: number, z?: number);
-  // eslint-disable-next-line no-empty-function,no-useless-constructor
   constructor(public x: number = 0, public y: number = x, public z?: number) {}
 
   static zero(): DPoint {

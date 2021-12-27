@@ -192,7 +192,6 @@ const decodePoolRecord = (a: LoopFunction, {
 export class DPolygonLoop {
   private pool: PoolRecord[] = [];
 
-  // eslint-disable-next-line no-empty-function,no-useless-constructor
   constructor(private readonly parent: DPolygon) {}
 
   private getLoopFunction() {

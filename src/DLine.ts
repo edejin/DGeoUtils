@@ -12,14 +12,12 @@ export class DLine {
    * @param [begin=DPoint.zero()]
    * @param [end=DPoint.zero()]
    */
-  // eslint-disable-next-line no-useless-constructor
   constructor(
     public a: number,
     public b: number,
     public c: number,
     public begin: DPoint = DPoint.zero(),
     public end: DPoint = DPoint.zero()
-    // eslint-disable-next-line no-empty-function
   ) {}
 
   clone(): DLine {

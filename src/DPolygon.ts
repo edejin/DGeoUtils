@@ -28,7 +28,6 @@ export class DPolygon {
   holes: DPolygon[] = [];
   private searchStore: Record<number, Record<number, Record<number | string, boolean>>> = {};
 
-  // eslint-disable-next-line no-useless-constructor,no-empty-function
   constructor(private pPoints: DPoint[] = []) {}
 
   /**

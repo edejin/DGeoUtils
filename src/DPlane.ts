@@ -4,7 +4,7 @@ import {DPolygon} from './DPolygon';
 import {DNumbers} from './DNumbers';
 
 export class DPlane {
-  // eslint-disable-next-line max-params,no-useless-constructor
+  // eslint-disable-next-line max-params
   constructor(
     public a: number,
     public b: number,
@@ -13,7 +13,6 @@ export class DPlane {
     public p1: DPoint = DPoint.zero(),
     public p2: DPoint = DPoint.zero(),
     public p3: DPoint = DPoint.zero()
-    // eslint-disable-next-line no-empty-function
   ) {}
 
   static find(p1: DPoint, p2: DPoint, p3: DPoint): DPlane {
