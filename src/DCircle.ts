@@ -1,6 +1,5 @@
 import {DPoint, EARTH_RADIUS_IN_METERS} from './DPoint';
 import {DPolygon} from './DPolygon';
-import {DNumbers} from './DNumbers';
 import {checkFunction} from './utils';
 
 // eslint-disable-next-line padded-blocks
@@ -81,17 +80,22 @@ export class DCircle {
    *
    * ![Example](https://edejin.github.io/DGeoUtils/media/examples/findPolygonInside.png)
    * @param [pointCount=64]
+   * @param [startAngle=0]
+   * @param [stopAngle=2*Math.PI]
    */
-  findPolygonInside(pointCount: number = 64): DPolygon {
-    const preAngle = 2 * Math.PI / pointCount;
+  findPolygonInside(pointCount: number = 64, startAngle: number = 0, stopAngle: number = 2 * Math.PI): DPolygon {
+    const step = 2 * Math.PI / pointCount;
     const points: DPoint[] = [];
-    for (let i = 0; i < pointCount; i++) {
-      const angle = preAngle * i;
-      const x = this.r * Math.cos(angle) + this.center.x;
-      const y = this.r * Math.sin(angle) + this.center.y;
-      points.push(new DPoint(x, y));
+    let angle = startAngle;
+    while (angle < stopAngle - step) {
+      points.push(new DPoint(this.r).scale(Math.cos(angle), Math.sin(angle))
+        .move(this.center));
+      angle += step;
     }
-    return new DPolygon([...points, points[0]]);
+    const x = this.r * Math.cos(stopAngle) + this.center.x;
+    const y = this.r * Math.sin(stopAngle) + this.center.y;
+    points.push(new DPoint(x, y));
+    return new DPolygon(points);
   }
 
   /**
@@ -105,21 +109,30 @@ export class DCircle {
    *
    * ![Example](https://edejin.github.io/DGeoUtils/media/examples/findPolygonInsideOnSphere.png)
    * @param [pointCount=64]
+   * @param [startAngle=0]
+   * @param [stopAngle=2*Math.PI]
    */
-  findPolygonInsideOnSphere(pointCount: number = 64): DPolygon {
+  findPolygonInsideOnSphere(
+    pointCount: number = 64,
+    startAngle: number = 0,
+    stopAngle: number = 2 * Math.PI
+  ): DPolygon {
     checkFunction('findPolygonInsideOnSphere')
       .checkArgument('center')
       .shouldBeDegree(this.center);
-    const res = new DPolygon();
-    for (let i = 0; i < pointCount; i++) {
-      res.push(this.sphereOffset(2 * Math.PI * i / pointCount));
+    const step = 2 * Math.PI / pointCount;
+    const points: DPoint[] = [];
+    let angle = startAngle;
+    while (angle < stopAngle - step) {
+      points.push(this.sphereOffset(angle));
+      angle += step;
     }
-    return res.close();
+    points.push(this.sphereOffset(stopAngle));
+    return new DPolygon(points);
   }
 
   private sphereOffset(bearing: number, earthRadius = EARTH_RADIUS_IN_METERS): DPoint {
-    const lat1 = DNumbers.deg2Rad(this.center.y);
-    const lon1 = DNumbers.deg2Rad(this.center.x);
+    const {x: lon1, y: lat1} = this.center.clone().degreeToRadians();
     const dByR = this.r / earthRadius;
     const lat = Math.asin(Math.sin(lat1) * Math.cos(dByR) +
       Math.cos(lat1) * Math.sin(dByR) * Math.cos(bearing));
@@ -129,6 +142,6 @@ export class DCircle {
         Math.sin(bearing) * Math.sin(dByR) * Math.cos(lat1),
         Math.cos(dByR) - Math.sin(lat1) * Math.sin(lat)
       );
-    return new DPoint(DNumbers.rad2Deg(lon), DNumbers.rad2Deg(lat));
+    return new DPoint(lon, lat).radiansToDegrees();
   }
 }
