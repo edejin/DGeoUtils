@@ -1,5 +1,5 @@
 /* eslint-disable max-lines,max-statements,max-lines-per-function */
-import {DGeo, DPoint} from '../src';
+import {DGeo, DPoint, DPolygon} from '../src';
 import MockInstance = jest.MockInstance;
 
 describe('DPoint', () => {
@@ -1371,6 +1371,48 @@ describe('DPoint', () => {
         x: -3,
         y: -1.9999999999999998,
         z: 3
+      });
+    });
+  });
+
+  describe('findCloserPoint', () => {
+    test('1', () => {
+      expect(new DPoint(5, 5).findCloserPoint(new DPolygon([
+        new DPoint(0, 0),
+        new DPoint(0, 4),
+        new DPoint(4, 4),
+        new DPoint(4, 0)
+      ]))).toEqual({
+        x: 4,
+        y: 4,
+        z: undefined,
+        properties: {}
+      });
+    });
+    test('2', () => {
+      expect(new DPoint(1, 3).findCloserPoint(new DPolygon([
+        new DPoint(0, 0),
+        new DPoint(0, 4),
+        new DPoint(4, 4),
+        new DPoint(4, 0)
+      ]))).toEqual({
+        x: 0,
+        y: 4,
+        z: undefined,
+        properties: {}
+      });
+    });
+    test('3', () => {
+      expect(new DPoint(0, 0).findCloserPoint(new DPolygon([
+        new DPoint(0, 0),
+        new DPoint(0, 4),
+        new DPoint(4, 4),
+        new DPoint(4, 0)
+      ]))).toEqual({
+        x: 0,
+        y: 0,
+        z: undefined,
+        properties: {}
       });
     });
   });

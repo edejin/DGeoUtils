@@ -730,4 +730,17 @@ export class DPoint {
         return new DPoint(x, y).radiansToDegrees();
       }));
   }
+
+  findCloserPoint(p: DPolygon): DPoint {
+    let d = Infinity;
+    let res = DPoint.zero();
+    for (const t of p.points) {
+      const td = this.distance(t);
+      if (td < d) {
+        d = td;
+        res = t.clone();
+      }
+    }
+    return res;
+  }
 }
