@@ -41,6 +41,21 @@ describe('utils', () => {
       // eslint-disable-next-line no-console
       expect(console.warn).toHaveBeenCalledTimes(0);
     });
+    test('4', () => {
+      const p = 3;
+      checkFunction('function name')
+        .checkArgument('variable name')
+        .shouldExist(p);
+      // eslint-disable-next-line no-console
+      expect(console.warn).toHaveBeenCalledTimes(0);
+    });
+    test('5', () => {
+      checkFunction('function name')
+        .checkArgument('variable name')
+        .shouldExist(undefined);
+      // eslint-disable-next-line no-console
+      expect(console.warn).toHaveBeenCalledTimes(1);
+    });
   });
   describe('shouldBeUInt', () => {
     beforeAll(() => {

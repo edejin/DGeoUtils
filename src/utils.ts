@@ -9,7 +9,12 @@ export const warn = (...args: any[]): void => {
   }
 };
 
+// eslint-disable-next-line eqeqeq,@typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types
+export const isDefAndNotNull = (a: any): boolean => a != undefined;
+
 type CheckFunc = (p: DPoint) => CheckFunction;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type CheckFunc2 = (p: any) => CheckFunction;
 
 interface CheckArgument {
   shouldBeDegree: CheckFunc;
@@ -17,6 +22,7 @@ interface CheckArgument {
   shouldBeInt: CheckFunc;
   shouldBeUInt: CheckFunc;
   shouldBeRadians: CheckFunc;
+  shouldExist: CheckFunc2;
 }
 
 interface CheckFunction {
@@ -71,6 +77,18 @@ const shouldBeRadians = (
   return scope;
 };
 
+const shouldExist = (
+  scope: CheckFunction,
+  funcName: string,
+  argName: string
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): CheckFunc => (p: any): CheckFunction => {
+  if (!isDefAndNotNull(p)) {
+    warn(`"${funcName}" -> "${argName}" should exist!`);
+  }
+  return scope;
+};
+
 const shouldBeMeters = (
   scope: CheckFunction,
   funcName: string,
@@ -91,7 +109,8 @@ export const checkFunction = (funcName: string): CheckFunction => ({
         shouldBeMeters: hook(this),
         shouldBeInt: hook(this),
         shouldBeUInt: hook(this),
-        shouldBeRadians: hook(this)
+        shouldBeRadians: hook(this),
+        shouldExist: hook(this)
       };
     }
     return {
@@ -99,7 +118,8 @@ export const checkFunction = (funcName: string): CheckFunction => ({
       shouldBeMeters: shouldBeMeters(this, funcName, argName),
       shouldBeInt: shouldBeInt(this, funcName, argName),
       shouldBeUInt: shouldBeUInt(this, funcName, argName),
-      shouldBeRadians: shouldBeRadians(this, funcName, argName)
+      shouldBeRadians: shouldBeRadians(this, funcName, argName),
+      shouldExist: shouldExist(this, funcName, argName)
     };
   }
 });
@@ -179,9 +199,6 @@ export const gaussianElimination: {
   return answer;
 };
 gaussianElimination.MIN = 1e-10;
-
-// eslint-disable-next-line eqeqeq,@typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types
-export const isDefAndNotNull = (a: any): boolean => a != undefined;
 
 type True = true;
 

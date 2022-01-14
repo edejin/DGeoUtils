@@ -198,6 +198,22 @@ export class DPoint {
     return Math.sqrt(dx * dx + dy * dy);
   }
 
+  distance3d(p: DPoint): number {
+    checkFunction('distance3d')
+      .checkArgument('this')
+      .shouldBeMeters(this)
+      .checkArgument('p')
+      .shouldBeMeters(p)
+      .checkArgument('this.z')
+      .shouldExist(this.z)
+      .checkArgument('p.z')
+      .shouldExist(p.z);
+    const dx = p.x - this.x;
+    const dy = p.y - this.y;
+    const dz = p.z! - this.z!;
+    return Math.sqrt(dx * dx + dy * dy + dz * dz);
+  }
+
   /**
    * Set `x` value
    * @param x

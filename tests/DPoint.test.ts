@@ -232,6 +232,10 @@ describe('DPoint', () => {
     expect(new DPoint(1, 2).distance(new DPoint(3, 4))).toBe(2.8284271247461903);
   });
 
+  test('distance3d', () => {
+    expect(new DPoint(1, 2, 1).distance3d(new DPoint(3, 4, 2))).toBe(3);
+  });
+
   describe('setX', () => {
     test('value', () => {
       expect(new DPoint(3, 4).setX(7)
