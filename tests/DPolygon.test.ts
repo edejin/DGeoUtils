@@ -3091,4 +3091,71 @@ describe('DPolygon', () => {
         '))');
     });
   });
+
+  describe('setGrowingHeight', () => {
+    test('1', () => {
+      const p = new DPolygon([
+        new DPoint(1, 1),
+        new DPoint(5, 5)
+      ]);
+      expect(p.setGrowingHeight(1, 5)).toEqual({
+        holes: [],
+        pPoints: [
+          {
+            properties: {},
+            x: 1,
+            y: 1,
+            z: 1
+          },
+          {
+            properties: {},
+            x: 5,
+            y: 5,
+            z: 5
+          }
+        ],
+        properties: {},
+        searchStore: {}
+      });
+    });
+    test('2', () => {
+      const p = new DPolygon([
+        new DPoint(1, 1),
+        new DPoint(1, 10),
+        new DPoint(10, 10),
+        new DPoint(10, 1)
+      ]);
+      expect(p.setGrowingHeight(1, 4)).toEqual({
+        holes: [],
+        pPoints: [
+          {
+            properties: {},
+            x: 1,
+            y: 1,
+            z: 1
+          },
+          {
+            properties: {},
+            x: 1,
+            y: 10,
+            z: 2
+          },
+          {
+            properties: {},
+            x: 10,
+            y: 10,
+            z: 3
+          },
+          {
+            properties: {},
+            x: 10,
+            y: 1,
+            z: 4
+          }
+        ],
+        properties: {},
+        searchStore: {}
+      });
+    });
+  });
 });

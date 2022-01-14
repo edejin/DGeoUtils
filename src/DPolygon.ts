@@ -1163,6 +1163,21 @@ export class DPolygon {
     return res;
   }
 
+  setGrowingHeight(from: number, to: number): DPolygon {
+    const {fullLength} = this;
+    let {first: prevPoint} = this;
+    const d = to - from;
+    let currentDistance = 0;
+    this.loop()
+      .setZ((p: DPoint) => {
+        currentDistance += prevPoint.distance(p);
+        prevPoint = p;
+        return from + currentDistance / fullLength * d;
+      })
+      .run();
+    return this;
+  }
+
   private getBezierPoint(v: number): DPoint {
     if (this.length === 1) {
       return this.first;
