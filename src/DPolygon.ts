@@ -6,6 +6,7 @@ import {DNumbers} from './DNumbers';
 import {io as jstsIo, geom, operation} from 'jsts';
 import Geometry = geom.Geometry;
 import {DPolygonLoop} from './DPolygonLoop';
+import {isDefAndNotNull} from './utils';
 
 const {
   buffer: {
@@ -63,13 +64,13 @@ export class DPolygon {
    * ```
    *
    * @param triangles
-   * @param [height=0]
+   * @param height
    */
-  static arrayOfTrianglesToVertices(triangles: DPolygon[], height: number = 0): number[] {
-    return triangles.map((v: DPolygon) => v
+  static arrayOfTrianglesToVertices(triangles: DPolygon[], height?: number): number[] {
+    return triangles.map((v: DPolygon) => (isDefAndNotNull(height) ? v
       .loop()
-      .height(height)
-      .run()
+      .height(height!)
+      .run() : v)
       .toArrayOfCoords())
       .flat(2);
   }
