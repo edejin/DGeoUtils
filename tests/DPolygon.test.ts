@@ -3158,4 +3158,16 @@ describe('DPolygon', () => {
       });
     });
   });
+
+  describe('sort', () => {
+    test('1', () => {
+      expect(new DPolygon([
+        new DPoint(1, 2),
+        new DPoint(3, 2),
+        new DPoint(2, 2),
+        new DPoint(6, 2)
+      ]).sort((a: DPoint, b: DPoint) => b.x - a.x)
+        .toArrayOfCoords()).toEqual([[6, 2], [3, 2], [2, 2], [1, 2]]);
+    });
+  });
 });

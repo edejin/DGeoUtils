@@ -747,16 +747,14 @@ export class DPoint {
       }));
   }
 
-  findCloserPoint(p: DPolygon): DPoint {
-    let d = Infinity;
-    let res = DPoint.zero();
-    for (const t of p.points) {
-      const td = this.distance(t);
-      if (td < d) {
-        d = td;
-        res = t.clone();
-      }
-    }
-    return res;
+  sortByDistance(p: DPolygon): DPolygon {
+    return p
+      .clone()
+      .map((d: DPoint, index: number) => {
+        d.properties.distance = d.distance(this);
+        d.properties.index = index;
+        return d;
+      })
+      .sort((a: DPoint, b: DPoint) => a.properties.distance - b.properties.distance);
   }
 }

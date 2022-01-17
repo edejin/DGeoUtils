@@ -541,6 +541,11 @@ export class DPolygon {
     return this;
   }
 
+  sort(f: (a: DPoint, b: DPoint) => number): DPolygon {
+    this.points.sort(f);
+    return this;
+  }
+
   at(index: number): DPoint {
     const {length} = this;
     return this.points[(index % length + length) % length];

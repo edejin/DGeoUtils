@@ -1379,45 +1379,33 @@ describe('DPoint', () => {
     });
   });
 
-  describe('findCloserPoint', () => {
+  describe('sortByDistance', () => {
     test('1', () => {
-      expect(new DPoint(5, 5).findCloserPoint(new DPolygon([
+      expect(new DPoint(5, 5).sortByDistance(new DPolygon([
         new DPoint(0, 0),
         new DPoint(0, 4),
         new DPoint(4, 4),
         new DPoint(4, 0)
-      ]))).toEqual({
-        x: 4,
-        y: 4,
-        z: undefined,
-        properties: {}
-      });
+      ]))
+        .toArrayOfCoords()).toEqual([[4, 4], [0, 4], [4, 0], [0, 0]]);
     });
     test('2', () => {
-      expect(new DPoint(1, 3).findCloserPoint(new DPolygon([
+      expect(new DPoint(1, 3).sortByDistance(new DPolygon([
         new DPoint(0, 0),
         new DPoint(0, 4),
         new DPoint(4, 4),
         new DPoint(4, 0)
-      ]))).toEqual({
-        x: 0,
-        y: 4,
-        z: undefined,
-        properties: {}
-      });
+      ]))
+        .toArrayOfCoords()).toEqual([[0, 4], [0, 0], [4, 4], [4, 0]]);
     });
     test('3', () => {
-      expect(new DPoint(0, 0).findCloserPoint(new DPolygon([
+      expect(new DPoint(0, 0).sortByDistance(new DPolygon([
         new DPoint(0, 0),
         new DPoint(0, 4),
         new DPoint(4, 4),
         new DPoint(4, 0)
-      ]))).toEqual({
-        x: 0,
-        y: 0,
-        z: undefined,
-        properties: {}
-      });
+      ]))
+        .toArrayOfCoords()).toEqual([[0, 0], [0, 4], [4, 0], [4, 4]]);
     });
   });
 });
