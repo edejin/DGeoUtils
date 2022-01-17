@@ -1,6 +1,7 @@
 import {DPoint} from './DPoint';
 import {DCircle} from './DCircle';
 import {checkFunction} from './utils';
+import {DNumbers} from './DNumbers';
 
 // eslint-disable-next-line padded-blocks
 export class DLine {
@@ -302,19 +303,15 @@ export class DLine {
    */
   movePoint(p: DPoint, d: number): DPoint {
     const fi = this.findFi(new DLine(1, 0, 0));
-    const td = this.begin.distance(this.end) / 2;
-    const dcosT = td * Math.cos(fi);
-    const dsinT = td * Math.sin(fi);
-    const p1T = new DPoint(p.x - dsinT, p.y - dcosT);
-    const p2T = new DPoint(p.x + dsinT, p.y + dcosT);
-    const dcos = d * Math.cos(fi);
-    const dsin = d * Math.sin(fi);
-    const p2 = new DPoint(p.x + dsin, p.y + dcos);
-    const p3 = new DPoint(p.x - dsin, p.y + dcos);
-    if (this.inRange(p1T) || this.inRange(p2T)) {
-      return p2;
+    const td = this.x(new DPoint(1, 1)).distance(this.x(new DPoint(2, 2))) / 2;
+    const sinCos = new DPoint(Math.sin(fi), Math.cos(fi));
+    const dt = sinCos.clone().scale(td);
+    const p1T = p.clone().move(dt.clone().minus());
+    const p2T = p.clone().move(dt);
+    if (DNumbers.like(this.y(p1T).y, p1T.y) || DNumbers.like(this.y(p2T).y, p2T.y)) {
+      return p.clone().move(sinCos.scale(d));
     }
-    return p3;
+    return p.clone().move(sinCos.scale(d).setX(({x}) => -x));
   }
 
   /**
