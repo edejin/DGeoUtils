@@ -41,11 +41,11 @@
     "eslint-plugin-testing-library": "^4.12.4",
     "jest": "^27.0.6",
     "jest-canvas-mock": "^2.3.1",
-    "jest-coverage-badges": "^1.1.2",
+    "jest-coverage-badges": "^1.0.0",
     "jest-html-reporter": "^3.4.2",
     "jsdom": "^17.0.0",
     "ts-jest": "^27.0.4",
-    "typedoc": "^0.21.9",
+    "typedoc": "^0.22.11",
     "typescript": "^4.4.3"
   },
   "jest": {
