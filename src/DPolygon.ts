@@ -443,6 +443,10 @@ export class DPolygon {
 
   /**
    * Check polygon direction
+   *
+   * For normal Cartesian coordinate system. The reason that's worth mentioning is that some common contexts,
+   * like HTML5 canvas, use an inverted Y-axis. Then the rule has to be flipped: if the area is negative,
+   * the curve is clockwise.
    */
   get isClockwise(): boolean {
     let sum = 0;
