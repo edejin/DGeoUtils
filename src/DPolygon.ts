@@ -23,6 +23,57 @@ const APPROXIMATION_VALUE = 0.1;
 const MAX_CONVEX_ITERATIONS = 100;
 const CLOSE_TO_INTERSECTION_DISTANCE = 0.001;
 
+/**
+ * @ignore
+ * @param poly
+ * @param p
+ */
+const containCalculator = (poly: DPolygon, p: DPoint): boolean => {
+  const hasSamePoint = poly.points.some((point: DPoint) => point.equal(p));
+  if (hasSamePoint) {
+    return true;
+  }
+  for (let i = 0; i < poly.length - 1; i++) {
+    const p0 = poly.at(i);
+    const p1 = poly.at(i + 1);
+    const polygonLine = p0.findLine(p1);
+    const onBorder = polygonLine.x(p).equal(p) && polygonLine.inRange(p);
+    if (onBorder) {
+      return true;
+    }
+  }
+  let totalFi = 0;
+  for (let i = 0; i < poly.length - 1; i++) {
+    const p1 = poly.at(i);
+    const p2 = poly.at(i + 1);
+    const line1 = new DLine(p1.x - p.x, p1.y - p.y, 0);
+    const line2 = new DLine(p2.x - p.x, p2.y - p.y, 0);
+    const fiDif = line1.findFi(line2);
+
+    if (line1.vectorProduct(line2).c > 0) {
+      totalFi += fiDif;
+    } else {
+      totalFi -= fiDif;
+    }
+  }
+
+  // eslint-disable-next-line no-magic-numbers
+  const eps = Math.PI / 10000;
+  let result = false;
+
+  const absTotalFi = Math.abs(totalFi);
+
+  if (absTotalFi < eps) {
+    result = false;
+  } else if (Math.abs(2 * Math.PI - absTotalFi) < eps) {
+    result = true;
+  } else {
+    throw new Error('contains2 faild');
+  }
+
+  return result;
+};
+
 export class DPolygon {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   properties: { [key: string]: any } = {};
@@ -299,8 +350,13 @@ export class DPolygon {
    * Get deintesected polygon.
    */
   get deintersection(): DPolygon {
-    const p = this.clone().close();
+    let p = this.clone().close();
+    const store: Record<string, number[]> = {};
     for (let i = 0; i < p.length - 1; i++) {
+      const {x, y} = p.at(i);
+      const k = `${x}-${y}`;
+      store[k] = store[k] || [];
+      store[k].push(i);
       for (let j = i + 2; j < p.length - 1; j++) {
         const firstLine = p.at(i).findLine(p.at(i + 1));
         const secondLine = p.at(j).findLine(p.at(j + 1));
@@ -313,6 +369,24 @@ export class DPolygon {
           p.insertAfter(i, ...part);
           p.insertAfter(j, intersectionPoint);
           p.insertAfter(i, intersectionPoint);
+        }
+      }
+    }
+    for (const key of Object.keys(store)) {
+      const record = store[key];
+      if (record.length > 1) {
+        for (let j = record.length - 1; j > 0; j--) {
+          const origin = p.clone();
+          const d = record[j] - record[j - 1];
+          if (d > 1) {
+            const part = new DPolygon(origin.removePart(record[j - 1], d));
+            const allInside = part.points
+              .reduce((a: boolean, e: DPoint) => a && containCalculator(origin, e), true);
+            if (allInside && origin.isClockwise === part.isClockwise) {
+              origin.insertAfter(record[j - 1] - 1, ...part.reverse().points);
+              p = origin;
+            }
+          }
         }
       }
     }
