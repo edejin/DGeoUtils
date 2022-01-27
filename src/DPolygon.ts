@@ -962,10 +962,10 @@ export class DPolygon {
    * @param piecesCount
    */
   divideToPieces(piecesCount: number): DPolygon {
-    const {fullLength, length} = this;
+    const {fullLength} = this;
     const pieceLength = fullLength / piecesCount;
     let currentPieceLength = pieceLength;
-    for (let i = 1; i < length; i++) {
+    for (let i = 1; i < this.length; i++) {
       const p1 = this.at(i - 1);
       const p2 = this.at(i);
       const d = p1.distance(p2);
