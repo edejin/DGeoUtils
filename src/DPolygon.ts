@@ -1033,19 +1033,200 @@ export class DPolygon {
     };
   }
 
+  // eslint-disable-next-line complexity,max-statements
   simpleUnion(p: DPolygon): DPolygon | null {
-    try {
-      const res = this.simpleLogicFunction(p, true, true);
-      if (res === null) {
-        return null;
+    let intersectionId = 0;
+    const p1 = this.clone().clockWise.open();
+    const p2 = p.clone().clockWise.open();
+    for (let i = 0; i < p1.length; i++) {
+      for (let j = 0; j < p2.length; j++) {
+        const t1 = p1.at(i);
+        const t2 = p1.at(i + 1);
+        const t3 = p2.at(j);
+        const t4 = p2.at(j + 1);
+        if (t3.equal(t4) || t1.equal(t2)) {
+          continue;
+        }
+        const l1 = t1.findLine(t2);
+        const l2 = t3.findLine(t4);
+        const intersection = l1.intersection(l2, 0.001); // wtf
+        if (intersection) {
+          if (t1.properties.intersection && t1.equal(intersection)) {
+            continue;
+          }
+          if (t2.properties.intersection && t2.equal(intersection)) {
+            continue;
+          }
+          if (t3.properties.intersection && t3.equal(intersection)) {
+            continue;
+          }
+          if (t4.properties.intersection && t4.equal(intersection)) {
+            continue;
+          }
+          intersection.properties.intersection = true;
+          intersection.properties.intersectionId = intersectionId++;
+          const intersection2 = intersection.clone();
+          intersection2.properties.intersectionId = intersectionId++;
+          if (new DPolygon([t1, t2, t3, t4]).has(intersection)) {
+            // Point on point
+            if (intersection.equal(t1) && intersection.equal(t3)) {
+              p1.insertAfter(i, intersection2);
+              p2.insertAfter(j, intersection);
+              p1.insertAfter(i - 1, intersection);
+              p2.insertAfter(j - 1, intersection2);
+              continue;
+            }
+            if (intersection.equal(t1) && intersection.equal(t4)) {
+              p1.insertAfter(i, intersection2);
+              p2.insertAfter(j + 1, intersection);
+              p1.insertAfter(i - 1, intersection);
+              p2.insertAfter(j, intersection2);
+              continue;
+            }
+            if (intersection.equal(t2) && intersection.equal(t3)) {
+              p1.insertAfter(i + 1, intersection2);
+              p2.insertAfter(j, intersection);
+              p1.insertAfter(i, intersection);
+              p2.insertAfter(j - 1, intersection2);
+              continue;
+            }
+            if (intersection.equal(t2) && intersection.equal(t4)) {
+              p1.insertAfter(i + 1, intersection2);
+              p2.insertAfter(j + 1, intersection);
+              p1.insertAfter(i, intersection);
+              p2.insertAfter(j, intersection2);
+              continue;
+            }
+            // Point on border
+            if (intersection.equal(t1)) {
+              p1.insertAfter(i, intersection2);
+              p2.insertAfter(j, intersection);
+              p1.insertAfter(i - 1, intersection);
+              p2.insertAfter(j, intersection2);
+              continue;
+            }
+            if (intersection.equal(t2)) {
+              p1.insertAfter(i + 1, intersection2);
+              p2.insertAfter(j, intersection);
+              p1.insertAfter(i, intersection);
+              p2.insertAfter(j, intersection2);
+              continue;
+            }
+            if (intersection.equal(t3)) {
+              p1.insertAfter(i, intersection2);
+              p2.insertAfter(j, intersection);
+              p1.insertAfter(i, intersection);
+              p2.insertAfter(j - 1, intersection2);
+              continue;
+            }
+            if (intersection.equal(t4)) {
+              p1.insertAfter(i, intersection2);
+              p2.insertAfter(j + 1, intersection);
+              p1.insertAfter(i, intersection);
+              p2.insertAfter(j, intersection2);
+              continue;
+            }
+          } else {
+            p1.insertAfter(i, intersection);
+            p2.insertAfter(j, intersection);
+          }
+        }
       }
-      if (res instanceof DPolygon) {
-        return res;
+    }
+    if (!intersectionId) {
+      // Exception one polygon contain another
+      if (p1.contain(p2.first)) {
+        return p1;
       }
-      return null;
-    } catch (ex) {
+      if (p2.contain(p1.first)) {
+        return p2;
+      }
       return null;
     }
+
+    let bMoveLoopIndex = 0;
+    while (p1.contain(p2.first, true) && bMoveLoopIndex < p1.length) {
+      p2.push(p2.shift());
+      bMoveLoopIndex++;
+    }
+    if (bMoveLoopIndex === p2.length) {
+      return p1.removeDuplicates();
+    }
+
+    const results: DPolygon[] = [];
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      let moveLoopIndex = 0;
+      while (p2.contain(p1.first, true) || p1.first.properties.used && moveLoopIndex < p1.length) {
+        p1.push(p1.shift());
+        moveLoopIndex++;
+      }
+      if (moveLoopIndex === p1.length) {
+        break;
+      }
+      p1.first.properties.start = true;
+      p1.first.properties.used = true;
+      let loopIndex = 1;
+      const res = new DPolygon([p1.first]);
+      let current = p1;
+      while (!current.at(loopIndex).properties.start) {
+        const point = current.at(loopIndex);
+        point.properties.used = true;
+        res.push(point);
+        if (point.properties.intersection) {
+          if (current === p1) {
+            current = p2;
+          } else {
+            current = p1;
+          }
+          loopIndex = current.points
+            .findIndex((h: DPoint) => h.properties.intersectionId === point.properties.intersectionId) + 1;
+        } else {
+          loopIndex++;
+        }
+      }
+      results.push(res.removeDuplicates());
+    }
+    if (results.length === 1) {
+      return results[0].unionPostFiler();
+    }
+    const data = results.filter((w: DPolygon) => w.area > 0)
+      .sort((w: DPolygon, e: DPolygon) => e.area - w.area);
+    const resultPolygon = data[0].unionPostFiler();
+    const [, ...holes] = data;
+    resultPolygon.holes = holes;
+    return resultPolygon;
+  }
+
+  /**
+   * @ignore
+   */
+  unionPostFiler(): DPolygon {
+    let resultPolygon = this.clone();
+    const store: Record<string, number[]> = {};
+    for (let i = 0; i < resultPolygon.length - 1; i++) {
+      const k = resultPolygon.at(i).toString();
+      store[k] = store[k] || [];
+      store[k].push(i);
+    }
+    for (const key of Object.keys(store)) {
+      const record = store[key];
+      if (record.length > 1) {
+        for (let j = record.length - 1; j > 0; j--) {
+          const origin = resultPolygon.clone().close();
+          const d = record[j] - record[j - 1];
+          if (d > 1) {
+            const part = new DPolygon(origin.removePart(record[j - 1], d));
+            const allInside = part.points
+              .reduce((a: boolean, e: DPoint) => a && containCalculator(origin, e), true);
+            if (allInside && origin.isClockwise === part.isClockwise) {
+              resultPolygon = origin;
+            }
+          }
+        }
+      }
+    }
+    return resultPolygon;
   }
 
   simpleIntersection(p: DPolygon): DPolygon | null | DPolygon[] {
@@ -1059,15 +1240,21 @@ export class DPolygon {
   smartUnion(p: DPolygon): DPolygon | null {
     const res = this.clone().simpleUnion(p);
     if (res) {
-      let allHoles = [...this.holes, ...p.holes, ...res.holes].map((h: DPolygon) => h.clone());
-      for (const a of allHoles) {
-        for (const b of allHoles) {
-          if (a.equal(b)) {
+      const allHoles = [...this.holes, ...p.holes, ...res.holes].map((h: DPolygon) => h.clone());
+      for (let i = 0; i < allHoles.length; i++) {
+        for (let j = 0; j < allHoles.length; j++) {
+          if (i === j) {
+            continue;
+          }
+          const a = allHoles[i];
+          const b = allHoles[j];
+          if (!a || !b) {
             continue;
           }
           const r = a.simpleUnion(b);
           if (r) {
-            allHoles = allHoles.filter((v: DPolygon) => !v.equal(a) && !v.equal(b));
+            allHoles.splice(j--, 1);
+            allHoles.splice(i--, 1);
             allHoles.push(r);
           }
         }
