@@ -70,7 +70,7 @@ export class DLine {
   intersectionWithCircle(circle: DCircle): DPoint | [DPoint, DPoint] | null {
     const {center, r} = circle;
     const per = this.findPerpendicular(center);
-    const t = this.intersection(per, Infinity)!;
+    const t = this.findPoint(per)!;
     let distance = t.distance(center);
     if (this.begin.equal(center)) {
       distance = 0;
