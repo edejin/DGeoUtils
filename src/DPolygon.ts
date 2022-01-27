@@ -353,8 +353,7 @@ export class DPolygon {
     let p = this.clone().close();
     const store: Record<string, number[]> = {};
     for (let i = 0; i < p.length - 1; i++) {
-      const {x, y} = p.at(i);
-      const k = `${x}-${y}`;
+      const k = p.at(i).toString();
       store[k] = store[k] || [];
       store[k].push(i);
       for (let j = i + 2; j < p.length - 1; j++) {
@@ -868,19 +867,15 @@ export class DPolygon {
 
     // eslint-disable-next-line no-magic-numbers
     const eps = Math.PI / 10000;
-    let result = false;
 
     const absTotalFi = Math.abs(totalFi);
 
     if (absTotalFi < eps) {
-      result = false;
+      return false;
     } else if (Math.abs(2 * Math.PI - absTotalFi) < eps) {
-      result = true;
-    } else {
-      throw new Error('contains2 faild');
+      return true;
     }
-
-    return result;
+    throw new Error('contains2 faild');
   }
 
   /**
@@ -967,29 +962,27 @@ export class DPolygon {
    * @param piecesCount
    */
   divideToPieces(piecesCount: number): DPolygon {
-    const {fullLength} = this;
+    const {fullLength, length} = this;
     const pieceLength = fullLength / piecesCount;
     let currentPieceLength = pieceLength;
-    for (let i = 0; i < this.pPoints.length - 1; i++) {
-      const p1 = this.pPoints[i];
-      const p2 = this.pPoints[i + 1];
-      if (p1.distance(p2) === currentPieceLength) {
+    for (let i = 1; i < length; i++) {
+      const p1 = this.at(i - 1);
+      const p2 = this.at(i);
+      const d = p1.distance(p2);
+      if (d === currentPieceLength) {
         p2.properties.pieceBorder = true;
         currentPieceLength = pieceLength;
-        continue;
-      }
-      if (p1.distance(p2) - currentPieceLength > 0) {
+      } else if (d - currentPieceLength > 0) {
         const circle = new DCircle(p1, currentPieceLength);
         const line = p1.findLine(p2);
         const intersectionPoint: DPoint = (line.intersectionWithCircle(circle) as [DPoint, DPoint])
           .filter((p) => line.inRange(p, CLOSE_TO_INTERSECTION_DISTANCE))[0]!;
         intersectionPoint.properties.pieceBorder = true;
-        this.insertAfter(i, intersectionPoint);
+        this.insertAfter(i - 1, intersectionPoint);
         currentPieceLength = pieceLength;
-        continue;
-      }
-      if (p1.distance(p2) - currentPieceLength < 0) {
-        currentPieceLength -= p1.distance(p2);
+      } else {
+        // If d - currentPieceLength < 0
+        currentPieceLength -= d;
       }
     }
     return this;
