@@ -6,7 +6,7 @@ import {DNumbers} from './DNumbers';
 import {io as jstsIo, geom, operation} from 'jsts';
 import Geometry = geom.Geometry;
 import {DPolygonLoop} from './DPolygonLoop';
-import {isDefAndNotNull} from './utils';
+import {isDefAndNotNull, True} from './utils';
 
 const {
   buffer: {
@@ -33,21 +33,16 @@ const containCalculator = (poly: DPolygon, p: DPoint): boolean => {
   if (hasSamePoint) {
     return true;
   }
-  for (let i = 0; i < poly.length - 1; i++) {
-    const p0 = poly.at(i);
-    const p1 = poly.at(i + 1);
-    const polygonLine = p0.findLine(p1);
+  for (const [, , polygonLine] of poly.loopPointsGenerator(true)()) {
     const onBorder = polygonLine.x(p).equal(p) && polygonLine.inRange(p);
     if (onBorder) {
       return true;
     }
   }
   let totalFi = 0;
-  for (let i = 0; i < poly.length - 1; i++) {
-    const p1 = poly.at(i);
-    const p2 = poly.at(i + 1);
-    const line1 = new DLine(p1.x - p.x, p1.y - p.y, 0);
-    const line2 = new DLine(p2.x - p.x, p2.y - p.y, 0);
+  for (const [{x, y}, {x: a, y: b}] of poly.loopPointsGenerator()()) {
+    const line1 = new DLine(x - p.x, y - p.y, 0);
+    const line2 = new DLine(a - p.x, b - p.y, 0);
     const fiDif = line1.findFi(line2);
 
     if (line1.vectorProduct(line2).c > 0) {
@@ -326,8 +321,8 @@ export class DPolygon {
    */
   get perimeter(): number {
     let p = 0;
-    for (let i = 1; i < this.pPoints.length; i++) {
-      p += this.pPoints[i - 1].distance(this.pPoints[i]);
+    for (const [p1, p2] of this.loopPointsGenerator()()) {
+      p += p1.distance(p2);
     }
     return p;
   }
@@ -336,12 +331,9 @@ export class DPolygon {
    * Get polygon area
    */
   get area(): number {
-    const closed = this.deintersection;
     let sum = 0;
-    for (let i = 1; i < closed.length; i++) {
-      const cur = closed.at(i);
-      const prev = closed.at(i - 1);
-      sum += prev.x * cur.y - prev.y * cur.x;
+    for (const [{x, y}, {x: a, y: b}] of this.deintersection.loopPointsGenerator()()) {
+      sum += x * b - y * a;
     }
     return Math.abs(sum / 2) - this.holes.reduce((a: number, hole: DPolygon) => a + hole.area, 0);
   }
@@ -427,19 +419,18 @@ export class DPolygon {
     const p = this.convex;
     let resultPolygon = new DPolygon();
     let resultArea = Infinity;
-    for (let k = 0; k < p.length - 1; k++) {
-      const l = p.at(k).findLine(p.at(k + 1));
+    for (const [, , l] of p.loopPointsGenerator(true)()) {
       let maxWidth = 0;
       let maxWidthPoint1: DPoint | null = null;
       let maxWidthPoint2: DPoint | null = null;
       let maxHeight = 0;
       let maxHeightPoint: DPoint | null = null;
-      for (let i = 0; i < p.length - 1; i++) {
-        const p1: DPoint = l.findPoint(l.findPerpendicular(p.at(i)))!;
-        const h = p1.distance(p.at(i));
+      for (const [z, , , i] of p.loopPointsGenerator()()) {
+        const p1: DPoint = l.findPoint(l.findPerpendicular(z))!;
+        const h = p1.distance(z);
         if (h >= maxHeight) {
           maxHeight = h;
-          maxHeightPoint = p.at(i);
+          maxHeightPoint = z;
         }
         for (let j = i; j < p.length - 1; j++) {
           const p2: DPoint = l.findPoint(l.findPerpendicular(p.at(j)))!;
@@ -523,11 +514,9 @@ export class DPolygon {
    */
   get isClockwise(): boolean {
     let sum = 0;
-    const p = this.clone().close();
-    for (let i = 1; i < p.length; i++) {
-      const p1 = p.at(i - 1);
-      const p2 = p.at(i);
-      sum += (p2.x - p1.x) * (p2.y + p1.y);
+    for (const [{x, y}, {x: a, y: b}] of this.clone().close()
+      .loopPointsGenerator()()) {
+      sum += (a - x) * (b + y);
     }
     return sum < 0;
   }
@@ -558,10 +547,7 @@ export class DPolygon {
    */
   intersection(l: DLine, includeOnly: boolean = false): DPoint[] {
     const res = [];
-    for (let i = 0; i < this.pPoints.length - 1; i++) {
-      const p1 = this.pPoints[i];
-      const p2 = this.pPoints[i + 1];
-      const line = p1.findLine(p2);
+    for (const [, , line] of this.loopPointsGenerator(true)()) {
       const intersect = line.intersection(l, 0, includeOnly);
       if (intersect) {
         res.push(intersect);
@@ -851,11 +837,9 @@ export class DPolygon {
     }
     const poly = this.deintersection;
     let totalFi = 0;
-    for (let i = 0; i < poly.length - 1; i++) {
-      const p1 = poly.at(i);
-      const p2 = poly.at(i + 1);
-      const line1 = new DLine(p1.x - p.x, p1.y - p.y, 0);
-      const line2 = new DLine(p2.x - p.x, p2.y - p.y, 0);
+    for (const [{x, y}, {x: a, y: b}] of poly.loopPointsGenerator()()) {
+      const line1 = new DLine(x - p.x, y - p.y, 0);
+      const line2 = new DLine(a - p.x, b - p.y, 0);
       const fiDif = line1.findFi(line2);
 
       if (line1.vectorProduct(line2).c > 0) {
@@ -890,10 +874,7 @@ export class DPolygon {
       if (hasSamePoint) {
         return true;
       }
-      for (let i = 0; i < poly.length - 1; i++) {
-        const p0 = poly.at(i);
-        const p1 = poly.at(i + 1);
-        const polygonLine = p0.findLine(p1);
+      for (const [, , polygonLine] of poly.loopPointsGenerator(true)()) {
         const onBorder = polygonLine.x(p).equal(p) && polygonLine.inRange(p);
         if (onBorder) {
           return true;
@@ -965,9 +946,7 @@ export class DPolygon {
     const {fullLength} = this;
     const pieceLength = fullLength / piecesCount;
     let currentPieceLength = pieceLength;
-    for (let i = 1; i < this.length; i++) {
-      const p1 = this.at(i - 1);
-      const p2 = this.at(i);
+    for (const [p1, p2, , i] of this.loopPointsGenerator()()) {
       const d = p1.distance(p2);
       if (d === currentPieceLength) {
         p2.properties.pieceBorder = true;
@@ -978,7 +957,7 @@ export class DPolygon {
         const intersectionPoint: DPoint = (line.intersectionWithCircle(circle) as [DPoint, DPoint])
           .filter((p) => line.inRange(p, CLOSE_TO_INTERSECTION_DISTANCE))[0]!;
         intersectionPoint.properties.pieceBorder = true;
-        this.insertAfter(i - 1, intersectionPoint);
+        this.insertAfter(i, intersectionPoint);
         currentPieceLength = pieceLength;
       } else {
         // If d - currentPieceLength < 0
@@ -1254,13 +1233,35 @@ export class DPolygon {
     return this;
   }
 
+  /**
+   * @ignore
+   */
+  loopPointsGenerator(): () => Generator<[DPoint, DPoint, undefined, number]>;
+
+  /**
+   * @ignore
+   * @param withLine
+   */
+  loopPointsGenerator(withLine: True): () => Generator<[DPoint, DPoint, DLine, number]>;
+
+  loopPointsGenerator(withLine: boolean = false): () => Generator<[DPoint, DPoint, DLine | undefined, number]> {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias,consistent-this
+    const that = this;
+    // eslint-disable-next-line func-names
+    return function *() {
+      for (let i = 0; i < that.length - 1; i++) {
+        const p1 = that.at(i);
+        const p2 = that.at(i + 1);
+        yield [p1, p2, withLine ? p1.findLine(p2) : undefined, i];
+      }
+    };
+  }
+
   private getBezierPoint(v: number): DPoint {
     if (this.length === 1) {
       return this.first;
     }
-    for (let i = 0; i < this.length - 1; i++) {
-      const p1 = this.at(i);
-      const p2 = this.at(i + 1);
+    for (const [p1, p2] of this.loopPointsGenerator()()) {
       p1.move(p2.clone().move(p1.clone().minus())
         .scale(v));
     }

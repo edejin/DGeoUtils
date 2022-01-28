@@ -200,7 +200,7 @@ export const gaussianElimination: {
 };
 gaussianElimination.MIN = 1e-10;
 
-type True = true;
+export type True = true;
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
