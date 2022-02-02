@@ -1206,6 +1206,20 @@ export class DPolygon {
     return new DPolygon(points.map(({x, y}: {x: number; y: number}) => new DPoint(x, y)));
   }
 
+  sideBuffers(v: number, quadrantSegments: number = 64): [DPolygon, DPolygon] {
+    const {first, last} = this;
+    const buffer = this.buffer(v, quadrantSegments, DPolygon.CAP_FLAT).open();
+
+    const [start0, start1] = first.sortByDistance(buffer).points.map((r: DPoint) => r.properties.index);
+    const [end0, end1] = last.sortByDistance(buffer).points.map((r: DPoint) => r.properties.index);
+
+    const fromPoint = Math.min(Math.max(start0, start1), Math.max(end0, end1));
+    const toPoint = Math.max(Math.min(start0, start1), Math.min(end0, end1));
+    const linePart = new DPolygon(buffer.removePart(fromPoint - 1, toPoint - fromPoint + 1));
+    buffer.unshift(buffer.pop());
+    return [linePart, buffer];
+  }
+
   /**
    * Get [Bézier curve](https://en.wikipedia.org/wiki/B%C3%A9zier_curve)
    * @param [step=0.1]

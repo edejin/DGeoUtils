@@ -2806,6 +2806,24 @@ describe('DPolygon', () => {
     });
   });
 
+  describe('sideBuffers', () => {
+    test('1', () => {
+      const p = new DPolygon([
+        new DPoint(3, 3),
+        new DPoint(13, 3),
+        new DPoint(13, 13),
+        new DPoint(3, 13)
+      ]);
+      const [p1, p2] = p.sideBuffers(2);
+      const [t] = createCanvas(new DPoint(16, 16));
+      p1.drawPolygonOnCanvas(t, undefined, '#ff0000');
+      p2.drawPolygonOnCanvas(t, undefined, '#00ff00');
+      p.drawPolygonOnCanvas(t, undefined, '#0000ff');
+
+      expect(t.toDataURL()).toMatchSnapshot();
+    });
+  });
+
   describe('getTrianglesPointIndexes', () => {
     test('1', () => {
       const p = new DPolygon([
