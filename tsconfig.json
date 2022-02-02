@@ -17,9 +17,6 @@
 
     "module": "commonjs",
     "target": "es2015",
-    "declaration": true,
-    "declarationDir": "./dist",
-    "outDir": "./dist",
     "removeComments": true
   },
   "include": [
