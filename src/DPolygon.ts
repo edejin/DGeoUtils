@@ -214,19 +214,19 @@ export class DPolygon {
   }
 
   get maxX(): number {
-    return this.pPoints.reduce((a: number, r: DPoint) => Math.max(a, r.x), -Infinity);
+    return this.reduce<number>((a: number, r: DPoint) => Math.max(a, r.x), -Infinity);
   }
 
   get minX(): number {
-    return this.pPoints.reduce((a: number, r: DPoint) => Math.min(a, r.x), Infinity);
+    return this.reduce<number>((a: number, r: DPoint) => Math.min(a, r.x), Infinity);
   }
 
   get maxY(): number {
-    return this.pPoints.reduce((a: number, r: DPoint) => Math.max(a, r.y), -Infinity);
+    return this.reduce<number>((a: number, r: DPoint) => Math.max(a, r.y), -Infinity);
   }
 
   get minY(): number {
-    return this.pPoints.reduce((a: number, r: DPoint) => Math.min(a, r.y), Infinity);
+    return this.reduce<number>((a: number, r: DPoint) => Math.min(a, r.y), Infinity);
   }
 
   /**
@@ -371,8 +371,7 @@ export class DPolygon {
           const d = record[j] - record[j - 1];
           if (d > 1) {
             const part = new DPolygon(origin.removePart(record[j - 1], d));
-            const allInside = part.points
-              .reduce((a: boolean, e: DPoint) => a && containCalculator(origin, e), true);
+            const allInside = part.reduce((a: boolean, e: DPoint) => a && containCalculator(origin, e), true);
             if (allInside && origin.isClockwise === part.isClockwise) {
               origin.insertAfter(record[j - 1] - 1, ...part.reverse().points);
               p = origin;
@@ -540,6 +539,12 @@ export class DPolygon {
     return res;
   }
 
+  reduce<T>(f: (a: T, p: DPoint) => T, v: T): T;
+  reduce<T>(f: (a: T, p: DPoint, index: number) => T, v: T): T;
+  reduce<T>(f: (a: T, p: DPoint, index: number) => T, v: T): T {
+    return this.pPoints.reduce(f, v);
+  }
+
   /**
    * Check polygon intersection with line
    * @param l
@@ -580,10 +585,10 @@ export class DPolygon {
         h = `, ${this.holes.map((hole: DPolygon) => hole.toString())
           .join(', ')}`;
       }
-      return `POLYGON ((${this.deintersection.pPoints.map((r: DPoint) => `${r.x} ${r.y}${withZ ? ` ${r.z}` : ''}`)
+      return `POLYGON ((${this.deintersection.mapArray<string>((r: DPoint) => `${r.x} ${r.y}${withZ ? ` ${r.z}` : ''}`)
         .join(', ')})${h})`;
     }
-    return `LINESTRING (${this.pPoints.map((r: DPoint) => `${r.x} ${r.y}${withZ ? ` ${r.z}` : ''}`)
+    return `LINESTRING (${this.mapArray<string>((r: DPoint) => `${r.x} ${r.y}${withZ ? ` ${r.z}` : ''}`)
       .join(', ')})`;
   }
 
@@ -599,9 +604,15 @@ export class DPolygon {
   map(f: (r: DPoint) => DPoint): DPolygon;
   map(f: (r: DPoint, index: number) => DPoint): DPolygon;
   map(f: (r: DPoint, index: number) => DPoint): DPolygon {
-    this.pPoints = this.pPoints.map(f);
+    this.pPoints = this.mapArray<DPoint>(f);
     this.holes = this.holes.map((h: DPolygon) => h.map(f));
     return this;
+  }
+
+  mapArray<T>(f: (r: DPoint) => T): T[];
+  mapArray<T>(f: (r: DPoint, index: number) => T): T[];
+  mapArray<T>(f: (r: DPoint, index: number) => T): T[] {
+    return this.pPoints.map(f);
   }
 
   sort(f: (a: DPoint, b: DPoint) => number): DPolygon {
@@ -644,7 +655,7 @@ export class DPolygon {
   }
 
   toString(): string {
-    return `(${this.pPoints.map((r: DPoint) => r.toString()).join(', ')})`;
+    return `(${this.mapArray<string>((r: DPoint) => r.toString()).join(', ')})`;
   }
 
   /**
@@ -729,8 +740,14 @@ export class DPolygon {
     return false;
   }
 
-  findIndex(p: DPoint): number {
-    return this.points.findIndex((t: DPoint) => t.equal(p));
+  findIndex(p: DPoint): number;
+  findIndex(f: (p: DPoint) => boolean): number;
+  findIndex(f: (p: DPoint, index: number) => boolean): number;
+  findIndex(a: ((p: DPoint, index: number) => boolean) | DPoint): number {
+    if (a instanceof DPoint) {
+      return this.points.findIndex((t: DPoint) => t.equal(a));
+    }
+    return this.points.findIndex(a);
   }
 
   /**
@@ -935,7 +952,7 @@ export class DPolygon {
    * [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON)
    */
   toArrayOfCoords(): DCoord[] {
-    return this.pPoints.map((r) => r.toCoords());
+    return this.mapArray((r) => r.toCoords());
   }
 
   /**
