@@ -796,37 +796,37 @@ export class DPolygon {
     shadowColor?: string,
     lineWidth: number = 1,
     steps: number = this.length - 1
-  ): void {
-    if (this.length < 2) {
-      return;
+  ): DPolygon {
+    if (this.length > 1) {
+      const ctx = canvas.getContext('2d')!;
+      if (fillColor) {
+        ctx.fillStyle = fillColor;
+      }
+      if (strokeColor) {
+        ctx.strokeStyle = strokeColor;
+      }
+      if (lineWidth) {
+        ctx.lineWidth = lineWidth;
+      }
+      if (fillColor || strokeColor) {
+        ctx.beginPath();
+      }
+      this.goByPath(ctx, steps % this.length);
+      if (shadowColor) {
+        ctx.shadowColor = shadowColor;
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetX = 1;
+        ctx.shadowOffsetY = 1;
+      }
+      if (fillColor) {
+        ctx.closePath();
+        ctx.fill();
+      }
+      if (strokeColor) {
+        ctx.stroke();
+      }
     }
-    const ctx = canvas.getContext('2d')!;
-    if (fillColor) {
-      ctx.fillStyle = fillColor;
-    }
-    if (strokeColor) {
-      ctx.strokeStyle = strokeColor;
-    }
-    if (lineWidth) {
-      ctx.lineWidth = lineWidth;
-    }
-    if (fillColor || strokeColor) {
-      ctx.beginPath();
-    }
-    this.goByPath(ctx, steps % this.length);
-    if (shadowColor) {
-      ctx.shadowColor = shadowColor;
-      ctx.shadowBlur = 0;
-      ctx.shadowOffsetX = 1;
-      ctx.shadowOffsetY = 1;
-    }
-    if (fillColor) {
-      ctx.closePath();
-      ctx.fill();
-    }
-    if (strokeColor) {
-      ctx.stroke();
-    }
+    return this;
   }
 
   clearPolygonOnCanvas(canvas: HTMLCanvasElement | OffscreenCanvas): void {
