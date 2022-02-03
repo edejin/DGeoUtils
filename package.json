@@ -1,7 +1,7 @@
 {
   "name": "dgeoutils",
   "version": "2.3.2",
-  "description": "",
+  "description": "Geometries utils for my projects",
   "scripts": {
     "build": "npm run build:es2015 && npm run build:esm && npm run build:cjs && npm run build:umd && npm run build:umd:min",
     "build:es2015": "tsc --module es2015 --target es2015 --outDir dist/es2015",
@@ -19,7 +19,7 @@
     "release-minor": "node ./release.js minor",
     "release-major": "node ./release.js major"
   },
-  "author": "",
+  "author": "Efim Dezjin <efim@dej.in.ua>",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "types": "dist/cjs/index.d.ts",
