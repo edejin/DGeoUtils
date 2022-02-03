@@ -15,9 +15,9 @@
     "doc": "typedoc",
     "test": "jest --coverage",
     "test:badges": "jest-coverage-badges --input \"./media/coverage-summary.json\" --output \"./media/badges\"",
-    "release-fix": "node ./release.js fix",
-    "release-minor": "node ./release.js minor",
-    "release-major": "node ./release.js major"
+    "release:fix": "node ./release.js fix",
+    "release:minor": "node ./release.js minor",
+    "release:major": "node ./release.js major"
   },
   "author": "Efim Dejin <efim@dej.in.ua>",
   "license": "MIT",

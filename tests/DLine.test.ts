@@ -739,6 +739,29 @@ describe('DLine', () => {
         properties: {}
       });
     });
+    test('array', () => {
+      expect(new DPoint(1, 2).findLine(new DPoint(3, 4))
+        .movePoint([
+          new DPoint(3, 4),
+          new DPoint(3, 4)
+        ], [
+          2,
+          3
+        ])).toEqual([
+        {
+          x: 1.5857864376269049,
+          y: 2.585786437626905,
+          z: undefined,
+          properties: {}
+        },
+        {
+          x: 7.242640687119286,
+          y: -0.24264068711928477,
+          z: undefined,
+          properties: {}
+        }
+      ]);
+    });
   });
 
   describe('checkFunction', () => {

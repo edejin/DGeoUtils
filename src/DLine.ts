@@ -298,20 +298,35 @@ export class DLine {
 
   /**
    * Move lines point to left or right
-   * @param p
-   * @param d
+   * @param point
+   * @param distance
    */
-  movePoint(p: DPoint, d: number): DPoint {
+  movePoint(point: DPoint, distance: number): DPoint;
+
+  /**
+   * Move lines point to left or right
+   * @param points
+   * @param distances
+   */
+  movePoint(points: DPoint[], distances: number[]): DPoint[];
+  movePoint(i: DPoint | DPoint[], k: number | number[]): DPoint[] | DPoint {
+    const p: DPoint[] = Array.isArray(i) ? i : [i];
+    const d: number[] = Array.isArray(k) ? k : [k];
     const fi = this.findFi(new DLine(1, 0, 0));
     const td = this.x(new DPoint(1, 1)).distance(this.x(new DPoint(2, 2))) / 2;
     const sinCos = new DPoint(Math.sin(fi), Math.cos(fi));
     const dt = sinCos.clone().scale(td);
-    const p1T = p.clone().move(dt.clone().minus());
-    const p2T = p.clone().move(dt);
+    const p1T = p[0].clone().move(dt.clone().minus());
+    const p2T = p[0].clone().move(dt);
+    let res: DPoint[] = [];
     if (DNumbers.like(this.y(p1T).y, p1T.y) || DNumbers.like(this.y(p2T).y, p2T.y)) {
-      return p.clone().move(sinCos.scale(d));
+      res = p.map((t: DPoint, index: number) => t.clone().move(sinCos.scale(d[index])));
+    } else {
+      res = p.map((t: DPoint, index: number) => t.clone()
+        .move(sinCos.scale(d[index])
+          .setX(({x}) => -x)));
     }
-    return p.clone().move(sinCos.scale(d).setX(({x}) => -x));
+    return res.length === 1 ? res[0] : res;
   }
 
   /**
