@@ -320,10 +320,11 @@ export class DLine {
     const p2T = p[0].clone().move(dt);
     let res: DPoint[] = [];
     if (DNumbers.like(this.y(p1T).y, p1T.y) || DNumbers.like(this.y(p2T).y, p2T.y)) {
-      res = p.map((t: DPoint, index: number) => t.clone().move(sinCos.scale(d[index])));
+      res = p.map((t: DPoint, index: number) => t.clone()
+        .move(sinCos.clone().scale(d[index])));
     } else {
       res = p.map((t: DPoint, index: number) => t.clone()
-        .move(sinCos.scale(d[index])
+        .move(sinCos.clone().scale(d[index])
           .setX(({x}) => -x)));
     }
     return res.length === 1 ? res[0] : res;
