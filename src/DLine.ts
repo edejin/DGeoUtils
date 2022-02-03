@@ -310,8 +310,9 @@ export class DLine {
    */
   movePoint(points: DPoint[], distances: number[]): DPoint[];
   movePoint(i: DPoint | DPoint[], k: number | number[]): DPoint[] | DPoint {
-    const p: DPoint[] = Array.isArray(i) ? i : [i];
-    const d: number[] = Array.isArray(k) ? k : [k];
+    const isArray = Array.isArray(i);
+    const p: DPoint[] = isArray ? i : [i];
+    const d: number[] = (isArray ? k : [k]) as number[];
     const fi = this.findFi(new DLine(1, 0, 0));
     const td = this.x(new DPoint(1, 1)).distance(this.x(new DPoint(2, 2))) / 2;
     const sinCos = new DPoint(Math.sin(fi), Math.cos(fi));
@@ -327,7 +328,7 @@ export class DLine {
         .move(sinCos.clone().scale(d[index])
           .setX(({x}) => -x)));
     }
-    return res.length === 1 ? res[0] : res;
+    return isArray ? res : res[0];
   }
 
   /**
