@@ -19,7 +19,7 @@
     "release-minor": "node ./release.js minor",
     "release-major": "node ./release.js major"
   },
-  "author": "Efim Dezjin <efim@dej.in.ua>",
+  "author": "Efim Dejin <efim@dej.in.ua>",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "types": "dist/cjs/index.d.ts",
