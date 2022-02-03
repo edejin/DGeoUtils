@@ -1223,6 +1223,16 @@ export class DPolygon {
     return new DPolygon(points.map(({x, y}: {x: number; y: number}) => new DPoint(x, y)));
   }
 
+  /**
+   * Return left and right buffers of polyline. With same direction as original line.
+   *
+   * For canvas: `[left, right]`
+   *
+   * For normal Cartesian coordinate system: `[right, left]`
+   *
+   * @param v
+   * @param [quadrantSegments=64]
+   */
   sideBuffers(v: number, quadrantSegments: number = 64): [DPolygon, DPolygon] {
     const {first, last} = this;
     const buffer = this.buffer(v, quadrantSegments, DPolygon.CAP_FLAT).open();
