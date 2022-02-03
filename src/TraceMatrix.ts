@@ -8,7 +8,7 @@ export enum TraceMatrixValues {
   t = 1
 }
 
-type SimpleMatrix = TraceMatrixValues[][];
+export type SimpleMatrix = TraceMatrixValues[][];
 
 const getByPosition = (
   m: SimpleMatrix,

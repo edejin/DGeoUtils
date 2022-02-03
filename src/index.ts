@@ -12,8 +12,6 @@ export {
   createCanvas,
   createArray,
   createMatrix,
-  isDefAndNotNull
+  isDefAndNotNull,
+  DGeo
 } from './utils';
-export const DGeo = {
-  DEBUG: false
-};
