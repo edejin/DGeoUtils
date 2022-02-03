@@ -1234,7 +1234,7 @@ export class DPolygon {
     const toPoint = Math.max(Math.min(start0, start1), Math.min(end0, end1));
     const linePart = new DPolygon(buffer.removePart(fromPoint - 1, toPoint - fromPoint + 1));
     buffer.unshift(buffer.pop());
-    return [linePart, buffer];
+    return [linePart.reverse(), buffer];
   }
 
   /**
