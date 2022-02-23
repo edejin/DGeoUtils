@@ -14,5 +14,6 @@ export {
   createMatrix,
   isDefAndNotNull,
   cartesianProduct,
+  getCombinations,
   DGeo
 } from './utils';

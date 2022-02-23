@@ -298,10 +298,31 @@ export const cartesianProduct: {
 
   /**
    * @param a
+   * @param b
    */
-  <T>(...a: T[][]): T[][];
+  <T>(a: T[], ...b: T[][]): T[][];
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types
 } = <T>(a: T[], b: T[], ...c: T[][]): T[][] => b ? cartesianProduct(f(a, b), ...c) : a;
+
+/**
+ * Get all available combinations
+ * @param arr
+ */
+export const getCombinations = <T>(arr: T[][]): T[][] => {
+  if (arr.length === 1) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return arr[0];
+  }
+  const ans: T[][] = [];
+  const otherCases = getCombinations(arr.slice(1));
+  for (let i = 0; i < otherCases.length; i++) {
+    for (let j = 0; j < arr[0].length; j++) {
+      ans.push([arr[0][j], ...otherCases[i]]);
+    }
+  }
+  return ans;
+};
