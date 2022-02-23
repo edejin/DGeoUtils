@@ -1,5 +1,5 @@
 import {checkFunction} from '../src/utils';
-import {DGeo, DPoint, gaussianElimination, createArray, createMatrix, isDefAndNotNull} from '../src';
+import {DGeo, DPoint, gaussianElimination, createArray, createMatrix, isDefAndNotNull, cartesianProduct} from '../src';
 
 describe('utils', () => {
   describe('shouldBeInt', () => {
@@ -146,5 +146,30 @@ describe('utils', () => {
     expect(isDefAndNotNull(null)).toBe(false);
     expect(isDefAndNotNull(undefined)).toBe(false);
     expect(isDefAndNotNull(1)).toBe(true);
+  });
+
+  describe('cartesianProduct', () => {
+    test('1', () => {
+      expect(cartesianProduct([1, 2, 3], [10, 20, 30], [100, 200])).toEqual([
+        [1, 10, 100],
+        [1, 10, 200],
+        [1, 20, 100],
+        [1, 20, 200],
+        [1, 30, 100],
+        [1, 30, 200],
+        [2, 10, 100],
+        [2, 10, 200],
+        [2, 20, 100],
+        [2, 20, 200],
+        [2, 30, 100],
+        [2, 30, 200],
+        [3, 10, 100],
+        [3, 10, 200],
+        [3, 20, 100],
+        [3, 20, 200],
+        [3, 30, 100],
+        [3, 30, 200]
+      ]);
+    });
   });
 });

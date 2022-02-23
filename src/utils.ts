@@ -286,3 +286,22 @@ export const createCanvas: {
   }
   return [canvas, canvas.getContext('2d')!];
 };
+
+/** @ignore */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const f = (a: any, b: any) => [].concat(...a.map((c: any) => b.map((d: any) => [].concat(c, d))));
+
+/**
+ * [Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product)
+ */
+export const cartesianProduct: {
+
+  /**
+   * @param a
+   */
+  <T>(...a: T[][]): T[][];
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types
+} = <T>(a: T[], b: T[], ...c: T[][]): T[][] => b ? cartesianProduct(f(a, b), ...c) : a;

@@ -13,5 +13,6 @@ export {
   createArray,
   createMatrix,
   isDefAndNotNull,
+  cartesianProduct,
   DGeo
 } from './utils';
