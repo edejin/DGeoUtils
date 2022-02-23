@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.33% </span>
+                <span class="strong">98.43% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>118/120</span>
+                <span class='fraction'>125/127</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.21% </span>
+                <span class="strong">85% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>32/38</span>
+                <span class='fraction'>34/40</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>23/23</span>
+                <span class='fraction'>27/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">97.92% </span>
+                <span class="strong">97.98% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>94/96</span>
+                <span class='fraction'>97/99</span>
             </div>
         
             
@@ -345,7 +345,26 @@
 <a name='L286'></a><a href='#L286'>286</a>
 <a name='L287'></a><a href='#L287'>287</a>
 <a name='L288'></a><a href='#L288'>288</a>
-<a name='L289'></a><a href='#L289'>289</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L289'></a><a href='#L289'>289</a>
+<a name='L290'></a><a href='#L290'>290</a>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a>
+<a name='L298'></a><a href='#L298'>298</a>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -633,6 +652,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">27x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {DPoint} from './DPoint';
 &nbsp;
 export const DGeo = {
@@ -921,6 +959,25 @@ export const createCanvas: {
   }
   return [canvas, canvas.getContext('2d')!];
 };
+&nbsp;
+/** @ignore */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const f = (a: any, b: any) =&gt; [].concat(...a.map((c: any) =&gt; b.map((d: any) =&gt; [].concat(c, d))));
+&nbsp;
+/**
+ * [Cartesian product](https://en.wikipedia.org/wiki/Cartesian_product)
+ */
+export const cartesianProduct: {
+&nbsp;
+  /**
+   * @param a
+   */
+  &lt;T&gt;(...a: T[][]): T[][];
+&nbsp;
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/explicit-module-boundary-types
+} = &lt;T&gt;(a: T[], b: T[], ...c: T[][]): T[][] =&gt; b ? cartesianProduct(f(a, b), ...c) : a;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -928,7 +985,7 @@ export const createCanvas: {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Feb 03 2022 09:43:29 GMT+0000 (Coordinated Universal Time)
+                at Wed Feb 23 2022 11:20:04 GMT+0000 (Coordinated Universal Time)
             </div>
         </div>
         <script src="prettify.js"></script>
