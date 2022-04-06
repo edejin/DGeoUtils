@@ -958,8 +958,9 @@ export class DPolygon {
   /**
    * Divide line string to pieces by length
    * @param piecesCount
+   * @param [withAltitude=false]
    */
-  divideToPieces(piecesCount: number): DPolygon {
+  divideToPieces(piecesCount: number, withAltitude: boolean = false): DPolygon {
     const {fullLength} = this;
     const pieceLength = fullLength / piecesCount;
     let currentPieceLength = pieceLength;
@@ -975,6 +976,10 @@ export class DPolygon {
           .filter((p) => line.inRange(p, CLOSE_TO_INTERSECTION_DISTANCE))[0]!;
         intersectionPoint.properties.pieceBorder = true;
         this.insertAfter(i, intersectionPoint);
+        if (withAltitude) {
+          const p1z = p1.z!;
+          intersectionPoint.z = p1z - (p1z - p2.z!) * (p1.distance(intersectionPoint) / d);
+        }
         currentPieceLength = pieceLength;
       } else {
         // If d - currentPieceLength < 0

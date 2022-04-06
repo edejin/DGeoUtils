@@ -1140,6 +1140,165 @@ describe('DPolygon', () => {
         searchStore: {}
       });
     });
+    test('3', () => {
+      expect(new DPolygon([
+        new DPoint(10, 10, 10),
+        new DPoint(20, 20, 20)
+      ]).divideToPieces(5, true))
+        .toEqual({
+          holes: [],
+          pPoints: [
+            {
+              properties: {},
+              x: 10,
+              y: 10,
+              z: 10
+            },
+            {
+              properties: {
+                pieceBorder: true
+              },
+              x: 12,
+              y: 12,
+              z: 12
+            },
+            {
+              properties: {
+                pieceBorder: true
+              },
+              x: 14,
+              y: 14,
+              z: 14
+            },
+            {
+              properties: {
+                pieceBorder: true
+              },
+              x: 16,
+              y: 16,
+              z: 16
+            },
+            {
+              properties: {
+                pieceBorder: true
+              },
+              x: 18,
+              y: 18,
+              z: 18
+            },
+            {
+              properties: {
+                pieceBorder: true
+              },
+              x: 20,
+              y: 20,
+              z: 20
+            }
+          ],
+          properties: {},
+          searchStore: {}
+        });
+    });
+    test('4', () => {
+      expect(new DPolygon([
+        new DPoint(10, 10, 10),
+        new DPoint(20, 20, 20),
+        new DPoint(30, 30, 10)
+      ]).divideToPieces(10, true))
+        .toEqual({
+          holes: [],
+          pPoints: [
+            {
+              properties: {},
+              x: 10,
+              y: 10,
+              z: 10
+            },
+            {
+              properties: {
+                pieceBorder: true
+              },
+              x: 12,
+              y: 12,
+              z: 12
+            },
+            {
+              properties: {
+                pieceBorder: true
+              },
+              x: 14,
+              y: 14,
+              z: 14
+            },
+            {
+              properties: {
+                pieceBorder: true
+              },
+              x: 16,
+              y: 16,
+              z: 16
+            },
+            {
+              properties: {
+                pieceBorder: true
+              },
+              x: 18,
+              y: 18,
+              z: 18
+            },
+            {
+              properties: {
+                pieceBorder: true
+              },
+              x: 20,
+              y: 20,
+              z: 20
+            },
+            {
+              properties: {
+                pieceBorder: true
+              },
+              x: 22,
+              y: 22,
+              z: 18
+            },
+            {
+              properties: {
+                pieceBorder: true
+              },
+              x: 24,
+              y: 24,
+              z: 16
+            },
+            {
+              properties: {
+                pieceBorder: true
+              },
+              x: 26,
+              y: 26,
+              z: 14
+            },
+            {
+              properties: {
+                pieceBorder: true
+              },
+              x: 28,
+              y: 28,
+              z: 12
+            },
+            {
+              properties: {
+                pieceBorder: true
+              },
+              x: 30,
+              y: 30,
+              z: 10
+            }
+          ],
+          properties: {},
+          searchStore: {}
+        });
+    });
   });
 
   describe('filter', () => {
