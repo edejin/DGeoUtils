@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.39% </span>
+                <span class="strong">98.38% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>672/683</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.17% </span>
+                <span class="strong">95.71% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>273/293</span>
+                <span class='fraction'>201/210</span>
             </div>
         
             
@@ -44,7 +44,7 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98.25% </span>
+                <span class="strong">98.24% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>617/628</span>
             </div>
@@ -54,6 +54,12 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
     <div class='status-line high'></div>
     <pre><table class="coverage">
@@ -1500,11 +1506,15 @@
 <a name='L1441'></a><a href='#L1441'>1441</a>
 <a name='L1442'></a><a href='#L1442'>1442</a>
 <a name='L1443'></a><a href='#L1443'>1443</a>
-<a name='L1444'></a><a href='#L1444'>1444</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L1444'></a><a href='#L1444'>1444</a>
+<a name='L1445'></a><a href='#L1445'>1445</a>
+<a name='L1446'></a><a href='#L1446'>1446</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
@@ -2948,7 +2958,9 @@ import {DCoord, DPoint, LatLng} from './DPoint';
 import {DLine} from './DLine';
 import {DCircle} from './DCircle';
 import {DNumbers} from './DNumbers';
-import {io as jstsIo, geom, operation} from 'jsts';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import {io as jstsIo, geom, operation} from 'jsts/dist/jsts.js';
 import Geometry = geom.Geometry;
 import {DPolygonLoop} from './DPolygonLoop';
 import {isDefAndNotNull, True} from './utils';
@@ -3005,9 +3017,9 @@ const containCalculator = (poly: DPolygon, p: DPoint): boolean =&gt; {
 &nbsp;
   if (absTotalFi &lt; eps) {
     result = false;
-  } else <span class="missing-if-branch" title="else path not taken" >E</span>if (Math.abs(2 * Math.PI - absTotalFi) &lt; eps) {
+  } else if (Math.abs(2 * Math.PI - absTotalFi) &lt; eps) {
     result = true;
-  } else {
+  } else <span class="missing-if-branch" title="else path not taken" >E</span>{
 <span class="cstat-no" title="statement not covered" >    throw new Error('contains2 faild');</span>
   }
 &nbsp;
@@ -3689,7 +3701,7 @@ export class DPolygon {
   findIndex(f: (p: DPoint) =&gt; boolean): number;
   findIndex(f: (p: DPoint, index: number) =&gt; boolean): number;
   findIndex(a: ((p: DPoint, index: number) =&gt; boolean) | DPoint): number {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (a instanceof DPoint) {
+    if (a instanceof DPoint) {
       return this.points.findIndex((t: DPoint) =&gt; t.equal(a));
     }
 <span class="cstat-no" title="statement not covered" >    return this.points.findIndex(a);</span>
@@ -3747,13 +3759,13 @@ export class DPolygon {
       if (fillColor) {
         ctx.fillStyle = fillColor;
       }
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (strokeColor) {
+      if (strokeColor) {
         ctx.strokeStyle = strokeColor;
       }
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (lineWidth) {
+      if (lineWidth) {
         ctx.lineWidth = lineWidth;
       }
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (fillColor || strokeColor) {
+      if (fillColor || strokeColor) {
         ctx.beginPath();
       }
       this.goByPath(ctx, steps % this.length);
@@ -3767,7 +3779,7 @@ export class DPolygon {
         ctx.closePath();
         ctx.fill();
       }
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (strokeColor) {
+      if (strokeColor) {
         ctx.stroke();
       }
     }
@@ -3818,7 +3830,7 @@ export class DPolygon {
 &nbsp;
     if (absTotalFi &lt; eps) {
       return false;
-    } else <span class="missing-if-branch" title="else path not taken" >E</span>if (Math.abs(2 * Math.PI - absTotalFi) &lt; eps) {
+    } else if (Math.abs(2 * Math.PI - absTotalFi) &lt; eps) {
       return true;
     }
 <span class="cstat-no" title="statement not covered" >    throw new Error('contains2 faild');</span>
@@ -4004,7 +4016,7 @@ export class DPolygon {
 &nbsp;
   smartUnion(p: DPolygon): DPolygon | null {
     const res = this.clone().simpleUnion(p);
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (res) {
+    if (res) {
       let allHoles = [...this.holes, ...p.holes, ...res.holes].map((h: DPolygon) =&gt; h.clone());
       for (const a of allHoles) {
         for (const b of allHoles) {
@@ -4076,7 +4088,7 @@ export class DPolygon {
     const res: DPolygon[] = [];
     while (p.length &gt; 3) {
       const triangle = getTriangle(p);
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (triangle) {
+      if (triangle) {
         res.push(triangle);
       }
     }
@@ -4146,7 +4158,7 @@ export class DPolygon {
     const res: number[] = [];
     while (p.length &gt; 3) {
       const triangle = getTriangle(p);
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (triangle) {
+      if (triangle) {
         res.push(...triangle);
       }
     }
@@ -4309,7 +4321,7 @@ export class DPolygon {
       return a.difference(b);
     } else if (unionThis) {
       return a.union(b);
-    } else <span class="missing-if-branch" title="else path not taken" >E</span>if (!unionThis) {
+    } else if (!unionThis) {
       return a.intersection(b);
     }
 <span class="cstat-no" title="statement not covered" >    return undefined;</span>
@@ -4317,7 +4329,7 @@ export class DPolygon {
 &nbsp;
   private simpleLogicFunction(p: DPolygon, unionThis: boolean, unionThat: boolean): DPolygon | null | DPolygon[] {
     const c = this.getJSTSGeometry(p, unionThis, unionThat);
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (c) {
+    if (c) {
       const coordinates = c.getCoordinates() as { x: number; y: number }[];
       if (coordinates.length) {
         let result: DPolygon[] = coordinates.reduce(
@@ -4392,10 +4404,9 @@ export class DPolygon {
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jun 09 2022 07:00:41 GMT+0000 (Coordinated Universal Time)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at Thu Jun 09 2022 07:29:57 GMT+0000 (Coordinated Universal Time)
             </div>
-        </div>
         <script src="prettify.js"></script>
         <script>
             window.onload = function () {
