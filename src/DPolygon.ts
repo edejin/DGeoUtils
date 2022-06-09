@@ -3,9 +3,7 @@ import {DCoord, DPoint, LatLng} from './DPoint';
 import {DLine} from './DLine';
 import {DCircle} from './DCircle';
 import {DNumbers} from './DNumbers';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import {io as jstsIo, geom, operation} from 'jsts/dist/jsts.js';
+import {io as jstsIo, geom, operation} from 'jsts';
 import Geometry = geom.Geometry;
 import {DPolygonLoop} from './DPolygonLoop';
 import {isDefAndNotNull, True} from './utils';

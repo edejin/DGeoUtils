@@ -27,7 +27,8 @@
     "/dist"
   ],
   "dependencies": {
-    "jsts": "^2.9.0"
+    "@types/jsts": "0.17.5",
+    "jsts": "2.7.1"
   },
   "devDependencies": {
     "@types/jest": "^27.0.1",
