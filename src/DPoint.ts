@@ -87,6 +87,39 @@ export class DPoint {
   }
 
   /**
+   * Parse tile coords from BING Map quad string
+   * @param quadKey
+   */
+  static getTileFromQuadKey(quadKey: string): DPoint {
+    const p = new DPoint(0, 0, quadKey.length);
+    for (let i = p.z!; i > 0; i--) {
+      // eslint-disable-next-line no-bitwise
+      const mask = 1 << (i - 1);
+      switch (quadKey[p.z! - i]) {
+        case '0':
+          break;
+        case '1':
+          // eslint-disable-next-line no-bitwise
+          p.x |= mask;
+          break;
+        case '2':
+          // eslint-disable-next-line no-bitwise
+          p.y |= mask;
+          break;
+        case '3':
+          // eslint-disable-next-line no-bitwise
+          p.x |= mask;
+          // eslint-disable-next-line no-bitwise
+          p.y |= mask;
+          break;
+        default:
+          throw new Error('Invalid QuadKey digit sequence.');
+      }
+    }
+    return p;
+  }
+
+  /**
    * @remark Point should be Lng/Lat.
    *
    * @remark `z` value default for `zoom` argument.
@@ -102,6 +135,33 @@ export class DPoint {
       1 - Math.log(Math.tan(this.y * PI_TO_DEGREE) + 1 / Math.cos(this.y * PI_TO_DEGREE)) / Math.PI
     ) / 2 * (2 ** zoom));
     return new DPoint(x, y, zoom);
+  }
+
+  /**
+   * Get BING Maps quad key
+   *
+   * @remark `z` value default for `zoom` argument.
+   *
+   * @param [zoom=this.z]
+   */
+  getQuadKeyFromTile(zoom: number = this.z!): string {
+    const quadKey = [];
+    for (let i = zoom; i > 0; i--) {
+      let digit = 0;
+      // eslint-disable-next-line no-bitwise
+      const mask = 1 << (i - 1);
+      // eslint-disable-next-line no-bitwise
+      if ((this.x & mask) !== 0) {
+        digit++;
+      }
+      // eslint-disable-next-line no-bitwise
+      if ((this.y & mask) !== 0) {
+        digit++;
+        digit++;
+      }
+      quadKey.push(digit);
+    }
+    return quadKey.join('');
   }
 
   /**

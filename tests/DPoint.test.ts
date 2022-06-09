@@ -1408,4 +1408,28 @@ describe('DPoint', () => {
         .toArrayOfCoords()).toEqual([[0, 0], [0, 4], [4, 0], [4, 4]]);
     });
   });
+
+  describe('getQuadKeyFromTile', () => {
+    test('1', () => {
+      expect(new DPoint(1, 1, 1).getQuadKeyFromTile()).toEqual('3');
+    });
+    test('2', () => {
+      expect(new DPoint(10, 10, 10).getQuadKeyFromTile()).toEqual('0000003030');
+    });
+    test('3', () => {
+      expect(new DPoint(1, 2, 3).getQuadKeyFromTile()).toEqual('021');
+    });
+  });
+
+  describe('getTileFromQuadKey', () => {
+    test('1', () => {
+      expect(DPoint.getTileFromQuadKey('3').toCoords()).toEqual([1, 1, 1]);
+    });
+    test('2', () => {
+      expect(DPoint.getTileFromQuadKey('0000003030').toCoords()).toEqual([10, 10, 10]);
+    });
+    test('3', () => {
+      expect(DPoint.getTileFromQuadKey('021').toCoords()).toEqual([1, 2, 3]);
+    });
+  });
 });
