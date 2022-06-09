@@ -3,10 +3,9 @@
   "version": "2.4.1",
   "description": "Geometries utils for my projects",
   "scripts": {
-    "build": "npm run build:es2015 && npm run build:esm && npm run build:cjs && npm run build:umd && npm run build:umd:min",
-    "build:es2015": "tsc --module es2015 --target es2015 --outDir dist/es2015",
+    "build": "npm run build:esm && npm run build:cjs && npm run build:umd && npm run build:umd:min",
     "build:esm": "tsc --module es2015 --target es5 --downlevelIteration --outDir dist/esm",
-    "build:cjs": "tsc --module commonjs --target es2015 --declaration --downlevelIteration --outDir dist/cjs",
+    "build:cjs": "tsc",
     "build:umd": "rollup dist/esm/index.js --format umd -e \"jsts\" -g \"jsts:jsts\" --name \"DGeoUtils\" -m inline --file dist/umd/dgeoutils.js",
     "build:umd:min": "cd dist/umd && uglifyjs --compress --mangle --source-map --comments -o dgeoutils.min.js -- dgeoutils.js",
     "prepublishOnly": "npm run lint:report && npm run test && npm run test:badges && npm run doc && npm run build",
@@ -21,8 +20,8 @@
   },
   "author": "Efim Dejin <efim@dej.in.ua>",
   "license": "MIT",
-  "main": "dist/cjs/index.js",
-  "types": "dist/cjs/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "/dist"
   ],
