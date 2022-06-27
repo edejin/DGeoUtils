@@ -15,7 +15,8 @@ export type DCoord = [number, number] | [number, number, number];
 
 export interface LatLng {
   lat: number;
-  lng: number;
+  lng?: number;
+  lon?: number;
 }
 
 const EARTH_IN_MITERS = 20037508.34;
@@ -66,7 +67,7 @@ export class DPoint {
   }
 
   static parse(c: LatLng | number[] | DCoord): DPoint {
-    const {lat, lng} = c as LatLng;
+    const {lat, lon, lng = lon} = c as LatLng;
     if (lat && lng) {
       return new DPoint(lat, lng, 0);
     }
