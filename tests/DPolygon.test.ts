@@ -1841,6 +1841,94 @@ describe('DPolygon', () => {
         z: undefined
       });
     });
+    test('LineString', () => {
+      expect((DPolygon.parse({
+        type: 'LineString',
+        coordinates: [[30, 10], [10, 30], [40, 40]]
+      }) as DPolygon).toArrayOfCoords()).toEqual([[30, 10], [10, 30], [40, 40]]);
+    });
+    test('Polygon', () => {
+      expect((DPolygon.parse({
+        type: 'Polygon',
+        coordinates: [[[30, 10], [40, 40], [20, 40], [10, 20], [30, 10]]]
+      }) as DPolygon).toArrayOfCoords()).toEqual([[30, 10], [40, 40], [20, 40], [10, 20], [30, 10]]);
+    });
+    test('Polygon 2', () => {
+      const t = (DPolygon.parse({
+        type: 'Polygon',
+        coordinates: [
+          [[35, 10], [45, 45], [15, 40], [10, 20], [35, 10]],
+          [[20, 30], [35, 35], [30, 20], [20, 30]]
+        ]
+      }) as DPolygon);
+      expect(t.toArrayOfCoords()).toEqual([[35, 10], [45, 45], [15, 40], [10, 20], [35, 10]]);
+      expect(t.holes[0].toArrayOfCoords()).toEqual([[20, 30], [35, 35], [30, 20], [20, 30]]);
+      expect(t.holes.length).toBe(1);
+    });
+    test('MultiPoint', () => {
+      expect((DPolygon.parse({
+        type: 'MultiPoint',
+        coordinates: [[10, 40], [40, 30], [20, 20], [30, 10]]
+      }) as DPolygon).toArrayOfCoords()).toEqual([[10, 40], [40, 30], [20, 20], [30, 10]]);
+    });
+    test('MultiLineString', () => {
+      const [p1, p2] = DPolygon.parse({
+        type: 'MultiLineString',
+        coordinates: [
+          [[10, 10], [20, 20], [10, 40]],
+          [[40, 40], [30, 30], [40, 20], [30, 10]]
+        ]
+      }) as DPolygon[];
+      expect(p1.toArrayOfCoords()).toEqual([[10, 10], [20, 20], [10, 40]]);
+      expect(p2.toArrayOfCoords()).toEqual([[40, 40], [30, 30], [40, 20], [30, 10]]);
+    });
+    test('MultiPolygon', () => {
+      const [p1, p2] = DPolygon.parse({
+        type: 'MultiPolygon',
+        coordinates: [
+          [[[30, 20], [45, 40], [10, 40], [30, 20]]],
+          [[[15, 5], [40, 10], [10, 20], [5, 10], [15, 5]]]
+        ]
+      }) as DPolygon[];
+      expect(p1.toArrayOfCoords()).toEqual([[30, 20], [45, 40], [10, 40], [30, 20]]);
+      expect(p2.toArrayOfCoords()).toEqual([[15, 5], [40, 10], [10, 20], [5, 10], [15, 5]]);
+    });
+    test('MultiPolygon 2', () => {
+      const [p1, p2] = DPolygon.parse({
+        type: 'MultiPolygon',
+        coordinates: [
+          [[[40.0, 40.0], [20.0, 45.0], [45.0, 30.0], [40.0, 40.0]]],
+          [
+            [[20.0, 35.0], [10.0, 30.0], [10.0, 10.0], [30.0, 5.0], [45.0, 20.0], [20.0, 35.0]],
+            [[30.0, 20.0], [20.0, 15.0], [20.0, 25.0], [30.0, 20.0]]
+          ]
+        ]
+      }) as DPolygon[];
+      expect(p1.toArrayOfCoords()).toEqual([[40.0, 40.0], [20.0, 45.0], [45.0, 30.0], [40.0, 40.0]]);
+      expect(p2.toArrayOfCoords())
+        .toEqual([[20.0, 35.0], [10.0, 30.0], [10.0, 10.0], [30.0, 5.0], [45.0, 20.0], [20.0, 35.0]]);
+      expect(p2.holes[0].toArrayOfCoords())
+        .toEqual([[30.0, 20.0], [20.0, 15.0], [20.0, 25.0], [30.0, 20.0]]);
+      expect(p2.holes.length).toBe(1);
+    });
+    test('GeometryCollection', () => {
+      const [p1, p2] = DPolygon.parse({
+        type: 'GeometryCollection',
+        geometries: [
+          {
+            type: 'LineString',
+            coordinates: [[10.0, 10.0], [20.0, 20.0], [10.0, 40.0]]
+          },
+          {
+            type: 'Polygon',
+            coordinates: [[[40.0, 40.0], [20.0, 45.0], [45.0, 30.0], [40.0, 40.0]]]
+          }
+        ]
+      }) as DPolygon[];
+      expect(p1.toArrayOfCoords()).toEqual([[10.0, 10.0], [20.0, 20.0], [10.0, 40.0]]);
+      expect(p2.toArrayOfCoords())
+        .toEqual([[40.0, 40.0], [20.0, 45.0], [45.0, 30.0], [40.0, 40.0]]);
+    });
   });
 
   describe('toArrayOfCoords', () => {

@@ -7,7 +7,19 @@ import {io as jstsIo, geom, operation} from 'jsts';
 import Geometry = geom.Geometry;
 import {DPolygonLoop} from './DPolygonLoop';
 import {isDefAndNotNull, True} from './utils';
-import {LineString, Polygon, Position} from 'geojson';
+import {
+  GeoJsonObject,
+  GeometryCollection,
+  LineString,
+  MultiLineString,
+  MultiPoint,
+  MultiPolygon,
+  Polygon,
+  Geometry as GeoJsonGeometry
+} from 'geojson';
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface DeepArray<T> extends Array<T | DeepArray<T>> { }
 
 const {
   buffer: {
@@ -947,8 +959,54 @@ export class DPolygon {
    * @param [format='xyz']
    */
   static parse(a: DCoord[], format?: string): DPolygon;
-  static parse(a: LatLng[] | number[][] | DCoord[], format: string = 'xyz'): DPolygon {
-    return new DPolygon(a.map((r: LatLng | number[] | DCoord) => DPoint.parse(r, format)));
+
+  /**
+   * Parse from GeoJSON
+   * @param a
+   * @param [format='xyz']
+   */
+  static parse(a: GeoJsonGeometry, format?: string): DPolygon | DeepArray<DPolygon>;
+  static parse(
+    a: LatLng[] | number[][] | DCoord[] | GeoJsonGeometry,
+    format: string = 'xyz'
+  ): DPolygon | DeepArray<DPolygon> {
+    if ((a as GeoJsonGeometry).type) {
+      switch ((a as GeoJsonGeometry).type) {
+        case 'LineString':
+        case 'MultiPoint':
+          return new DPolygon((a as MultiPoint).coordinates.map((c) => DPoint.parse(c)));
+        case 'Polygon':
+          return (a as Polygon).coordinates.reduce((ak, line, index) => {
+            if (index === 0) {
+              ak.points = line.map((c) => DPoint.parse(c));
+            } else {
+              ak.holes.push(new DPolygon(line.map((c) => DPoint.parse(c))));
+            }
+            return ak;
+          }, new DPolygon());
+        case 'MultiLineString':
+          return (a as MultiLineString).coordinates.reduce((ak: DPolygon[], line) => {
+            ak.push(new DPolygon(line.map((c) => DPoint.parse(c))));
+            return ak;
+          }, []);
+        case 'MultiPolygon':
+          return (a as MultiPolygon).coordinates.reduce((ak: DPolygon[], coordinates) => {
+            ak.push(DPolygon.parse({
+              type: 'Polygon',
+              coordinates
+            }) as DPolygon);
+            return ak;
+          }, []);
+        case 'GeometryCollection':
+          return (a as GeometryCollection).geometries.reduce((ak: DeepArray<DPolygon>, line) => {
+            ak.push(DPolygon.parse(line));
+            return ak;
+          }, []);
+        default:
+      }
+    }
+    return new DPolygon((a as LatLng[] | number[][] | DCoord[])
+      .map((r: LatLng | number[] | DCoord) => DPoint.parse(r, format)));
   }
 
   /**
