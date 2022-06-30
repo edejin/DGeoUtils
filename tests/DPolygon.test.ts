@@ -3520,4 +3520,38 @@ describe('DPolygon', () => {
       });
     });
   });
+
+  describe('toGeoJSONFeature', () => {
+    test('1', () => {
+      expect(new DPolygon([
+        new DPoint(1, 2),
+        new DPoint(3, 2),
+        new DPoint(2, 2),
+        new DPoint(6, 2)
+      ]).toGeoJSONFeature()).toEqual({
+        type: 'Feature',
+        properties: {},
+        geometry: {
+          type: 'LineString',
+          coordinates: [[1, 2], [3, 2], [2, 2], [6, 2]]
+        }
+      });
+    });
+    test('2', () => {
+      expect(new DPolygon([
+        new DPoint(1, 2),
+        new DPoint(3, 2),
+        new DPoint(2, 2),
+        new DPoint(6, 2)
+      ]).close()
+        .toGeoJSONFeature()).toEqual({
+        type: 'Feature',
+        properties: {},
+        geometry: {
+          type: 'Polygon',
+          coordinates: [[[1, 2], [3, 2], [2, 2], [6, 2], [1, 2]]]
+        }
+      });
+    });
+  });
 });

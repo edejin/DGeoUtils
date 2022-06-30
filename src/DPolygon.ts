@@ -8,14 +8,13 @@ import Geometry = geom.Geometry;
 import {DPolygonLoop} from './DPolygonLoop';
 import {isDefAndNotNull, True} from './utils';
 import {
-  GeoJsonObject,
   GeometryCollection,
   LineString,
   MultiLineString,
   MultiPoint,
   MultiPolygon,
   Polygon,
-  Geometry as GeoJsonGeometry
+  Geometry as GeoJsonGeometry, Feature
 } from 'geojson';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -84,7 +83,7 @@ const containCalculator = (poly: DPolygon, p: DPoint): boolean => {
 
 export class DPolygon {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  properties: { [key: string]: any } = {};
+  properties: Record<string, any> = {};
   holes: DPolygon[] = [];
   private searchStore: Record<number, Record<number, Record<number | string, boolean>>> = {};
 
@@ -1016,6 +1015,17 @@ export class DPolygon {
    */
   toArrayOfCoords(format: string = 'xyz'): DCoord[] {
     return this.mapArray((r) => r.toCoords(format));
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  toGeoJSONFeature(): Feature<LineString | Polygon, Record<string, any>> {
+    return {
+      type: 'Feature',
+      properties: {
+        ...this.properties
+      },
+      geometry: this.toGeoJSON()
+    };
   }
 
   toGeoJSON(format: string = 'xyz'): LineString | Polygon {
