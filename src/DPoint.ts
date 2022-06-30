@@ -72,12 +72,15 @@ export class DPoint {
    * @param c
    * @param [format='xyz']
    */
-  static parse(c: LatLng | number[] | DCoord, format: string = 'xyz'): DPoint {
+  static parse(c: LatLng | number[] | DCoord | Point, format: string = 'xyz'): DPoint {
     const {lat, lon, lng = lon, alt} = c as LatLng;
     if (lat && lng) {
       return new DPoint(lat, lng, alt ?? 0);
     }
-    const t = c as DCoord;
+    let t = c as DCoord;
+    if ((c as Point).type === 'Point') {
+      t = (c as Point).coordinates as DCoord;
+    }
     return format.replace(/[^x-z]/gmiu, '')
       .split('')
       .reduce((a: DPoint, k: string, index: number) => {

@@ -63,8 +63,17 @@ describe('DPoint', () => {
       expect(t.y).toBe(0);
       expect(t.z).toBeUndefined();
     });
-    test('With format', () => {
+    test('With Format', () => {
       const t = DPoint.parse([3, 2, 1], 'zyx');
+      expect(t.x).toBe(1);
+      expect(t.y).toBe(2);
+      expect(t.z).toBe(3);
+    });
+    test('GeoJSON', () => {
+      const t = DPoint.parse({
+        type: 'Point',
+        coordinates: [3, 2, 1]
+      }, 'zyx');
       expect(t.x).toBe(1);
       expect(t.y).toBe(2);
       expect(t.z).toBe(3);
