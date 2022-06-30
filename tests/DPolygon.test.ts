@@ -1929,6 +1929,49 @@ describe('DPolygon', () => {
       expect(p2.toArrayOfCoords())
         .toEqual([[40.0, 40.0], [20.0, 45.0], [45.0, 30.0], [40.0, 40.0]]);
     });
+    test('Feature', () => {
+      const t = DPolygon.parse({
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: [[102, 0], [103, 1], [104, 0], [105, 1]]
+        },
+        properties: {
+          prop0: 'value0',
+          prop1: 0
+        }
+      });
+      expect(t).toEqual({
+        holes: [],
+        pPoints: [
+          {
+            properties: {},
+            x: 102,
+            y: 0
+          },
+          {
+            properties: {},
+            x: 103,
+            y: 1
+          },
+          {
+            properties: {},
+            x: 104,
+            y: 0
+          },
+          {
+            properties: {},
+            x: 105,
+            y: 1
+          }
+        ],
+        properties: {
+          prop0: 'value0',
+          prop1: 0
+        },
+        searchStore: {}
+      });
+    });
   });
 
   describe('toArrayOfCoords', () => {

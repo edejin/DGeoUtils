@@ -964,13 +964,21 @@ export class DPolygon {
    * @param a
    * @param [format='xyz']
    */
-  static parse(a: GeoJsonGeometry, format?: string): DPolygon | DeepArray<DPolygon>;
+  static parse(a: GeoJsonGeometry | Feature, format?: string): DPolygon | DeepArray<DPolygon>;
   static parse(
-    a: LatLng[] | number[][] | DCoord[] | GeoJsonGeometry,
+    a: LatLng[] | number[][] | DCoord[] | GeoJsonGeometry | Feature,
     format: string = 'xyz'
   ): DPolygon | DeepArray<DPolygon> {
     if ((a as GeoJsonGeometry).type) {
-      switch ((a as GeoJsonGeometry).type) {
+      switch ((a as GeoJsonGeometry | Feature).type) {
+        case 'Feature': {
+          const t = DPolygon.parse((a as Feature).geometry) as DPolygon;
+          t.properties = {
+            ...(a as Feature).properties,
+            id: (a as Feature).id
+          };
+          return t;
+        }
         case 'LineString':
         case 'MultiPoint':
           return new DPolygon((a as MultiPoint).coordinates.map((c) => DPoint.parse(c)));
