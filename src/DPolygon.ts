@@ -7,6 +7,7 @@ import {io as jstsIo, geom, operation} from 'jsts';
 import Geometry = geom.Geometry;
 import {DPolygonLoop} from './DPolygonLoop';
 import {isDefAndNotNull, True} from './utils';
+import {LineString, Polygon, Position} from 'geojson';
 
 const {
   buffer: {
@@ -957,6 +958,22 @@ export class DPolygon {
    */
   toArrayOfCoords(format: string = 'xyz'): DCoord[] {
     return this.mapArray((r) => r.toCoords(format));
+  }
+
+  toGeoJSON(format: string = 'xyz'): LineString | Polygon {
+    if (this.closed) {
+      return {
+        type: 'Polygon',
+        coordinates: [
+          this.toArrayOfCoords(format),
+          ...this.holes.map((h: DPolygon) => h.toArrayOfCoords(format))
+        ]
+      }as Polygon;
+    }
+    return {
+      type: 'LineString',
+      coordinates: this.toArrayOfCoords(format)
+    } as LineString;
   }
 
   /**

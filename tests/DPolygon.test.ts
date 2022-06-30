@@ -3406,4 +3406,30 @@ describe('DPolygon', () => {
         .toArrayOfCoords()).toEqual([[6, 2], [3, 2], [2, 2], [1, 2]]);
     });
   });
+
+  describe('toGeoJSON', () => {
+    test('1', () => {
+      expect(new DPolygon([
+        new DPoint(1, 2),
+        new DPoint(3, 2),
+        new DPoint(2, 2),
+        new DPoint(6, 2)
+      ]).toGeoJSON()).toEqual({
+        type: 'LineString',
+        coordinates: [[1, 2], [3, 2], [2, 2], [6, 2]]
+      });
+    });
+    test('2', () => {
+      expect(new DPolygon([
+        new DPoint(1, 2),
+        new DPoint(3, 2),
+        new DPoint(2, 2),
+        new DPoint(6, 2)
+      ]).close()
+        .toGeoJSON()).toEqual({
+        type: 'Polygon',
+        coordinates: [[[1, 2], [3, 2], [2, 2], [6, 2], [1, 2]]]
+      });
+    });
+  });
 });
