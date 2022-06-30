@@ -1450,4 +1450,19 @@ describe('DPoint', () => {
       expect(DPoint.getTileFromQuadKey('021').toCoords()).toEqual([1, 2, 3]);
     });
   });
+
+  describe('toGeoJSON', () => {
+    test('1', () => {
+      expect(new DPoint(1, 2).toGeoJSON()).toStrictEqual({
+        type: 'Point',
+        coordinates: [1, 2]
+      });
+    });
+    test('2', () => {
+      expect(new DPoint(1, 2, 3).toGeoJSON('yxz')).toStrictEqual({
+        type: 'Point',
+        coordinates: [2, 1, 3]
+      });
+    });
+  });
 });

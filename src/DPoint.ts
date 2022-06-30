@@ -1,6 +1,7 @@
 import {DLine} from './DLine';
 import {DPolygon} from './DPolygon';
 import {checkFunction, createArray, isDefAndNotNull} from './utils';
+import {Point} from 'geojson';
 
 const diff = 0;
 
@@ -214,6 +215,13 @@ export class DPoint {
         z: this.z
       })[k])
       .filter((r) => r !== undefined) as DCoord;
+  }
+
+  toGeoJSON(format: string = 'xyz'): Point {
+    return {
+      type: 'Point',
+      coordinates: this.toCoords(format)
+    };
   }
 
   /**
