@@ -3597,4 +3597,34 @@ describe('DPolygon', () => {
       });
     });
   });
+
+  describe('toGeoJSONFeatureCollection', () => {
+    test('1', () => {
+      const t = DPolygon.toGeoJSONFeatureCollection([
+        DPolygon.parse([[1, 2], [3, 4]]),
+        DPolygon.parse([[5, 6], [7, 8], [9, 10]])
+      ]);
+      expect(t).toEqual({
+        type: 'FeatureCollection',
+        features: [
+          {
+            type: 'Feature',
+            geometry: {
+              type: 'LineString',
+              coordinates: [[1, 2], [3, 4]]
+            },
+            properties: {}
+          },
+          {
+            type: 'Feature',
+            geometry: {
+              type: 'LineString',
+              coordinates: [[5, 6], [7, 8], [9, 10]]
+            },
+            properties: {}
+          }
+        ]
+      });
+    });
+  });
 });

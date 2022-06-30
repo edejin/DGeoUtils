@@ -14,7 +14,9 @@ import {
   MultiPoint,
   MultiPolygon,
   Polygon,
-  Geometry as GeoJsonGeometry, Feature
+  Geometry as GeoJsonGeometry,
+  Feature,
+  FeatureCollection
 } from 'geojson';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -938,6 +940,17 @@ export class DPolygon {
     return this;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static toGeoJSONFeatureCollection(
+    polygons: DPolygon[],
+    format: string = 'xyz'
+  ): FeatureCollection<LineString | Polygon, Record<string, any>> {
+    return {
+      type: 'FeatureCollection',
+      features: polygons.map((polygon) => polygon.toGeoJSONFeature(format))
+    };
+  }
+
   /**
    * Parse from [OpenLayers](https://openlayers.org/) coordinates
    * @param a
@@ -1026,13 +1039,13 @@ export class DPolygon {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  toGeoJSONFeature(): Feature<LineString | Polygon, Record<string, any>> {
+  toGeoJSONFeature(format: string = 'xyz'): Feature<LineString | Polygon, Record<string, any>> {
     return {
       type: 'Feature',
       properties: {
         ...this.properties
       },
-      geometry: this.toGeoJSON()
+      geometry: this.toGeoJSON(format)
     };
   }
 
