@@ -1972,6 +1972,106 @@ describe('DPolygon', () => {
         searchStore: {}
       });
     });
+    test('FeatureCollection', () => {
+      const t = DPolygon.parse({
+        type: 'FeatureCollection',
+        features: [
+          {
+            type: 'Feature',
+            geometry: {
+              type: 'LineString',
+              coordinates: [[102, 0], [103, 1], [104, 0], [105, 1]]
+            },
+            properties: {
+              prop0: 'value0',
+              prop1: 0.0
+            }
+          },
+          {
+            type: 'Feature',
+            geometry: {
+              type: 'Polygon',
+              coordinates: [[[100, 0], [101, 0], [101, 1], [100, 1], [100, 0]]]
+            },
+            properties: {
+              prop0: 'value0',
+              prop1: {
+                this: 'that'
+              }
+            }
+          }
+        ]
+      });
+      expect(t).toEqual([
+        {
+          holes: [],
+          pPoints: [
+            {
+              properties: {},
+              x: 102,
+              y: 0
+            },
+            {
+              properties: {},
+              x: 103,
+              y: 1
+            },
+            {
+              properties: {},
+              x: 104,
+              y: 0
+            },
+            {
+              properties: {},
+              x: 105,
+              y: 1
+            }
+          ],
+          properties: {
+            prop0: 'value0',
+            prop1: 0
+          },
+          searchStore: {}
+        },
+        {
+          holes: [],
+          pPoints: [
+            {
+              properties: {},
+              x: 100,
+              y: 0
+            },
+            {
+              properties: {},
+              x: 101,
+              y: 0
+            },
+            {
+              properties: {},
+              x: 101,
+              y: 1
+            },
+            {
+              properties: {},
+              x: 100,
+              y: 1
+            },
+            {
+              properties: {},
+              x: 100,
+              y: 0
+            }
+          ],
+          properties: {
+            prop0: 'value0',
+            prop1: {
+              this: 'that'
+            }
+          },
+          searchStore: {}
+        }
+      ]);
+    });
   });
 
   describe('toArrayOfCoords', () => {

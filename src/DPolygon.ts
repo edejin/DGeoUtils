@@ -940,10 +940,10 @@ export class DPolygon {
     return this;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static toGeoJSONFeatureCollection(
     polygons: DPolygon[],
     format: string = 'xyz'
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): FeatureCollection<LineString | Polygon, Record<string, any>> {
     return {
       type: 'FeatureCollection',
@@ -977,15 +977,29 @@ export class DPolygon {
    * @param a
    * @param [format='xyz']
    */
-  static parse(a: GeoJsonGeometry | Feature, format?: string): DPolygon | DeepArray<DPolygon>;
   static parse(
-    a: LatLng[] | number[][] | DCoord[] | GeoJsonGeometry | Feature,
+    a: GeoJsonGeometry | Feature | FeatureCollection<LineString | Polygon>,
+    format?: string
+  ): DPolygon | DeepArray<DPolygon>;
+
+  static parse(
+    a: LatLng[] | number[][] | DCoord[] | GeoJsonGeometry | Feature | FeatureCollection<LineString | Polygon>,
     format: string = 'xyz'
   ): DPolygon | DeepArray<DPolygon> {
     if ((a as GeoJsonGeometry).type) {
-      switch ((a as GeoJsonGeometry | Feature).type) {
+      switch ((a as GeoJsonGeometry | Feature | FeatureCollection).type) {
+        case 'FeatureCollection':
+          return (a as FeatureCollection).features.reduce((ak: DPolygon[], f) => {
+            const t = DPolygon.parse(f, format);
+            if (Array.isArray(t)) {
+              ak.push(...(t as DPolygon[]));
+            } else {
+              ak.push(t);
+            }
+            return ak;
+          }, []);
         case 'Feature': {
-          const t = DPolygon.parse((a as Feature).geometry) as DPolygon;
+          const t = DPolygon.parse((a as Feature).geometry, format) as DPolygon;
           t.properties = {
             ...(a as Feature).properties,
             id: (a as Feature).id
@@ -994,19 +1008,19 @@ export class DPolygon {
         }
         case 'LineString':
         case 'MultiPoint':
-          return new DPolygon((a as MultiPoint).coordinates.map((c) => DPoint.parse(c)));
+          return new DPolygon((a as MultiPoint).coordinates.map((c) => DPoint.parse(c, format)));
         case 'Polygon':
           return (a as Polygon).coordinates.reduce((ak, line, index) => {
             if (index === 0) {
-              ak.points = line.map((c) => DPoint.parse(c));
+              ak.points = line.map((c) => DPoint.parse(c, format));
             } else {
-              ak.holes.push(new DPolygon(line.map((c) => DPoint.parse(c))));
+              ak.holes.push(new DPolygon(line.map((c) => DPoint.parse(c, format))));
             }
             return ak;
           }, new DPolygon());
         case 'MultiLineString':
           return (a as MultiLineString).coordinates.reduce((ak: DPolygon[], line) => {
-            ak.push(new DPolygon(line.map((c) => DPoint.parse(c))));
+            ak.push(new DPolygon(line.map((c) => DPoint.parse(c, format))));
             return ak;
           }, []);
         case 'MultiPolygon':
@@ -1014,12 +1028,12 @@ export class DPolygon {
             ak.push(DPolygon.parse({
               type: 'Polygon',
               coordinates
-            }) as DPolygon);
+            }, format) as DPolygon);
             return ak;
           }, []);
         case 'GeometryCollection':
           return (a as GeometryCollection).geometries.reduce((ak: DeepArray<DPolygon>, line) => {
-            ak.push(DPolygon.parse(line));
+            ak.push(DPolygon.parse(line, format));
             return ak;
           }, []);
         default:
