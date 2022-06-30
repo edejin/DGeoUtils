@@ -929,30 +929,34 @@ export class DPolygon {
   /**
    * Parse from [OpenLayers](https://openlayers.org/) coordinates
    * @param a
+   * @param [format='xyz']
    */
-  static parse(a: LatLng[]): DPolygon;
+  static parse(a: LatLng[], format?: string): DPolygon;
 
   /**
    * Parse from [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) coordinates
    * @param a
+   * @param [format='xyz']
    */
-  static parse(a: number[][]): DPolygon;
+  static parse(a: number[][], format?: string): DPolygon;
 
   /**
    * Parse from [OpenLayers](https://openlayers.org/) coordinates
    * @param a
+   * @param [format='xyz']
    */
-  static parse(a: DCoord[]): DPolygon;
-  static parse(a: LatLng[] | number[][] | DCoord[]): DPolygon {
-    return new DPolygon(a.map((r: LatLng | number[] | DCoord) => DPoint.parse(r)));
+  static parse(a: DCoord[], format?: string): DPolygon;
+  static parse(a: LatLng[] | number[][] | DCoord[], format: string = 'xyz'): DPolygon {
+    return new DPolygon(a.map((r: LatLng | number[] | DCoord) => DPoint.parse(r, format)));
   }
 
   /**
    * Transform to array of coordinates for [OpenLayers](https://openlayers.org/) or
    * [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON)
+   * @param [format='xyz']
    */
-  toArrayOfCoords(): DCoord[] {
-    return this.mapArray((r) => r.toCoords());
+  toArrayOfCoords(format: string = 'xyz'): DCoord[] {
+    return this.mapArray((r) => r.toCoords(format));
   }
 
   /**

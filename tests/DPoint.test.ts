@@ -63,6 +63,12 @@ describe('DPoint', () => {
       expect(t.y).toBe(0);
       expect(t.z).toBeUndefined();
     });
+    test('With format', () => {
+      const t = DPoint.parse([3, 2, 1], 'zyx');
+      expect(t.x).toBe(1);
+      expect(t.y).toBe(2);
+      expect(t.z).toBe(3);
+    });
   });
 
   describe('Parse from WKT', () => {
@@ -113,6 +119,18 @@ describe('DPoint', () => {
       expect(x).toBe(2);
       expect(y).toBe(3);
       expect(z).toBe(4);
+    });
+    test('3', () => {
+      expect(new DPoint(1, 2, 3).toCoords('xyz')).toEqual([1, 2, 3]);
+    });
+    test('4', () => {
+      expect(new DPoint(1, 2, 3).toCoords('yxz')).toEqual([2, 1, 3]);
+    });
+    test('5', () => {
+      expect(new DPoint(1, 2, 3).toCoords('some texyt')).toEqual([1, 2]);
+    });
+    test('6', () => {
+      expect(new DPoint(1, 2, 3).toCoords('some tezt')).toEqual([3]);
     });
   });
 

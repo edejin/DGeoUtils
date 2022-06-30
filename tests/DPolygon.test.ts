@@ -1843,14 +1843,25 @@ describe('DPolygon', () => {
     });
   });
 
-  test('toArrayOfCoords', () => {
-    expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))').toArrayOfCoords()).toEqual([
-      [30, 10],
-      [40, 40],
-      [20, 40],
-      [10, 20],
-      [30, 10]
-    ]);
+  describe('toArrayOfCoords', () => {
+    test('1', () => {
+      expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))').toArrayOfCoords()).toEqual([
+        [30, 10],
+        [40, 40],
+        [20, 40],
+        [10, 20],
+        [30, 10]
+      ]);
+    });
+    test('2', () => {
+      expect(DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))').toArrayOfCoords('yxz')).toEqual([
+        [10, 30],
+        [40, 40],
+        [40, 20],
+        [20, 10],
+        [10, 30]
+      ]);
+    });
   });
 
   describe('simpleDifference', () => {

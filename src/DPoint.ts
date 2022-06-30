@@ -17,6 +17,7 @@ export interface LatLng {
   lat: number;
   lng?: number;
   lon?: number;
+  alt?: number;
 }
 
 const EARTH_IN_MITERS = 20037508.34;
@@ -66,13 +67,33 @@ export class DPoint {
     return new DPoint();
   }
 
-  static parse(c: LatLng | number[] | DCoord): DPoint {
-    const {lat, lon, lng = lon} = c as LatLng;
+  /**
+   * @param c
+   * @param [format='xyz']
+   */
+  static parse(c: LatLng | number[] | DCoord, format: string = 'xyz'): DPoint {
+    const {lat, lon, lng = lon, alt} = c as LatLng;
     if (lat && lng) {
-      return new DPoint(lat, lng, 0);
+      return new DPoint(lat, lng, alt ?? 0);
     }
-    const [x, y, z] = c as DCoord;
-    return new DPoint(x, y, z);
+    const t = c as DCoord;
+    return format.replace(/[^x-z]/gmiu, '')
+      .split('')
+      .reduce((a: DPoint, k: string, index: number) => {
+        switch (k) {
+          case 'x':
+            a.x = t[index] ?? 0;
+            break;
+          case 'y':
+            a.y = t[index] ?? 0;
+            break;
+          case 'z':
+            a.z = t[index];
+            break;
+          default:
+        }
+        return a;
+      }, new DPoint());
   }
 
   static parseFromWKT(wkt: string): DPoint {
@@ -182,11 +203,17 @@ export class DPoint {
     return new DPoint(x, y, zoom);
   }
 
-  toCoords(): DCoord {
-    if (this.z === undefined) {
-      return [this.x, this.y];
-    }
-    return [this.x, this.y, this.z];
+  /**
+   * @param [format='xyz']
+   */
+  toCoords(format: string = 'xyz'): DCoord {
+    return format.replace(/[^x-z]/gmiu, '').split('')
+      .map((k) => ({
+        x: this.x,
+        y: this.y,
+        z: this.z
+      })[k])
+      .filter((r) => r !== undefined) as DCoord;
   }
 
   /**
