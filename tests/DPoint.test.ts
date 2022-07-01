@@ -1516,4 +1516,26 @@ describe('DPoint', () => {
       expect(t.alt).toBe(32);
     });
   });
+
+  describe('setProperties', () => {
+    test('1', () => {
+      const t = new DPoint();
+      t.properties.key = 'value';
+      expect(t.properties).toEqual({
+        key: 'value'
+      });
+      t.setProperties({foo: 'baz'});
+      expect(t.properties).toEqual({
+        foo: 'baz'
+      });
+      t.setProperties(({properties}) => ({
+        ...properties,
+        version: 2
+      }));
+      expect(t.properties).toEqual({
+        foo: 'baz',
+        version: 2
+      });
+    });
+  });
 });

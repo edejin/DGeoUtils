@@ -31,7 +31,7 @@ export const DOUBLE_PI_IN_DEGREE = 360;
 export const PI_TO_DEGREE = Math.PI / PI_IN_DEGREE;
 export const DEGREE_TO_PI = PI_IN_DEGREE / Math.PI;
 
-export type SetterFunction = (t: DPoint) => number;
+export type SetterFunction<T> = (t: DPoint) => T;
 
 export class DPoint {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -323,8 +323,8 @@ export class DPoint {
    * Transform `x` value by function
    * @param f
    */
-  setX(f: SetterFunction): DPoint;
-  setX(x: number | SetterFunction): DPoint {
+  setX(f: SetterFunction<number>): DPoint;
+  setX(x: number | SetterFunction<number>): DPoint {
     this.x = typeof x === 'number' ? x : x(this);
     return this;
   }
@@ -339,8 +339,8 @@ export class DPoint {
    * Transform `z` value by function
    * @param f
    */
-  setZ(f: SetterFunction): DPoint;
-  setZ(z: number | SetterFunction): DPoint {
+  setZ(f: SetterFunction<number>): DPoint;
+  setZ(z: number | SetterFunction<number>): DPoint {
     this.z = typeof z === 'number' ? z : z(this);
     return this;
   }
@@ -356,9 +356,15 @@ export class DPoint {
    * Transform `y` value by function
    * @param f
    */
-  setY(f: SetterFunction): DPoint;
-  setY(y: number | SetterFunction): DPoint {
+  setY(f: SetterFunction<number>): DPoint;
+  setY(y: number | SetterFunction<number>): DPoint {
     this.y = typeof y === 'number' ? y : y(this);
+    return this;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setProperties(v: SetterFunction<Record<string, any>> | Record<string, any>): DPoint {
+    this.properties = typeof v === 'object' ? v : v(this);
     return this;
   }
 

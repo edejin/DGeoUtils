@@ -781,4 +781,36 @@ describe('DPolygonLoop', () => {
         ]);
     });
   });
+
+  describe('setProperties', () => {
+    test('1', () => {
+      const t = DPolygon.parse([[1, 2], [3, 4]]);
+      t.loop()
+        .setProperties({key: 'value'})
+        .setProperties(({lng, lat, properties}) => ({
+          ...properties,
+          lng,
+          lat
+        }))
+        .run();
+      expect(t.at(0)).toEqual({
+        properties: {
+          key: 'value',
+          lat: 2,
+          lng: 1
+        },
+        x: 1,
+        y: 2
+      });
+      expect(t.at(1)).toEqual({
+        properties: {
+          key: 'value',
+          lat: 4,
+          lng: 3
+        },
+        x: 3,
+        y: 4
+      });
+    });
+  });
 });

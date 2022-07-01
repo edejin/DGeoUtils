@@ -35,13 +35,16 @@ enum LoopFunctions {
   minus,
   degreeToMeters,
   metersToDegree,
-  flipVertically
+  flipVertically,
+  setProperties
 }
 
 interface PoolRecord {
   functionName: LoopFunctions,
   numberArg?: number;
-  setterArg?: number | SetterFunction;
+  setterArg?: number | SetterFunction<number>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setterArgByObject?: Record<string, any> | SetterFunction<Record<string, any>>;
   pointArg?: DPoint;
   numberPointArg?: number | DPoint;
 }
@@ -52,7 +55,8 @@ const decodePoolRecord = (a: LoopFunction, {
   pointArg,
   numberPointArg,
   numberArg,
-  setterArg
+  setterArg,
+  setterArgByObject
 }: PoolRecord): LoopFunction => {
   let res = a;
   // eslint-disable-next-line default-case
@@ -71,15 +75,15 @@ const decodePoolRecord = (a: LoopFunction, {
       break;
     case LoopFunctions.setX:
       res = (k: DPoint): DPoint => a(k)
-        .setX(setterArg as SetterFunction);
+        .setX(setterArg as SetterFunction<number>);
       break;
     case LoopFunctions.setY:
       res = (k: DPoint): DPoint => a(k)
-        .setY(setterArg as SetterFunction);
+        .setY(setterArg as SetterFunction<number>);
       break;
     case LoopFunctions.setZ:
       res = (k: DPoint): DPoint => a(k)
-        .setZ(setterArg as SetterFunction);
+        .setZ(setterArg as SetterFunction<number>);
       break;
     case LoopFunctions.rotate:
       res = (k: DPoint): DPoint => a(k)
@@ -185,6 +189,10 @@ const decodePoolRecord = (a: LoopFunction, {
       res = (k: DPoint): DPoint => a(k)
         .flipVertically(numberPointArg as number);
       break;
+    case LoopFunctions.setProperties:
+      res = (k: DPoint): DPoint => a(k)
+        .setProperties(setterArgByObject!);
+      break;
   }
   return res;
 };
@@ -245,11 +253,20 @@ export class DPolygonLoop {
    * Transform `x` value by function
    * @param f
    */
-  setX(f: SetterFunction): DPolygonLoop;
-  setX(x: number | SetterFunction): DPolygonLoop {
+  setX(f: SetterFunction<number>): DPolygonLoop;
+  setX(x: number | SetterFunction<number>): DPolygonLoop {
     this.pool.push({
       functionName: LoopFunctions.setX,
       setterArg: x
+    });
+    return this;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setProperties(setterArgByObject: SetterFunction<Record<string, any>> | Record<string, any>): DPolygonLoop {
+    this.pool.push({
+      functionName: LoopFunctions.setProperties,
+      setterArgByObject
     });
     return this;
   }
@@ -264,8 +281,8 @@ export class DPolygonLoop {
    * Transform `y` value by function
    * @param f
    */
-  setY(f: SetterFunction): DPolygonLoop;
-  setY(y: number | SetterFunction): DPolygonLoop {
+  setY(f: SetterFunction<number>): DPolygonLoop;
+  setY(y: number | SetterFunction<number>): DPolygonLoop {
     this.pool.push({
       functionName: LoopFunctions.setY,
       setterArg: y
@@ -283,8 +300,8 @@ export class DPolygonLoop {
    * Transform `z` value by function
    * @param f
    */
-  setZ(f: SetterFunction): DPolygonLoop;
-  setZ(z: number | SetterFunction): DPolygonLoop {
+  setZ(f: SetterFunction<number>): DPolygonLoop;
+  setZ(z: number | SetterFunction<number>): DPolygonLoop {
     this.pool.push({
       functionName: LoopFunctions.setZ,
       setterArg: z
