@@ -800,6 +800,22 @@ export class DPoint {
     return this.yPoint;
   }
 
+  get lat(): number {
+    return this.y;
+  }
+
+  get lng(): number {
+    return this.x;
+  }
+
+  get lon(): number {
+    return this.x;
+  }
+
+  get alt(): number | undefined {
+    return this.z;
+  }
+
   simple(xKey: string = 'x', yKey: string = 'y'): { [key: string]: number } {
     return {
       [xKey]: this.x,

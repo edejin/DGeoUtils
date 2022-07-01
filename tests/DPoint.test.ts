@@ -1474,4 +1474,19 @@ describe('DPoint', () => {
       });
     });
   });
+
+  describe('getters', () => {
+    test('1', () => {
+      const t = new DPoint(11, 21, 31);
+      expect(t.lat).toBe(21);
+      expect(t.lon).toBe(11);
+      expect(t.alt).toBe(31);
+    });
+    test('2', () => {
+      const t = new DPoint(11, 21);
+      expect(t.lat).toBe(21);
+      expect(t.lng).toBe(11);
+      expect(t.alt).toBe(undefined);
+    });
+  });
 });
