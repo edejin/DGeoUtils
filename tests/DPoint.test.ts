@@ -1489,4 +1489,31 @@ describe('DPoint', () => {
       expect(t.alt).toBe(undefined);
     });
   });
+
+  describe('setters', () => {
+    test('1', () => {
+      const t = new DPoint(11, 21, 31);
+      expect(t.lat).toBe(21);
+      expect(t.lon).toBe(11);
+      expect(t.alt).toBe(31);
+      t.lat = 22;
+      t.lon = 12;
+      t.alt = 32;
+      expect(t.lat).toBe(22);
+      expect(t.lon).toBe(12);
+      expect(t.alt).toBe(32);
+    });
+    test('2', () => {
+      const t = new DPoint(11, 21);
+      expect(t.lat).toBe(21);
+      expect(t.lng).toBe(11);
+      expect(t.alt).toBe(undefined);
+      t.lat = 22;
+      t.lon = 12;
+      t.alt = 32;
+      expect(t.lat).toBe(22);
+      expect(t.lon).toBe(12);
+      expect(t.alt).toBe(32);
+    });
+  });
 });

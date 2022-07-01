@@ -804,16 +804,32 @@ export class DPoint {
     return this.y;
   }
 
+  set lat(v: number) {
+    this.y = v;
+  }
+
   get lng(): number {
     return this.x;
+  }
+
+  set lng(v: number) {
+    this.x = v;
   }
 
   get lon(): number {
     return this.x;
   }
 
+  set lon(v: number) {
+    this.x = v;
+  }
+
   get alt(): number | undefined {
     return this.z;
+  }
+
+  set alt(v: number | undefined) {
+    this.z = v;
   }
 
   simple(xKey: string = 'x', yKey: string = 'y'): { [key: string]: number } {
