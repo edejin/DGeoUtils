@@ -1538,4 +1538,43 @@ describe('DPoint', () => {
       });
     });
   });
+
+  describe('calculateAltitudeByDistanceBetweenPoints', () => {
+    test('1', () => {
+      const p1 = new DPoint(0, 0, 1);
+      const p2 = new DPoint(1, 1, 1);
+      const r = new DPoint(0.5, 0.5);
+      expect(r.calculateAltitudeByDistanceBetweenPoints(p1, p2).alt).toBe(1);
+    });
+    test('2', () => {
+      const p1 = new DPoint(0, 0, 0);
+      const p2 = new DPoint(1, 1, 1);
+      const r = new DPoint(0.5, 0.5);
+      expect(r.calculateAltitudeByDistanceBetweenPoints(p1, p2).alt).toBe(0.5);
+    });
+    test('3', () => {
+      const p1 = new DPoint(0, 0, 0);
+      const p2 = new DPoint(1, 1, 1);
+      const r = new DPoint(0.9, 0.9);
+      expect(r.calculateAltitudeByDistanceBetweenPoints(p1, p2).alt).toBe(0.9);
+    });
+    test('4', () => {
+      const p1 = new DPoint(0, 0, 0);
+      const p2 = new DPoint(1, 1, 1);
+      const r = new DPoint(0, 1);
+      expect(r.calculateAltitudeByDistanceBetweenPoints(p1, p2).alt).toBe(0.5);
+    });
+    test('5', () => {
+      const p1 = new DPoint(0, 0, 0);
+      const p2 = new DPoint(1, 1, 1);
+      const r = new DPoint(0.1, 0.1);
+      expect(r.calculateAltitudeByDistanceBetweenPoints(p1, p2).alt!.toFixed(2)).toBe('0.10');
+    });
+    test('6', () => {
+      const p2 = new DPoint(0, 0, 0);
+      const p1 = new DPoint(1, 1, 1);
+      const r = new DPoint(0.1, 0.1);
+      expect(r.calculateAltitudeByDistanceBetweenPoints(p1, p2).alt!.toFixed(2)).toBe('0.10');
+    });
+  });
 });

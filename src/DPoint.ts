@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import {DLine} from './DLine';
 import {DPolygon} from './DPolygon';
 import {checkFunction, createArray, isDefAndNotNull} from './utils';
@@ -893,5 +894,24 @@ export class DPoint {
         return d;
       })
       .sort((a: DPoint, b: DPoint) => a.properties.distance - b.properties.distance);
+  }
+
+  calculateAltitudeByDistanceBetweenPoints(p1: DPoint, p2: DPoint): DPoint {
+    if (p1.alt === p2.alt) {
+      this.alt = p1.alt;
+    } else {
+      const minAlt = Math.min(p1.alt ?? 0, p2.alt ?? 0);
+      const maxAlt = Math.max(p1.alt ?? 0, p2.alt ?? 0);
+      const dAlt = maxAlt - minAlt;
+      const distance1 = this.distance(p1);
+      const distance2 = this.distance(p2);
+      const totalDistance = distance1 + distance2;
+      if (p1.alt === minAlt) {
+        this.alt = minAlt + distance1 / totalDistance * dAlt;
+      } else {
+        this.alt = minAlt + distance2 / totalDistance * dAlt;
+      }
+    }
+    return this;
   }
 }
