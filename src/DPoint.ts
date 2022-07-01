@@ -31,7 +31,7 @@ export const DOUBLE_PI_IN_DEGREE = 360;
 export const PI_TO_DEGREE = Math.PI / PI_IN_DEGREE;
 export const DEGREE_TO_PI = PI_IN_DEGREE / Math.PI;
 
-export type SetterFunction<T> = (t: DPoint) => T;
+type SetterFunction<T> = (t: DPoint) => T;
 
 export class DPoint {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

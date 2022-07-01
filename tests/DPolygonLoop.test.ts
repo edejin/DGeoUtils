@@ -179,13 +179,13 @@ describe('DPolygonLoop', () => {
         .setX(({
           x,
           y
-        }: DPoint) => x + y)
+        }: DPoint, index) => x + y + index)
         .run()
         .toArrayOfCoords())
         .toStrictEqual([
           [8192, 4096, 13],
-          [7822, 2962, 13],
-          [8857, 3533, 13]
+          [7823, 2962, 13],
+          [8859, 3533, 13]
         ]);
     });
   });
@@ -216,13 +216,13 @@ describe('DPolygonLoop', () => {
         .setY(({
           x,
           y
-        }: DPoint) => x + y)
+        }: DPoint, index) => x + y + index)
         .run()
         .toArrayOfCoords())
         .toStrictEqual([
           [4096, 8192, 13],
-          [4860, 7822, 13],
-          [5324, 8857, 13]
+          [4860, 7823, 13],
+          [5324, 8859, 13]
         ]);
     });
   });
@@ -253,13 +253,13 @@ describe('DPolygonLoop', () => {
         .setZ(({
           x,
           y
-        }: DPoint) => x + y)
+        }: DPoint, index) => x + y + index)
         .run()
         .toArrayOfCoords())
         .toStrictEqual([
           [4096, 4096, 8192],
-          [4860, 2962, 7822],
-          [5324, 3533, 8857]
+          [4860, 2962, 7823],
+          [5324, 3533, 8859]
         ]);
     });
   });
@@ -787,17 +787,19 @@ describe('DPolygonLoop', () => {
       const t = DPolygon.parse([[1, 2], [3, 4]]);
       t.loop()
         .setProperties({key: 'value'})
-        .setProperties(({lng, lat, properties}) => ({
+        .setProperties(({lng, lat, properties}, index) => ({
           ...properties,
           lng,
-          lat
+          lat,
+          index
         }))
         .run();
       expect(t.at(0)).toEqual({
         properties: {
           key: 'value',
           lat: 2,
-          lng: 1
+          lng: 1,
+          index: 0
         },
         x: 1,
         y: 2
@@ -806,7 +808,8 @@ describe('DPolygonLoop', () => {
         properties: {
           key: 'value',
           lat: 4,
-          lng: 3
+          lng: 3,
+          index: 1
         },
         x: 3,
         y: 4

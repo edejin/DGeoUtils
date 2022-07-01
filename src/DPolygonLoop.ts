@@ -1,7 +1,9 @@
 import {DPolygon} from './DPolygon';
-import {DPoint, SetterFunction} from './DPoint';
+import {DPoint} from './DPoint';
 
-export type LoopFunction = (k: DPoint) => DPoint;
+export type SetterFunction<T> = (t: DPoint, index: number) => T;
+
+export type LoopFunction = (k: DPoint, index: number) => DPoint;
 
 enum LoopFunctions {
   getTileFromCoords,
@@ -62,136 +64,136 @@ const decodePoolRecord = (a: LoopFunction, {
   // eslint-disable-next-line default-case
   switch (functionName) {
     case LoopFunctions.getTileFromCoords:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .getTileFromCoords(numberArg);
       break;
     case LoopFunctions.getCoordsFromTile:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .getCoordsFromTile(numberArg);
       break;
     case LoopFunctions.height:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .height(numberArg!);
       break;
     case LoopFunctions.setX:
-      res = (k: DPoint): DPoint => a(k)
-        .setX(setterArg as SetterFunction<number>);
+      res = (k: DPoint, index: number): DPoint => typeof setterArg === 'number' ? a(k, index)
+        .setX(setterArg) : a(k, index).setX((p: DPoint) => setterArg!(p, index));
       break;
     case LoopFunctions.setY:
-      res = (k: DPoint): DPoint => a(k)
-        .setY(setterArg as SetterFunction<number>);
+      res = (k: DPoint, index: number): DPoint => typeof setterArg === 'number' ? a(k, index)
+        .setY(setterArg) : a(k, index).setY((p: DPoint) => setterArg!(p, index));
       break;
     case LoopFunctions.setZ:
-      res = (k: DPoint): DPoint => a(k)
-        .setZ(setterArg as SetterFunction<number>);
+      res = (k: DPoint, index: number): DPoint => typeof setterArg === 'number' ? a(k, index)
+        .setZ(setterArg) : a(k, index).setZ((p: DPoint) => setterArg!(p, index));
       break;
     case LoopFunctions.rotate:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .rotate(numberArg!);
       break;
     case LoopFunctions.rotate3dX:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .rotate3dX(numberArg!);
       break;
     case LoopFunctions.rotate3dY:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .rotate3dY(numberArg!);
       break;
     case LoopFunctions.rotate3dZ:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .rotate3dZ(numberArg!);
       break;
     case LoopFunctions.move:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .move(numberPointArg! as number, numberArg!);
       break;
     case LoopFunctions.round:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .round();
       break;
     case LoopFunctions.ceil:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .ceil();
       break;
     case LoopFunctions.floor:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .floor();
       break;
     case LoopFunctions.toFixed:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .toFixed(numberArg);
       break;
     case LoopFunctions.abs:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .abs();
       break;
     case LoopFunctions.scale:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .scale(numberPointArg as number, numberArg as number);
       break;
     case LoopFunctions.divide:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .divide(numberPointArg as number, numberArg as number);
       break;
     case LoopFunctions.degreeToRadians:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .degreeToRadians();
       break;
     case LoopFunctions.radiansToDegrees:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .radiansToDegrees();
       break;
     case LoopFunctions.radiansToMeters:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .radiansToMeters();
       break;
     case LoopFunctions.metersToRadians:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .metersToRadians();
       break;
     case LoopFunctions.hipPoint:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .hipPoint;
       break;
     case LoopFunctions.xPoint:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .xPoint;
       break;
     case LoopFunctions.yPoint:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .yPoint;
       break;
     case LoopFunctions.wPoint:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .wPoint;
       break;
     case LoopFunctions.hPoint:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .hPoint;
       break;
     case LoopFunctions.setIfLessThan:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .setIfLessThan(pointArg!);
       break;
     case LoopFunctions.minus:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .minus();
       break;
     case LoopFunctions.degreeToMeters:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .degreeToMeters();
       break;
     case LoopFunctions.metersToDegree:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .metersToDegree();
       break;
     case LoopFunctions.flipVertically:
-      res = (k: DPoint): DPoint => a(k)
+      res = (k: DPoint, index: number): DPoint => a(k, index)
         .flipVertically(numberPointArg as number);
       break;
     case LoopFunctions.setProperties:
-      res = (k: DPoint): DPoint => a(k)
-        .setProperties(setterArgByObject!);
+      res = (k: DPoint, index: number): DPoint => typeof setterArgByObject === 'object' ? a(k, index)
+        .setProperties(setterArgByObject) : a(k, index).setProperties((p: DPoint) => setterArgByObject!(p, index));
       break;
   }
   return res;
