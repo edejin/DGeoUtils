@@ -35,8 +35,8 @@ describe('DPoint', () => {
   describe('Parse', () => {
     test('LatLng', () => {
       const t = DPoint.parse({lat: 10, lng: 20});
-      expect(t.x).toBe(10);
-      expect(t.y).toBe(20);
+      expect(t.x).toBe(20);
+      expect(t.y).toBe(10);
       expect(t.z).toBe(0);
     });
     test('Number[]', () => {

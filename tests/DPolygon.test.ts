@@ -1758,14 +1758,14 @@ describe('DPolygon', () => {
         searchStore: {},
         pPoints: [
           {
-            x: 10,
-            y: 20,
+            x: 20,
+            y: 10,
             z: 0,
             properties: {}
           },
           {
-            x: 30,
-            y: 40,
+            x: 40,
+            y: 30,
             z: 0,
             properties: {}
           }

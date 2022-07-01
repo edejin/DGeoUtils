@@ -75,7 +75,7 @@ export class DPoint {
   static parse(c: LatLng | number[] | DCoord | Point, format: string = 'xyz'): DPoint {
     const {lat, lon, lng = lon, alt} = c as LatLng;
     if (lat && lng) {
-      return new DPoint(lat, lng, alt ?? 0);
+      return new DPoint(lng, lat, alt ?? 0);
     }
     let t = c as DCoord;
     if ((c as Point).type === 'Point') {
