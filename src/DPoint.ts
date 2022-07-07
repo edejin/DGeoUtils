@@ -11,7 +11,8 @@ const radiansPolygon = new DPolygon();
 const pseudoMercatorPolygon = new DPolygon();
 
 const worldGeodeticPolygon = new DPolygon();
-export const EARTH_RADIUS_IN_METERS = 6371008.8;
+// For WGS-84 6378137, for IAU-2009 6378136.6
+export const EARTH_RADIUS_IN_METERS = 6378137;
 
 export type DCoord = [number, number] | [number, number, number];
 
