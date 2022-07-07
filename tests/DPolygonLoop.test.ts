@@ -466,6 +466,74 @@ describe('DPolygonLoop', () => {
         ]);
     });
   });
+  describe('div', () => {
+    test('1', () => {
+      const p = new DPolygon([
+        new DPoint(1, 2),
+        new DPoint(3, 4)
+      ]);
+      expect(p.loop()
+        .scale(2)
+        .move(1)
+        .div(2)
+        .run()
+        .toArrayOfCoords())
+        .toStrictEqual([
+          [1, 2],
+          [3, 4]
+        ]);
+    });
+    test('2', () => {
+      const p = new DPolygon([
+        new DPoint(1, 2),
+        new DPoint(3, 4)
+      ]);
+      expect(p.loop()
+        .scale(2)
+        .move(1)
+        .div(new DPoint(2, 1))
+        .run()
+        .toArrayOfCoords())
+        .toStrictEqual([
+          [1, 5],
+          [3, 9]
+        ]);
+    });
+  });
+  describe('mod', () => {
+    test('1', () => {
+      const p = new DPolygon([
+        new DPoint(1, 2),
+        new DPoint(3, 4)
+      ]);
+      expect(p.loop()
+        .scale(2)
+        .move(1)
+        .mod(2)
+        .run()
+        .toArrayOfCoords())
+        .toStrictEqual([
+          [1, 1],
+          [1, 1]
+        ]);
+    });
+    test('2', () => {
+      const p = new DPolygon([
+        new DPoint(1, 2),
+        new DPoint(3, 4)
+      ]);
+      expect(p.loop()
+        .scale(2)
+        .move(1)
+        .mod(new DPoint(2, 1))
+        .run()
+        .toArrayOfCoords())
+        .toStrictEqual([
+          [1, 0],
+          [1, 0]
+        ]);
+    });
+  });
   describe('degreeToRadians', () => {
     test('1', () => {
       const p = new DPolygon([

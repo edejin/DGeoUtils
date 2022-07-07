@@ -38,7 +38,9 @@ enum LoopFunctions {
   degreeToMeters,
   metersToDegree,
   flipVertically,
-  setProperties
+  setProperties,
+  div,
+  mod
 }
 
 interface PoolRecord {
@@ -134,6 +136,14 @@ const decodePoolRecord = (a: LoopFunction, {
     case LoopFunctions.divide:
       res = (k: DPoint, index: number): DPoint => a(k, index)
         .divide(numberPointArg as number, numberArg as number);
+      break;
+    case LoopFunctions.div:
+      res = (k: DPoint, index: number): DPoint => a(k, index)
+        .div(numberPointArg as number, numberArg as number);
+      break;
+    case LoopFunctions.mod:
+      res = (k: DPoint, index: number): DPoint => a(k, index)
+        .mod(numberPointArg as number, numberArg as number);
       break;
     case LoopFunctions.degreeToRadians:
       res = (k: DPoint, index: number): DPoint => a(k, index)
@@ -454,6 +464,66 @@ export class DPolygonLoop {
   divide(x: number | DPoint, y?: number): DPolygonLoop {
     this.pool.push({
       functionName: LoopFunctions.divide,
+      numberPointArg: x,
+      numberArg: y
+    });
+    return this;
+  }
+
+  /**
+   * [Euclidean division](https://en.wikipedia.org/wiki/Euclidean_division)
+   * Divide `x` and `y` to `v`
+   * @param v
+   */
+  div(v: number): DPolygonLoop;
+
+  /**
+   * [Euclidean division](https://en.wikipedia.org/wiki/Euclidean_division)
+   * Divide `x` field to `p.x` and `y` field to `p.y`.
+   * @param p
+   */
+  div(p: DPoint): DPolygonLoop;
+
+  /**
+   * [Euclidean division](https://en.wikipedia.org/wiki/Euclidean_division)
+   * Divide `x` field to `x` and `y` field to `y`.
+   * @param x
+   * @param y
+   */
+  div(x: number, y: number): DPolygonLoop;
+  div(x: number | DPoint, y?: number): DPolygonLoop {
+    this.pool.push({
+      functionName: LoopFunctions.div,
+      numberPointArg: x,
+      numberArg: y
+    });
+    return this;
+  }
+
+  /**
+   * [Modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)
+   * Divide `x` and `y` to `v`
+   * @param v
+   */
+  mod(v: number): DPolygonLoop;
+
+  /**
+   * [Modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)
+   * Divide `x` field to `p.x` and `y` field to `p.y`.
+   * @param p
+   */
+  mod(p: DPoint): DPolygonLoop;
+
+  /**
+   * [Modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)
+   * Divide `x` field to `x` and `y` field to `y`.
+   * @param x
+   * @param y
+   */
+  mod(x: number, y: number): DPolygonLoop;
+  mod(x: number | DPoint, y?: number): DPolygonLoop {
+    this.pool.push({
+      functionName: LoopFunctions.mod,
       numberPointArg: x,
       numberArg: y
     });
