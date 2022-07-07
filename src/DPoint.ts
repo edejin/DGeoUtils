@@ -23,10 +23,10 @@ export interface LatLng {
   alt?: number;
 }
 
-const EARTH_IN_MITERS = 20037508.34;
+const EARTH_IN_METERS = 20037508.34;
 const DEGREES_IN_EARTH = 180;
-const MITERS_IN_ONE_DEGREE = EARTH_IN_MITERS / DEGREES_IN_EARTH;
-const DEGREES_IN_ONE_MITER = DEGREES_IN_EARTH / EARTH_IN_MITERS;
+const METERS_IN_ONE_DEGREE = EARTH_IN_METERS / DEGREES_IN_EARTH;
+const DEGREES_IN_ONE_METER = DEGREES_IN_EARTH / EARTH_IN_METERS;
 export const HALF_PI_IN_DEGREE = 90;
 export const PI_IN_DEGREE = 180;
 export const DOUBLE_PI_IN_DEGREE = 360;
@@ -493,9 +493,9 @@ export class DPoint {
     checkFunction('degreeToMeters')
       .checkArgument('this')
       .shouldBeDegree(this);
-    const x = ((this.x + PI_IN_DEGREE) % DOUBLE_PI_IN_DEGREE - PI_IN_DEGREE) * MITERS_IN_ONE_DEGREE;
+    const x = ((this.x + PI_IN_DEGREE) % DOUBLE_PI_IN_DEGREE - PI_IN_DEGREE) * METERS_IN_ONE_DEGREE;
     const y = (Math.log(Math.tan(((this.y + HALF_PI_IN_DEGREE) % PI_IN_DEGREE) *
-      (Math.PI / DOUBLE_PI_IN_DEGREE))) / PI_TO_DEGREE) * MITERS_IN_ONE_DEGREE;
+      (Math.PI / DOUBLE_PI_IN_DEGREE))) / PI_TO_DEGREE) * METERS_IN_ONE_DEGREE;
     this.x = x;
     this.y = y;
     return this;
@@ -505,8 +505,8 @@ export class DPoint {
     checkFunction('metersToDegree')
       .checkArgument('this')
       .shouldBeMeters(this);
-    const lon = this.x * DEGREES_IN_ONE_MITER;
-    const lat = Math.atan(Math.E ** ((this.y / MITERS_IN_ONE_DEGREE) * PI_TO_DEGREE)) *
+    const lon = this.x * DEGREES_IN_ONE_METER;
+    const lat = Math.atan(Math.E ** ((this.y / METERS_IN_ONE_DEGREE) * PI_TO_DEGREE)) *
       (DOUBLE_PI_IN_DEGREE / Math.PI) - HALF_PI_IN_DEGREE;
     this.x = lon;
     this.y = lat;
