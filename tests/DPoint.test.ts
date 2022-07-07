@@ -979,6 +979,56 @@ describe('DPoint', () => {
     });
   });
 
+  describe('mod', () => {
+    test('by number', () => {
+      expect(new DPoint(1, 1).mod(7)
+        .equal(new DPoint(1, 1))).toBe(true);
+    });
+    test('by three numbers', () => {
+      expect(new DPoint(1, 1, 1).mod(7, 7, 7)
+        .equal(new DPoint(1, 1, 1))).toBe(true);
+    });
+    test('by 3d point', () => {
+      expect(new DPoint(1, 1, 1).mod(new DPoint(7, 7, 7))
+        .equal(new DPoint(1, 1, 1))).toBe(true);
+    });
+    test('by two numbers', () => {
+      expect(new DPoint(1, 2).mod(7, 3)
+        .equal(new DPoint(1, 2))).toBe(true);
+    });
+    test('by point', () => {
+      const t1 = new DPoint(1, 2);
+      const t2 = new DPoint(3, 5);
+      const t3 = new DPoint(1, 2);
+      expect(t1.mod(t2).equal(t3)).toBe(true);
+    });
+  });
+
+  describe('div', () => {
+    test('by number', () => {
+      expect(new DPoint(1, 1).div(7)
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('by three numbers', () => {
+      expect(new DPoint(1, 1, 1).div(7, 7, 7)
+        .equal(new DPoint(0, 0, 0))).toBe(true);
+    });
+    test('by 3d point', () => {
+      expect(new DPoint(1, 1, 1).div(new DPoint(7, 7, 7))
+        .equal(new DPoint(0, 0, 0))).toBe(true);
+    });
+    test('by two numbers', () => {
+      expect(new DPoint(1, 2).div(7, 3)
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('by point', () => {
+      const t1 = new DPoint(1, 2);
+      const t2 = new DPoint(3, 5);
+      const t3 = new DPoint(0, 0);
+      expect(t1.div(t2).equal(t3)).toBe(true);
+    });
+  });
+
   describe('scale', () => {
     test('by number', () => {
       expect(new DPoint(1, 1).scale(7)

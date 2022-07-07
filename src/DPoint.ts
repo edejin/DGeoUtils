@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 import {DLine} from './DLine';
 import {DPolygon} from './DPolygon';
-import {checkFunction, createArray, isDefAndNotNull} from './utils';
+import {checkFunction, createArray, div, isDefAndNotNull} from './utils';
 import {Point} from 'geojson';
 
 const diff = 0;
@@ -667,6 +667,118 @@ export class DPoint {
       yV = this.y / y;
       if (isDefAndNotNull(this.z) && isDefAndNotNull(z)) {
         zV = this.z! / z!;
+      }
+    }
+    this.x = xV;
+    this.y = yV;
+    if (isDefAndNotNull(zV)) {
+      this.z = zV;
+    }
+    return this;
+  }
+
+  /**
+   * [Modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)
+   * Divide `x`, `y` and `z` (if `z` exist) to `v`
+   * @param v
+   */
+  mod(v: number): DPoint;
+
+  /**
+   * [Modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)
+   * Divide `x` field to `p.x`, `y` field to `p.y` and `z` field to `p.z` (if `z` exist).
+   * @param p
+   */
+  mod(p: DPoint): DPoint;
+
+  /**
+   * [Modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)
+   * Divide `x` field to `x` and `y` field to `y`.
+   * @param x
+   * @param y
+   */
+  mod(x: number, y: number): DPoint;
+
+  /**
+   * [Modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)
+   * Divide `x` field to `x`, `y` field to `y` and `z` field to `z`.
+   * @param x
+   * @param y
+   * @param z
+   */
+  mod(x: number, y: number, z: number): DPoint;
+  mod(x: number | DPoint, y: number = (x as number), z?: number): DPoint {
+    let xV = 0;
+    let yV = 0;
+    // eslint-disable-next-line no-undef-init
+    let zV: number | undefined = undefined;
+    if (x instanceof DPoint) {
+      xV = this.x % x.x;
+      yV = this.y % x.y;
+      if (isDefAndNotNull(this.z) && isDefAndNotNull(x.z)) {
+        zV = this.z! % x.z!;
+      }
+    } else {
+      xV = this.x % (x as number);
+      yV = this.y % y;
+      if (isDefAndNotNull(this.z) && isDefAndNotNull(z)) {
+        zV = this.z! % z!;
+      }
+    }
+    this.x = xV;
+    this.y = yV;
+    if (isDefAndNotNull(zV)) {
+      this.z = zV;
+    }
+    return this;
+  }
+
+  /**
+   * [Euclidean division](https://en.wikipedia.org/wiki/Euclidean_division)
+   * Divide `x`, `y` and `z` (if `z` exist) to `v`
+   * @param v
+   */
+  div(v: number): DPoint;
+
+  /**
+   * [Euclidean division](https://en.wikipedia.org/wiki/Euclidean_division)
+   * Divide `x` field to `p.x`, `y` field to `p.y` and `z` field to `p.z` (if `z` exist).
+   * @param p
+   */
+  div(p: DPoint): DPoint;
+
+  /**
+   * [Euclidean division](https://en.wikipedia.org/wiki/Euclidean_division)
+   * Divide `x` field to `x` and `y` field to `y`.
+   * @param x
+   * @param y
+   */
+  div(x: number, y: number): DPoint;
+
+  /**
+   * [Euclidean division](https://en.wikipedia.org/wiki/Euclidean_division)
+   * Divide `x` field to `x`, `y` field to `y` and `z` field to `z`.
+   * @param x
+   * @param y
+   * @param z
+   */
+  div(x: number, y: number, z: number): DPoint;
+  div(x: number | DPoint, y: number = (x as number), z?: number): DPoint {
+    let xV = 0;
+    let yV = 0;
+    // eslint-disable-next-line no-undef-init
+    let zV: number | undefined = undefined;
+    if (x instanceof DPoint) {
+      xV = div(this.x, x.x);
+      yV = div(this.y, x.y);
+      if (isDefAndNotNull(this.z) && isDefAndNotNull(x.z)) {
+        zV = div(this.z!, x.z!);
+      }
+    } else {
+      xV = div(this.x, (x as number));
+      yV = div(this.y, y);
+      if (isDefAndNotNull(this.z) && isDefAndNotNull(z)) {
+        zV = div(this.z!, z!);
       }
     }
     this.x = xV;

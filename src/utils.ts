@@ -326,3 +326,6 @@ export const getCombinations = <T>(arr: T[][]): T[][] => {
   }
   return ans;
 };
+
+export const div = (a: number, b: number): number => Math.floor(a / b);
+
