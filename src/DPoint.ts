@@ -1019,7 +1019,7 @@ export class DPoint {
       const distance1 = this.distance(p1);
       const distance2 = this.distance(p2);
       const totalDistance = distance1 + distance2;
-      if (p1.alt === minAlt) {
+      if ((p1.alt ?? 0) === minAlt) {
         this.alt = minAlt + distance1 / totalDistance * dAlt;
       } else {
         this.alt = minAlt + distance2 / totalDistance * dAlt;

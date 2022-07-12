@@ -39,6 +39,12 @@ describe('DPoint', () => {
       expect(t.y).toBe(10);
       expect(t.z).toBe(0);
     });
+    test('LatLngAlt', () => {
+      const t = DPoint.parse({lat: 10, lng: 20, alt: 30});
+      expect(t.x).toBe(20);
+      expect(t.y).toBe(10);
+      expect(t.z).toBe(30);
+    });
     test('Number[]', () => {
       const t = DPoint.parse([11, 12, 13, 14]);
       expect(t.x).toBe(11);
@@ -1508,6 +1514,9 @@ describe('DPoint', () => {
     test('3', () => {
       expect(DPoint.getTileFromQuadKey('021').toCoords()).toEqual([1, 2, 3]);
     });
+    test('4', () => {
+      expect(() => DPoint.getTileFromQuadKey('Hi!')).toThrow('Invalid QuadKey digit sequence.');
+    });
   });
 
   describe('toGeoJSON', () => {
@@ -1537,6 +1546,8 @@ describe('DPoint', () => {
       expect(t.lat).toBe(21);
       expect(t.lng).toBe(11);
       expect(t.alt).toBe(undefined);
+      t.lng = 12;
+      expect(t.lng).toBe(12);
     });
   });
 
@@ -1625,6 +1636,24 @@ describe('DPoint', () => {
       const p1 = new DPoint(1, 1, 1);
       const r = new DPoint(0.1, 0.1);
       expect(r.calculateAltitudeByDistanceBetweenPoints(p1, p2).alt!.toFixed(2)).toBe('0.10');
+    });
+    test('7', () => {
+      const p2 = new DPoint(0, 0);
+      const p1 = new DPoint(1, 1, 1);
+      const r = new DPoint(0.1, 0.1);
+      expect(r.calculateAltitudeByDistanceBetweenPoints(p1, p2).alt!.toFixed(2)).toBe('0.10');
+    });
+    test('8', () => {
+      const p2 = new DPoint(0, 0, 1);
+      const p1 = new DPoint(1, 1);
+      const r = new DPoint(0.1, 0.1);
+      expect(r.calculateAltitudeByDistanceBetweenPoints(p1, p2).alt!.toFixed(2)).toBe('0.90');
+    });
+    test('9', () => {
+      const p2 = new DPoint(0, 0);
+      const p1 = new DPoint(1, 1);
+      const r = new DPoint(0.1, 0.1);
+      expect(r.calculateAltitudeByDistanceBetweenPoints(p1, p2).alt!).toBe(undefined);
     });
   });
 });

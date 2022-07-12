@@ -849,6 +849,10 @@ describe('DPolygon', () => {
         '(20 30, 35 35, 30 20, 20 30))').toWKT()).toBe('POLYGON ((35 10, 45 45, 15 40, 10 20, 35 10), ' +
         '(20 30, 35 35, 30 20, 20 30))');
     });
+    test('2', () => {
+      expect(DPolygon.parseFromWKT('LINESTRING (35 10 1, 45 45 1, 15 40 1, 10 20 1)')
+        .toWKT(DPolygon.WKT_LINESTRING, true)).toBe('LINESTRING (35 10 1, 45 45 1, 15 40 1, 10 20 1)');
+    });
   });
 
   describe('minAreaRectangleDirection', () => {
@@ -1543,6 +1547,9 @@ describe('DPolygon', () => {
     });
     test('2', () => {
       expect(t1.findIndex(DPoint.zero())).toBe(-1);
+    });
+    test('3', () => {
+      expect(t1.findIndex(t1.at(2))).toBe(2);
     });
   });
 
@@ -2778,6 +2785,16 @@ describe('DPolygon', () => {
           1
         ]);
     });
+    test('2', () => {
+      const p = DPolygon.parseFromWKT('POLYGON ((1 1 1, 4 1 1, 4 2 1, 2 2 1, 2 3 1, 5 3 1, 5 4 1, 3 4 1, 3 5 1,' +
+        ' 4 5 1, 4 6 1, 1 6 1, 1 5 1, 2 5 1, 2 4 1, 1 4 1), (1.2 1.2 1, 1.8 1.2 1, 1.8 3.8 1, 1.2 3.8 1),' +
+        ' (32 32 1, 32 38 1, 38 38 1, 38 32 1))')
+        .loop()
+        .scale(10)
+        .run()
+        .close();
+      expect(() => p.toTriangles()).toThrow('contains2 faild');
+    });
   });
 
   describe('buffer', () => {
@@ -3660,6 +3677,23 @@ describe('DPolygon', () => {
         .toGeoJSON()).toEqual({
         type: 'Polygon',
         coordinates: [[[1, 2], [3, 2], [2, 2], [6, 2], [1, 2]]]
+      });
+    });
+    test('3', () => {
+      const t = new DPolygon([
+        new DPoint(1, 2),
+        new DPoint(3, 2),
+        new DPoint(2, 2),
+        new DPoint(6, 2)
+      ]).close();
+      t.holes.push(DPolygon.parse([
+        [1, 1],
+        [1.1, 1],
+        [1, 1.1]
+      ]));
+      expect(t.toGeoJSON()).toEqual({
+        type: 'Polygon',
+        coordinates: [[[1, 2], [3, 2], [2, 2], [6, 2], [1, 2]], [[1, 1], [1.1, 1], [1, 1.1]]]
       });
     });
   });
