@@ -141,6 +141,12 @@ describe('utils', () => {
     test('1', () => {
       expect(createArray(2, 7)).toEqual([7, 7]);
     });
+    test('2', () => {
+      expect(createArray(3, () => 8)).toEqual([8, 8, 8]);
+    });
+    test('3', () => {
+      expect(createArray(4, (i: number) => i * 2)).toEqual([0, 2, 4, 6]);
+    });
   });
   describe('createMatrix', () => {
     test('1', () => {
@@ -148,6 +154,27 @@ describe('utils', () => {
         [0, 0],
         [0, 0],
         [0, 0]
+      ]);
+    });
+    test('2', () => {
+      expect(createMatrix(new DPoint(2, 3), 4)).toEqual([
+        [4, 4],
+        [4, 4],
+        [4, 4]
+      ]);
+    });
+    test('3', () => {
+      expect(createMatrix(new DPoint(2, 3), () => 5)).toEqual([
+        [5, 5],
+        [5, 5],
+        [5, 5]
+      ]);
+    });
+    test('4', () => {
+      expect(createMatrix(new DPoint(2, 3), (x, y) => x * 10 + y)).toEqual([
+        [0, 10],
+        [1, 11],
+        [2, 12]
       ]);
     });
   });

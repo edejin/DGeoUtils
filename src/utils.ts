@@ -127,21 +127,35 @@ export const checkFunction = (funcName: string): CheckFunction => ({
   }
 });
 
+type ArrayFillFunction<T> = (index: number) => T;
+
 /**
  * @param v
  * @param [fillSymbol=0]
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const createArray = (v: number, fillSymbol: any = 0): number[] => new Array(v).fill(fillSymbol);
+export const createArray = <T = number>(v: number, fillSymbol?: T | ArrayFillFunction<T>): T[] => {
+  if (typeof fillSymbol === 'function') {
+    return new Array(v).fill(false)
+      .map((_, i) => (fillSymbol as ArrayFillFunction<T>)(i));
+  }
+  return new Array(v).fill(fillSymbol ?? 0);
+};
+
+type MatrixFillFunction<T> = (x: number, y: number) => T;
 
 /**
  * @param h
  * @param w
  * @param [fillSymbol=0]
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const createMatrix = ({h, w}: DPoint, fillSymbol: any = 0): number[][] => createArray(h)
-  .map(() => createArray(w, fillSymbol));
+export const createMatrix = <T>({h, w}: DPoint, fillSymbol?: T | MatrixFillFunction<T>): T[][] => {
+  if (typeof fillSymbol === 'function') {
+    return createArray(h)
+      .map((_, y) => createArray<T>(w, (x) => (fillSymbol as MatrixFillFunction<T>)(x, y)));
+  }
+  return createArray(h)
+    .map(() => createArray<T>(w, fillSymbol));
+};
 
 /**
  * [Gaussian elimination](https://en.wikipedia.org/wiki/Gaussian_elimination)
@@ -157,7 +171,7 @@ export const gaussianElimination: {
   MIN: number;
 } = (matrix: number[][]): number[] => {
   const n = matrix.length;
-  const matrixClone = createMatrix(new DPoint(n + 1, n));
+  const matrixClone = createMatrix<number>(new DPoint(n + 1, n));
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < n + 1; j++) {
       matrix[i][j] = matrix[i][j] === 0 ? gaussianElimination.MIN : matrix[i][j];
