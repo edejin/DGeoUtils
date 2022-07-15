@@ -37,7 +37,7 @@ type SetterFunction<T> = (t: DPoint) => T;
 
 export class DPoint {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  properties: { [key: string]: any } = {};
+  properties: Record<string, any> = {};
 
   /**
    * Create point with zero coords `(0, 0)`
