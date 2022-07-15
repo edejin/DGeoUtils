@@ -952,11 +952,14 @@ export class DPoint {
     this.z = v;
   }
 
-  simple(xKey: string = 'x', yKey: string = 'y'): { [key: string]: number } {
+  simple<T extends Record<string, number>>(xKey: string = 'x', yKey: string = 'y', zKey: string = 'z'): T {
     return {
       [xKey]: this.x,
-      [yKey]: this.y
-    };
+      [yKey]: this.y,
+      ...(isDefAndNotNull(this.z) ? {
+        [zKey]: this.z
+      } : {})
+    } as T;
   }
 
   setIfLessThan(p: DPoint): DPoint {

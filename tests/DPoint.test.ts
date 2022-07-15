@@ -513,11 +513,17 @@ describe('DPoint', () => {
     test('without params', () => {
       expect(new DPoint(4, 5).simple()).toEqual({x: 4, y: 5});
     });
+    test('without params 2', () => {
+      expect(new DPoint(4, 5, 6).simple()).toEqual({x: 4, y: 5, z: 6});
+    });
     test('x key only', () => {
       expect(new DPoint(4, 5).simple('aaa')).toEqual({aaa: 4, y: 5});
     });
     test('both keys', () => {
       expect(new DPoint(4, 5).simple('key1', 'key2')).toEqual({key1: 4, key2: 5});
+    });
+    test('all keys', () => {
+      expect(new DPoint(4, 5, 6).simple('key1', 'key2', 'key3')).toEqual({key1: 4, key2: 5, key3: 6});
     });
   });
 
