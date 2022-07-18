@@ -1,7 +1,13 @@
 import {DPoint} from './DPoint';
 
-export const DGeo = {
-  DEBUG: false
+interface DGeoInterface {
+  DEBUG: boolean;
+  parseFormat: string;
+}
+
+export const DGeo: DGeoInterface = {
+  DEBUG: false,
+  parseFormat: 'xyz'
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

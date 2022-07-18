@@ -6,7 +6,7 @@ import {DNumbers} from './DNumbers';
 import {io as jstsIo, geom, operation} from 'jsts';
 import Geometry = geom.Geometry;
 import {DPolygonLoop} from './DPolygonLoop';
-import {isDefAndNotNull, True} from './utils';
+import {DGeo, isDefAndNotNull, True} from './utils';
 import {
   GeometryCollection,
   LineString,
@@ -940,11 +940,14 @@ export class DPolygon {
     return this;
   }
 
+  /**
+   * @param polygons
+   * @param [format='xyz'] Default value `DGeo.parseFormat`
+   */
   static toGeoJSONFeatureCollection(
     polygons: DPolygon[],
-    format: string = 'xyz'
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ): FeatureCollection<LineString | Polygon, Record<string, any>> {
+    format: string = DGeo.parseFormat
+  ): FeatureCollection<LineString | Polygon> {
     return {
       type: 'FeatureCollection',
       features: polygons.map((polygon) => polygon.toGeoJSONFeature(format))
@@ -954,28 +957,28 @@ export class DPolygon {
   /**
    * Parse from [OpenLayers](https://openlayers.org/) coordinates
    * @param a
-   * @param [format='xyz']
+   * @param [format='xyz'] Default value `DGeo.parseFormat`
    */
   static parse(a: LatLng[], format?: string): DPolygon;
 
   /**
    * Parse from [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) coordinates
    * @param a
-   * @param [format='xyz']
+   * @param [format='xyz'] Default value `DGeo.parseFormat`
    */
   static parse(a: number[][], format?: string): DPolygon;
 
   /**
    * Parse from [OpenLayers](https://openlayers.org/) coordinates
    * @param a
-   * @param [format='xyz']
+   * @param [format='xyz'] Default value `DGeo.parseFormat`
    */
   static parse(a: DCoord[], format?: string): DPolygon;
 
   /**
    * Parse from GeoJSON
    * @param a
-   * @param [format='xyz']
+   * @param [format='xyz'] Default value `DGeo.parseFormat`
    */
   static parse(
     a: GeoJsonGeometry | Feature | FeatureCollection<LineString | Polygon>,
@@ -984,7 +987,7 @@ export class DPolygon {
 
   static parse(
     a: LatLng[] | number[][] | DCoord[] | GeoJsonGeometry | Feature | FeatureCollection<LineString | Polygon>,
-    format: string = 'xyz'
+    format: string = DGeo.parseFormat
   ): DPolygon | DeepArray<DPolygon> {
     if ((a as GeoJsonGeometry).type) {
       switch ((a as GeoJsonGeometry | Feature | FeatureCollection).type) {
@@ -1046,14 +1049,13 @@ export class DPolygon {
   /**
    * Transform to array of coordinates for [OpenLayers](https://openlayers.org/) or
    * [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON)
-   * @param [format='xyz']
+   * @param [format='xyz'] Default value `DGeo.parseFormat`
    */
-  toArrayOfCoords(format: string = 'xyz'): DCoord[] {
+  toArrayOfCoords(format: string = DGeo.parseFormat): DCoord[] {
     return this.mapArray((r) => r.toCoords(format));
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  toGeoJSONFeature(format: string = 'xyz'): Feature<LineString | Polygon, Record<string, any>> {
+  toGeoJSONFeature(format: string = DGeo.parseFormat): Feature<LineString | Polygon> {
     return {
       type: 'Feature',
       properties: {
@@ -1063,7 +1065,7 @@ export class DPolygon {
     };
   }
 
-  toGeoJSON(format: string = 'xyz'): LineString | Polygon {
+  toGeoJSON(format: string = DGeo.parseFormat): LineString | Polygon {
     if (this.closed) {
       return {
         type: 'Polygon',

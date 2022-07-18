@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 import {DLine} from './DLine';
 import {DPolygon} from './DPolygon';
-import {checkFunction, createArray, div, isDefAndNotNull} from './utils';
+import {checkFunction, createArray, DGeo, div, isDefAndNotNull} from './utils';
 import {Point} from 'geojson';
 
 const diff = 0;
@@ -72,9 +72,9 @@ export class DPoint {
 
   /**
    * @param c
-   * @param [format='xyz']
+   * @param [format='xyz'] Default value `DGeo.parseFormat`
    */
-  static parse(c: LatLng | number[] | DCoord | Point, format: string = 'xyz'): DPoint {
+  static parse(c: LatLng | number[] | DCoord | Point, format: string = DGeo.parseFormat): DPoint {
     const {lat, lon, lng = lon, alt} = c as LatLng;
     if (lat && lng) {
       return new DPoint(lng, lat, alt ?? 0);
@@ -210,9 +210,9 @@ export class DPoint {
   }
 
   /**
-   * @param [format='xyz']
+   * @param [format='xyz'] Default value `DGeo.parseFormat`
    */
-  toCoords(format: string = 'xyz'): DCoord {
+  toCoords(format: string = DGeo.parseFormat): DCoord {
     return format.replace(/[^x-z]/gmiu, '').split('')
       .map((k) => ({
         x: this.x,
@@ -222,7 +222,10 @@ export class DPoint {
       .filter((r) => r !== undefined) as DCoord;
   }
 
-  toGeoJSON(format: string = 'xyz'): Point {
+  /**
+   * @param [format='xyz'] Default value `DGeo.parseFormat`
+   */
+  toGeoJSON(format: string = DGeo.parseFormat): Point {
     return {
       type: 'Point',
       coordinates: this.toCoords(format)
