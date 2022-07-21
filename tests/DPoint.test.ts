@@ -1540,6 +1540,33 @@ describe('DPoint', () => {
     });
   });
 
+  describe('toGeoJSONFeature', () => {
+    test('1', () => {
+      expect(new DPoint(1, 2).toGeoJSONFeature()).toStrictEqual({
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [1, 2]
+        },
+        properties: {}
+      });
+    });
+    test('2', () => {
+      const t = new DPoint(1, 2, 3);
+      t.properties.a = 'a';
+      expect(t.toGeoJSONFeature('yxz')).toStrictEqual({
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [2, 1, 3]
+        },
+        properties: {
+          a: 'a'
+        }
+      });
+    });
+  });
+
   describe('getters', () => {
     test('1', () => {
       const t = new DPoint(11, 21, 31);
