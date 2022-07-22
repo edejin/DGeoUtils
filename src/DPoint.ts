@@ -23,6 +23,13 @@ export interface LatLng {
   alt?: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export interface XYZ extends Record<string, any> {
+  x: number;
+  y: number;
+  z?: number;
+}
+
 const EARTH_IN_METERS = 20037508.34;
 const DEGREES_IN_EARTH = 180;
 const METERS_IN_ONE_DEGREE = EARTH_IN_METERS / DEGREES_IN_EARTH;
@@ -74,10 +81,17 @@ export class DPoint {
    * @param c
    * @param [format='xyz'] Default value `DGeo.parseFormat`
    */
-  static parse(c: LatLng | number[] | DCoord | Point | Feature<Point>, format: string = DGeo.parseFormat): DPoint {
+  static parse(
+    c: LatLng | number[] | DCoord | Point | Feature<Point> | XYZ,
+    format: string = DGeo.parseFormat
+  ): DPoint {
     const {lat, lon, lng = lon, alt} = c as LatLng;
     if (lat && lng) {
       return new DPoint(lng, lat, alt ?? 0);
+    }
+    const {x, y, z, ...properties} = c as XYZ;
+    if (isDefAndNotNull(x) && isDefAndNotNull(y)) {
+      return new DPoint(x, y, z).setProperties(properties);
     }
     let t = c as DCoord;
     if ((c as Point).type === 'Point') {

@@ -100,6 +100,36 @@ describe('DPoint', () => {
       expect(t.z).toBe(3);
       expect(t.properties.a).toBe('a');
     });
+    test('XY', () => {
+      const t = DPoint.parse({
+        x: 1,
+        y: 2
+      });
+      expect(t.x).toBe(1);
+      expect(t.y).toBe(2);
+    });
+    test('XYZ', () => {
+      const t = DPoint.parse({
+        x: 1,
+        y: 2,
+        z: 3
+      });
+      expect(t.x).toBe(1);
+      expect(t.y).toBe(2);
+      expect(t.z).toBe(3);
+    });
+    test('XYZ with props', () => {
+      const t = DPoint.parse({
+        x: 1,
+        y: 2,
+        z: 3,
+        a: 'a'
+      });
+      expect(t.x).toBe(1);
+      expect(t.y).toBe(2);
+      expect(t.z).toBe(3);
+      expect(t.properties.a).toBe('a');
+    });
   });
 
   describe('Parse from WKT', () => {
