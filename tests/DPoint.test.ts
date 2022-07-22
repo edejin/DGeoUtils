@@ -84,6 +84,22 @@ describe('DPoint', () => {
       expect(t.y).toBe(2);
       expect(t.z).toBe(3);
     });
+    test('GeoJSONFeature', () => {
+      const t = DPoint.parse({
+        type: 'Feature',
+        geometry: {
+          type: 'Point',
+          coordinates: [3, 2, 1]
+        },
+        properties: {
+          a: 'a'
+        }
+      }, 'zyx');
+      expect(t.x).toBe(1);
+      expect(t.y).toBe(2);
+      expect(t.z).toBe(3);
+      expect(t.properties.a).toBe('a');
+    });
   });
 
   describe('Parse from WKT', () => {

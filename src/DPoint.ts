@@ -74,7 +74,7 @@ export class DPoint {
    * @param c
    * @param [format='xyz'] Default value `DGeo.parseFormat`
    */
-  static parse(c: LatLng | number[] | DCoord | Point, format: string = DGeo.parseFormat): DPoint {
+  static parse(c: LatLng | number[] | DCoord | Point | Feature<Point>, format: string = DGeo.parseFormat): DPoint {
     const {lat, lon, lng = lon, alt} = c as LatLng;
     if (lat && lng) {
       return new DPoint(lng, lat, alt ?? 0);
@@ -82,6 +82,13 @@ export class DPoint {
     let t = c as DCoord;
     if ((c as Point).type === 'Point') {
       t = (c as Point).coordinates as DCoord;
+    }
+    if ((c as Feature<Point>).type === 'Feature') {
+      const f = DPoint.parse((c as Feature<Point>).geometry, format);
+      f.properties = {
+        ...(c as Feature<Point>).properties
+      };
+      return f;
     }
     return format.replace(/[^x-z]/gmiu, '')
       .split('')
