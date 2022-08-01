@@ -1002,6 +1002,12 @@ export class DPoint {
     return this;
   }
 
+  setIfMoreThan(p: DPoint): DPoint {
+    this.x = Math.min(this.x, p.x);
+    this.y = Math.min(this.y, p.y);
+    return this;
+  }
+
   minus(): DPoint {
     return this.scale(-1);
   }

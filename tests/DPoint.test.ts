@@ -900,6 +900,333 @@ describe('DPoint', () => {
     });
   });
 
+  describe('setIfMoreThan', () => {
+    test('(2, 2) (2, 2)', () => {
+      expect(new DPoint(2, 2).setIfMoreThan(new DPoint(2, 2))
+        .equal(new DPoint(2, 2))).toBe(true);
+    });
+    test('(1, 2) (2, 2)', () => {
+      expect(new DPoint(1, 2).setIfMoreThan(new DPoint(2, 2))
+        .equal(new DPoint(1, 2))).toBe(true);
+    });
+    test('(0, 2) (2, 2)', () => {
+      expect(new DPoint(0, 2).setIfMoreThan(new DPoint(2, 2))
+        .equal(new DPoint(0, 2))).toBe(true);
+    });
+    test('(2, 1) (2, 2)', () => {
+      expect(new DPoint(2, 1).setIfMoreThan(new DPoint(2, 2))
+        .equal(new DPoint(2, 1))).toBe(true);
+    });
+    test('(1, 1) (2, 2)', () => {
+      expect(new DPoint(1, 1).setIfMoreThan(new DPoint(2, 2))
+        .equal(new DPoint(1, 1))).toBe(true);
+    });
+    test('(0, 1) (2, 2)', () => {
+      expect(new DPoint(0, 1).setIfMoreThan(new DPoint(2, 2))
+        .equal(new DPoint(0, 1))).toBe(true);
+    });
+    test('(2, 0) (2, 2)', () => {
+      expect(new DPoint(2, 0).setIfMoreThan(new DPoint(2, 2))
+        .equal(new DPoint(2, 0))).toBe(true);
+    });
+    test('(1, 0) (2, 2)', () => {
+      expect(new DPoint(1, 0).setIfMoreThan(new DPoint(2, 2))
+        .equal(new DPoint(1, 0))).toBe(true);
+    });
+    test('(0, 0) (2, 2)', () => {
+      expect(new DPoint(0, 0).setIfMoreThan(new DPoint(2, 2))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(2, 2) (1, 2)', () => {
+      expect(new DPoint(2, 2).setIfMoreThan(new DPoint(1, 2))
+        .equal(new DPoint(1, 2))).toBe(true);
+    });
+    test('(1, 2) (1, 2)', () => {
+      expect(new DPoint(1, 2).setIfMoreThan(new DPoint(1, 2))
+        .equal(new DPoint(1, 2))).toBe(true);
+    });
+    test('(0, 2) (1, 2)', () => {
+      expect(new DPoint(0, 2).setIfMoreThan(new DPoint(1, 2))
+        .equal(new DPoint(0, 2))).toBe(true);
+    });
+    test('(2, 1) (1, 2)', () => {
+      expect(new DPoint(2, 1).setIfMoreThan(new DPoint(1, 2))
+        .equal(new DPoint(1, 1))).toBe(true);
+    });
+    test('(1, 1) (1, 2)', () => {
+      expect(new DPoint(1, 1).setIfMoreThan(new DPoint(1, 2))
+        .equal(new DPoint(1, 1))).toBe(true);
+    });
+    test('(0, 1) (1, 2)', () => {
+      expect(new DPoint(0, 1).setIfMoreThan(new DPoint(1, 2))
+        .equal(new DPoint(0, 1))).toBe(true);
+    });
+    test('(2, 0) (1, 2)', () => {
+      expect(new DPoint(2, 0).setIfMoreThan(new DPoint(1, 2))
+        .equal(new DPoint(1, 0))).toBe(true);
+    });
+    test('(1, 0) (1, 2)', () => {
+      expect(new DPoint(1, 0).setIfMoreThan(new DPoint(1, 2))
+        .equal(new DPoint(1, 0))).toBe(true);
+    });
+    test('(0, 0) (1, 2)', () => {
+      expect(new DPoint(0, 0).setIfMoreThan(new DPoint(1, 2))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(2, 2) (0, 2)', () => {
+      expect(new DPoint(2, 2).setIfMoreThan(new DPoint(0, 2))
+        .equal(new DPoint(0, 2))).toBe(true);
+    });
+    test('(1, 2) (0, 2)', () => {
+      expect(new DPoint(1, 2).setIfMoreThan(new DPoint(0, 2))
+        .equal(new DPoint(0, 2))).toBe(true);
+    });
+    test('(0, 2) (0, 2)', () => {
+      expect(new DPoint(0, 2).setIfMoreThan(new DPoint(0, 2))
+        .equal(new DPoint(0, 2))).toBe(true);
+    });
+    test('(2, 1) (0, 2)', () => {
+      expect(new DPoint(2, 1).setIfMoreThan(new DPoint(0, 2))
+        .equal(new DPoint(0, 1))).toBe(true);
+    });
+    test('(1, 1) (0, 2)', () => {
+      expect(new DPoint(1, 1).setIfMoreThan(new DPoint(0, 2))
+        .equal(new DPoint(0, 1))).toBe(true);
+    });
+    test('(0, 1) (0, 2)', () => {
+      expect(new DPoint(0, 1).setIfMoreThan(new DPoint(0, 2))
+        .equal(new DPoint(0, 1))).toBe(true);
+    });
+    test('(2, 0) (0, 2)', () => {
+      expect(new DPoint(2, 0).setIfMoreThan(new DPoint(0, 2))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(1, 0) (0, 2)', () => {
+      expect(new DPoint(1, 0).setIfMoreThan(new DPoint(0, 2))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(0, 0) (0, 2)', () => {
+      expect(new DPoint(0, 0).setIfMoreThan(new DPoint(0, 2))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(2, 2) (2, 1)', () => {
+      expect(new DPoint(2, 2).setIfMoreThan(new DPoint(2, 1))
+        .equal(new DPoint(2, 1))).toBe(true);
+    });
+    test('(1, 2) (2, 1)', () => {
+      expect(new DPoint(1, 2).setIfMoreThan(new DPoint(2, 1))
+        .equal(new DPoint(1, 1))).toBe(true);
+    });
+    test('(0, 2) (2, 1)', () => {
+      expect(new DPoint(0, 2).setIfMoreThan(new DPoint(2, 1))
+        .equal(new DPoint(0, 1))).toBe(true);
+    });
+    test('(2, 1) (2, 1)', () => {
+      expect(new DPoint(2, 1).setIfMoreThan(new DPoint(2, 1))
+        .equal(new DPoint(2, 1))).toBe(true);
+    });
+    test('(1, 1) (2, 1)', () => {
+      expect(new DPoint(1, 1).setIfMoreThan(new DPoint(2, 1))
+        .equal(new DPoint(1, 1))).toBe(true);
+    });
+    test('(0, 1) (2, 1)', () => {
+      expect(new DPoint(0, 1).setIfMoreThan(new DPoint(2, 1))
+        .equal(new DPoint(0, 1))).toBe(true);
+    });
+    test('(2, 0) (2, 1)', () => {
+      expect(new DPoint(2, 0).setIfMoreThan(new DPoint(2, 1))
+        .equal(new DPoint(2, 0))).toBe(true);
+    });
+    test('(1, 0) (2, 1)', () => {
+      expect(new DPoint(1, 0).setIfMoreThan(new DPoint(2, 1))
+        .equal(new DPoint(1, 0))).toBe(true);
+    });
+    test('(0, 0) (2, 1)', () => {
+      expect(new DPoint(0, 0).setIfMoreThan(new DPoint(2, 1))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(2, 2) (1, 1)', () => {
+      expect(new DPoint(2, 2).setIfMoreThan(new DPoint(1, 1))
+        .equal(new DPoint(1, 1))).toBe(true);
+    });
+    test('(1, 2) (1, 1)', () => {
+      expect(new DPoint(1, 2).setIfMoreThan(new DPoint(1, 1))
+        .equal(new DPoint(1, 1))).toBe(true);
+    });
+    test('(0, 2) (1, 1)', () => {
+      expect(new DPoint(0, 2).setIfMoreThan(new DPoint(1, 1))
+        .equal(new DPoint(0, 1))).toBe(true);
+    });
+    test('(2, 1) (1, 1)', () => {
+      expect(new DPoint(2, 1).setIfMoreThan(new DPoint(1, 1))
+        .equal(new DPoint(1, 1))).toBe(true);
+    });
+    test('(1, 1) (1, 1)', () => {
+      expect(new DPoint(1, 1).setIfMoreThan(new DPoint(1, 1))
+        .equal(new DPoint(1, 1))).toBe(true);
+    });
+    test('(0, 1) (1, 1)', () => {
+      expect(new DPoint(0, 1).setIfMoreThan(new DPoint(1, 1))
+        .equal(new DPoint(0, 1))).toBe(true);
+    });
+    test('(2, 0) (1, 1)', () => {
+      expect(new DPoint(2, 0).setIfMoreThan(new DPoint(1, 1))
+        .equal(new DPoint(1, 0))).toBe(true);
+    });
+    test('(1, 0) (1, 1)', () => {
+      expect(new DPoint(1, 0).setIfMoreThan(new DPoint(1, 1))
+        .equal(new DPoint(1, 0))).toBe(true);
+    });
+    test('(0, 0) (1, 1)', () => {
+      expect(new DPoint(0, 0).setIfMoreThan(new DPoint(1, 1))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(2, 2) (0, 1)', () => {
+      expect(new DPoint(2, 2).setIfMoreThan(new DPoint(0, 1))
+        .equal(new DPoint(0, 1))).toBe(true);
+    });
+    test('(1, 2) (0, 1)', () => {
+      expect(new DPoint(1, 2).setIfMoreThan(new DPoint(0, 1))
+        .equal(new DPoint(0, 1))).toBe(true);
+    });
+    test('(0, 2) (0, 1)', () => {
+      expect(new DPoint(0, 2).setIfMoreThan(new DPoint(0, 1))
+        .equal(new DPoint(0, 1))).toBe(true);
+    });
+    test('(2, 1) (0, 1)', () => {
+      expect(new DPoint(2, 1).setIfMoreThan(new DPoint(0, 1))
+        .equal(new DPoint(0, 1))).toBe(true);
+    });
+    test('(1, 1) (0, 1)', () => {
+      expect(new DPoint(1, 1).setIfMoreThan(new DPoint(0, 1))
+        .equal(new DPoint(0, 1))).toBe(true);
+    });
+    test('(0, 1) (0, 1)', () => {
+      expect(new DPoint(0, 1).setIfMoreThan(new DPoint(0, 1))
+        .equal(new DPoint(0, 1))).toBe(true);
+    });
+    test('(2, 0) (0, 1)', () => {
+      expect(new DPoint(2, 0).setIfMoreThan(new DPoint(0, 1))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(1, 0) (0, 1)', () => {
+      expect(new DPoint(1, 0).setIfMoreThan(new DPoint(0, 1))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(0, 0) (0, 1)', () => {
+      expect(new DPoint(0, 0).setIfMoreThan(new DPoint(0, 1))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(2, 2) (2, 0)', () => {
+      expect(new DPoint(2, 2).setIfMoreThan(new DPoint(2, 0))
+        .equal(new DPoint(2, 0))).toBe(true);
+    });
+    test('(1, 2) (2, 0)', () => {
+      expect(new DPoint(1, 2).setIfMoreThan(new DPoint(2, 0))
+        .equal(new DPoint(1, 0))).toBe(true);
+    });
+    test('(0, 2) (2, 0)', () => {
+      expect(new DPoint(0, 2).setIfMoreThan(new DPoint(2, 0))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(2, 1) (2, 0)', () => {
+      expect(new DPoint(2, 1).setIfMoreThan(new DPoint(2, 0))
+        .equal(new DPoint(2, 0))).toBe(true);
+    });
+    test('(1, 1) (2, 0)', () => {
+      expect(new DPoint(1, 1).setIfMoreThan(new DPoint(2, 0))
+        .equal(new DPoint(1, 0))).toBe(true);
+    });
+    test('(0, 1) (2, 0)', () => {
+      expect(new DPoint(0, 1).setIfMoreThan(new DPoint(2, 0))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(2, 0) (2, 0)', () => {
+      expect(new DPoint(2, 0).setIfMoreThan(new DPoint(2, 0))
+        .equal(new DPoint(2, 0))).toBe(true);
+    });
+    test('(1, 0) (2, 0)', () => {
+      expect(new DPoint(1, 0).setIfMoreThan(new DPoint(2, 0))
+        .equal(new DPoint(1, 0))).toBe(true);
+    });
+    test('(0, 0) (2, 0)', () => {
+      expect(new DPoint(0, 0).setIfMoreThan(new DPoint(2, 0))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(2, 2) (1, 0)', () => {
+      expect(new DPoint(2, 2).setIfMoreThan(new DPoint(1, 0))
+        .equal(new DPoint(1, 0))).toBe(true);
+    });
+    test('(1, 2) (1, 0)', () => {
+      expect(new DPoint(1, 2).setIfMoreThan(new DPoint(1, 0))
+        .equal(new DPoint(1, 0))).toBe(true);
+    });
+    test('(0, 2) (1, 0)', () => {
+      expect(new DPoint(0, 2).setIfMoreThan(new DPoint(1, 0))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(2, 1) (1, 0)', () => {
+      expect(new DPoint(2, 1).setIfMoreThan(new DPoint(1, 0))
+        .equal(new DPoint(1, 0))).toBe(true);
+    });
+    test('(1, 1) (1, 0)', () => {
+      expect(new DPoint(1, 1).setIfMoreThan(new DPoint(1, 0))
+        .equal(new DPoint(1, 0))).toBe(true);
+    });
+    test('(0, 1) (1, 0)', () => {
+      expect(new DPoint(0, 1).setIfMoreThan(new DPoint(1, 0))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(2, 0) (1, 0)', () => {
+      expect(new DPoint(2, 0).setIfMoreThan(new DPoint(1, 0))
+        .equal(new DPoint(1, 0))).toBe(true);
+    });
+    test('(1, 0) (1, 0)', () => {
+      expect(new DPoint(1, 0).setIfMoreThan(new DPoint(1, 0))
+        .equal(new DPoint(1, 0))).toBe(true);
+    });
+    test('(0, 0) (1, 0)', () => {
+      expect(new DPoint(0, 0).setIfMoreThan(new DPoint(1, 0))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(2, 2) (0, 0)', () => {
+      expect(new DPoint(2, 2).setIfMoreThan(new DPoint(0, 0))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(1, 2) (0, 0)', () => {
+      expect(new DPoint(1, 2).setIfMoreThan(new DPoint(0, 0))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(0, 2) (0, 0)', () => {
+      expect(new DPoint(0, 2).setIfMoreThan(new DPoint(0, 0))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(2, 1) (0, 0)', () => {
+      expect(new DPoint(2, 1).setIfMoreThan(new DPoint(0, 0))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(1, 1) (0, 0)', () => {
+      expect(new DPoint(1, 1).setIfMoreThan(new DPoint(0, 0))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(0, 1) (0, 0)', () => {
+      expect(new DPoint(0, 1).setIfMoreThan(new DPoint(0, 0))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(2, 0) (0, 0)', () => {
+      expect(new DPoint(2, 0).setIfMoreThan(new DPoint(0, 0))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(1, 0) (0, 0)', () => {
+      expect(new DPoint(1, 0).setIfMoreThan(new DPoint(0, 0))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+    test('(0, 0) (0, 0)', () => {
+      expect(new DPoint(0, 0).setIfMoreThan(new DPoint(0, 0))
+        .equal(new DPoint(0, 0))).toBe(true);
+    });
+  });
+
   describe('minus', () => {
     test('(1, 1)', () => {
       expect(new DPoint(1, 1).minus()
