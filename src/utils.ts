@@ -359,7 +359,7 @@ export const toDegreesMinutesSeconds = (v: number): string => {
 };
 
 export const parseDegreesMinutesSeconds = (i: string): number => {
-  const parts = i.matchAll(/(?<value>-?\d+(?<tail>\.\d{0,})?)(?<type>°|'|")/gmiu);
+  const parts = i.matchAll(/(?<value>-?\d+(?<tail>\.\d{1,})?)(?<type>°|'|")/gmiu);
   let d = 0;
   let m = 0;
   let s = 0;
