@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 import {DLine} from './DLine';
 import {DPolygon} from './DPolygon';
-import {checkFunction, createArray, DGeo, div, isDefAndNotNull} from './utils';
+import {checkFunction, createArray, DGeo, div, isDefAndNotNull, toDegreesMinutesSeconds} from './utils';
 import {Point, Feature} from 'geojson';
 
 const diff = 0;
@@ -166,6 +166,13 @@ export class DPoint {
       }
     }
     return p;
+  }
+
+  toDegreesMinutesSeconds(): {x: string, y: string} {
+    return {
+      x: toDegreesMinutesSeconds(this.x),
+      y: toDegreesMinutesSeconds(this.y)
+    };
   }
 
   /**

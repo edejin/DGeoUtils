@@ -349,3 +349,35 @@ export const getCombinations = <T>(arr: T[][]): T[][] => {
 
 export const div = (a: number, b: number): number => Math.floor(a / b);
 
+export const toDegreesMinutesSeconds = (v: number): string => {
+  const degrees = Math.floor(v);
+  const t = (v % 1) * 60;
+  const minutes = Math.floor(t);
+  const t2 = (t % 1) * 60;
+  const seconds = t2.toFixed(2);
+  return `${degrees}° ${minutes}' ${seconds}"`;
+};
+
+export const parseDegreesMinutesSeconds = (i: string): number => {
+  const parts = i.matchAll(/(?<digit>-?\d+(?<tail>\.\d{0,})?)(?<type>°|'|")/gmiu);
+  let d = 0;
+  let m = 0;
+  let s = 0;
+
+  for (const part of parts) {
+    switch (part?.groups?.type) {
+      case '°':
+        d = Number(part?.groups?.digit);
+        break;
+      case '\'':
+        m = Number(part?.groups?.digit);
+        break;
+      case '"':
+        s = Number(part?.groups?.digit);
+        break;
+      default:
+    }
+  }
+
+  return d + m / 60 + s / 3600;
+};

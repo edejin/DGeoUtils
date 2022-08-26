@@ -1,4 +1,4 @@
-import {checkFunction} from '../src/utils';
+import {checkFunction, parseDegreesMinutesSeconds} from '../src/utils';
 import {
   DGeo,
   DPoint,
@@ -300,6 +300,15 @@ describe('utils', () => {
           'b'
         ]
       ]);
+    });
+  });
+
+  describe('parseDegreesMinutesSeconds', () => {
+    test('1', () => {
+      expect(parseDegreesMinutesSeconds('156° 44\' 31.20"')).toBe(156.742);
+    });
+    test('2', () => {
+      expect(parseDegreesMinutesSeconds('42° 21\' 36.36"')).toBe(42.3601);
     });
   });
 });

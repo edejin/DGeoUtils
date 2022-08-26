@@ -2062,4 +2062,12 @@ describe('DPoint', () => {
       expect(r.calculateAltitudeByDistanceBetweenPoints(p1, p2).alt!).toBe(undefined);
     });
   });
+
+  describe('toDegreesMinutesSeconds', () => {
+    test('1', () => {
+      const {x, y} = new DPoint(156.742, 42.3601).toDegreesMinutesSeconds();
+      expect(x).toBe('156° 44\' 31.20"');
+      expect(y).toBe('42° 21\' 36.36"');
+    });
+  });
 });
