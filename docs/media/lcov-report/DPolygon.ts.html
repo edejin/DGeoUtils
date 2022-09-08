@@ -1641,7 +1641,14 @@
 <a name='L1576'></a><a href='#L1576'>1576</a>
 <a name='L1577'></a><a href='#L1577'>1577</a>
 <a name='L1578'></a><a href='#L1578'>1578</a>
-<a name='L1579'></a><a href='#L1579'>1579</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L1579'></a><a href='#L1579'>1579</a>
+<a name='L1580'></a><a href='#L1580'>1580</a>
+<a name='L1581'></a><a href='#L1581'>1581</a>
+<a name='L1582'></a><a href='#L1582'>1582</a>
+<a name='L1583'></a><a href='#L1583'>1583</a>
+<a name='L1584'></a><a href='#L1584'>1584</a>
+<a name='L1585'></a><a href='#L1585'>1585</a>
+<a name='L1586'></a><a href='#L1586'>1586</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -1728,11 +1735,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6398x</span>
-<span class="cline-any cline-yes">6398x</span>
-<span class="cline-any cline-yes">6398x</span>
+<span class="cline-any cline-yes">6399x</span>
+<span class="cline-any cline-yes">6399x</span>
+<span class="cline-any cline-yes">6399x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6398x</span>
+<span class="cline-any cline-yes">6399x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2632,7 +2639,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">38x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-yes">28x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -2694,8 +2708,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">36x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3220,7 +3234,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/* eslint-disable max-lines */
-import {DCoord, DPoint, LatLng} from './DPoint';
+import {DCoord, DPoint, LatLng, XYZ} from './DPoint';
 import {DLine} from './DLine';
 import {DCircle} from './DCircle';
 import {DNumbers} from './DNumbers';
@@ -4197,6 +4211,13 @@ export class DPolygon {
   static parse(a: DCoord[], format?: string): DPolygon;
 &nbsp;
   /**
+   * Parse from [OpenLayers](https://openlayers.org/) coordinates
+   * @param a
+   * @param [format='xyz'] Default value `DGeo.parseFormat`
+   */
+  static parse(a: XYZ[], format?: string): DPolygon;
+&nbsp;
+  /**
    * Parse from GeoJSON
    * @param a
    * @param [format='xyz'] Default value `DGeo.parseFormat`
@@ -4207,7 +4228,7 @@ export class DPolygon {
   ): DPolygon | DeepArray&lt;DPolygon&gt;;
 &nbsp;
   static parse(
-    a: LatLng[] | number[][] | DCoord[] | GeoJsonGeometry | Feature | FeatureCollection&lt;LineString | Polygon&gt;,
+    a: XYZ[] | LatLng[] | number[][] | DCoord[] | GeoJsonGeometry | Feature | FeatureCollection&lt;LineString | Polygon&gt;,
     format: string = DGeo.parseFormat
   ): DPolygon | DeepArray&lt;DPolygon&gt; {
     if ((a as GeoJsonGeometry).type) {
@@ -4272,8 +4293,8 @@ export class DPolygon {
 <span class="branch-8 cbranch-no" title="branch not covered" >        default:</span>
       }
     }
-    return new DPolygon((a as LatLng[] | number[][] | DCoord[])
-      .map((r: LatLng | number[] | DCoord) =&gt; DPoint.parse(r, format)));
+    return new DPolygon((a as LatLng[] | number[][] | DCoord[] | XYZ[])
+      .map((r: LatLng | number[] | DCoord | XYZ) =&gt; DPoint.parse(r, format)));
   }
 &nbsp;
   /**
@@ -4804,7 +4825,7 @@ export class DPolygon {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Fri Aug 26 2022 10:18:07 GMT+0000 (Coordinated Universal Time)
+                at Thu Sep 08 2022 12:30:05 GMT+0000 (Coordinated Universal Time)
             </div>
         <script src="prettify.js"></script>
         <script>
