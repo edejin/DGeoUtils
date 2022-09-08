@@ -41,107 +41,6 @@ describe('DPolygon', () => {
     });
   });
 
-  describe('parse', () => {
-    test('1', () => {
-      const d = {
-        type: 'FeatureCollection',
-        name: 'abu_dhabi_admin',
-        crs: {
-          type: 'name',
-          properties: {name: 'urn:ogc:def:crs:OGC:1.3:CRS84'}
-        },
-        features: [
-          {
-            type: 'Feature',
-            properties: {
-              OBJECTID: 1
-            },
-            geometry: {
-              type: 'MultiPolygon',
-              coordinates: [
-                [
-                  [
-                    [52.795977806432631, 24.064926526667822],
-                    [52.903033438072526, 24.036328841930946],
-                    [52.900396263122879, 23.777403321927252]
-                  ]
-                ]
-              ]
-            }
-          },
-          {
-            type: 'Feature',
-            properties: {
-              OBJECTID: 2
-            },
-            geometry: {
-              type: 'MultiPolygon',
-              coordinates: [
-                [
-                  [
-                    [53.902835937659937, 23.735503326599943],
-                    [53.903433154626079, 23.598628815231301],
-                    [53.894695066213991, 23.597308948089616]
-                  ]
-                ]
-              ]
-            }
-          }
-        ]
-      };
-      expect(DPolygon.parse(d as any)).toEqual([
-        {
-          holes: [],
-          pPoints: [
-            {
-              properties: {},
-              x: 52.79597780643263,
-              y: 24.064926526667822
-            },
-            {
-              properties: {},
-              x: 52.90303343807253,
-              y: 24.036328841930946
-            },
-            {
-              properties: {},
-              x: 52.90039626312288,
-              y: 23.777403321927252
-            }
-          ],
-          properties: {
-            OBJECTID: 1
-          },
-          searchStore: {}
-        },
-        {
-          holes: [],
-          pPoints: [
-            {
-              properties: {},
-              x: 53.90283593765994,
-              y: 23.735503326599943
-            },
-            {
-              properties: {},
-              x: 53.90343315462608,
-              y: 23.5986288152313
-            },
-            {
-              properties: {},
-              x: 53.89469506621399,
-              y: 23.597308948089616
-            }
-          ],
-          properties: {
-            OBJECTID: 2
-          },
-          searchStore: {}
-        }
-      ]);
-    });
-  });
-
   describe('parseFromWKT', () => {
     test('1', () => {
       expect(DPolygon.parseFromWKT('POLYGON ((1 2, 3 4), (5 6, 7 8))')).toEqual({
@@ -2179,6 +2078,112 @@ describe('DPolygon', () => {
           searchStore: {}
         }
       ]);
+    });
+    test('FeatureCollection 2', () => {
+      const d = {
+        type: 'FeatureCollection',
+        name: 'abu_dhabi_admin',
+        crs: {
+          type: 'name',
+          properties: {name: 'urn:ogc:def:crs:OGC:1.3:CRS84'}
+        },
+        features: [
+          {
+            type: 'Feature',
+            properties: {
+              OBJECTID: 1
+            },
+            geometry: {
+              type: 'MultiPolygon',
+              coordinates: [
+                [
+                  [
+                    [52.795977806432631, 24.064926526667822],
+                    [52.903033438072526, 24.036328841930946],
+                    [52.900396263122879, 23.777403321927252]
+                  ]
+                ]
+              ]
+            }
+          },
+          {
+            type: 'Feature',
+            properties: {
+              OBJECTID: 2
+            },
+            geometry: {
+              type: 'MultiPolygon',
+              coordinates: [
+                [
+                  [
+                    [53.902835937659937, 23.735503326599943],
+                    [53.903433154626079, 23.598628815231301],
+                    [53.894695066213991, 23.597308948089616]
+                  ]
+                ]
+              ]
+            }
+          }
+        ]
+      };
+      expect(DPolygon.parse(d as any)).toEqual([
+        {
+          holes: [],
+          pPoints: [
+            {
+              properties: {},
+              x: 52.79597780643263,
+              y: 24.064926526667822
+            },
+            {
+              properties: {},
+              x: 52.90303343807253,
+              y: 24.036328841930946
+            },
+            {
+              properties: {},
+              x: 52.90039626312288,
+              y: 23.777403321927252
+            }
+          ],
+          properties: {
+            OBJECTID: 1
+          },
+          searchStore: {}
+        },
+        {
+          holes: [],
+          pPoints: [
+            {
+              properties: {},
+              x: 53.90283593765994,
+              y: 23.735503326599943
+            },
+            {
+              properties: {},
+              x: 53.90343315462608,
+              y: 23.5986288152313
+            },
+            {
+              properties: {},
+              x: 53.89469506621399,
+              y: 23.597308948089616
+            }
+          ],
+          properties: {
+            OBJECTID: 2
+          },
+          searchStore: {}
+        }
+      ]);
+    });
+    test('xyz', () => {
+      const t = DPolygon.parse([
+        {x: 11, y: 12, z: 13},
+        {x: 21, y: 22, z: 23},
+        {x: 31, y: 32, z: 33}
+      ]);
+      expect(t).toMatchSnapshot();
     });
   });
 

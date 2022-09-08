@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import {DCoord, DPoint, LatLng} from './DPoint';
+import {DCoord, DPoint, LatLng, XYZ} from './DPoint';
 import {DLine} from './DLine';
 import {DCircle} from './DCircle';
 import {DNumbers} from './DNumbers';
@@ -976,6 +976,13 @@ export class DPolygon {
   static parse(a: DCoord[], format?: string): DPolygon;
 
   /**
+   * Parse from [OpenLayers](https://openlayers.org/) coordinates
+   * @param a
+   * @param [format='xyz'] Default value `DGeo.parseFormat`
+   */
+  static parse(a: XYZ[], format?: string): DPolygon;
+
+  /**
    * Parse from GeoJSON
    * @param a
    * @param [format='xyz'] Default value `DGeo.parseFormat`
@@ -986,7 +993,7 @@ export class DPolygon {
   ): DPolygon | DeepArray<DPolygon>;
 
   static parse(
-    a: LatLng[] | number[][] | DCoord[] | GeoJsonGeometry | Feature | FeatureCollection<LineString | Polygon>,
+    a: XYZ[] | LatLng[] | number[][] | DCoord[] | GeoJsonGeometry | Feature | FeatureCollection<LineString | Polygon>,
     format: string = DGeo.parseFormat
   ): DPolygon | DeepArray<DPolygon> {
     if ((a as GeoJsonGeometry).type) {
@@ -1051,8 +1058,8 @@ export class DPolygon {
         default:
       }
     }
-    return new DPolygon((a as LatLng[] | number[][] | DCoord[])
-      .map((r: LatLng | number[] | DCoord) => DPoint.parse(r, format)));
+    return new DPolygon((a as LatLng[] | number[][] | DCoord[] | XYZ[])
+      .map((r: LatLng | number[] | DCoord | XYZ) => DPoint.parse(r, format)));
   }
 
   /**

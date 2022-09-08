@@ -1,5 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`DPolygon Parse xyz 1`] = `
+DPolygon {
+  "holes": Array [],
+  "pPoints": Array [
+    DPoint {
+      "properties": Object {},
+      "x": 11,
+      "y": 12,
+      "z": 13,
+    },
+    DPoint {
+      "properties": Object {},
+      "x": 21,
+      "y": 22,
+      "z": 23,
+    },
+    DPoint {
+      "properties": Object {},
+      "x": 31,
+      "y": 32,
+      "z": 33,
+    },
+  ],
+  "properties": Object {},
+  "searchStore": Object {},
+}
+`;
+
 exports[`DPolygon clearPolygonOnCanvas 1 1`] = `"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAABkCAYAAABkW8nwAAAABmJLR0QA/wD/AP+gvaeTAAACI0lEQVR4nO3cTWrbABSF0efSbRUy6bJK1eU0a8gwayjdjTsIgaYYU0nvyuhxzjATefDxLvgnl1rqWtDs06NfADMJiwhhESEsIoRFhLCIEBYRwiJCWEQ8IqzXqvpaVb8e8GwOcmRYb0Et9aWWeqlLPR/4bA72+YBnvFbVj1rq5cNfr/WzqpYDns8DJC/Wxwv1r6V+lzkcK3Gxbl+oWy71XFdXa6LOsP4/qHfmcKyOKbw/efeYw7H2XKz1F+oWczjSlrB6gnpnDkdaM4XbJ+8eczjSmrC+tQb1N2+WjrMmrO+xV/E2hwyyJqynWuop8irM4Thr327IXS1zOMrasHJXyxyOsuUN0szVMoejbAkrd7XM4RhbP9LJXC1zOMbWsDJXyxyOsedD6MzVMocj7Akrc7XM4Qh7vzbTf7XM4Qh7w8pcLXN4eh1f9Ou/Wubw9DrC6r9a5vD0un6l03+1zOGpdYXVf7XM4al1/q6w92qZw1PrDKv/apnD0+r+JXTv1TKHp3Xxf95J8P+xiBAWEcIiQlhECIsIYREhLCKERYSwiBAWEcIiQlhECIsIYREhLCKERYSwiBAWEcIiQlhECIsIYREhLCKERYSwiBAWEcIiQlhECIsIYREhLCKERYSwiBAWEcIiQlhECIsIYREhLCKERYSwiBAWEcIiQlhECIsIYREhLCKERYSwiBAWEcIiQlhECIsIYREhLCKERYSwiBAWEcIi4g+HGl1Ee5vcOwAAAABJRU5ErkJggg=="`;
 
 exports[`DPolygon drawPolygonOnCanvas 1 1`] = `"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0QA/wD/AP+gvaeTAAAB90lEQVR4nO3WPU9TYQDF8VPuLY66wQAoic46lgEGvgMjDYmRXT6GSZnFwYTV7+CAC19BrwnykhCYYKVUj0PTWpIa7fOSG+j/d3OHdnpuTs7JIwEAAADANLAKWS/rPgasGVkbsr7KOlOz+6ruI02nfiPasip55Fk7uJTcqPt402NMEM3qmfV5vf9r960lr9R9zIfv7jT1gzhasLb3rPLWi61P/X/PFqyZn7t1H/fh+kcQyzrynrbdbZSeP37EbGXzn0HcqrQlW/JOR8xWcgFBDN7DlpitZCKCGLy/GvozW6tfmK0gCYIYfYez1dmx5Fbdn3d/JA7iL7PVqfsz7wdrWda3QRCz1VOrvW8VveAgRmdr7oTb1mSsQjezP2RZH95YRc8vVHlfbfdUBAUxdra4bU2g29ySZX1/7tfl+yRBcNuKYRW6enIuy3Ptd8ETxW0rpZGWfCw3kwXCbStUxpZw2wqVqSXMVqiMLWG2QmVqCbMVKlNLmK0YmVrCbIXK1BJmK0aGljBbMTK1hNmKkaElw9k6XWS2JpahJXdma+3ggtmaVIaWMFsxMrSE2YqVuCXMVqwMLWG2Yg1akvo5WWK2gliFrh9fZAmF2QrlQnKV4KI17mW2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgKHfGvOokM5slPcAAAAASUVORK5CYII="`;
