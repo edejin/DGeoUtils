@@ -379,5 +379,6 @@ export const parseDegreesMinutesSeconds = (i: string): number => {
     }
   }
 
-  return d + m / 60 + s / 3600;
+  const h = d < 0 ? -1 : 1;
+  return d + h * m / 60 + h * s / 3600;
 };
