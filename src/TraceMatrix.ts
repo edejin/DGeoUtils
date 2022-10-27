@@ -31,6 +31,7 @@ const setByPosition = (m: SimpleMatrix, p: DPoint, value: TraceMatrixValues): Tr
 
 export class TraceMatrix {
   private readonly m: SimpleMatrix;
+  public approximation: boolean = true;
 
   constructor(private readonly size: DPoint, f: (p: DPoint) => TraceMatrixValues) {
     this.m = TraceMatrix.createMatrix(this.size, f);
@@ -187,7 +188,10 @@ export class TraceMatrix {
       direction = left(left(direction));
     }
 
-    return points.approximation().close();
+    if (this.approximation) {
+      return points.approximation().close();
+    }
+    return points.clone().close();
   };
 
   private createHoleMatrix = (group: DPolygon): SimpleMatrix | null => {
