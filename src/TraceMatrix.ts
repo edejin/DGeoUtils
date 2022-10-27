@@ -44,8 +44,8 @@ export class TraceMatrix {
       return TraceMatrixValues.f;
     });
     this.m = TraceMatrix.createMatrix(this.size);
-    for (let i = 1; i < this.size.x - 1; i++) {
-      for (let j = 1; j < this.size.y - 1; j++) {
+    for (let i = 1; i < this.size.y - 1; i++) {
+      for (let j = 1; j < this.size.x - 1; j++) {
         if (t[i][j] === TraceMatrixValues.t) {
           this.m[i - 1][j - 1] = TraceMatrixValues.t;
           this.m[i - 1][j] = TraceMatrixValues.t;

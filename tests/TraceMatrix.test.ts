@@ -40,6 +40,12 @@ const data3 = [
   [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
 ].reverse();
 
+const data4 = [
+  [1, 0, 1, 0, 1],
+  [1, 0, 1, 0, 1],
+  [1, 1, 1, 1, 1]
+].reverse();
+
 describe('TraceMatrix', () => {
   const t = new TraceMatrix(
     new DPoint(10, 10),
@@ -63,6 +69,11 @@ describe('TraceMatrix', () => {
     ({x, y}: DPoint) => data3[y][x] ? TraceMatrixValues.f : TraceMatrixValues.t
   );
 
+  const t4 = new TraceMatrix(
+    new DPoint(5, 3),
+    ({x, y}: DPoint) => data4[y][x] ? TraceMatrixValues.t : TraceMatrixValues.f
+  );
+
   test('1', () => {
     expect(t.fullMatrixTrace().map((p) => p.toGeoJSONFeature())).toMatchSnapshot();
   });
@@ -81,5 +92,9 @@ describe('TraceMatrix', () => {
 
   test('3 negative', () => {
     expect(t3Negative.fullMatrixTrace().map((p) => p.toGeoJSONFeature())).toMatchSnapshot();
+  });
+
+  test('4', () => {
+    expect(t4.fullMatrixTrace().map((p) => p.toGeoJSONFeature())).toMatchSnapshot();
   });
 });

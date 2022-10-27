@@ -623,3 +623,71 @@ Array [
   },
 ]
 `;
+
+exports[`TraceMatrix 4 1`] = `
+Array [
+  Object {
+    "geometry": Object {
+      "coordinates": Array [
+        Array [
+          Array [
+            0,
+            0,
+          ],
+          Array [
+            5,
+            0,
+          ],
+          Array [
+            5,
+            3,
+          ],
+          Array [
+            4,
+            3,
+          ],
+          Array [
+            4,
+            1,
+          ],
+          Array [
+            3,
+            1,
+          ],
+          Array [
+            3,
+            3,
+          ],
+          Array [
+            2,
+            3,
+          ],
+          Array [
+            2,
+            1,
+          ],
+          Array [
+            1,
+            1,
+          ],
+          Array [
+            1,
+            3,
+          ],
+          Array [
+            0,
+            3,
+          ],
+          Array [
+            0,
+            0,
+          ],
+        ],
+      ],
+      "type": "Polygon",
+    },
+    "properties": Object {},
+    "type": "Feature",
+  },
+]
+`;
