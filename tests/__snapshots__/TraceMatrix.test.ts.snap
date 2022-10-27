@@ -1,0 +1,625 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TraceMatrix 1 1`] = `
+Array [
+  Object {
+    "geometry": Object {
+      "coordinates": Array [
+        Array [
+          Array [
+            1,
+            1,
+          ],
+          Array [
+            3,
+            1,
+          ],
+          Array [
+            3,
+            3,
+          ],
+          Array [
+            6,
+            3,
+          ],
+          Array [
+            6,
+            4,
+          ],
+          Array [
+            7,
+            4,
+          ],
+          Array [
+            7,
+            9,
+          ],
+          Array [
+            6,
+            9,
+          ],
+          Array [
+            6,
+            8,
+          ],
+          Array [
+            5,
+            8,
+          ],
+          Array [
+            5,
+            7,
+          ],
+          Array [
+            4,
+            7,
+          ],
+          Array [
+            4,
+            5,
+          ],
+          Array [
+            3,
+            5,
+          ],
+          Array [
+            3,
+            8,
+          ],
+          Array [
+            1,
+            8,
+          ],
+          Array [
+            1,
+            1,
+          ],
+        ],
+        Array [
+          Array [
+            5,
+            5,
+          ],
+          Array [
+            6,
+            5,
+          ],
+          Array [
+            6,
+            6,
+          ],
+          Array [
+            5,
+            6,
+          ],
+          Array [
+            5,
+            5,
+          ],
+        ],
+      ],
+      "type": "Polygon",
+    },
+    "properties": Object {},
+    "type": "Feature",
+  },
+]
+`;
+
+exports[`TraceMatrix 2 1`] = `
+Array [
+  Object {
+    "geometry": Object {
+      "coordinates": Array [
+        Array [
+          Array [
+            1,
+            1,
+          ],
+          Array [
+            3,
+            1,
+          ],
+          Array [
+            3,
+            8,
+          ],
+          Array [
+            1,
+            8,
+          ],
+          Array [
+            1,
+            1,
+          ],
+        ],
+      ],
+      "type": "Polygon",
+    },
+    "properties": Object {},
+    "type": "Feature",
+  },
+  Object {
+    "geometry": Object {
+      "coordinates": Array [
+        Array [
+          Array [
+            4,
+            3,
+          ],
+          Array [
+            6,
+            3,
+          ],
+          Array [
+            6,
+            4,
+          ],
+          Array [
+            6,
+            4,
+          ],
+          Array [
+            7,
+            4,
+          ],
+          Array [
+            7,
+            9,
+          ],
+          Array [
+            6,
+            9,
+          ],
+          Array [
+            6,
+            8,
+          ],
+          Array [
+            6,
+            8,
+          ],
+          Array [
+            5,
+            8,
+          ],
+          Array [
+            5,
+            7,
+          ],
+          Array [
+            5,
+            7,
+          ],
+          Array [
+            4,
+            7,
+          ],
+          Array [
+            4,
+            3,
+          ],
+        ],
+        Array [
+          Array [
+            5,
+            5,
+          ],
+          Array [
+            6,
+            5,
+          ],
+          Array [
+            6,
+            6,
+          ],
+          Array [
+            5,
+            6,
+          ],
+          Array [
+            5,
+            5,
+          ],
+        ],
+      ],
+      "type": "Polygon",
+    },
+    "properties": Object {},
+    "type": "Feature",
+  },
+]
+`;
+
+exports[`TraceMatrix 2 negative 1`] = `
+Array [
+  Object {
+    "geometry": Object {
+      "coordinates": Array [
+        Array [
+          Array [
+            0,
+            0,
+          ],
+          Array [
+            10,
+            0,
+          ],
+          Array [
+            10,
+            10,
+          ],
+          Array [
+            0,
+            10,
+          ],
+          Array [
+            0,
+            0,
+          ],
+        ],
+        Array [
+          Array [
+            1,
+            1,
+          ],
+          Array [
+            3,
+            1,
+          ],
+          Array [
+            3,
+            8,
+          ],
+          Array [
+            1,
+            8,
+          ],
+          Array [
+            1,
+            1,
+          ],
+        ],
+        Array [
+          Array [
+            4,
+            3,
+          ],
+          Array [
+            6,
+            3,
+          ],
+          Array [
+            6,
+            4,
+          ],
+          Array [
+            6,
+            4,
+          ],
+          Array [
+            7,
+            4,
+          ],
+          Array [
+            7,
+            9,
+          ],
+          Array [
+            6,
+            9,
+          ],
+          Array [
+            6,
+            8,
+          ],
+          Array [
+            6,
+            8,
+          ],
+          Array [
+            5,
+            8,
+          ],
+          Array [
+            5,
+            7,
+          ],
+          Array [
+            5,
+            7,
+          ],
+          Array [
+            4,
+            7,
+          ],
+          Array [
+            4,
+            3,
+          ],
+        ],
+      ],
+      "type": "Polygon",
+    },
+    "properties": Object {},
+    "type": "Feature",
+  },
+  Object {
+    "geometry": Object {
+      "coordinates": Array [
+        Array [
+          Array [
+            5,
+            5,
+          ],
+          Array [
+            6,
+            5,
+          ],
+          Array [
+            6,
+            6,
+          ],
+          Array [
+            5,
+            6,
+          ],
+          Array [
+            5,
+            5,
+          ],
+        ],
+      ],
+      "type": "Polygon",
+    },
+    "properties": Object {},
+    "type": "Feature",
+  },
+]
+`;
+
+exports[`TraceMatrix 3 1`] = `
+Array [
+  Object {
+    "geometry": Object {
+      "coordinates": Array [
+        Array [
+          Array [
+            1,
+            1,
+          ],
+          Array [
+            4,
+            1,
+          ],
+          Array [
+            4,
+            2,
+          ],
+          Array [
+            3,
+            2,
+          ],
+          Array [
+            3,
+            2,
+          ],
+          Array [
+            3,
+            3,
+          ],
+          Array [
+            3,
+            3,
+          ],
+          Array [
+            4,
+            3,
+          ],
+          Array [
+            4,
+            4,
+          ],
+          Array [
+            1,
+            4,
+          ],
+          Array [
+            1,
+            1,
+          ],
+        ],
+      ],
+      "type": "Polygon",
+    },
+    "properties": Object {},
+    "type": "Feature",
+  },
+  Object {
+    "geometry": Object {
+      "coordinates": Array [
+        Array [
+          Array [
+            2,
+            7,
+          ],
+          Array [
+            5,
+            7,
+          ],
+          Array [
+            5,
+            0,
+          ],
+          Array [
+            10,
+            0,
+          ],
+          Array [
+            10,
+            10,
+          ],
+          Array [
+            2,
+            10,
+          ],
+          Array [
+            2,
+            7,
+          ],
+        ],
+        Array [
+          Array [
+            3,
+            8,
+          ],
+          Array [
+            5,
+            8,
+          ],
+          Array [
+            5,
+            9,
+          ],
+          Array [
+            3,
+            9,
+          ],
+          Array [
+            3,
+            8,
+          ],
+        ],
+      ],
+      "type": "Polygon",
+    },
+    "properties": Object {},
+    "type": "Feature",
+  },
+]
+`;
+
+exports[`TraceMatrix 3 negative 1`] = `
+Array [
+  Object {
+    "geometry": Object {
+      "coordinates": Array [
+        Array [
+          Array [
+            0,
+            0,
+          ],
+          Array [
+            5,
+            0,
+          ],
+          Array [
+            5,
+            7,
+          ],
+          Array [
+            2,
+            7,
+          ],
+          Array [
+            2,
+            7,
+          ],
+          Array [
+            2,
+            10,
+          ],
+          Array [
+            0,
+            10,
+          ],
+          Array [
+            0,
+            0,
+          ],
+        ],
+        Array [
+          Array [
+            1,
+            1,
+          ],
+          Array [
+            4,
+            1,
+          ],
+          Array [
+            4,
+            2,
+          ],
+          Array [
+            3,
+            2,
+          ],
+          Array [
+            3,
+            2,
+          ],
+          Array [
+            3,
+            3,
+          ],
+          Array [
+            3,
+            3,
+          ],
+          Array [
+            4,
+            3,
+          ],
+          Array [
+            4,
+            4,
+          ],
+          Array [
+            1,
+            4,
+          ],
+          Array [
+            1,
+            1,
+          ],
+        ],
+      ],
+      "type": "Polygon",
+    },
+    "properties": Object {},
+    "type": "Feature",
+  },
+  Object {
+    "geometry": Object {
+      "coordinates": Array [
+        Array [
+          Array [
+            3,
+            8,
+          ],
+          Array [
+            5,
+            8,
+          ],
+          Array [
+            5,
+            9,
+          ],
+          Array [
+            3,
+            9,
+          ],
+          Array [
+            3,
+            8,
+          ],
+        ],
+      ],
+      "type": "Polygon",
+    },
+    "properties": Object {},
+    "type": "Feature",
+  },
+]
+`;

@@ -32,9 +32,33 @@ const setByPosition = (m: SimpleMatrix, p: DPoint, value: TraceMatrixValues): Tr
 export class TraceMatrix {
   private readonly m: SimpleMatrix;
   public approximation: boolean = true;
+  private readonly size: DPoint;
 
-  constructor(private readonly size: DPoint, f: (p: DPoint) => TraceMatrixValues) {
-    this.m = TraceMatrix.createMatrix(this.size, f);
+  constructor(s: DPoint, f: (p: DPoint) => TraceMatrixValues) {
+    this.size = s.clone().scale(4);
+    const t = TraceMatrix.createMatrix(this.size, (p) => {
+      const {x, y} = p.clone().mod(4);
+      if ([1, 2].includes(x) && [1, 2].includes(y)) {
+        return f(p.clone().div(4));
+      }
+      return TraceMatrixValues.f;
+    });
+    this.m = TraceMatrix.createMatrix(this.size);
+    for (let i = 1; i < this.size.x - 1; i++) {
+      for (let j = 1; j < this.size.y - 1; j++) {
+        if (t[i][j] === TraceMatrixValues.t) {
+          this.m[i - 1][j - 1] = TraceMatrixValues.t;
+          this.m[i - 1][j] = TraceMatrixValues.t;
+          this.m[i - 1][j + 1] = TraceMatrixValues.t;
+          this.m[i][j - 1] = TraceMatrixValues.t;
+          this.m[i][j] = TraceMatrixValues.t;
+          this.m[i][j + 1] = TraceMatrixValues.t;
+          this.m[i + 1][j - 1] = TraceMatrixValues.t;
+          this.m[i + 1][j] = TraceMatrixValues.t;
+          this.m[i + 1][j + 1] = TraceMatrixValues.t;
+        }
+      }
+    }
   }
 
   fullMatrixTrace(): DPolygon[] {
@@ -50,7 +74,10 @@ export class TraceMatrix {
       if (holesGroups[index] && holesGroups[index]!.length) {
         res.holes = holesPaths[index]!;
       }
-      return res;
+      return res.loop()
+        .divide(4)
+        .round()
+        .run();
     });
   }
 

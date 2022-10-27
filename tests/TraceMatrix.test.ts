@@ -12,7 +12,7 @@ const data = [
   [0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
   [0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-];
+].reverse();
 
 const data2 = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -25,7 +25,20 @@ const data2 = [
   [0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
   [0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-];
+].reverse();
+
+const data3 = [
+  [0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+  [0, 0, 1, 0, 0, 1, 1, 1, 1, 1],
+  [0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
+  [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+  [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+  [0, 0, 0, 0, 0, 1, 1, 1, 1, 1],
+  [0, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+  [0, 1, 1, 0, 0, 1, 1, 1, 1, 1],
+  [0, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+  [0, 0, 0, 0, 0, 1, 1, 1, 1, 1]
+].reverse();
 
 describe('TraceMatrix', () => {
   const t = new TraceMatrix(
@@ -36,79 +49,37 @@ describe('TraceMatrix', () => {
     new DPoint(10, 10),
     ({x, y}: DPoint) => data2[y][x] ? TraceMatrixValues.t : TraceMatrixValues.f
   );
+  const t2Negative = new TraceMatrix(
+    new DPoint(10, 10),
+    ({x, y}: DPoint) => data2[y][x] ? TraceMatrixValues.f : TraceMatrixValues.t
+  );
+
+  const t3 = new TraceMatrix(
+    new DPoint(10, 10),
+    ({x, y}: DPoint) => data3[y][x] ? TraceMatrixValues.t : TraceMatrixValues.f
+  );
+  const t3Negative = new TraceMatrix(
+    new DPoint(10, 10),
+    ({x, y}: DPoint) => data3[y][x] ? TraceMatrixValues.f : TraceMatrixValues.t
+  );
 
   test('1', () => {
-    expect(t.fullMatrixTrace()).toEqual([
-      {
-        holes: [],
-        pPoints: [
-          {
-            properties: {},
-            x: 1,
-            y: 2,
-            z: undefined
-          }, {
-            properties: {},
-            x: 2,
-            y: 2,
-            z: undefined
-          }, {
-            properties: {},
-            x: 2,
-            y: 4,
-            z: undefined
-          }, {
-            properties: {},
-            x: 3,
-            y: 5,
-            z: undefined
-          }, {
-            properties: {},
-            x: 6,
-            y: 1,
-            z: undefined
-          }, {
-            properties: {},
-            x: 6,
-            y: 5,
-            z: undefined
-          }, {
-            properties: {},
-            x: 5,
-            y: 6,
-            z: undefined
-          }, {
-            properties: {},
-            x: 3,
-            y: 6,
-            z: undefined
-          }, {
-            properties: {},
-            x: 2,
-            y: 8,
-            z: undefined
-          }, {
-            properties: {},
-            x: 1,
-            y: 8,
-            z: undefined
-          }, {
-            properties: {},
-            x: 1,
-            y: 2,
-            z: undefined
-          }
-        ],
-        properties: {},
-        searchStore: {}
-      }
-    ]);
+    expect(t.fullMatrixTrace().map((p) => p.toGeoJSONFeature())).toMatchSnapshot();
   });
 
   test('2', () => {
-    expect(t2.fullMatrixTrace().map((l) => l.toWKT())).toEqual([
-      'POLYGON ((1 2, 2 2, 2 8, 1 8, 1 2))',
-      'POLYGON ((4 3, 6 1, 6 5, 5 6, 4 6, 4 3))'
-    ]);
+    expect(t2.fullMatrixTrace().map((p) => p.toGeoJSONFeature())).toMatchSnapshot();
+  });
+
+  test('2 negative', () => {
+    expect(t2Negative.fullMatrixTrace().map((p) => p.toGeoJSONFeature())).toMatchSnapshot();
+  });
+
+  test('3', () => {
+    expect(t3.fullMatrixTrace().map((p) => p.toGeoJSONFeature())).toMatchSnapshot();
+  });
+
+  test('3 negative', () => {
+    expect(t3Negative.fullMatrixTrace().map((p) => p.toGeoJSONFeature())).toMatchSnapshot();
   });
 });
