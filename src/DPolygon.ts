@@ -37,6 +37,8 @@ const APPROXIMATION_VALUE = 0.1;
 const MAX_CONVEX_ITERATIONS = 100;
 const CLOSE_TO_INTERSECTION_DISTANCE = 0.001;
 
+type SetterFunction<T> = (t: DPolygon) => T;
+
 /**
  * @ignore
  * @param poly
@@ -711,7 +713,9 @@ export class DPolygon {
   clone(): DPolygon {
     const res = new DPolygon(this.points.map((r: DPoint) => r.clone()));
     res.holes = this.holes.map((h: DPolygon) => h.clone());
-    res.properties = this.properties;
+    res.properties = {
+      ...this.properties
+    };
     return res;
   }
 
@@ -1392,6 +1396,12 @@ export class DPolygon {
     const linePart = new DPolygon(buffer.removePart(fromPoint - 1, toPoint - fromPoint + 1));
     buffer.unshift(buffer.pop());
     return [linePart.reverse(), buffer];
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setProperties(v: SetterFunction<Record<string, any>> | Record<string, any>): DPolygon {
+    this.properties = typeof v === 'object' ? v : v(this);
+    return this;
   }
 
   /**
