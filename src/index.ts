@@ -7,6 +7,7 @@ export * from './DPoint';
 export * from './DPolygon';
 export * from './FastSearch';
 export * from './TraceMatrix';
+export * from './InterpolationMatrix';
 export * from './DPolygonLoop';
 export * from './DPlane';
 export {
