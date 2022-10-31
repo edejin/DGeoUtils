@@ -63,7 +63,10 @@ export class InterpolationMatrix {
   }
 
   get size(): DPoint {
-    return new DPoint(Object.keys(this.cells).length, Object.keys(this.cells[0]).length);
+    return new DPoint(
+      Math.max(...Object.keys(this.cells).map(Number)),
+      Math.max(...Object.keys(this.cells[0]).map(Number))
+    );
   }
 
   get allCellsClone(): DPolygon[] {

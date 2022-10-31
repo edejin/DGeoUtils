@@ -85,6 +85,6 @@ describe('InterpolationMatrix.test', () => {
     expect(c.getCellValue(new DPoint(1, 1), ['z'])).toEqual({
       z: 0.05178774120317821
     });
-    expect(c.size.toString()).toEqual('11 11');
+    expect(c.size.toString()).toEqual('10 10');
   });
 });
