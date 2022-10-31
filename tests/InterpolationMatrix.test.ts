@@ -86,5 +86,6 @@ describe('InterpolationMatrix.test', () => {
       z: 0.05178774120317821
     });
     expect(c.size.toString()).toEqual('10 10');
+    expect(c.getCellData).toMatchSnapshot();
   });
 });

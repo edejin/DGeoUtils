@@ -69,6 +69,21 @@ export class InterpolationMatrix {
     );
   }
 
+  get getCellData(): Record<number, Record<number, Record<string, number>>> {
+    return this.allCells.reduce((a: Record<number, Record<number, Record<string, number>>>, c) => {
+      const {
+        x,
+        y,
+        ...props
+      } = c.properties;
+      a[x] = a[x] || {};
+      a[x][y] = {
+        ...props
+      };
+      return a;
+    }, {});
+  }
+
   get allCellsClone(): DPolygon[] {
     return this.allCells.map((p: DPolygon) => p.clone());
   }
