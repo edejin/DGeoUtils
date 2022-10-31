@@ -10,6 +10,7 @@ export class InterpolationMatrix {
   private allCells: DPolygon[] = [];
   private readonly sizePoly: DPolygon;
   private readonly keys: string[];
+  readonly size: DPoint;
 
   /**
    * (Inverse distance weighting)[https://en.wikipedia.org/wiki/Inverse_distance_weighting]
@@ -24,6 +25,9 @@ export class InterpolationMatrix {
     this.minPoint = bboxLike.leftTop;
     this.maxPoint = bboxLike.rightBottom;
     this.sizePoly = DPolygon.createSquareBySize(new DPoint(this.stepSize));
+    this.size = this.maxPoint.clone().move(this.minPoint.clone().minus())
+      .divide(this.stepSize)
+      .ceil();
     this.keys = Array.isArray(keys) ? keys : [keys];
     this.generateCells();
   }
@@ -60,13 +64,6 @@ export class InterpolationMatrix {
     return {
       ...cell.properties
     };
-  }
-
-  get size(): DPoint {
-    return new DPoint(
-      Math.max(...Object.keys(this.cells).map(Number)),
-      Math.max(...Object.keys(this.cells[0]).map(Number))
-    );
   }
 
   get getCellData(): Record<number, Record<number, Record<string, number>>> {

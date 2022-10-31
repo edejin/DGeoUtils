@@ -82,10 +82,15 @@ describe('InterpolationMatrix.test', () => {
       y: 1,
       z: 0.05178774120317821
     });
+    expect(c.getCellValue(new DPoint(10, 10))).toEqual({
+      x: 10,
+      y: 10,
+      z: 0.5
+    });
     expect(c.getCellValue(new DPoint(1, 1), ['z'])).toEqual({
       z: 0.05178774120317821
     });
-    expect(c.size.toString()).toEqual('10 10');
+    expect(c.size.toString()).toEqual('11 11');
     expect(c.getCellData).toMatchSnapshot();
   });
 });
