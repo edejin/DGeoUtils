@@ -3,8 +3,8 @@ import {DPoint} from './DPoint';
 import {isDefAndNotNull} from './utils';
 
 export class InterpolationMatrix {
-  private readonly minPoint: DPoint;
-  private readonly maxPoint: DPoint;
+  readonly minPoint: DPoint;
+  readonly maxPoint: DPoint;
   private points: DPoint[] = [];
   private cells: Record<number, Record<number, DPolygon>> = {};
   private allCells: DPolygon[] = [];
@@ -22,8 +22,8 @@ export class InterpolationMatrix {
     keys: string[] | string,
     private readonly p: number = 2
   ) {
-    this.minPoint = bboxLike.leftTop;
-    this.maxPoint = bboxLike.rightBottom;
+    this.minPoint = bboxLike.minPoint;
+    this.maxPoint = bboxLike.maxPoint;
     this.sizePoly = DPolygon.createSquareBySize(new DPoint(this.stepSize));
     this.size = this.maxPoint.clone().move(this.minPoint.clone().minus())
       .divide(this.stepSize)
@@ -34,6 +34,16 @@ export class InterpolationMatrix {
 
   setKnownPoints(points: DPoint[] | DPolygon): InterpolationMatrix {
     this.points = points instanceof DPolygon ? points.points : points;
+    this.minPoint.setProperties(this.points.reduce((a: Record<string, number>, v: DPoint) => this.keys
+      .reduce((aa: Record<string, number>, k: string) => {
+        aa[k] = Math.min(a[k] ?? Infinity, v.properties[k]);
+        return aa;
+      }, a), {}));
+    this.maxPoint.setProperties(this.points.reduce((a: Record<string, number>, v: DPoint) => this.keys
+      .reduce((aa: Record<string, number>, k: string) => {
+        aa[k] = Math.max(a[k] ?? -Infinity, v.properties[k]);
+        return aa;
+      }, a), {}));
     return this;
   }
 

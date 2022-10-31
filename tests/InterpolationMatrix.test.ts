@@ -58,6 +58,22 @@ describe('InterpolationMatrix.test', () => {
       type: 'FeatureCollection',
       features
     }).toMatchSnapshot();
+    expect(c.minPoint).toEqual({
+      properties: {
+        g: 0,
+        z: 0
+      },
+      x: 0,
+      y: 0
+    });
+    expect(c.maxPoint).toEqual({
+      properties: {
+        g: 1,
+        z: 1
+      },
+      x: 11,
+      y: 11
+    });
   });
   test('one key [z] with trace', () => {
     const c = new InterpolationMatrix(

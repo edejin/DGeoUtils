@@ -311,11 +311,25 @@ export class DPolygon {
   }
 
   /**
+   * Point with minimal `x` and `y`
+   */
+  get minPoint(): DPoint {
+    return this.leftTop;
+  }
+
+  /**
    * Point with maximal `x` and `y`
    */
   get rightBottom(): DPoint {
     const {maxX, maxY} = this;
     return new DPoint(maxX, maxY);
+  }
+
+  /**
+   * Point with maximal `x` and `y`
+   */
+  get maxPoint(): DPoint {
+    return this.rightBottom;
   }
 
   /**
