@@ -62,6 +62,10 @@ export class InterpolationMatrix {
     };
   }
 
+  get size(): DPoint {
+    return new DPoint(Object.keys(this.cells).length, Object.keys(this.cells[0]).length);
+  }
+
   get allCellsClone(): DPolygon[] {
     return this.allCells.map((p: DPolygon) => p.clone());
   }
