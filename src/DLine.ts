@@ -2,6 +2,7 @@ import {DPoint} from './DPoint';
 import {DCircle} from './DCircle';
 import {checkFunction} from './utils';
 import {DNumbers} from './DNumbers';
+import {DPolygon} from './DPolygon';
 
 // eslint-disable-next-line padded-blocks
 export class DLine {
@@ -354,5 +355,51 @@ export class DLine {
   vectorProduct({a, b, c}: DLine): DLine {
     const {a: q, b: w, c: e} = this;
     return new DLine(w * c - e * b, e * a - q * c, q * b - w * a);
+  }
+
+  /**
+   * [Bresenham's line algorithm](https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm)
+   */
+  bresenhamsLine(): DPolygon {
+    let {
+      x: x0,
+      y: y0
+    } = this.begin;
+    const {
+      x: x1,
+      y: y1
+    } = this.end;
+    const dx = Math.abs(x1 - x0);
+    const sx = x0 < x1 ? 1 : -1;
+    const dy = -Math.abs(y1 - y0);
+    const sy = y0 < y1 ? 1 : -1;
+    let error = dx + dy;
+
+    const res = new DPolygon();
+
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+      res.push(new DPoint(x0, y0));
+      if (x0 === x1 && y0 === y1) {
+        break;
+      }
+      const e2 = 2 * error;
+      if (e2 >= dy) {
+        if (x0 === x1) {
+          break;
+        }
+        error += dy;
+        x0 += sx;
+      }
+      if (e2 <= dx) {
+        if (y0 === y1) {
+          break;
+        }
+        error += dx;
+        y0 += sy;
+      }
+    }
+
+    return res;
   }
 }

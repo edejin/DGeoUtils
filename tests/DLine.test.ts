@@ -1,5 +1,5 @@
 /* eslint-disable max-lines,max-statements,max-lines-per-function */
-import {DCircle, DGeo, DLine, DPoint} from '../src';
+import {createMatrix, DCircle, DGeo, DLine, DPoint} from '../src';
 import MockInstance = jest.MockInstance;
 
 describe('DLine', () => {
@@ -917,6 +917,100 @@ describe('DLine', () => {
     });
     test('2', () => {
       expect(new DPoint(10, 0).findLine(new DPoint(0, 10)).center.equal(new DPoint(5, 5)));
+    });
+  });
+
+  describe('Bresenham`s line', () => {
+    test('1', () => {
+      expect(new DPoint(0, 0).findLine(new DPoint(5, 5))
+        .bresenhamsLine().points.reduce((a, {x, y}) => {
+          a[x][y] = 1;
+          return a;
+        }, createMatrix<number>(new DPoint(6, 6), 0)).map((line) => line.join(''))
+        .join('\n')).toEqual(`100000
+010000
+001000
+000100
+000010
+000001`);
+    });
+    test('2', () => {
+      expect(new DPoint(0, 3).findLine(new DPoint(5, 3))
+        .bresenhamsLine().points.reduce((a, {x, y}) => {
+          a[x][y] = 1;
+          return a;
+        }, createMatrix<number>(new DPoint(6, 6), 0)).map((line) => line.join(''))
+        .join('\n')).toEqual(`000100
+000100
+000100
+000100
+000100
+000100`);
+    });
+    test('3', () => {
+      expect(new DPoint(3, 0).findLine(new DPoint(3, 5))
+        .bresenhamsLine().points.reduce((a, {x, y}) => {
+          a[x][y] = 1;
+          return a;
+        }, createMatrix<number>(new DPoint(6, 6), 0)).map((line) => line.join(''))
+        .join('\n')).toEqual(`000000
+000000
+000000
+111111
+000000
+000000`);
+    });
+    test('4', () => {
+      expect(new DPoint(0, 0).findLine(new DPoint(3, 5))
+        .bresenhamsLine().points.reduce((a, {x, y}) => {
+          a[x][y] = 1;
+          return a;
+        }, createMatrix<number>(new DPoint(6, 6), 0)).map((line) => line.join(''))
+        .join('\n')).toEqual(`100000
+011000
+000110
+000001
+000000
+000000`);
+    });
+    test('5', () => {
+      expect(new DPoint(3, 5).findLine(new DPoint(0, 0))
+        .bresenhamsLine().points.reduce((a, {x, y}) => {
+          a[x][y] = 1;
+          return a;
+        }, createMatrix<number>(new DPoint(6, 6), 0)).map((line) => line.join(''))
+        .join('\n')).toEqual(`100000
+011000
+000110
+000001
+000000
+000000`);
+    });
+    test('6', () => {
+      expect(new DPoint(2, 5).findLine(new DPoint(0, 0))
+        .bresenhamsLine().points.reduce((a, {x, y}) => {
+          a[x][y] = 1;
+          return a;
+        }, createMatrix<number>(new DPoint(6, 6), 0)).map((line) => line.join(''))
+        .join('\n')).toEqual(`110000
+001100
+000011
+000000
+000000
+000000`);
+    });
+    test('7', () => {
+      expect(new DPoint(0, 5).findLine(new DPoint(5, 0))
+        .bresenhamsLine().points.reduce((a, {x, y}) => {
+          a[x][y] = 1;
+          return a;
+        }, createMatrix<number>(new DPoint(6, 6), 0)).map((line) => line.join(''))
+        .join('\n')).toEqual(`000001
+000010
+000100
+001000
+010000
+100000`);
     });
   });
 });
