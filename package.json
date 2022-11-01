@@ -1,6 +1,6 @@
 {
   "name": "dgeoutils",
-  "version": "2.4.34",
+  "version": "2.4.35",
   "description": "Geometries utils for my projects",
   "scripts": {
     "build": "npm run build:es2015 && npm run build:esm && npm run build:cjs && npm run build:umd && npm run build:umd:min",
