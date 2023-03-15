@@ -3,8 +3,7 @@
 
 [![NPM](https://nodei.co/npm/dgeoutils.png?downloads=true)](https://www.npmjs.com/package/dgeoutils)
 
-[![Dependecy Status](https://david-dm.org/edejin/DGeoUtils.svg)](https://david-dm.org/edejin/DGeoUtils)  
-[![devDependencies Status](https://david-dm.org/edejin/DGeoUtils/dev-status.svg)](https://david-dm.org/edejin/DGeoUtils?type=dev)
+[![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/dgeoutils)](https://libraries.io/npm/dgeoutils)
 
 [![npm-publish](https://github.com/edejin/DGeoUtils/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/edejin/DGeoUtils/actions/workflows/npm-publish.yml)
 
