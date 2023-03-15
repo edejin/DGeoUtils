@@ -1028,17 +1028,25 @@ export class DPolygon {
           }, []);
         case 'Feature': {
           const t = DPolygon.parse((a as Feature).geometry, format) as DPolygon;
+          const props = {
+            ...(a as Feature).properties,
+            ...(
+              (a as Feature).id ? (
+                {
+                  id: (a as Feature).id
+                }
+              ) : ({})
+            )
+          };
           if (Array.isArray(t)) {
             t.forEach((record) => {
               record.properties = {
-                ...(a as Feature).properties,
-                id: (a as Feature).id
+                ...props
               };
             });
           } else {
             t.properties = {
-              ...(a as Feature).properties,
-              id: (a as Feature).id
+              ...props
             };
           }
           return t;

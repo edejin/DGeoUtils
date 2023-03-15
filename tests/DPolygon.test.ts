@@ -1946,7 +1946,8 @@ describe('DPolygon', () => {
         properties: {
           prop0: 'value0',
           prop1: 0
-        }
+        },
+        id: 'aaa'
       });
       expect(t).toEqual({
         holes: [],
@@ -1974,10 +1975,12 @@ describe('DPolygon', () => {
         ],
         properties: {
           prop0: 'value0',
-          prop1: 0
+          prop1: 0,
+          id: 'aaa'
         },
         searchStore: {}
       });
+      expect((t as DPolygon).properties.id).toEqual('aaa');
     });
     test('FeatureCollection', () => {
       const t = DPolygon.parse({
@@ -1991,7 +1994,8 @@ describe('DPolygon', () => {
             },
             properties: {
               prop0: 'value0',
-              prop1: 0.0
+              prop1: 0.0,
+              id: 'aaa'
             }
           },
           {
@@ -2005,7 +2009,8 @@ describe('DPolygon', () => {
               prop1: {
                 this: 'that'
               }
-            }
+            },
+            id: 'bbb'
           }
         ]
       });
@@ -2036,7 +2041,8 @@ describe('DPolygon', () => {
           ],
           properties: {
             prop0: 'value0',
-            prop1: 0
+            prop1: 0,
+            id: 'aaa'
           },
           searchStore: {}
         },
@@ -2073,7 +2079,8 @@ describe('DPolygon', () => {
             prop0: 'value0',
             prop1: {
               this: 'that'
-            }
+            },
+            id: 'bbb'
           },
           searchStore: {}
         }
