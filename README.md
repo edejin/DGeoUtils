@@ -19,7 +19,7 @@
 [ESLint Report](https://edejin.github.io/DGeoUtils/media/eslit.html)
 
 ```html
-  <script src="https://unpkg.com/jsts@latest/dist/jsts.js"></script>
+  <script src="https://unpkg.com/jsts@2.7.1/dist/jsts.js"></script>
   <script src="https://unpkg.com/dgeoutils@latest/dist/umd/dgeoutils.js"></script>
 ```
 
