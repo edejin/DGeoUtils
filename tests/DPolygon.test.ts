@@ -2704,6 +2704,31 @@ describe('DPolygon', () => {
         '(38 32, 32 32, 50 30),' +
         '(38 32, 50 30, 50 40)');
     });
+    test('6', () => {
+      expect(DPolygon.parse([[0, 0], [1, 1]]).toTriangles()).toEqual([]);
+    });
+    test('7', () => {
+      expect(DPolygon.parse([[0, 0], [1, 1], [0, 1]]).toTriangles()
+        .map((r) => r.toWKT())).toEqual(['POLYGON ((0 0, 1 1, 0 1, 0 0))']);
+    });
+    test('8', () => {
+      expect(DPolygon.parse([[0, 0], [1, 1], [1, 1]]).toTriangles()).toEqual([]);
+    });
+    test('9', () => {
+      expect(DPolygon.parse([[0, 0], [1, 1], [0, 1], [0, 1]]).toTriangles()
+        .map((r) => r.toWKT())).toEqual(['POLYGON ((0 0, 1 1, 0 1, 0 0))']);
+    });
+    test('10', () => {
+      const p = new DPolygon([
+        new DPoint(0, 0),
+        new DPoint(10, 0),
+        new DPoint(10, 10),
+        new DPoint(0, 10),
+        new DPoint(0, 10)
+      ]);
+      expect(p.toTriangles().map((v: DPolygon) => v.toString())
+        .join()).toBe('(0 0, 10 0, 10 10),(0 0, 10 10, 0 10)');
+    });
   });
 
   describe('arrayOfTrianglesToVertices', () => {

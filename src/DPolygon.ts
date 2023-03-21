@@ -1275,6 +1275,14 @@ export class DPolygon {
    * ![Example](https://edejin.github.io/DGeoUtils/media/examples/toTriangles.png)
    */
   toTriangles(): DPolygon[] {
+    const q = this.clone().removeDuplicates()
+      .open();
+    if (q.length < 3) {
+      return [];
+    }
+    if (q.length === 3) {
+      return [q];
+    }
     const innerAndNotIntersect = (poly: DPolygon, p1: DPoint, p2: DPoint): boolean => {
       const l = p1.findLine(p2);
       const {center} = l;
@@ -1304,7 +1312,7 @@ export class DPolygon {
       return undefined;
     };
 
-    const p = this.clone().clockWise.open();
+    const p = this.clone().removeDuplicates().clockWise.open();
     while (p.holes.length) {
       const h = p.holes.shift()!
         .clone()
