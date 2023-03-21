@@ -39,6 +39,13 @@ const CLOSE_TO_INTERSECTION_DISTANCE = 0.001;
 
 type SetterFunction<T> = (t: DPolygon) => T;
 
+const triangleCenter = (triangle: DPolygon): DPoint => {
+  const p0 = triangle.at(0);
+  const p1 = triangle.at(1);
+  const p2 = triangle.at(2);
+  return new DPoint((p0.x + p1.x + p2.x) / 3, (p0.y + p1.y + p2.y) / 3);
+};
+
 /**
  * @ignore
  * @param poly
@@ -243,6 +250,22 @@ export class DPolygon {
 
   get minY(): number {
     return this.reduce<number>((a: number, r: DPoint) => Math.min(a, r.y), Infinity);
+  }
+
+  get innerCenter(): DPoint {
+    const {
+      center
+    } = this;
+    return this.toTriangles().map((t) => {
+      const c = triangleCenter(t);
+      c.properties.score = Math.min(
+        c.distance(t.at(0)),
+        c.distance(t.at(1)),
+        c.distance(t.at(2))
+      ) + c.distance(center);
+      return c;
+    })
+      .sort((a, b) => a.properties.score - b.properties.score)[0];
   }
 
   /**

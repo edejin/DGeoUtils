@@ -3874,4 +3874,105 @@ describe('DPolygon', () => {
       });
     });
   });
+
+  describe('innerCenter', () => {
+    test('1', () => {
+      expect((DPolygon.parse({
+        type: 'Feature',
+        properties: {},
+        geometry: {
+          coordinates: [
+            [
+              [
+                -0.8425018702606053,
+                -5.647743450108308
+              ],
+              [
+                -0.8425018702606053,
+                -7.160670018068856
+              ],
+              [
+                13.959311825979285,
+                -7.160670018068856
+              ],
+              [
+                13.959311825979285,
+                -5.647743450108308
+              ],
+              [
+                -0.8425018702606053,
+                -5.647743450108308
+              ]
+            ]
+          ],
+          type: 'Polygon'
+        }
+      }) as DPolygon).innerCenter.toGeoJSONFeature()).toEqual({
+        geometry: {
+          coordinates: [
+            4.091436028486025,
+            -6.656361162082007
+          ],
+          type: 'Point'
+        },
+        properties: {
+          score: 7.439466303073019
+        },
+        type: 'Feature'
+      });
+    });
+    test('2', () => {
+      expect((DPolygon.parse({
+        type: 'Feature',
+        properties: {},
+        geometry: {
+          coordinates: [
+            [
+              [
+                10.491458331432,
+                5.078313807538223
+              ],
+              [
+                26.054508160621253,
+                -5.0582556782082975
+              ],
+              [
+                40.60257647921142,
+                15.140042059121924
+              ],
+              [
+                20.64127343742507,
+                20.927771048391065
+              ],
+              [
+                32.73646977206701,
+                13.171830563090026
+              ],
+              [
+                23.85538155432269,
+                5.751944344454884
+              ],
+              [
+                10.491458331432,
+                5.078313807538223
+              ]
+            ]
+          ],
+          type: 'Polygon'
+        }
+      }) as DPolygon).innerCenter.toGeoJSONFeature()).toEqual({
+        geometry: {
+          coordinates: [
+            32.39814260186704,
+            11.354605655555611
+          ],
+          type: 'Point'
+        },
+        properties: {
+          score: 9.505688023477273
+        },
+        type: 'Feature'
+      });
+    });
+  });
 });
