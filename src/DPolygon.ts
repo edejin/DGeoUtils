@@ -391,6 +391,37 @@ export class DPolygon {
     return Math.abs(sum / 2) - this.holes.reduce((a: number, hole: DPolygon) => a + hole.area, 0);
   }
 
+  get filledDeintersection(): DPolygon {
+    const p = this.clone().deintersection.removeDuplicates().clockWise.open();
+    const findSameCorners = (startIndex: number = 0): ([number, number] | undefined) => {
+      const store: Record<string, number> = {};
+      for (let i = startIndex; i < p.length; i++) {
+        const key = p.at(i).toString();
+        if (typeof store[key] === 'number') {
+          return [store[key], i];
+        }
+        store[key] = i;
+      }
+      return undefined;
+    };
+
+    let indexes = findSameCorners();
+    const holes = [];
+    while (indexes) {
+      const a = new DPolygon(p.clone().removePart(indexes[0], indexes[1] - indexes[0]));
+      if (a.isClockwise) {
+        indexes = findSameCorners(indexes[0] + 1);
+      } else {
+        holes.push(a.close());
+        p.removePart(indexes[0], indexes[1] - indexes[0]);
+        indexes = findSameCorners();
+      }
+    }
+
+    p.holes = holes;
+    return p.close();
+  }
+
   /**
    * Get deintesected polygon.
    */
