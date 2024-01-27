@@ -34,10 +34,8 @@
   "devDependencies": {
     "@types/jest": "^27.0.1",
     "@types/jsdom": "^16.2.13",
-    "@types/offscreencanvas": "^2019.6.4",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
-    "canvas": "^2.10.1",
     "eslint": "^7.32.0",
     "eslint-plugin-flowtype": "^5.10.0",
     "eslint-plugin-import": "^2.24.2",
@@ -46,7 +44,6 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testing-library": "^4.12.4",
     "jest": "^27.0.6",
-    "jest-canvas-mock": "^2.3.1",
     "jest-coverage-badges": "^1.1.2",
     "jest-html-reporter": "^3.4.2",
     "jsdom": "^17.0.0",

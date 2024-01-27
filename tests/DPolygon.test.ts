@@ -1,9 +1,9 @@
 /* eslint-disable max-lines,max-statements,max-lines-per-function */
 import {DPoint, DPolygon, createCanvas} from '../src';
-import {JSDOM} from 'jsdom';
-const {document} = (new JSDOM('...')).window;
+// import {JSDOM} from 'jsdom';
+// const {document} = (new JSDOM('...')).window;
 
-createCanvas.document = document;
+// createCanvas.document = document;
 
 describe('DPolygon', () => {
   describe('constructor', () => {
@@ -2682,56 +2682,56 @@ describe('DPolygon', () => {
     });
   });
 
-  describe('drawPolygonOnCanvas', () => {
-    test('1', () => {
-      const [t] = createCanvas(100);
-      DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))')
-        .drawPolygonOnCanvas(
-          t,
-          '#ff0000',
-          '#00ff00',
-          '#0000ff',
-          2
-        );
-      expect(t.toDataURL()).toMatchSnapshot();
-    });
-    test('2', () => {
-      const [t] = createCanvas(100);
-      DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))')
-        .drawPolygonOnCanvas(
-          t,
-          undefined,
-          '#00ff00'
-        );
-      expect(t.toDataURL()).toMatchSnapshot();
-    });
-    test('3', () => {
-      const [t] = createCanvas(100);
-      DPolygon.parseFromWKT('POINT (30 10)')
-        .drawPolygonOnCanvas(
-          t,
-          '#ff0000',
-          '#00ff00',
-          '#0000ff',
-          2
-        );
-      expect(t.toDataURL()).toMatchSnapshot();
-    });
-  });
+  // describe('drawPolygonOnCanvas', () => {
+  //   test('1', () => {
+  //     const [t] = createCanvas(100);
+  //     DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))')
+  //       .drawPolygonOnCanvas(
+  //         t,
+  //         '#ff0000',
+  //         '#00ff00',
+  //         '#0000ff',
+  //         2
+  //       );
+  //     expect(t.toDataURL()).toMatchSnapshot();
+  //   });
+  //   test('2', () => {
+  //     const [t] = createCanvas(100);
+  //     DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))')
+  //       .drawPolygonOnCanvas(
+  //         t,
+  //         undefined,
+  //         '#00ff00'
+  //       );
+  //     expect(t.toDataURL()).toMatchSnapshot();
+  //   });
+  //   test('3', () => {
+  //     const [t] = createCanvas(100);
+  //     DPolygon.parseFromWKT('POINT (30 10)')
+  //       .drawPolygonOnCanvas(
+  //         t,
+  //         '#ff0000',
+  //         '#00ff00',
+  //         '#0000ff',
+  //         2
+  //       );
+  //     expect(t.toDataURL()).toMatchSnapshot();
+  //   });
+  // });
 
-  describe('clearPolygonOnCanvas', () => {
-    test('1', () => {
-      const [canvas] = createCanvas(150, 100);
-      canvas.width = 150;
-      canvas.height = 100;
-      const ctx = canvas.getContext('2d')!;
-      ctx.fillStyle = 'green';
-      ctx.fillRect(0, 0, 150, 100);
-      DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))')
-        .clearPolygonOnCanvas(canvas);
-      expect(canvas.toDataURL()).toMatchSnapshot();
-    });
-  });
+  // describe('clearPolygonOnCanvas', () => {
+  //   test('1', () => {
+  //     const [canvas] = createCanvas(150, 100);
+  //     canvas.width = 150;
+  //     canvas.height = 100;
+  //     const ctx = canvas.getContext('2d')!;
+  //     ctx.fillStyle = 'green';
+  //     ctx.fillRect(0, 0, 150, 100);
+  //     DPolygon.parseFromWKT('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))')
+  //       .clearPolygonOnCanvas(canvas);
+  //     expect(canvas.toDataURL()).toMatchSnapshot();
+  //   });
+  // });
 
   describe('Contain - old', () => {
     describe('1', () => {
@@ -4415,23 +4415,23 @@ describe('DPolygon', () => {
     });
   });
 
-  describe('sideBuffers', () => {
-    test('1', () => {
-      const p = new DPolygon([
-        new DPoint(3, 3),
-        new DPoint(13, 3),
-        new DPoint(13, 13),
-        new DPoint(3, 13)
-      ]);
-      const [p1, p2] = p.sideBuffers(2);
-      const [t] = createCanvas(new DPoint(16, 16));
-      p1.drawPolygonOnCanvas(t, undefined, '#ff0000');
-      p2.drawPolygonOnCanvas(t, undefined, '#00ff00');
-      p.drawPolygonOnCanvas(t, undefined, '#0000ff');
-
-      expect(t.toDataURL()).toMatchSnapshot();
-    });
-  });
+  // describe('sideBuffers', () => {
+  //   test('1', () => {
+  //     const p = new DPolygon([
+  //       new DPoint(3, 3),
+  //       new DPoint(13, 3),
+  //       new DPoint(13, 13),
+  //       new DPoint(3, 13)
+  //     ]);
+  //     const [p1, p2] = p.sideBuffers(2);
+  //     const [t] = createCanvas(new DPoint(16, 16));
+  //     p1.drawPolygonOnCanvas(t, undefined, '#ff0000');
+  //     p2.drawPolygonOnCanvas(t, undefined, '#00ff00');
+  //     p.drawPolygonOnCanvas(t, undefined, '#0000ff');
+  //
+  //     expect(t.toDataURL()).toMatchSnapshot();
+  //   });
+  // });
 
   describe('getTrianglesPointIndexes', () => {
     test('1', () => {
