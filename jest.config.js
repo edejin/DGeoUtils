@@ -17,6 +17,5 @@ module.exports = {
         outputPath: './media/time-report.html'
       }
     ]
-  ],
-  setupFiles: ['jest-canvas-mock']
+  ]
 };
