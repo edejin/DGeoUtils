@@ -10,6 +10,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      with:
+        node-version: "20"
       - run: npm install
       - uses: JS-DevTools/npm-publish@v3
         with:
