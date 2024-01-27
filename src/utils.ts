@@ -350,12 +350,13 @@ export const getCombinations = <T>(arr: T[][]): T[][] => {
 export const div = (a: number, b: number): number => Math.floor(a / b);
 
 export const toDegreesMinutesSeconds = (v: number): string => {
-  const degrees = Math.floor(v);
-  const t = (v % 1) * 60;
+  const m = v < 0;
+  const degrees = Math.floor(Math.abs(v));
+  const t = (Math.abs(v) % 1) * 60;
   const minutes = Math.floor(t);
   const t2 = (t % 1) * 60;
   const seconds = t2.toFixed(2);
-  return `${degrees}° ${minutes}' ${seconds}"`;
+  return `${m ? '-' : ''}${degrees}° ${minutes}' ${seconds}"`;
 };
 
 export const parseDegreesMinutesSeconds = (i: string): number => {

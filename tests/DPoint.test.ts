@@ -2069,5 +2069,10 @@ describe('DPoint', () => {
       expect(x).toBe('156° 44\' 31.20"');
       expect(y).toBe('42° 21\' 36.36"');
     });
+    test('2', () => {
+      const {x, y} = new DPoint(9.999999, -6.9999980654935765).toDegreesMinutesSeconds();
+      expect(x).toBe('9° 59\' 60.00"');
+      expect(y).toBe('-6° 59\' 59.99"');
+    });
   });
 });
