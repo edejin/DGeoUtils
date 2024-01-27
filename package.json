@@ -1,6 +1,6 @@
 {
   "name": "dgeoutils",
-  "version": "2.4.50",
+  "version": "2.4.51",
   "description": "Geometries utils for my projects",
   "scripts": {
     "build": "npm run build:es2015 && npm run build:esm && npm run build:cjs && npm run build:umd && npm run build:umd:min",
@@ -61,6 +61,8 @@
     "url": "https://github.com/edejin/DGeoUtils"
   },
   "jest": {
-    "setupFiles": ["jest-canvas-mock"]
+    "setupFiles": [
+      "jest-canvas-mock"
+    ]
   }
 }
