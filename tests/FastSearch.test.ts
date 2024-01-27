@@ -1,5 +1,6 @@
 /* eslint-disable max-lines,max-statements,max-lines-per-function */
 import {DPoint, FastSearch} from '../src';
+import 'jest-canvas-mock';
 
 describe('FastSearch', () => {
   test('1', () => {

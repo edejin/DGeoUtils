@@ -1,6 +1,7 @@
 import data from './assets/interpolationInputData.json';
 import {DPoint, DPolygon, TraceMatrix, TraceMatrixValues} from '../src';
 import {InterpolationMatrix} from '../src/InterpolationMatrix';
+import 'jest-canvas-mock';
 
 const inputPoints: DPoint[] = data.map((r) => DPoint.parse(r).setProperties({
   ...r

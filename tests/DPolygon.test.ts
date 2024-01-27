@@ -1,7 +1,8 @@
 /* eslint-disable max-lines,max-statements,max-lines-per-function */
 import {DPoint, DPolygon, createCanvas} from '../src';
-// import {JSDOM} from 'jsdom';
-// const {document} = (new JSDOM('...')).window;
+import {JSDOM} from 'jsdom';
+const {document} = (new JSDOM('...')).window;
+import 'jest-canvas-mock';
 
 // createCanvas.document = document;
 

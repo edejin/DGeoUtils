@@ -1,6 +1,7 @@
 /* eslint-disable max-lines,max-statements,max-lines-per-function */
 import {DCircle, DGeo, DPoint} from '../src';
 import MockInstance = jest.MockInstance;
+import 'jest-canvas-mock';
 
 describe('DCircle', () => {
   test('constructor', () => {

@@ -1,4 +1,5 @@
 import {DPoint, DPolygon} from '../src';
+import 'jest-canvas-mock';
 
 // eslint-disable-next-line max-lines-per-function
 describe('DPolygonLoop', () => {
