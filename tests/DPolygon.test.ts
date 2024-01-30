@@ -357,6 +357,22 @@ describe('DPolygon', () => {
         new DPoint(30, 40)
       ]).extend.perimeter).toEqual(80);
     });
+    test('2', () => {
+      expect(new DPolygon([
+        new DPoint(54.67002284109996, 24.44224870136031),
+        new DPoint(54.638408708073136, 24.464663447044494)
+      ]).extend.loop().degreeToMeters()
+        .run().perimeter).toEqual(12520.695924467407);
+    });
+  });
+
+  describe('perimeterLatLon', () => {
+    test('1', () => {
+      expect(new DPolygon([
+        new DPoint(54.67002284109996, 24.44224870136031),
+        new DPoint(54.638408708073136, 24.464663447044494)
+      ]).extend.perimeterLatLon).toEqual(11397.562331475727);
+    });
   });
 
   describe('area', () => {

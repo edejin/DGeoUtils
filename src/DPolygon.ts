@@ -381,6 +381,17 @@ export class DPolygon {
   }
 
   /**
+   * Get perimeter. For big distances in lat/lon.
+   */
+  get perimeterLatLon(): number {
+    let p = 0;
+    for (const [p1, p2] of this.loopPointsGenerator()()) {
+      p += p1.distanceLatLon(p2);
+    }
+    return p;
+  }
+
+  /**
    * Get polygon area
    */
   get area(): number {
