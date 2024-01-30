@@ -311,6 +311,11 @@ describe('DPoint', () => {
     expect(new DPoint(1, 2).distance(new DPoint(3, 4))).toBe(2.8284271247461903);
   });
 
+  test('distanceLatLon', () => {
+    expect(new DPoint(54.67002284109996, 24.44224870136031)
+      .distanceLatLon(new DPoint(54.638408708073136, 24.464663447044494))).toBe(4060.6598271905086);
+  });
+
   test('distance3d', () => {
     expect(new DPoint(1, 2, 1).distance3d(new DPoint(3, 4, 2))).toBe(3);
   });

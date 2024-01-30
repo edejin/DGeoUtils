@@ -340,6 +340,24 @@ export class DPoint {
     return Math.sqrt(dx * dx + dy * dy);
   }
 
+  distanceLatLon(p: DPoint): number {
+    checkFunction('distance')
+      .checkArgument('this')
+      .shouldBeDegree(this)
+      .checkArgument('p')
+      .shouldBeDegree(p);
+    const d = p.clone().move(this.clone().minus())
+      .degreeToRadians();
+    const t1 = this.clone().degreeToRadians();
+    const t2 = p.clone().degreeToRadians();
+    const a = Math.sin(d.lat / 2) ** 2 +
+      Math.cos(t1.lat) *
+      Math.cos(t2.lat) *
+      ((Math.sin(d.lon / 2)) ** 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return EARTH_RADIUS_IN_METERS * c;
+  }
+
   distance3d(p: DPoint): number {
     checkFunction('distance3d')
       .checkArgument('this')
