@@ -350,6 +350,15 @@ describe('DPolygon', () => {
     });
   });
 
+  describe('fullLengthLatLon', () => {
+    test('1', () => {
+      expect(new DPolygon([
+        new DPoint(54.67002284109996, 24.44224870136031),
+        new DPoint(54.638408708073136, 24.464663447044494)
+      ]).extend.fullLengthLatLon).toEqual(8902.364255651624);
+    });
+  });
+
   describe('perimeter', () => {
     test('1', () => {
       expect(new DPolygon([

@@ -370,6 +370,13 @@ export class DPolygon {
   }
 
   /**
+   * Get length of line string. For big distances in lat/lon.
+   */
+  get fullLengthLatLon(): number {
+    return this.clone().open().perimeterLatLon;
+  }
+
+  /**
    * Get perimeter.
    */
   get perimeter(): number {
