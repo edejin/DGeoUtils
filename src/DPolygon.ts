@@ -388,6 +388,19 @@ export class DPolygon {
   }
 
   /**
+   * Get proportions of points distance from start
+   */
+  get pointsDistanceProportions(): number[] {
+    let p = 0;
+    const res = [0];
+    for (const [p1, p2] of this.loopPointsGenerator()()) {
+      p += p1.distance(p2);
+      res.push(p);
+    }
+    return res.map((v) => v / p);
+  }
+
+  /**
    * Get perimeter. For big distances in lat/lon.
    */
   get perimeterLatLon(): number {
@@ -1555,6 +1568,52 @@ export class DPolygon {
         yield [p1, p2, withLine ? p1.findLine(p2) : undefined, i];
       }
     };
+  }
+
+  cloneByDistanceProportions(proportions: number[]): DPolygon {
+    const resultedPolygon = new DPolygon();
+    const resultProportions = Array.from(new Set([...this.pointsDistanceProportions, ...proportions]))
+      .sort((a, b) => a - b);
+    const {fullLength} = this;
+    resultedPolygon.push(this.at(0));
+    let index = 1;
+    let path = 0;
+    for (const [p1_, p2] of this.loopPointsGenerator()()) {
+      let p1 = p1_;
+      // eslint-disable-next-line no-constant-condition
+      while (true) {
+        const distance = p1.distance(p2);
+        const currentProportion = (path + distance) / fullLength;
+        if (Math.abs(currentProportion - resultProportions[index]) < 1e-7) {
+          path += distance;
+          resultedPolygon.push(p2.clone());
+          index++;
+          break;
+        } else {
+          const radius = (resultProportions[index] - resultProportions[index - 1]) * fullLength;
+          const circle = new DCircle(p1, radius);
+          const line = p1.findLine(p2);
+          const intersectionPoint: DPoint = (line.intersectionWithCircle(circle) as [DPoint, DPoint])
+            .filter((p) => line.inRange(p, CLOSE_TO_INTERSECTION_DISTANCE))[0]!;
+          resultedPolygon.push(intersectionPoint);
+          index++;
+          path += p1.distance(intersectionPoint);
+          p1 = intersectionPoint;
+        }
+      }
+    }
+    return resultedPolygon;
+  }
+
+  middleLinestring(line: DPolygon): DPolygon {
+    const thisClone = this.cloneByDistanceProportions(line.pointsDistanceProportions);
+    const thatClone = line.cloneByDistanceProportions(this.pointsDistanceProportions);
+    return thisClone
+      .loop()
+      .setX(({x}, index) => x + thatClone.at(index).x)
+      .setY(({y}, index) => y + thatClone.at(index).y)
+      .divide(2)
+      .run();
   }
 
   private getBezierPoint(v: number): DPoint {
