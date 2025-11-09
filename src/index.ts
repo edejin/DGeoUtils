@@ -1,5 +1,3 @@
-import {parseDegreesMinutesSeconds} from './utils';
-
 export * from './DCircle';
 export * from './DLine';
 export * from './DNumbers';
