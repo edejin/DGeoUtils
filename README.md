@@ -23,7 +23,7 @@
   <script src="https://unpkg.com/dgeoutils@latest/dist/umd/dgeoutils.js"></script>
 ```
 
-[Sandbox](https://jsbin.com/yaxaqif/edit?js,output)
+[Sandbox](https://jsbin.com/dapakixeba/edit?html,js,output)
 
 ### For new release
 ```
