@@ -37,7 +37,7 @@
     "@types/offscreencanvas": "^2019.7.3",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
-    "canvas": "^2.11.2",
+    "canvas": "^3.2.0",
     "eslint": "^7.32.0",
     "eslint-plugin-flowtype": "^5.10.0",
     "eslint-plugin-import": "^2.24.2",
