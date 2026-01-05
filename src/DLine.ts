@@ -69,55 +69,28 @@ export class DLine {
   }
 
   intersectionWithCircle(circle: DCircle): DPoint | [DPoint, DPoint] | null {
-    const {center, r} = circle;
+    const { center, r } = circle;
+
     const per = this.findPerpendicular(center);
     const t = this.findPoint(per)!;
-    let distance = t.distance(center);
-    if (this.begin.equal(center)) {
-      distance = 0;
-    }
-    if (this.end.equal(center)) {
-      distance = 0;
-    }
-    if (distance < r) {
-      const {a, b, c} = this;
-      if (this.isParallel) {
-        const ct = center.distance(t);
-        const move = Math.sqrt(r * r - ct * ct);
-        // Mean "|" x = const
-        if (this.isParallelY) {
-          t.x = this.begin.x;
-          const r1 = t.clone().move(0, -move);
-          const r2 = t.clone().move(0, move);
-          return [r1, r2];
-        }
-        // Mean "-" y = const
-        if (this.isParallelX) {
-          t.y = this.begin.y;
-          const r1 = t.clone().move(move, 0);
-          const r2 = t.clone().move(-move, 0);
-          return [r1, r2];
-        }
-      }
-      if (this.begin.like(center)) {
-        const p = this.begin.clone();
-        return [this.movePoint(p, r), this.movePoint(p, -r)];
-      }
-      if (this.end.like(center)) {
-        const p = this.end.clone();
-        return [this.movePoint(p, r), this.movePoint(p, -r)];
-      }
-      const s = a * a + b * b;
-      const d = r * r - c * c / s;
-      const mult = Math.sqrt(d / s);
-      const r1 = t.clone().move(b * mult, -a * mult);
-      const r2 = t.clone().move(-b * mult, a * mult);
-      return [r1, r2];
-    }
-    if (distance === r) {
-      return t;
-    }
-    return null;
+
+    const d = t.distance(center);
+
+    if (d > r) return null;
+
+    if (d === r) return t;
+
+    const { a, b } = this;
+    const len = Math.sqrt(a * a + b * b);
+    const dx = -b / len;
+    const dy =  a / len;
+
+    const h = Math.sqrt(r * r - d * d);
+
+    const p1 = t.clone().move(dx * h, dy * h);
+    const p2 = t.clone().move(-dx * h, -dy * h);
+
+    return [p1, p2];
   }
 
   /**
