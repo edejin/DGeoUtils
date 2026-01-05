@@ -69,21 +69,25 @@ export class DLine {
   }
 
   intersectionWithCircle(circle: DCircle): DPoint | [DPoint, DPoint] | null {
-    const { center, r } = circle;
+    const {center, r} = circle;
 
     const per = this.findPerpendicular(center);
     const t = this.findPoint(per)!;
 
     const d = t.distance(center);
 
-    if (d > r) return null;
+    if (d > r) {
+      return null;
+    }
 
-    if (d === r) return t;
+    if (d === r) {
+      return t;
+    }
 
-    const { a, b } = this;
+    const {a, b} = this;
     const len = Math.sqrt(a * a + b * b);
     const dx = -b / len;
-    const dy =  a / len;
+    const dy = a / len;
 
     const h = Math.sqrt(r * r - d * d);
 

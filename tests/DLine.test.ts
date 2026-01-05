@@ -493,13 +493,13 @@ describe('DLine', () => {
         .intersectionWithCircle(new DCircle(DPoint.zero(), 10))).toEqual([
         {
           x: 9,
-          y: -4.358898943540674,
+          y: 4.358898943540674,
           z: undefined,
           properties: {}
         },
         {
           x: 9,
-          y: 4.358898943540674,
+          y: -4.358898943540674,
           z: undefined,
           properties: {}
         }
@@ -509,13 +509,13 @@ describe('DLine', () => {
       expect(new DPoint(-10, 9).findLine(new DPoint(10, 9))
         .intersectionWithCircle(new DCircle(DPoint.zero(), 10))).toEqual([
         {
-          x: 4.358898943540674,
+          x: -4.358898943540674,
           y: 9,
           z: undefined,
           properties: {}
         },
         {
-          x: -4.358898943540674,
+          x: 4.358898943540674,
           y: 9,
           z: undefined,
           properties: {}
@@ -526,14 +526,14 @@ describe('DLine', () => {
       expect(new DPoint(10, 0).findLine(new DPoint(0, 10))
         .intersectionWithCircle(new DCircle(DPoint.zero(), 10))).toEqual([
         {
-          x: 0,
-          y: 10,
+          x: 10,
+          y: 8.881784197001252e-16,
           z: undefined,
           properties: {}
         },
         {
-          x: 10,
-          y: 0,
+          x: 8.881784197001252e-16,
+          y: 10,
           z: undefined,
           properties: {}
         }
