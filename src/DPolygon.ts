@@ -1213,32 +1213,45 @@ export class DPolygon {
    * @param piecesCount
    * @param [withAltitude=false]
    */
-  divideToPieces(piecesCount: number, withAltitude: boolean = false): DPolygon {
+  divideToPieces(piecesCount: number, withAltitude = false): DPolygon {
     const {fullLength} = this;
     const pieceLength = fullLength / piecesCount;
     let currentPieceLength = pieceLength;
+
     for (const [p1, p2, , i] of this.loopPointsGenerator()()) {
+      if (currentPieceLength <= 1e-9) {
+        currentPieceLength = pieceLength;
+      }
+
       const d = p1.distance(p2);
-      if (d === currentPieceLength) {
+
+      if (Math.abs(d - currentPieceLength) < 1e-9) {
         p2.properties.pieceBorder = true;
         currentPieceLength = pieceLength;
-      } else if (d - currentPieceLength > 0) {
-        const circle = new DCircle(p1, currentPieceLength);
-        const line = p1.findLine(p2);
-        const intersectionPoint: DPoint = (line.intersectionWithCircle(circle) as [DPoint, DPoint])
-          .filter((p) => line.inRange(p, CLOSE_TO_INTERSECTION_DISTANCE))[0]!;
+      } else if (d > currentPieceLength) {
+        const t = currentPieceLength / d;
+
+        const intersectionPoint = new DPoint(
+          p1.x + (p2.x - p1.x) * t,
+          p1.y + (p2.y - p1.y) * t
+        );
         intersectionPoint.properties.pieceBorder = true;
         this.insertAfter(i, intersectionPoint);
+
         if (withAltitude) {
-          const p1z = p1.z!;
-          intersectionPoint.z = p1z - (p1z - p2.z!) * (p1.distance(intersectionPoint) / d);
+          if (p1.z === null || p2.z === null) {
+            throw new Error('withAltitude=true but z is missing');
+          }
+          intersectionPoint.z =
+            p1.z! + (p2.z! - p1.z!) * (p1.distance(intersectionPoint) / d);
         }
+
         currentPieceLength = pieceLength;
       } else {
-        // If d - currentPieceLength < 0
         currentPieceLength -= d;
       }
     }
+
     return this;
   }
 
